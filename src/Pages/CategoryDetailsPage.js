@@ -1,0 +1,797 @@
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { UserProfile } from "../Context/Usercontext"
+import Accordion from 'react-bootstrap/Accordion';
+import TopBar from "../Layout/TopBar";
+import NavBar from "../Layout/NavBar";
+import Footer from "../Layout/Footer";
+import Playstore from "../Layout/Playstore";
+import Guideline from "../Layout/Guideline";
+import wishlight from "../Assets/Images/wishlight.png";
+import lion_king from "../Assets/Images/lion_king.png";
+import cat_details_pic_2 from "../Assets/Images/cat_details_pic_2.png";
+import cat_details_pic_3 from "../Assets/Images/cat_details_pic_3.png";
+import cat_details_pic_4 from "../Assets/Images/cat_details_pic_4.png";
+import cat_details_pic_5 from "../Assets/Images/cat_details_pic_5.png";
+import cat_details_pic_6 from "../Assets/Images/cat_details_pic_6.png";
+import { useAuth } from '../Context/Authcontext';
+import Config from "../Config/Config.json"
+import dummy from "../Assets/Images/dummy.png";
+import wishlistedicon from "../Assets/Images/wishlistedicon.png";
+
+import arrow_down from "../Assets/Images/arrow-down.png";
+import arrow_up from "../Assets/Images/arrow-d.png";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+import element3 from "../Assets/Images/element-3.svg";
+import rowVertical from "../Assets/Images/row-vertical.svg";
+
+import arrow_circle_right from "../Assets/Images/arrow-circle-right.png"
+
+import SVG from "react-inlinesvg";
+import Whatsapp from "../Layout/Whatsapp";
+
+
+
+const CategoryDetailsPage = () => {
+
+
+    const { getBook_by_category, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
+    const { wishlistshow } = useAuth()
+
+    const navigate = useNavigate();
+    const location = useLocation()
+
+    const [books, setBooks] = useState([])
+    const [allbooks, setAllBooks] = useState([])
+    const [dropbool, setDropbool] = useState(false)
+    const [droptext, setDropText] = useState('')
+    const [rawbooksdata, setRawbooksdata] = useState([])
+    const [pricerangefilters, setPricerangefilters] = useState([])
+    const [noofbooks, setNoofbooks] = useState()
+    const [categoryname, setCategoryname] = useState("")
+    const [category, setCategory] = useState([])
+    const [pubcat, setPubcat] = useState([])
+    const [togglepricedropdown, setTogglepricedropdown] = useState(false)
+    const [togglelanguagedropdown, setTogglelanguagedropdown] = useState(false)
+    const [publicationyr, setPublicationyr] = useState(false)
+    const [newarri, setNewarri] = useState(false)
+    const [browsecat, setBrowsecat] = useState(false)
+    const [tempBooks, setTempBooks] = useState([])
+
+    // let menuref = useRef()
+
+
+    // useEffect(() => {
+    //     let handler = (e) => {
+
+    //         console.log('menuref',menuref)
+    //         if (!menuref.current.contains(e)) {
+    //             // setDropbool(false)
+    //             console.log('menuref_current',menuref.current)
+    //         }
+    //     }
+
+
+    //     document.addEventListener('mousedown', handler)
+
+    //     return () => {
+    //         document.removeEventListener('mousedown', handler)
+    //     }
+
+    // })
+
+    useEffect(() => {
+        let handler = (e) => {
+            console.log("event", e.target.className)
+            if (e.target.className !== 'li_hover' && e.target.className !== 'text_select') {
+                console.log('Not li hover class')
+                setDropbool(false)
+            }
+
+        };
+
+        console.log('bool state', dropbool)
+
+        if (dropbool) {
+            console.log('bool is true')
+            document.addEventListener('mousedown', handler)
+        }
+
+
+        return () => {
+            document.removeEventListener('mousedown', handler)
+        }
+
+    }, [dropbool])
+
+    useEffect(() => {
+        console.log("hello books",location.state.category_id)
+        // book_category()
+        books_by_category(location.state.category_id, publisherId)
+        // ** For direct navigation to category details page using url
+
+        //book_category_by_publisher(1)
+    }, [location.state.category_id,wishlistitems])
+
+    useEffect(() => {
+        
+        window.scrollTo(0, 0)
+    }, [location.state.category_id])
+
+
+
+
+
+    const setLowToHigh = () => {
+        const sortedProducts = books.sort((a, b) => a.price - b.price);
+        console.log("sortedproducts", sortedProducts)
+        setBooks([...sortedProducts]);
+    };
+
+    const setHightoLow = () => {
+        const sortedProducts = books.sort((a, b) => b.price - a.price);
+        setBooks([...sortedProducts]);
+    };
+
+    const AtoZ = () => {
+        const sortedProducts = books.sort((a, b) => a.title > b.title ? 1 : -1)
+        console.log("A-Z", sortedProducts)
+        setBooks([...sortedProducts]);
+    }
+
+    const ZtoA = () => {
+        const sortedProducts = books.sort((a, b) => a.title > b.title ? -1 : 1)
+        console.log("Z-A", sortedProducts)
+        setBooks([...sortedProducts]);
+    }
+
+
+    // const Reset_data = () =>{
+    //     setBooks([...rawbooksdata])
+    // } 
+
+    var price_filters_arr = []
+    var arr = []
+    const price_ranges = (booksarr) => {
+        const sorted_Products = booksarr.sort((a, b) => a.price - b.price);
+        arr = ([...sorted_Products])
+        
+
+        let price_min = arr[0].price
+        let price_max = arr[arr.length - 1].price
+
+        
+
+        let a = price_max - price_min
+        
+       
+        let Filters_no = 0
+        if(arr.length>0 && arr.length<=6){
+            Filters_no = 1
+        }
+        else{
+            Filters_no = 5
+        }
+         price_filters_arr = []
+        
+        let b = a / Filters_no
+        let val = 0
+        let prev = 0
+        if(b>0){
+            price_filters_arr.push(`Under ₹${Math.trunc(b)}`)
+            val = b
+        }
+        
+        
+        if(b>0)
+        {
+            for (let i = 0; i < Filters_no; i++) {
+                
+                if (val <= a) {
+                    prev = val
+                    val = val + b
+                    price_filters_arr.push(`₹${Math.trunc(prev)} - ₹${Math.trunc(val)}`)
+                    
+                }
+
+            }
+        //price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+    }
+    else{
+        price_filters_arr.push(`₹${Math.trunc(b)} - ₹${Math.trunc(price_max)}`)
+        
+    }
+    price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+    
+        
+
+
+        if (price_filters_arr.length > Filters_no) {
+            
+            setPricerangefilters(price_filters_arr.splice(0, price_filters_arr.length / 2))
+        }
+        else {
+            console.log('array2000', price_filters_arr.length)
+            setPricerangefilters(price_filters_arr)
+        }
+
+
+        
+
+       
+    }
+
+
+    const filter_by_price = (range, index) => {
+
+
+
+        // console.log('range', index)
+
+        if (index === 0) {
+            
+            let range_pr = Number(range.split(' ')[1].split('₹')[1].trim())
+
+
+            let book_arr = allbooks.filter((book) => {
+                return (
+                    book.price <= range_pr
+                )
+            })
+
+            setBooks(book_arr);
+            console.log(book_arr)
+        }
+        else {
+
+            let range_pr = range.split('-')
+            let price_lower_lim = Number(range_pr[0].split('₹')[1].trim())
+            let price_higher_lim = Number(range_pr[1].split('₹')[1].trim())
+
+            console.log('l', price_lower_lim)
+            console.log('h', price_higher_lim)
+
+
+
+
+            let book_arr = allbooks.filter((book) => {
+                return (
+                    book.price <= price_higher_lim
+                )
+            })
+
+            let books_in_range = book_arr.filter((books) => {
+
+                return (
+                    books.price >= price_lower_lim
+                )
+            })
+
+
+
+            setBooks(books_in_range);
+            console.log("books",books)
+        }
+    
+
+
+
+
+
+    }
+
+    const Sort = (e) => {
+        // console.log(e.target.value)
+        let sort_val = e.target.value
+        if (sort_val === 'high-low') {
+            console.log('high-low')
+            setHightoLow()
+        }
+        else if (sort_val === 'low-high') {
+            console.log('low-high')
+            setLowToHigh()
+        }
+        else if (sort_val === 'A-Z') {
+            console.log('A-Z')
+            AtoZ()
+        }
+        else {
+            console.log('Z-A')
+            ZtoA()
+        }
+    }
+
+    // const show_selected_filter_text = (val) =>{
+    //     setDropText(val)
+    // }
+
+
+    const Sort_mob = (e, val) => {
+        // console.log(e.target.value)
+
+        let selected_text = e.target.innerText
+        setDropText(selected_text)
+
+        let sort_val = val
+        if (sort_val === 'high-low') {
+            console.log('high-low')
+            setHightoLow()
+            setDropbool(!dropbool)
+        }
+        else if (sort_val === 'low-high') {
+            console.log('low-high')
+            setLowToHigh()
+            setDropbool(!dropbool)
+        }
+        else if (sort_val === 'A-Z') {
+            console.log('A-Z')
+            AtoZ()
+            setDropbool(!dropbool)
+        }
+        else {
+            console.log('Z-A')
+            ZtoA()
+            setDropbool(!dropbool)
+        }
+    }
+
+
+
+
+    const gotoDetails = (book_id) => {
+        navigate('/productdetails', { state: { BOOK_ID: book_id } })
+    }
+
+    const books_by_category = async (cat_id, pub_id) => {
+        console.log("GET BOOK BY CATEGORY",cat_id)
+        let json = {
+            categoryid: cat_id,
+            publisherid: pub_id
+        }
+        let current_page_no = 1
+        let records_per_page = 6
+
+        const resp = await getBook_by_category(current_page_no, records_per_page, json)
+        console.log("GET BOOK BY CATEGORY",resp)
+        if (resp === undefined || resp === null) {
+            setTempBooks([])
+            setBooks([])
+            setRawbooksdata([])
+        }
+        else {
+            if (resp?.output?.books?.length > 0) {
+                setTempBooks(resp?.output?.books)
+                setBooks(resp?.output?.books)
+                setAllBooks(resp?.output?.books)
+                setRawbooksdata(resp?.output?.books)
+                setNoofbooks(resp?.output?.books?.length)
+                setCategoryname(resp.output.books[0].category)
+                price_ranges(resp?.output?.books)
+            }
+            else {
+                setBooks([])
+                setAllBooks([])
+                setRawbooksdata([])
+            }
+        }
+
+    }
+
+
+    // const book_category_by_publisher = async (publisher_id) => {
+    //     const resp = await category_by_publisher(publisher_id)
+    //     console.log("pub_cat_resp", resp)
+    //     if (resp === undefined || resp === null) {
+    //         setPubcat([])
+    //     }
+    //     else {
+    //         if (resp.statuscode === "0" && resp?.output?.length > 0) {
+    //             setPubcat(resp.output)
+    //         }
+    //         else {
+    //             setPubcat([])
+    //         }
+    //     }
+
+    // }
+
+
+
+    // const book_category = async () => {
+    //     const resp = await getAllCategory()
+    //     //  console.log("resp",resp)
+    //     if (resp?.output?.length > 0) {
+    //         setCategory(resp.output)
+    //     }
+    //     else {
+    //         setCategory([])
+    //     }
+    // }
+
+
+
+    const Wishlist = (event, book_id ,index) => {
+
+        event.stopPropagation()
+        if (wishlistshow === true) {
+
+
+            Add_To_Wishlist(book_id,index)
+        }
+        else {
+            navigate('/login')
+        }
+    }
+
+
+    const Add_To_Wishlist = async (book_id,index) => {
+
+        console.log('book_index',index)
+
+        console.log("wishlist items : ", wishlistitems)
+
+        let json = {
+
+            "bookid": book_id,
+            "currentPage": 1,
+            "recordPerPage": 5
+
+        }
+
+
+
+        const resp = await add_delete_to_wishlist(json)
+        // books_by_category(location.state ? location.state.category_id : 1)
+        console.log("Wishlist_resp ", resp)
+
+        if (books[index].isFavourite === 0){
+            books[index].isFavourite = 1
+        }
+        else{
+            books[index].isFavourite = 0
+        }
+
+        
+        console.log('index_book', books)
+
+        setBooks([...books])
+
+
+
+        if (resp.message === "Information saved successfully.") {
+
+            // toast.success("Item Added to Wishlist", {
+            //     position: "bottom-center",
+            //     autoClose: 2000,
+            //     hideProgressBar: true,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     closeButton:false,
+            //     theme: "dark",
+            //     });
+        }
+
+
+
+    }
+
+
+    return (
+        <>
+
+            <div className="main-container">
+
+                <div className="container">
+                    <TopBar />
+                    <NavBar />
+                </div>
+                <Whatsapp/>
+                <div className="container category-details">
+                    {/* Adding books and filter here */}
+                    <div className="row" >
+
+                        <div className="filter_container">
+                            <div className="col-md-3" style={{ marginBottom: '32px' }}>
+
+                                {/* <div className='div_container'>
+                                    <h5>Browse Categories</h5>
+                                    <img src={browsecat === false ? arrow_down : arrow_up} className='img_margin'
+                                        width={15} height={15} onClick={() => { setBrowsecat(!browsecat) }} />
+                                </div> */}
+
+
+
+                                {/* <ul style={{ marginTop: '4%' }}> */}
+
+                                {/* {
+                                    browsecat === true &&
+                                    pubcat.map((data, index) => (
+
+                                        <ul className="li_margin">
+                                            <li key={index}>{data.name}</li>
+                                        </ul>
+
+
+
+                                    ))
+                                } */}
+                                <hr />
+
+                                <div className='div_container'>
+                                    <li className="li_width">Refine your Search by Price</li>
+                                    <img src={browsecat === false ? arrow_down : arrow_up}
+                                        width={15} height={15} onClick={() => { setTogglepricedropdown(!togglepricedropdown) }} />
+                                </div>
+
+                                {
+                                    togglepricedropdown === true &&
+
+
+
+
+                                    pricerangefilters.map((data, index) => (
+
+                                        <ul className="price-search li_margin" key={index}>
+                                            <li style={{cursor:"pointer"}} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data} </li>
+
+                                        </ul>
+
+
+
+                                    ))}
+
+
+
+
+
+
+
+
+                                <hr />
+
+                                {/* <div className='div_container'>
+                                    <li className="li_width">Language</li>
+                                    <img src={browsecat === false ? arrow_down : arrow_up}
+                                        width={15} height={15} onClick={() => { setTogglelanguagedropdown(!togglelanguagedropdown) }} />
+                                </div> */}
+
+                                {/* {
+                                    togglelanguagedropdown === true &&
+                                    <ul className="languages li_margin ">
+                                        <li>English</li>
+                                        <li>Bengali</li>
+                                        <li>Hindi</li>
+                                        <li>German</li>
+                                        <li>Italian</li>
+                                        <li>Spanish</li>
+                                    </ul>
+                                } 
+
+                                <hr />*/}
+                                {/* <div className='div_container'>
+                                    <li className="li_width">Publication Year</li>
+                                    <img src={browsecat === false ? arrow_down : arrow_up}
+                                        width={15} height={15} onClick={() => { setPublicationyr(!publicationyr) }} />
+                                </div>
+                                {
+                                    publicationyr === true &&
+                                    <input type="range" min="2000" max="2023" className="slider slider_style" id="myRange"></input>
+                                }
+
+
+                                <hr /> */}
+                                {/* <div className='div_container'>
+                                    <li className="li_width">New Arrivals</li>
+                                    <img src={browsecat === false ? arrow_down : arrow_up}
+                                        width={15} height={15} onClick={() => { setNewarri(!newarri) }} />
+                                </div>
+
+                                {
+                                    newarri === true &&
+
+                                    <ul className="new-arrivals li_margin">
+                                        <li>Last arrival books</li>
+                                        <li>Last 30 days</li>
+                                        <li>Last 90 days</li>
+                                    </ul>
+                                } */}
+
+
+                                {/* </ul> */}
+                            </div>
+                        </div>
+
+
+                        <div className="col-md-3">
+                            <div className="web_filter">
+                                {/* <h4>Browse Categories</h4> */}
+                                <ul style={{ marginTop: '4%' }}>
+
+                                    {/* {
+                                        pubcat.map((data, index) => (
+                                            <li key={index}>{data.name}</li>
+                                        ))} */}
+
+                                    <hr />
+                                    <li>Refine your Search by Price</li>
+                                    
+
+                                    {
+
+                                        pricerangefilters.map((data, index) => (
+
+                                            <ul className="price-search" key={index}>
+                                                <li style={{cursor:"pointer"}} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data}</li>
+
+                                            </ul>
+
+                                        ))}
+
+
+
+                                    <hr />
+                                    {/* <li>Language</li>
+                                    <ul className="languages">
+                                        <li>English</li>
+                                        <li>Bengali</li>
+                                        <li>Hindi</li>
+                                        <li>German</li>
+                                        <li>Italian</li>
+                                        <li>Spanish</li>
+                                    </ul> 
+                                    <hr />*/}
+                                    {/* <li>Publication Year</li>
+                                    <input type="range" min="2000" max="2023" className="slider" id="myRange"></input>
+                                    <hr />
+                                    <li>New Arrivals</li>
+                                    <ul className="new-arrivals">
+                                        <li>Last arrival books</li>
+                                        <li>Last 30 days</li>
+                                        <li>Last 90 days</li>
+                                    </ul> */}
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div className="col-md-9 ">
+                            <div className="container details">
+
+                                <div className="details_path mt-3 margin_bt_1"><span className="fw700">Home</span><span className="fw400"> &gt; {categoryname} &gt;</span></div>
+                                <div className="d-flex align-items-center header-top justify-content-between">
+
+                                    <div className="categordet_div">
+                                        <div className="header">
+                                            <div className="category_head margin_bt">
+                                                <b>{categoryname}</b>
+
+                                            </div>
+                                            <div className="category_head_search_results">
+                                                {noofbooks} Results found
+                                            </div>
+                                        </div>
+                                        <div className="filter pos_rel d-flex align-items-center margin_tp">
+                                            <span>Sort By</span>
+                                            <div className='laptop_view'>
+                                                <select className="p-2 mx-2" style={{ borderRadius: '10px', width: '124px' }} onChange={(e) => { Sort(e) }}>
+                                                    <option value="low-high"> Sort by Price(Low to High)</option>
+                                                    <option value="high-low"> Sort by Price(High to Low)</option>
+                                                    <option value="A-Z"> Sort Alphabetically(A-Z)</option>
+                                                    <option value="Z-A"> Sort Alphabetically(Z-A)</option>
+                                                    {/* <option value="reset"> Reset(Z-A)</option> */}
+                                                </select>
+                                            </div>
+
+                                            <div className='sort_class' onClick={() => setDropbool(!dropbool)}>
+                                                <div className='text_select'>
+                                                    {droptext === '' ? 'Sort Alphabetically(A-Z)' : droptext}
+                                                </div>
+
+
+                                                <img src={dropbool === false ? arrow_down : arrow_up} />
+
+
+                                            </div>
+
+                                            {
+                                                dropbool === true &&
+                                                <div className='show_hide_div' >
+                                                    <ul className='ul_style'>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'low-high')}>Sort by Price(Low to High)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'high-low')}>Sort by Price(High to Low)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'A-Z')}>Sort Alphabetically(A-Z)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'Z-A')}>Sort Alphabetically(Z-A)</li>
+                                                    </ul>
+                                                </div>
+                                            }
+
+
+                                            {/* <SVG className="me-2" src={element3}></SVG>
+                                        <SVG src={rowVertical}></SVG> */}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+
+                                <div className="row card_padding_bottom">
+
+                                    {
+                                        //books.map((data, index) => (
+                                        tempBooks.map((data, index) => (
+                                            // data.status === 'Accepted' && (
+
+                                            <div key={index} className="col-md-3 border border-white bg-white rounded-4 book_card h380  category_det_card" onClick={() => { gotoDetails(data.id) }}>
+                                                <div className="d-flex flex-column">
+                                                    <div className="d-flex justify-content-end mt-2" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id,index)}>
+                                                        {
+                                                            data.isFavourite === 1 ? (<img src={wishlistedicon} width={27} height={27} />)
+                                                                :
+                                                                (<img src={wishlight} width={27} height={27} />)
+                                                        }
+
+
+
+                                                    </div>
+                                                    <div className="d-flex justify-content-center">
+                                                        {/* <img src={data.image !== null ? data.image : dummy}
+                                                        width={120} height={170} /> */}
+                                                        <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
+                                                            width={120} height={170} 
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+
+
+                                                    <div className="d-flex justify-content-center book_name mx-2 mt-3" style={{minHeight:'48px'}}>{data?.title?.length > 21 ? data.title.substring(0, 21) + ".." : data.title}</div>
+                                                    {/* <div className="d-flex justify-content-center pub_name">Publisher: <span className="pub_span">Spring & River</span></div> */}
+                                                    <div className="d-flex justify-content-center author_name mt-2">
+                                                        Author: {data.authors?.length > 0 ? data.authors : "Not Found"}
+                                                    </div>
+                                                    <hr></hr>
+                                                    <div className="d-flex align-items-center justify-content-center">
+
+                                                        <div className="  d-flex  price_style ">&#8377;{data.price} &nbsp;</div>
+                                                        {/* <div className="  d-flex  price-cutText ">&#8377;298</div> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            // )
+
+                                        ))}
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <Guideline />
+                <Playstore />
+                <Footer />
+
+
+
+                <ToastContainer />
+
+            </div>
+
+
+
+
+        </>
+    );
+}
+
+export default CategoryDetailsPage

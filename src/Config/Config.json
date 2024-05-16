@@ -1,0 +1,52 @@
+{
+    "API_URL" : "https://cors-anywhere.herokuapp.com/https://ebooksjunction.com/api/",
+
+    "API_URL_LOCAL" : "http://localhost:5000/",
+
+    "ALL_BOOK_CATEGORY" : "category",
+    "NEW_ARRIVAL" : "book/newarrival",
+    "BEST_SELLING" : "book/bestselling",
+    "BOOK_BY_GENRE" : "book",
+    "SIGN_IN_API" : "account/signup",
+    "CREATE_NEW_PASSWORD":"account/createPassword",
+    "RESEND_PASSWORD_CREATION_EMAIL":"account/resendPasswordCreationMail",
+    "LOGIN_API" : "account/login",
+    "GET_WISHLIST_BOOKS" : "user/wishlist",
+    "ADD_DELETE_IN_WISHLIST" : "user/wishlist/toggle",
+    "GET_CART_ITEMS" : "cart" ,
+    "ADD_SINGLE_ITEM" : "cart/add" ,
+    "ADD_MULTIPLE_ITEMS" : "cart/add-multiple" ,
+    "REMOVE_CART_ITEM" : "cart/remove",
+    "MY_PROFILE" : "user/profile",
+    "CHANGE_PERSONAL_INFO" : "user/profile/changepersonalinfo",
+    "CHANGE_CONTACT_INFO" : "user/profile/changecontactinfo",
+    "CHANGE_BILLING_ADDRESS" : "user/profile/changebillingaddress",
+    "CHANGE_PASSWORD" : "user/profile/changepassword",
+    "PLACE_ORDER":"user/placeorder",
+    "MY_ORDERS":"user/order",
+    "COUPON_CODE":"user/applycoupon",
+    "GET_COUPON_BY_PUBLISHERID":"coupon/all",
+    "UPLOAD_URL":"uploads/profileImages/",
+    "COUNTRY_LIST":"country",
+    "STATE_LIST":"state/all/",
+    "ALL_PUBLISHERS" : "publisher/all",
+    "ALL_ACTIVE_PUBLISHERS" : "publisher",
+    "BOOK_SHELF" : "user/bookshelf",
+    "PUB_IMAGES" : "uploads/publishers/",
+    "GET_PUB_DETAILS" : "publisher/",
+    "RAZORPAY_CREATE_ORDER": "user/razorpay/order",
+    "RAZORPAY_PROCESS_PAYMENT": "user/razorpay/process-payment",
+    "INVOICE_DETAILS": "user/customer-invoice-details",
+    "NEWSLETTER": "newsletter",
+    "FORGOT_PASSWORD" : "user/forgot-password",
+
+    "SEARCH_BOOKS":"book/search",
+    "home_links" : "http://ebooksjunction.com/demo/",
+
+
+    "RAZORPAY_TEST_KEY":"rzp_test_onx4fvZbYNcUMB",
+    "RAZORPAY_LIVE_KEY":"rzp_live_gXUYrgWkg9i2Fl",
+    "RAZORPAY_LIVE_KEY_SECRET":"jIoieogOsKkSFTna9gX5r0rJ"
+    
+}
+  
