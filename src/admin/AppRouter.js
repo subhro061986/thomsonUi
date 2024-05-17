@@ -86,7 +86,7 @@ const Navigation=()=> {
 
   return (
     
-         <Routes basename="/admin">
+         < Routes>
              <Route exact path="/" Component={LoginScreen}/>
              {/* <Route exact path="/dashboard" Component={DashboardScreen}/> */}
              <Route exact path="/dashboard" Component={DashboardScreenNew}/>

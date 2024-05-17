@@ -34,6 +34,7 @@ import RegistrationSouthshore from './Pages/RegistrationSouthshore';
 import PrivacyPolicyPub from './Pages/PrivacyPolicyPub';
 import LoginScreen from './admin/Pages/LoginScreen';
 import DefaultScreen from './admin/DefaultScreen';
+import GalleryScreen from './admin/Pages/GalleryScreen';
 
 
 
@@ -71,7 +72,7 @@ const AfterLogin=()=> {
             <Route exact path="/terms" Component={TermsScreen}/>
             <Route exact path="/copyright" Component={CopyrightScreen}/>
             <Route exact path="/disclaimer" Component={DisclaimerScreen}/>
-            <Route exact path="/admin" Component={DefaultScreen}/>
+            <Route exact path="/admin/*" Component={DefaultScreen}/>
 
         </Routes>
     </Router>
@@ -101,10 +102,10 @@ const BeforeLogin=()=> {
             <Route exact path="/terms" Component={TermsScreen}/>
             <Route exact path="/copyright" Component={CopyrightScreen}/>
             <Route exact path="/disclaimer" Component={DisclaimerScreen}/>
-            <Route exact path="/admin" Component={DefaultScreen}/>
+            <Route exact path="/admin/*" Component={DefaultScreen} /> 
 
             {/* Later redirect it as required if any of the above routes don't match*/}
-            <Route path='*' Component={HomePage}/>
+            {/* <Route path='*' Component={HomePage}/> */}
             
         </Routes>
     </Router>
