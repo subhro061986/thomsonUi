@@ -2906,6 +2906,19 @@ body.active-modal {
   width:72%;
 }
 
+.buttonStyle{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-width: 1px;
+  border-color: #ccc;
+  margin: 0 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 376px)and (min-width: 280px) {
 
   .whBtn {

@@ -33,9 +33,12 @@ const CartPage = () => {
     const [dependencyvar, setDependencyvar] = useState(false)
     // const [coupon, setCoupon] = useState('')
 
+    const [count, setCount] = useState(1);
+    const [total, setTotal] = useState(1);
+
 
     useEffect(() => {
-        console.log("AUTH DATA ",authData)
+        console.log("AUTH DATA ", authData)
         get_cart_items()
 
 
@@ -156,7 +159,7 @@ const CartPage = () => {
             // console.log("get cart items",getcartitems)
             // * Something here ......
             // navigate('/billingaddress',{state:{pageData:pageData}})
-            navigate('/billingaddress',{state:{buynow:0}})
+            navigate('/billingaddress', { state: { buynow: 0 } })
         }
         else {
             navigate("/login")
@@ -173,19 +176,31 @@ const CartPage = () => {
     //     console.log(res)
     // }
 
+    const increment = () => {
+        setCount(count + 1);
+        setTotal(total + 1);
+    };
+
+    const decrement = () => {
+        if (count > 0) {
+            setCount(count - 1);
+            setTotal(total - 1);
+        }
+    };
+
 
     return (
         <div className="main-container">
             <div className="container">
                 <TopBarSouthsore />
                 <NavBarSouthsore />
-                <ProfileTab/>
+                <ProfileTab />
                 {/* {authData === null || authData === undefined || authData === "" ?(
                     <NavBarSouthsore />
                 ) : (<ProfileTab/>)} */}
-                
-                
-                <Whatsapp/>
+
+
+                <Whatsapp />
 
                 {
                     getcartitems.length === 0 &&
@@ -204,17 +219,17 @@ const CartPage = () => {
                                 </div>
 
                                 <div className="d-flex justify-content-center mt-5">
-                                <button type="button" 
-                                            className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
-                                            onClick={()=>{navigate('/')}}
-                                            style={{ width: '20%' }}
-                                        >
+                                    <button type="button"
+                                        className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        onClick={() => { navigate('/') }}
+                                        style={{ width: '20%' }}
+                                    >
                                         Continue Shopping
                                     </button>
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     )
                 }
@@ -244,13 +259,13 @@ const CartPage = () => {
                                             Product Details
                                         </div>
 
-                                            {console.log('cart items',getcartitems)}
+                                        {console.log('cart items', getcartitems)}
 
                                         {
 
                                             getcartitems.length > 0 && getcartitems.map((data, index) => (
 
-                                                
+
                                                 <div key={index} className="book-card cart-page-border-bottom py-3">
                                                     {/* {console.log("cartdata",data)} */}
                                                     <div className="book-img"
@@ -258,8 +273,8 @@ const CartPage = () => {
                                                     >
 
                                                         {
-                                                            
-                                                            wishlistshow === true ? (  <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}/>)
+
+                                                            wishlistshow === true ? (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
                                                                 : (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
                                                         }
 
@@ -278,6 +293,25 @@ const CartPage = () => {
                                                             )}
                                                         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
                                                         <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
+
+                                                        {/* increment decrement button */}
+
+                                                        <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
+                                                            <button
+                                                            onClick={decrement} 
+                                                            className="buttonStyle"
+                                                            >-</button>
+                                                            <input
+                                                                type="text"
+                                                                value={count}
+                                                                readOnly
+                                                                style={{ width: '50px', textAlign: 'center' }}
+                                                            />
+                                                            <button
+                                                            onClick={increment} 
+                                                            className="buttonStyle"
+                                                            >+</button>
+                                                        </div>
                                                         <div className="bottom-menu my-3">
 
                                                             <div className="action-btns">
@@ -336,24 +370,24 @@ const CartPage = () => {
                                     >
                                         Place Order
                                     </button>
-                                    
+
                                 </div>
                                 <div className="d-flex justify-content-center mt-2">
-                                <button type="button" 
-                                            className="btn btn-outline-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
-                                            onClick={()=>{navigate('/home')}}
-                                            //style={{ width: '30%' }}
-                                        >
+                                    <button type="button"
+                                        className="btn btn-outline-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        onClick={() => { navigate('/home') }}
+                                    //style={{ width: '30%' }}
+                                    >
                                         Continue Shopping
                                     </button>
                                 </div>
                             </div>
-                            
-                            
 
-                                
 
-                            
+
+
+
+
                         </div>
 
                     )
