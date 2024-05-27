@@ -47,7 +47,8 @@ const AfterLogin=()=> {
   return (
     <Router>
         <Routes>
-            <Route exact path="/" Component={SouthsoreScreen}/>
+            {/* <Route exact path="/" Component={SouthsoreScreen}/> */}
+            <Route exact path="/" Component={HomePage}/>
             <Route exact path="/home" Component={HomePage}/>
             <Route exact path="/wishlist" Component={WishList}/>
             <Route exact path="/category" Component={CategoryDetailsPage}/>

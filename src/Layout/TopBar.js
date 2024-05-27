@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback} from "react";
 import SVG from "react-inlinesvg";
 import publisher_logo from "../Assets/Images/publisher_demo.png";
 // import profile from "../Assets/Images/profile.png";
+import admin_logo from "../Assets/Images/thomson_logo.svg";
 import profile from "../Assets/Images/usser_login.png";
 import logout from "../Assets/Images/logout_icon.png";
 import search_icon from "../Assets/Images/search-normal.png";
@@ -36,7 +37,7 @@ const TopBar = () => {
   }
 
   const getPubById = async () => {
-    let pubid = 0;
+    let pubid = 2;
 
     // if(location.state.publisher_id==='' || location.state.publisher_id===null || location.state.publisher_id===0 || location.state.publisher_id===undefined){
     if (location.state === null || location.state === 'null') {
@@ -107,7 +108,7 @@ const TopBar = () => {
 
   return (
     <div className="top-bar pos_rel">
-      <div
+      {/* <div
         //className="publisher-logo"
         className="mar_left"
       >
@@ -117,7 +118,10 @@ const TopBar = () => {
           style={{ cursor: 'pointer' }}
         />
 
-      </div>
+      </div> */}
+      <div className="admin_logo_pos">
+          <SVG src={admin_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{cursor:'pointer'}}/>
+        </div>
       <div className="top-bar-right">
         {/* <form>
           <div className="form-group search-bar">

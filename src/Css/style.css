@@ -12,9 +12,11 @@
 .h100 {
   height: 100%;
 }
-.css-4ndf5c-LoadingOverlayWrapperBase{
+
+.css-4ndf5c-LoadingOverlayWrapperBase {
   margin: 25% auto !important;
 }
+
 /* Top bar designs */
 .top-bar {
   width: 100%;
@@ -253,38 +255,49 @@ input:focus {
 }
 
 .banner_southsore {
-  background-image: url("../Assets/Images/bg-ss-banner.png");
+  background-image: url("../Assets/Images/home_banner.png");
   /* The image used */
-  background-color: #cccccc;
+  /* background-color: #cccccc; */
   /* Used if the image is unavailable */
   /* height: 500px; You must set a specified height */
-  background-position: center;
+  /* background-position: center; */
   /* Center the image */
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: cover;
+  /* background-size: contain; */
   /* Resize the background image to cover the entire container */
 }
 
 .banner_southsore_text {
-  color: #133B72;
+  color: #010307;
   font-family: 'Poppins';
 }
 
 .banner_southsore_text>.welcome_text {
-  font-size: 26px;
-  font-weight: 600;
+  font-size: 65px;
+  font-weight: 700;
   font-style: normal;
-  line-height: 41px;
+  line-height: 68px;
   margin-bottom: 0px;
 }
 
 .banner_southsore_text>.heading {
-  font-size: 110px;
-  font-weight: 700;
-  line-height: 120px;
-  margin-top: -5px;
-  letter-spacing: -2px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 50px;
+  margin-top: 0px;
+  /* letter-spacing: -2px; */
+  color: #3F4556;
+}
+
+.explore_btn {
+  font-weight: 600;
+  font-size: 16px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .banner_southsore_text>.text_2,
@@ -2206,8 +2219,8 @@ button-solid:focus {
   height: 56px !important;
 }
 
-.resend_token_btn{
-  width: 200px!important;
+.resend_token_btn {
+  width: 200px !important;
 }
 
 
@@ -2874,12 +2887,12 @@ body.active-modal {
 
 
 
-.p_y{
+.p_y {
   padding-top: 6.5rem;
   padding-bottom: 1.5rem;
-} 
+}
 
-.home_nav_link{
+.home_nav_link {
   cursor: pointer;
 }
 
@@ -2902,11 +2915,11 @@ body.active-modal {
 
 }
 
-.wa_icon_size{
-  width:72%;
+.wa_icon_size {
+  width: 72%;
 }
 
-.buttonStyle{
+.buttonStyle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -2940,16 +2953,16 @@ body.active-modal {
 
   }
 
-  .wa_icon_size{
-    width:72%;
+  .wa_icon_size {
+    width: 72%;
   }
 
-  .p_y{
+  .p_y {
     padding-top: 3rem;
     padding-bottom: 1.5rem;
   }
 
-  .mar_left{
+  .mar_left {
     margin-left: 10%;
     width: 30%;
   }
@@ -3739,7 +3752,7 @@ body.active-modal {
   .text_select {
     text-wrap: nowrap;
     overflow: hidden;
-    
+
   }
 
   /* .li_hover{
@@ -3785,17 +3798,17 @@ body.active-modal {
 
   }
 
-  .wa_icon_size{
-    width:72%;
+  .wa_icon_size {
+    width: 72%;
   }
 
 
-  .p_y{
+  .p_y {
     padding-top: 3rem;
     padding-bottom: 1.5rem;
   }
 
-  .mar_left{
+  .mar_left {
     margin-left: 10%;
   }
 
@@ -4582,15 +4595,15 @@ body.active-modal {
     justify-content: space-between;
   }
 
- 
+
 
   .text_select {
     text-wrap: nowrap;
     overflow: hidden;
-    
+
   }
 
-  .li_text{
+  .li_text {
     font-size: 14px;
   }
 
@@ -4607,7 +4620,7 @@ body.active-modal {
     color: #26252C;
     text-align: center;
     font-family: Poppins;
-    font-size:24px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 600;
     line-height: 28px;
@@ -4619,13 +4632,14 @@ body.active-modal {
     padding: 0 300px !important;
   }
 }
-.orderHeaderText{
+
+.orderHeaderText {
   font-family: 'Poppins';
   font-size: 20px;
   font-weight: 600;
   color: #26252C;
 }
 
-.elMPtT .wrapper{
-  z-index: 9!important;
+.elMPtT .wrapper {
+  z-index: 9 !important;
 }
