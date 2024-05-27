@@ -732,7 +732,8 @@ input:focus {
 }
 
 .book_card {
-  width: 90%;
+  /* width: 90%; */
+  width: 80%;
   cursor: pointer;
   /* height: 408px; */
 }
@@ -755,12 +756,25 @@ input:focus {
 }
 
 .author_name {
+  /* font-family: Roboto; */
+  font-family: Poppins;
+  /* font-size: 13px; */
+  font-size: 20px;
+  /* font-weight: 400; */
+  font-weight: 600;
+  /* line-height: 26px; */
+  line-height: 18px;
+  /* text-align: center; */
+  /* color: #6A738D; */
+  color: #26252C;
+}
+
+.category_desc {
   font-family: Roboto;
-  font-size: 13px;
   font-weight: 400;
-  line-height: 26px;
-  text-align: center;
-  color: #6A738D;
+  font-size: 12px;
+  line-height: 22px;
+  color: #64646F;
 }
 
 .price_style {
@@ -2847,7 +2861,7 @@ body.active-modal {
 }
 
 .admin_logo_size {
-  width: 250px;
+  /* width: 250px; */
 }
 
 .mar_left {

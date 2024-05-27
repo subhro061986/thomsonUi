@@ -18,13 +18,13 @@ const Footer = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [modal, setModal] = useState(false);
-    const { category_by_publisher, items, getPublishersById, publisherId,sendEmail } = UserProfile()
+    const { category_by_publisher, items, getPublishersById, publisherId, sendEmail } = UserProfile()
     const [publisherDetails, setPublisherDetails] = useState('')
     const [categoryList, setCategoryList] = useState([])
-    const[contactUsName,setContactUsName] = useState('')
-    const[contactUsEmail,setContactUsEmail] = useState('')
-    const[contactUsPhNo,setContactUsPhNo] = useState('')
-    const[contactUsMessage,setContactUsMessage] = useState('')
+    const [contactUsName, setContactUsName] = useState('')
+    const [contactUsEmail, setContactUsEmail] = useState('')
+    const [contactUsPhNo, setContactUsPhNo] = useState('')
+    const [contactUsMessage, setContactUsMessage] = useState('')
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
@@ -36,42 +36,42 @@ const Footer = () => {
     }, [])
 
 
-    const isValidEmail= (email) => {
+    const isValidEmail = (email) => {
         return /\S+@\S+\.\S+/.test(email);
-      }
-      
-      
-      const isValidPhone= (phone)=> {
-        return /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(phone);
-      }
+    }
 
-    const handleName =(e) =>{
+
+    const isValidPhone = (phone) => {
+        return /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(phone);
+    }
+
+    const handleName = (e) => {
         setContactUsName(e.target.value)
     }
 
-    const handleEmail =(e) =>{
+    const handleEmail = (e) => {
         // if(!isValidEmail(e.target.value))
         // {
         //     setEmailErrorMessage('Email is invalid');
-         
+
         // }
         // else{
-            setContactUsEmail(e.target.value)
+        setContactUsEmail(e.target.value)
         //     setEmailErrorMessage('');
         // }
     }
 
-    const handlePhNo =(e) =>{
+    const handlePhNo = (e) => {
         // if(!isValidPhone(e.target.value)){
         //     setPhoneErrorMessage('Phone number is invalid');
         // }
         // else{
-            setContactUsPhNo(e.target.value)
+        setContactUsPhNo(e.target.value)
         //     setPhoneErrorMessage('')
         // }
     }
 
-    const handleMessage =(e) =>{
+    const handleMessage = (e) => {
         setContactUsMessage(e.target.value)
     }
     const getPubById = async () => {
@@ -135,24 +135,24 @@ const Footer = () => {
         document.body.classList.remove('active-modal')
     }
 
-    const triggerEmail= async () =>{
+    const triggerEmail = async () => {
 
-        if(!isValidPhone(contactUsPhNo)){
+        if (!isValidPhone(contactUsPhNo)) {
             alert('Phone number is invalid');
         }
-        else if(!isValidEmail(contactUsEmail)){
+        else if (!isValidEmail(contactUsEmail)) {
             alert('Email is invalid');
         }
         else {
 
-            let data={
-                "email":contactUsEmail,
-                "name":contactUsName,
-                "phno":contactUsPhNo,
-                "message":contactUsMessage
+            let data = {
+                "email": contactUsEmail,
+                "name": contactUsName,
+                "phno": contactUsPhNo,
+                "message": contactUsMessage
             }
-            let resp= await sendEmail(data)
-            
+            let resp = await sendEmail(data)
+
             toggleModal()
             alert(resp + ", Admin will contact you shortly.")
         }
@@ -164,8 +164,8 @@ const Footer = () => {
             { state: { category_id: id } }
         )
     }
-    const openMailto=(value)=>{
-        window.location.replace('mailto:'+value)
+    const openMailto = (value) => {
+        window.location.replace('mailto:' + value)
     }
     return (
         <div className="mt-5">
@@ -189,7 +189,7 @@ const Footer = () => {
 
                                 {
                                     categoryList.map((data, index) => (
-                                        <li className="custom-footer-li" style={{cursor:'pointer'}} key={index} onClick={() => cat_dropdown_nav(data.id) }> {data.name} </li>
+                                        <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index} onClick={() => cat_dropdown_nav(data.id)}> {data.name} </li>
                                     ))
                                 }
 
@@ -260,7 +260,7 @@ const Footer = () => {
 
                                 <li className="custom-footer-li">
                                     <p><b>Phone No </b>: +91{publisherDetails?.contactno}</p>
-                                    <p style={{cursor:'pointer'}} onClick={()=>openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
                                 </li>
                             </ul>
                         </div>
@@ -309,12 +309,12 @@ const Footer = () => {
                                 <h6 className="mb-3"><b>{publisherDetails?.name}</b></h6>
 
                                 <li className="custom-footer-li">
-                                <p className="adress">Powered By Southshore Innovations Private Limited .</p>
+                                    <p className="adress">Powered By Southshore Innovations Private Limited .</p>
                                     <p className="adress"> Plot 13, Vijayendra Colony, Telephone Nagar, Perungudi, Chennai - 600096. </p>
                                 </li>
                                 <li className="custom-footer-li">
                                     <p><b>Phone No </b>: +91{publisherDetails?.contactno}</p>
-                                    <p style={{cursor:'pointer'}} onClick={()=>openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
                                 </li>
                             </ul>
                         </div>
@@ -377,15 +377,15 @@ const Footer = () => {
                                 <div className="pos_rel">
                                     <label className="form_label">Name</label>
                                     <input className="form-control p_hold" type="text" placeholder="Your Name"
-                                    value={contactUsName} onChange={handleName}  required
+                                        value={contactUsName} onChange={handleName} required
                                     />
                                     <img src={user} className="sms_pos" />
                                 </div>
                                 <div className="pos_rel">
                                     <label className="form_label">Email</label>
                                     <input className="form-control p_hold" type="email" placeholder="Your email address"
-                                    value={contactUsEmail} onChange={handleEmail} required 
-                                    
+                                        value={contactUsEmail} onChange={handleEmail} required
+
                                     />
                                     <img src={sms} className="sms_pos" />
                                 </div>
@@ -395,16 +395,16 @@ const Footer = () => {
                                 <div className="pos_rel">
                                     <label className="form_label">Phone</label>
                                     <input className="form-control p_hold" type="text" placeholder="Your phone number"
-                                    value={contactUsPhNo} onChange={handlePhNo}  required maxLength={10}
+                                        value={contactUsPhNo} onChange={handlePhNo} required maxLength={10}
                                     />
                                     <img src={call} className="sms_pos" />
-                                    
+
                                 </div>
                                 {phoneErrorMessage}
                                 <div className="pos_rel">
                                     <label className="form_label">Message</label>
                                     <input className="form-control p_hold" type="text" placeholder="Your message"
-                                    value={contactUsMessage} onChange={handleMessage} required
+                                        value={contactUsMessage} onChange={handleMessage} required
                                     />
                                 </div>
                             </div>

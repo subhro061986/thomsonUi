@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback} from "react";
 import SVG from "react-inlinesvg";
 import publisher_logo from "../Assets/Images/publisher_demo.png";
 // import profile from "../Assets/Images/profile.png";
-import admin_logo from "../Assets/Images/thomson_logo.svg";
+import a_logo from "../Assets/Images/book_central_logo.svg";
 import profile from "../Assets/Images/usser_login.png";
 import logout from "../Assets/Images/logout_icon.png";
 import search_icon from "../Assets/Images/search-normal.png";
@@ -120,7 +120,7 @@ const TopBar = () => {
 
       </div> */}
       <div className="admin_logo_pos">
-          <SVG src={admin_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{cursor:'pointer'}}/>
+          <SVG src={a_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{cursor:'pointer'}}/>
         </div>
       <div className="top-bar-right">
         {/* <form>
@@ -132,7 +132,7 @@ const TopBar = () => {
         <div style={{ width: '100%'}} className="big_search">
 
           <form style={{ position: 'relative' }}>
-            <div className="form-group search-bar pos_rel">
+            <div className="form-group search-bar pos_rel" style={{width:'100%'}}>
               <img src={search_icon} className="search_icon_pos" />
               <input type="text" value={searchText} className="form-control search-box ps-5" onChange={getbookByText} placeholder="Search by Author, Title, ISBN" />
              

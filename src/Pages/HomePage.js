@@ -4,10 +4,12 @@ import TopBar from "../Layout/TopBar";
 import NavBar from "../Layout/NavBar";
 import TopBanner from "../Layout/Banner";
 import About from "../Layout/About";
+import AboutSouthshore from "../Layout/AboutSouthshore";
 import Footer from "../Layout/Footer";
 import Playstore from "../Layout/Playstore";
 import Guideline from "../Layout/Guideline";
 import Testimonials from "../Layout/Testimonials";
+import AboutSouthshoreCert from "../Layout/AboutSouthshoreCert";
 
 
 import NewArrivalBooks from "../Layout/NewArrivalBooks";
@@ -16,6 +18,7 @@ import BestSellingBooks from "../Layout/BestSellingBooks";
 import ReccomendedBooks from "../Layout/ReccomendedBooks";
 import Whatsapp from "../Layout/Whatsapp";
 import { UserProfile } from "../Context/Usercontext";
+
 
 
 const HomePage = () => {
@@ -47,20 +50,21 @@ const HomePage = () => {
       </div>
       <Whatsapp/>
       <TopBanner/>
-      <About/>
+      {/* <About/> */}
+      <AboutSouthshore/>
 
       <Category />
       <div id="new_arrivals">
-        <NewArrivalBooks/>
+        {/* <NewArrivalBooks/> */}
       </div>
       <div id="best_selling">
-        <BestSellingBooks />
+        {/* <BestSellingBooks /> */}
       </div>
       {/* <ReccomendedBooks/> */}
       {/* <Testimonials/> */}
-    
-      <Guideline/>
-      <Playstore/>
+        <AboutSouthshoreCert/>
+      {/* <Guideline/> */}
+      {/* <Playstore/> */}
       <Footer/>
     </div>
   );
