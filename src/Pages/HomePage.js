@@ -18,6 +18,7 @@ import BestSellingBooks from "../Layout/BestSellingBooks";
 import ReccomendedBooks from "../Layout/ReccomendedBooks";
 import Whatsapp from "../Layout/Whatsapp";
 import { UserProfile } from "../Context/Usercontext";
+import FooterSouthsore from "../Layout/FooterSouthsore";
 
 
 
@@ -65,7 +66,10 @@ const HomePage = () => {
         <AboutSouthshoreCert/>
       {/* <Guideline/> */}
       {/* <Playstore/> */}
-      <Footer/>
+      {/* <Footer/> */}
+      <div id="contact"> 
+        <Footer />
+      </div>
     </div>
   );
 }

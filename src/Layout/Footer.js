@@ -1,5 +1,6 @@
 import React, { useEffect, useState, } from "react";
 import publisher_logo from "../Assets/Images/publisher_demo.png";
+import admin_logo from "../Assets/Images/book_central.png";
 import facebook_logo from "../Assets/Images/Facebook-icon.png";
 import youtube_logo from "../Assets/Images/Youtube-icon.png";
 import linkedin_logo from "../Assets/Images/Linkedin-icon.png";
@@ -172,8 +173,23 @@ const Footer = () => {
 
             <div className="container my-2">
                 <div className="row footer_margin">
-                    <div className="col-md-2 card_bottom guideline_padding_left logo_dimensions">
+                    <div className="col-md-3 card_bottom guideline_padding_left logo_dimensions">
                         <img src={publisherDetails === undefined || publisherDetails?.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + publisherDetails.id + '/' + publisherDetails.logo}`} alt="publisher logo" className='img_dimensions' onClick={imgNavHome} style={{ cursor: 'pointer' }} />
+                        {/* <img src={admin_logo}
+                            width={100}
+                            style={{ cursor: 'pointer' }} />
+                        <ul className="remove-dots" style={{ paddingLeft: 0 }}>
+
+                            <li className="custom-footer-li">
+                                Books central office locations
+                                Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
+                                <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p>
+                            </li>
+                            <li className="custom-footer-li">
+                                <div className="south_val"><span className="south_key">CIN No:</span> U22219TN2022PTC151260</div>
+                                <div className="south_val"><span className="south_key">GSTIN:</span> 33ABICS2457D1ZI</div>
+                            </li>
+                        </ul> */}
                     </div>
 
                     <div className="div_block div_padding footer_margin_cat">
@@ -247,11 +263,9 @@ const Footer = () => {
                         </div>
 
                         {/* <div className='pub_container'> */}
-                        <div className="col-md-3 footer_container_block div_padding">
+                        {/* <div className="col-md-3 footer_container_block div_padding">
                             <ul className="remove-dots">
                                 <h6 className="mb-3"><b>{publisherDetails?.name}</b></h6>
-
-                                {/* <h6 ><b>ebooksjunction.com</b></h6> */}
 
                                 <li className="custom-footer-li">
                                     <p className="adress">Powered By Southshore Innovations Private Limited .</p>
@@ -263,7 +277,7 @@ const Footer = () => {
                                     <p style={{ cursor: 'pointer' }} onClick={() => openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div className="col-md-3 footer_container_block">
                             <ul className="remove-dots">
 
