@@ -47,7 +47,7 @@ const FooterSouthsore = () => {
                 <div className="row">
                     <div className="col-md-3 s_f_logo_col">
                         <img src={admin_logo} width={100} onClick={imgNavHome} style={{ cursor: 'pointer' }} />
-                        <ul className="remove-dots" style={{paddingLeft:0}}>
+                        <ul className="remove-dots" style={{ paddingLeft: 0 }}>
                             {/* <div className="custom-footer-Header">ebooksjunction.com</div> */}
 
                             <li className="custom-footer-li">

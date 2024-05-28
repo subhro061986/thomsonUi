@@ -67,9 +67,9 @@ const HomePage = () => {
       {/* <Guideline/> */}
       {/* <Playstore/> */}
       {/* <Footer/> */}
-      <div id="contact"> 
+      {/* <div id="contact">  */}
         <Footer />
-      </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -171,25 +171,10 @@ const Footer = () => {
     return (
         <div className="mt-5">
 
-            <div className="container my-2">
+            {/* <div className="container my-2">
                 <div className="row footer_margin">
                     <div className="col-md-3 card_bottom guideline_padding_left logo_dimensions">
                         <img src={publisherDetails === undefined || publisherDetails?.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + publisherDetails.id + '/' + publisherDetails.logo}`} alt="publisher logo" className='img_dimensions' onClick={imgNavHome} style={{ cursor: 'pointer' }} />
-                        {/* <img src={admin_logo}
-                            width={100}
-                            style={{ cursor: 'pointer' }} />
-                        <ul className="remove-dots" style={{ paddingLeft: 0 }}>
-
-                            <li className="custom-footer-li">
-                                Books central office locations
-                                Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
-                                <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p>
-                            </li>
-                            <li className="custom-footer-li">
-                                <div className="south_val"><span className="south_key">CIN No:</span> U22219TN2022PTC151260</div>
-                                <div className="south_val"><span className="south_key">GSTIN:</span> 33ABICS2457D1ZI</div>
-                            </li>
-                        </ul> */}
                     </div>
 
                     <div className="div_block div_padding footer_margin_cat">
@@ -197,11 +182,7 @@ const Footer = () => {
                             <ul className="remove-dots" >
                                 <h6 className="custom-footer-Header"><b>Categories</b></h6>
 
-                                {/* <li className="custom-footer-li"> Law</li>
-                                <li className="custom-footer-li"> Tax </li>
-                                <li className="custom-footer-li"> Humanities </li>
-                                <li className="custom-footer-li"> Social </li>
-                                <li className="custom-footer-li"> Medical </li> */}
+                                
 
                                 {
                                     categoryList.map((data, index) => (
@@ -216,15 +197,7 @@ const Footer = () => {
                             <ul className="remove-dots">
                                 <div className="custom-footer-Header"><b>Policies</b></div>
 
-                                {/* <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/privacypolicypub">
-                                        Privacy Policy
-                                    </Link>
-                                </li>
-                                <li className="custom-footer-li"> Terms Of Use </li>
-                                <li className="custom-footer-li"> Secure Shopping </li>
-                                <li className="custom-footer-li"> Copyright Policy </li>
-                                <li className="custom-footer-li"> FAQ </li> */}
+
 
                                 <li className="custom-footer-li">
                                     <Link className="nav-link" to="/privacypolicy">
@@ -262,22 +235,7 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        {/* <div className='pub_container'> */}
-                        {/* <div className="col-md-3 footer_container_block div_padding">
-                            <ul className="remove-dots">
-                                <h6 className="mb-3"><b>{publisherDetails?.name}</b></h6>
 
-                                <li className="custom-footer-li">
-                                    <p className="adress">Powered By Southshore Innovations Private Limited .</p>
-                                    <p className="adress">Plot 13, Vijayendra Colony, Telephone Nagar, Perungudi, Chennai - 600096. </p>
-                                </li>
-
-                                <li className="custom-footer-li">
-                                    <p><b>Phone No </b>: +91{publisherDetails?.contactno}</p>
-                                    <p style={{ cursor: 'pointer' }} onClick={() => openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
-                                </li>
-                            </ul>
-                        </div> */}
                         <div className="col-md-3 footer_container_block">
                             <ul className="remove-dots">
 
@@ -311,7 +269,7 @@ const Footer = () => {
                             </ul>
 
                         </div>
-                        {/* </div> */}
+
 
 
 
@@ -372,12 +330,137 @@ const Footer = () => {
 
 
                 </div>
+            </div> */}
+            <div className="container my-2">
+                <div className="row">
+                    <div className="col-md-3 s_f_logo_col">
+                        <img src={admin_logo} width={100} onClick={imgNavHome} style={{ cursor: 'pointer' }} />
+                        <ul className="remove-dots" style={{ paddingLeft: 0 }}>
+                            {/* <div className="custom-footer-Header">ebooksjunction.com</div> */}
+
+                            <li className="custom-footer-li">
+                                Books central office locations
+                                Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
+                                {/* <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p> */}
+                            </li>
+                            <li className="custom-footer-li">
+                                <div className="south_val"><span className="south_key">Call Us:</span> 91-44-79624624</div>
+                                <div className="south_val"><span className="south_key">Email:</span> info@bookscentral.in</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="col-md-3 s_f_mar_bot">
+                        <div className="d-flex flex-row justify-content-end">
+                            <div className="">
+                                <ul className="remove-dots" >
+                                    <div className="custom-footer-Header">Categories</div>
+                                    {/* {allActivePublisher.map((data, index) => (
+                                        <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index}
+                                            hidden={data.isactive === 1 ? false : true}
+                                            onClick={(e) => { get_publisher_data(data.id) }}
+                                        >
+                                            
+                                            {data.name}
+                                        </li>
+                                    ))} */}
+                                    {
+                                        categoryList.map((data, index) => (
+                                            <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index} onClick={() => cat_dropdown_nav(data.id)}> {data.name} </li>
+                                        ))
+                                    }
+
+
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <div className="col-md-3 s_f_mar_bot">
+                        <div className="d-flex flex-row justify-content-end">
+                            <div className="">
+                                <ul className="remove-dots">
+                                    <div className="custom-footer-Header">Policies</div>
+
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/privacypolicy">
+                                            Privacy Policies
+                                        </Link>
+                                    </li>
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/terms">
+                                            Terms Of Use
+                                        </Link>
+                                    </li>
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/disclaimer">
+                                            {/* Disclaimer */}
+                                            IP Infringement Policy
+                                        </Link>  </li>
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/copyright">
+                                            Copyright Policy
+                                        </Link>
+
+                                    </li>
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/faqs">
+                                            {/* FAQ Customer */}
+                                            Cancellation And Returns Policy
+                                        </Link>
+
+                                    </li>
+                                    {/* <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/faqpub">
+                                            FAQ Publisher
+                                        </Link>
+
+                                    </li> */}
+
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div className="col-md-3 s_f_mar_bot">
+                        {/* <ul className="remove-dots">
+                            <div className="custom-footer-Header"> Support</div>
+                            <li className="custom-footer-li">
+                                <Link className="nav-link" to="/faqpub">
+                                    Customer FAQ
+                                </Link>
+                            </li>
+                        </ul> */}
+                        <div className="d-flex flex-row justify-content-end">
+                            <div className="">
+                                <ul className="remove-dots">
+                                    <div className="custom-footer-Header">Support</div>
+                                    <li className="custom-footer-li">
+                                        <Link className="nav-link" to="/faqs">
+                                            Customer FAQ
+                                        </Link>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
             <div className="container-fluid d-flex align-items-center justify-content-center footer-note py-2">
                 <span className="text-center footer_poweredby_text">&#169; copyright Southshore Innovations Private Limited</span>
-                {/* <div className="" >
-                    
-                </div> */}
+
             </div>
 
             {modal && (
