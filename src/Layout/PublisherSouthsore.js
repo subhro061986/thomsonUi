@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from "react";
 import SVG from "react-inlinesvg";
-import art from "../Assets/Images/art.png";
+import art from "../Assets/Images/category_logo_1.png";
 import noImg from "../Assets/Images/no-img.png";
 import lang from "../Assets/Images/lang.png";
 import biography from "../Assets/Images/biography.png";
@@ -88,28 +88,120 @@ const PublisherSouthsore = () => {
             //autoPlay={true}
             //autoPlaySpeed={2000}
             infinite={true}
+            containerClass="carousel-container-publisher"
           >
-            {allActivePublisher.map((data, index) => (
+            {/* {allActivePublisher.map((data, index) => ( */}
 
-              data.isactive === 1 && (
-                <div
-                  key={index}
-                  className="col-md d-flex flex-column justify-content-center align-items-center mar"
-                  onClick={() => goToCatagory(data)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div
-                    className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title={data.name}
-                  >
-                    {/* <img src={art} alt={"Category Image Not Found"}/> */}
-                    <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
-                  </div>
-                  {/* <div className="text-center cat_txt fw500 mt-4">{data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name}</div> */}
-                </div>
-              )
+            {/* data.isactive === 1 && ( */}
+            <div
+              // key={index}
+              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+              // onClick={() => goToCatagory(data)}
+              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+            >
+              <div
+                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                // data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              // title={data.name}
+              >
+                <img src={art} alt={"Category Image Not Found"} />
+                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
 
-            ))}
+              </div>
+              <div className="text-center cat_txt fw500 mb-4">
+                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                UK
+              </div>
+            </div>
+
+            {/* ) */}
+
+            {/* ))} */}
+            <div
+              // key={index}
+              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+              // onClick={() => goToCatagory(data)}
+              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+            >
+              <div
+                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                // data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              // title={data.name}
+              >
+                <img src={art} alt={"Category Image Not Found"} />
+                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+
+              </div>
+              <div className="text-center cat_txt fw500 mb-4">
+                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                USA
+              </div>
+            </div>
+            <div
+              // key={index}
+              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+              // onClick={() => goToCatagory(data)}
+              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+            >
+              <div
+                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                // data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              // title={data.name}
+              >
+                <img src={art} alt={"Category Image Not Found"} />
+                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+
+              </div>
+              <div className="text-center cat_txt fw500 mb-4">
+                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                USA
+              </div>
+            </div>
+            <div
+              // key={index}
+              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+              // onClick={() => goToCatagory(data)}
+              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+            >
+              <div
+                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                // data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              // title={data.name}
+              >
+                <img src={art} alt={"Category Image Not Found"} />
+                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+
+              </div>
+              <div className="text-center cat_txt fw500 mb-4">
+                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                USA
+              </div>
+            </div>
+            <div
+              // key={index}
+              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+              // onClick={() => goToCatagory(data)}
+              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+            >
+              <div
+                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                // data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              // title={data.name}
+              >
+                <img src={art} alt={"Category Image Not Found"} />
+                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+
+              </div>
+              <div className="text-center cat_txt fw500 mb-4">
+                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                FLORIDA
+              </div>
+            </div>
           </Carousel>
         </div>
 

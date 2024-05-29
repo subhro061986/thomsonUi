@@ -269,6 +269,23 @@ input:focus {
   /* Resize the background image to cover the entire container */
 }
 
+.banner_thomson {
+  background-image: url("../Assets/Images/thomson_banner_1.png");
+  background-repeat: no-repeat;
+  height: 537px;
+  background-size: contain;
+}
+
+.text_2_banner_head {
+  font-family: 'Poppins';
+  font-size: 65px;
+  font-weight: 700;
+  line-height: 80px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #8D909C;
+}
+
 .banner_southsore_text {
   color: #010307;
   font-family: 'Poppins';
@@ -704,7 +721,7 @@ input:focus {
 }
 
 .cat_txt {
-  color: #26252C;
+  /* color: #26252C; */
   /* text-align: center; */
   font-family: Roboto;
   font-size: 16px;
@@ -2185,8 +2202,28 @@ button-solid:focus {
 }
 
 .list_pub_bg {
-  background-color: #EBF4FC;
+  /* background-color: #EBF4FC; */
+  background-color: #FFFFFF;
   height: 500px;
+}
+
+.carousel-container-publisher {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.publisher_card {
+  border-radius: 30px;
+  border: 1px solid #AEC3D1;
+  color: #26252C;
+  /* box-shadow: 10px 10px 12px 12px #CCD1DD; */
+  /* width: 100% !important; */
+}
+
+.publisher_card:hover {
+  border: 1px solid #D64000;
+  box-shadow: 6px 10px 12px #CCD1DD;
+  color: #D64000!important;
 }
 
 .how_title {
@@ -2511,7 +2548,7 @@ body.active-modal {
 
 .pub_list_div {
   border-radius: 8%;
-  height: 193px;
+  height: 180px;
   width: 162px;
 }
 

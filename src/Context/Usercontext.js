@@ -206,7 +206,7 @@ const UserProvider = ({ children }) => {
 
 
   const category_by_publisher = async (publisher_id) => {
-    let pub_id=2;
+    let pub_id=0;
     if(publisher_id===undefined || publisher_id===0 || publisher_id==='0')
     {
       if(publisherId===0 || publisherId==='0'){

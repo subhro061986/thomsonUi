@@ -166,20 +166,20 @@ const SouthsoreScreen = () => {
         <BannerSouthsore />
       </div>
       <div id="about_ebook">
-        <AboutSouthshore />
+        {/* <AboutSouthshore /> */}
       </div>
       <PublisherSouthsore />
       <div id="features">
-        <HowtoSouthsore />
+        {/* <HowtoSouthsore /> */}
       </div>
       {/* <NewArrivalBooks />
       <BestSellingBooks />
       <Testimonials/>
       <ReccomendedBooks/> */}
 
-      <GuidelineSouthsore />
+      {/* <GuidelineSouthsore /> */}
 
-      <Playstore />
+      {/* <Playstore /> */}
       <div id="about_ss">
         <AboutSouthshoreCert />
       </div>
