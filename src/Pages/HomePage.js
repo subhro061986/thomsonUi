@@ -52,11 +52,11 @@ const HomePage = () => {
       <Whatsapp/>
       <TopBanner/>
       {/* <About/> */}
-      <AboutSouthshore/>
+      {/* <AboutSouthshore/> */}
 
       <Category />
       <div id="new_arrivals">
-        {/* <NewArrivalBooks/> */}
+        <NewArrivalBooks/>
       </div>
       <div id="best_selling">
         {/* <BestSellingBooks /> */}

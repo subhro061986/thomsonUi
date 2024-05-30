@@ -255,7 +255,7 @@ input:focus {
 }
 
 .banner_southsore {
-  background-image: url("../Assets/Images/home_banner.png");
+  /* background-image: url("../Assets/Images/home_banner.png"); */
   /* The image used */
   /* background-color: #cccccc; */
   /* Used if the image is unavailable */
@@ -694,6 +694,12 @@ input:focus {
 
 .card_border_light {
   border: 1px solid #CDD2DF;
+  /* box-shadow: 0px 10px 40px 0px #C0BFEA4F; */
+}
+
+.card_border_light:hover {
+  border: 1px solid #CDD2DF;
+  box-shadow: 0px 10px 40px 0px #C0BFEA4F;
 }
 
 .price_top_border {
@@ -773,6 +779,16 @@ input:focus {
 }
 
 .author_name {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6A738D;
+  /* color: #26252C; */
+}
+
+.cat_title {
   /* font-family: Roboto; */
   font-family: Poppins;
   /* font-size: 13px; */
@@ -2216,6 +2232,7 @@ button-solid:focus {
   border-radius: 30px;
   border: 1px solid #AEC3D1;
   color: #26252C;
+  transition: 0.3s;
   /* box-shadow: 10px 10px 12px 12px #CCD1DD; */
   /* width: 100% !important; */
 }
@@ -2223,9 +2240,29 @@ button-solid:focus {
 .publisher_card:hover {
   border: 1px solid #D64000;
   box-shadow: 6px 10px 12px #CCD1DD;
-  color: #D64000!important;
+  color: #D64000 !important;
 }
 
+.custom-dot-list-style-publisher {
+  /* background-color: #B5C4D3;
+  border: none; */
+}
+
+.carousel-item-padding-40-px-publisher {
+  padding: 10px;
+}
+
+/* carousel dots */
+
+.react-multi-carousel-dot button {
+  border-width: 0px !important;
+}
+
+.react-multi-carousel-dot--active button {
+  background-color: #B5C4D3 !important;
+}
+
+/* carousel dots */
 .how_title {
   color: #26252C;
   text-align: center;
@@ -2509,13 +2546,18 @@ body.active-modal {
   letter-spacing: -1px;
 }
 
+.ban_body>span {
+  color: #E87B4C;
+  font-size: 20px;
+}
+
 .ban_foot {
   color: #6A738D;
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 34px;
+  line-height: 28px;
 }
 
 .buy_btn {
@@ -2957,8 +2999,8 @@ body.active-modal {
 .whatsapp_button {
   background-color: #1EB07C;
   border: none;
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   border-radius: 50px;
   align-items: center;
   padding: 5px;
@@ -2995,8 +3037,8 @@ body.active-modal {
   .whatsapp_button {
     background-color: #1EB07C;
     border: none;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border-radius: 50px;
     align-items: center;
     padding: 5px;
@@ -3326,6 +3368,11 @@ body.active-modal {
     width: 100%;
     flex-direction: row !important;
     /* background-color: red; */
+  }
+
+  .nav_padding_y {
+    padding-top: 6px !important;
+    padding-bottom: 0px !important;
   }
 
   .footer_margin {
@@ -3840,8 +3887,8 @@ body.active-modal {
   .whatsapp_button {
     background-color: #1EB07C;
     border: none;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border-radius: 50px;
     align-items: center;
     padding: 5px;
@@ -3861,6 +3908,16 @@ body.active-modal {
 
   .mar_left {
     margin-left: 10%;
+  }
+
+  .sign_in_btn {
+    border: 1px solid #058EFA!important;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: #058EFA!important;
+    padding-left: 4%;
+    padding-right: 4%;
+    background: #FFF;
   }
 
   .admin_logo_pos {

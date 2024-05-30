@@ -15,16 +15,16 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 const TopBarSouthsore = () => {
   const navigate = useNavigate();
   const { wishlistshow, authData, logOut } = useAuth()
-  const { allActivePublisher,allActivePublisher1 } = UserProfile()
+  const { allActivePublisher, allActivePublisher1 } = UserProfile()
 
   const [toggleSearch, setToggleSearch] = useState(false)
   const [hideSignInBtn, setHideSignInBtn] = useState(true);
 
   useEffect(() => {
-    if(authData === null || authData === undefined || authData === "") {
+    if (authData === null || authData === undefined || authData === "") {
       setHideSignInBtn(false);
     }
-    else{
+    else {
       setHideSignInBtn(true);
     }
   }, [authData])
@@ -65,7 +65,7 @@ const TopBarSouthsore = () => {
     <>
       <div className="top-bar pos_rel">
         <div className="admin_logo_pos">
-          <SVG src={admin_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{cursor:'pointer'}}/>
+          <SVG src={admin_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{ cursor: 'pointer' }} />
         </div>
         <div className="top-bar-right">
           {/* <form>
@@ -104,13 +104,13 @@ const TopBarSouthsore = () => {
             <img src={search_icon} />
           </div>
 
-          <Button className="rounded-pill" variant="outline-primary" onClick={gotoLogin} hidden={hideSignInBtn}> Signin</Button>
-          <Button  style={{ padding: '0', cursor:'pointer', background:'transparent',border:'none' }} hidden={!hideSignInBtn}><img src={profileImg} onClick={goToProfile} width={40} height={40} /></Button>
-          <Button className="rounded-pill" variant="outline-primary" onClick={gotoLogout} hidden={!hideSignInBtn}> Signout </Button>
+          <Button className="rounded-pill sign_in_btn" variant="outline-primary" onClick={gotoLogin} hidden={hideSignInBtn}> Signin</Button>
+          <Button style={{ padding: '0', cursor: 'pointer', background: 'transparent', border: 'none' }} hidden={!hideSignInBtn}><img src={profileImg} onClick={goToProfile} width={40} height={40} /></Button>
+          <Button className="rounded-pill sign_in_btn" variant="outline-primary" onClick={gotoLogout} hidden={!hideSignInBtn}> Signout </Button>
         </div>
 
         {toggleSearch === true &&
-          <div style={{ width: '100%', position:'absolute', top:'113%' }} className="mob_s_dis">
+          <div style={{ width: '100%', position: 'absolute', top: '113%' }} className="mob_s_dis">
             <ReactSearchAutocomplete
               items={allActivePublisher}
               // onSearch={handleOnSearch}

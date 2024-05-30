@@ -2,7 +2,7 @@ import React, { useEffect, useState, } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 // import Banner from "../Assets/Images/Banner.png";
-import Banner from "../Assets/Images/banner_book.png";
+import Banner from "../Assets/Images/pub_banner_1.png";
 import HomeBanner from "../Assets/Images/HomeBanner.png";
 import JPBanner from "../Assets/Images/JurisPressBanner.png";
 import MPBanner from "../Assets/Images/ManoharPublishersBanner.png";
@@ -54,23 +54,51 @@ const TopBanner = () => {
     // }
 
     return (
-        <div className="banner_southsore">
+        // <div className="banner_southsore">
+        //     <div className="row">
+        //         <div className="col-md-6 banner_southsore_img" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '4%', marginBottom: '5%', backgroundColor:'#FFCCB9' }}>
+        //             <img src={Banner} height={350} width={260} />
+        //         </div>
+        //         <div className="col-md-6 banner_southsore_text" style={{ marginTop: '3%' }}>
+        //             <p
+        //                 className="welcome_text"
+        //             >Online</p>
+        //             <p className="welcome_text">Bookshelf</p>
+        //             <p className="welcome_text" style={{ color: '#8d8e94' }}>for you</p>
+        //             <p
+        //                 className="heading"
+        //             >Trusted expertise, powerful technology</p>
+        //             <div>
+        //                 <button className="btn btn-outline-info rounded-pill explore_btn">Explore Now</button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
+
+        <div className="top-banner">
+            {/* <img src={Banner}/> */}
             <div className="row">
-                <div className="col-md-6 banner_southsore_img" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '4%', marginBottom: '5%' }}>
-                    <img src={Banner} height={350} width={260} />
-                </div>
-                <div className="col-md-6 banner_southsore_text" style={{ marginTop: '3%' }}>
-                    <p
-                        className="welcome_text"
-                    >Online</p>
-                    <p className="welcome_text">Bookshelf</p>
-                    <p className="welcome_text" style={{ color: '#8d8e94' }}>for you</p>
-                    <p
-                        className="heading"
-                    >Trusted expertise, powerful technology</p>
+                <div className="col-md-6" style={{ backgroundColor: '#FFCCB9' }}>
+                    {/* ban_back_img */}
                     <div>
-                        <button className="btn btn-outline-info rounded-pill explore_btn">Explore Now</button>
+                        <img
+                            // src={publisherDetails.banner === null || publisherDetails.banner === '' ? HomeBanner : Config.API_URL + Config.PUB_IMAGES + publisherDetails.id + "/" + publisherDetails.banner + '?d=' + new Date()} 
+                            src={Banner}
+                            className="ban_back_img"
+                            loading="lazy"
+                        />
+                        {/* {bannerImage} */}
                     </div>
+                </div>
+                <div className="col-md-6 banner_txt">
+                    <div className="ban_head mb-2">Welcome to</div>
+                    <div className="ban_body">Thomson</div>
+                    <div className="ban_body mb-2">Reuters <span>UK</span></div>
+                    <div className="ban_foot mb-4">Trusted expertise, powerful technology
+                        , advanced AI, and industry-leading insights help professionals know today and navigate tomorrow</div>
+                    {/* <div className="d-flex mt-5">
+                        <button className="buy_btn">Buy Now</button>
+                    </div> */}
                 </div>
             </div>
         </div>

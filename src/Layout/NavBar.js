@@ -117,9 +117,9 @@ const NavBar = () => {
                                     Home
                                 </button>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/home/#new_arrivals' > About Thomson Reuters </HashLink>
-                            </li>
+                            </li> */}
                             <li className="nav-item dropdown mb-3">
                                 {/* <select className="cat_dropdown mt-3 me-3"
                                 name="cars" id="cars" onChange={(e)=> {cat_dropdown_nav(e)}}>
@@ -178,12 +178,14 @@ const NavBar = () => {
 
 
 
-
+                            <li className="nav-item">
+                                <HashLink smooth className="nav-link" to='/home/#new_arrivals' > About Thomson Reuters </HashLink>
+                            </li>
 
                             
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/home/#best_selling' > About Southshore </HashLink>
-                            </li>
+                            </li> */}
                         </ul>
                     </nav >
                 )
@@ -198,12 +200,10 @@ const NavBar = () => {
                                 </button>
                             </li>
 
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/home/#new_arrivals' > About Thomson Reuters </HashLink>
-                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                New Arrival
-                            </Link> */}
-                            </li>
+                                
+                            </li> */}
 
                             <li className="nav-item dropdown">
                                 {/* <Link to="/" className="nav-link dropdown-toggle" aria-current="page" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</Link>
@@ -237,11 +237,9 @@ const NavBar = () => {
 
                             
                             <li className="nav-item">
-                                <HashLink smooth className="nav-link" to='/home/#best_selling' > About Southshore </HashLink>
-                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Best Sellers
-                            </Link> */}
-                            </li>
+                                <HashLink smooth className="nav-link" to='/home/#new_arrivals' > New Arrivals </HashLink>
+                                
+                            </li> 
                         </ul>
                         <ul className="navbar-nav right-nav mb-2 mb-lg-0 wishlist_cart_icons">
                             <li className="pos_rel me-2">

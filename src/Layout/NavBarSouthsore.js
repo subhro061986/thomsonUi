@@ -94,12 +94,12 @@ const NavBarSouthsore = () => {
                         <li className="nav-item">
                             <HashLink smooth className="nav-link" to='/#head_banner' > Home </HashLink>
                         </li>
-                        <li className="nav-item" onClick={gotoAbout}>
+                        {/* <li className="nav-item" onClick={gotoAbout}>
                             <HashLink smooth className="nav-link" to='/#about_ebook' > About E-booksjunction </HashLink>
-                        </li>
-                        <li className="nav-item" onClick={gotoFet}>
+                        </li> */}
+                        {/* <li className="nav-item" onClick={gotoFet}>
                             <HashLink smooth className="nav-link" to='/#features' > Features </HashLink>
-                        </li>
+                        </li> */}
 
                         <li className="nav-item dropdown" style={{ height: '52px' }}>
                             {/* <select className="cat_dropdown mt-3 me-3"
@@ -135,15 +135,15 @@ const NavBarSouthsore = () => {
                             <HashLink smooth className="nav-link" to='/#about_ss' > About Us </HashLink>
                         </li>
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <HashLink smooth className="nav-link" to='/#contact' > Contact Us </HashLink>
-                        </li>
+                        </li> */}
                     </ul>
                 )
             }
             {
                 drawerStat == false && (
-                    <nav className="navbar navbar-expand-lg top-nav">
+                    <nav className="navbar navbar-expand-lg top-nav nav_padding_y">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 bar_menu">
                             <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/#head_banner' > Home </HashLink>
@@ -151,18 +151,14 @@ const NavBarSouthsore = () => {
                                     Home
                                 </Link> */}
                             </li>
-                            <li className="nav-item" onClick={gotoAbout}>
+                            {/* <li className="nav-item" onClick={gotoAbout}>
                                 <HashLink smooth className="nav-link" to='/#about_ebook' > About E-booksjunction </HashLink>
-                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    About E-Book
-                                </Link> */}
-                            </li>
-                            <li className="nav-item" onClick={gotoFet}>
+                                
+                            </li> */}
+                            {/* <li className="nav-item" onClick={gotoFet}>
                                 <HashLink smooth className="nav-link" to='/#features' > Features </HashLink>
-                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Features
-                                </Link> */}
-                            </li>
+                                
+                            </li> */}
 
                             <li className="nav-item dropdown">
                                 <select className="cat_dropdown mt-3 me-3"
@@ -185,14 +181,12 @@ const NavBarSouthsore = () => {
                                 </Link> */}
                             </li>
 
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/#contact' > Contact Us </HashLink>
-                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Contact Us
-                                </Link> */}
-                            </li>
+                                
+                            </li> */}
                         </ul>
-                        <ul className="navbar-nav right-nav mb-2 mb-lg-0 social-icons-menu">
+                        {/* <ul className="navbar-nav right-nav mb-2 mb-lg-0 social-icons-menu">
                             <div className="left">
                                 <li>
                                     <button className="btn">
@@ -211,7 +205,7 @@ const NavBarSouthsore = () => {
                             <div className="right">
                                 <li className="d-flex justify-content-end align-items-center"><img src={startupindia} alt="Start up India logo" /></li>
                             </div>
-                        </ul>
+                        </ul> */}
                     </nav >
                 )
             }

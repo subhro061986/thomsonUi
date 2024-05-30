@@ -82,13 +82,16 @@ const PublisherSouthsore = () => {
       <div className="container">
         <div className="d-flex justify-content-center align-items-center section_head fw700">List of Publishers</div>
 
-        <div className="row mt-5 mx-0">
+        <div className="row mx-0">
           <Carousel
             responsive={responsive}
             //autoPlay={true}
             //autoPlaySpeed={2000}
+            showDots={true}
+            dotListClass="custom-dot-list-style-publisher"
             infinite={true}
             containerClass="carousel-container-publisher"
+            itemClass="carousel-item-padding-40-px-publisher"
           >
             {/* {allActivePublisher.map((data, index) => ( */}
 
