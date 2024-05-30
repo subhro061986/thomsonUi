@@ -53,16 +53,16 @@ const FooterSouthsore = () => {
                             <li className="custom-footer-li">
                                 Books central office locations
                                 Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
-                                <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p>
+                                {/* <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p> */}
                             </li>
                             <li className="custom-footer-li">
-                                <div className="south_val"><span className="south_key">CIN No:</span> U22219TN2022PTC151260</div>
-                                <div className="south_val"><span className="south_key">GSTIN:</span> 33ABICS2457D1ZI</div>
+                                <div className="south_val"><span className="south_key">Call Us:</span> 91-44-79624624</div>
+                                <div className="south_val"><span className="south_key">Email:</span> info@bookscentral.in</div>
                             </li>
                         </ul>
                     </div>
-                    <div className="col-md-2 s_f_mar_bot">
-                        <div className="d-flex flex-row">
+                    <div className="col-md-3 s_f_mar_bot">
+                        <div className="d-flex flex-row" style={{ justifyContent: 'flex-end' }}>
                             <div className="">
                                 <ul className="remove-dots" >
                                     <div className="custom-footer-Header">Publishers</div>
@@ -85,8 +85,8 @@ const FooterSouthsore = () => {
                     </div>
 
 
-                    <div className="col-md-2 s_f_mar_bot">
-                        <div className="d-flex flex-row">
+                    <div className="col-md-3 s_f_mar_bot">
+                        <div className="d-flex flex-row" style={{ justifyContent: 'flex-end' }}>
                             <div className="">
                                 <ul className="remove-dots">
                                     <div className="custom-footer-Header">Policies</div>
@@ -150,7 +150,7 @@ const FooterSouthsore = () => {
 
                     <div className="col-md-3 s_f_mar_bot">
                         <ul className="remove-dots">
-                            <div className="custom-footer-Header"> Subscribe to Newsleter</div>
+                            {/* <div className="custom-footer-Header"> Subscribe to Newsleter</div> */}
                             {/* <Button className="mt-2 rounded-pill px-4" variant="outline-primary">Contact us</Button>
                             <div className="mt-4">
                                 <h6>Social Media</h6>
@@ -168,9 +168,25 @@ const FooterSouthsore = () => {
                                 </div>
 
                             </div> */}
-                            <div className="pos_rel">
+                            {/* <div className="pos_rel">
                                 <input type="text" className="newsletter_email" placeholder="Enter Email" />
                                 <img src={arrow_right} className="arrow_pos" />
+                            </div> */}
+                            <div className="d-flex flex-row justify-content-end">
+                                <div className="">
+                                    <ul className="remove-dots">
+                                        <div className="custom-footer-Header">Support</div>
+                                        <li className="custom-footer-li">
+                                            <Link className="nav-link" to="/faqs">
+                                                Customer FAQ
+                                            </Link>
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+
                             </div>
 
 

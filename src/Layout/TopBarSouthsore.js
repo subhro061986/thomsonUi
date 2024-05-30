@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from "react";
 import SVG from "react-inlinesvg";
-import admin_logo from "../Assets/Images/thomson_logo.svg";
+import admin_logo from "../Assets/Images/book_central_logo.svg";
 
 import profileImg from "../Assets/Images/usser_login.png";
 
