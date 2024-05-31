@@ -66,12 +66,12 @@ const TestMenu = () => {
                 // Super admin menu
                 <Sidebar>
                     <Menu>
-                        <MenuItem className="nest_sidebar">
+                        {/* <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/dashboard">
                                 <SVG src={dashboardIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Dashboard
                             </Link>
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/managecategories">
                                 <SVG src={categoryIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
@@ -144,12 +144,12 @@ const TestMenu = () => {
                 // Publisher menu
                 <Sidebar>
                     <Menu>
-                        <MenuItem className="nest_sidebar">
+                        {/* <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/dashboardpub">
                                 <SVG src={dashboardIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Dashboard
                             </Link>
-                        </MenuItem>
+                        </MenuItem> */}
 
                         <SubMenu label="Manage Books" className="nest_sidebar"
                             icon={<SVG src={bookIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>

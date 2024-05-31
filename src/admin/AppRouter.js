@@ -89,7 +89,7 @@ const Navigation=()=> {
          < Routes>
              <Route exact path="/" Component={LoginScreen}/>
              {/* <Route exact path="/dashboard" Component={DashboardScreen}/> */}
-             <Route exact path="/dashboard" Component={DashboardScreenNew}/>
+             {/* <Route exact path="/dashboard" Component={DashboardScreenNew}/> */}
              <Route exact path="/gallery" Component={GalleryScreen}/>
              <Route exact path='/manageorder' Component={ManageOrderScreen}/>
              <Route exact path='/manageusers' Component={ManageUserScreen}/>
@@ -107,7 +107,7 @@ const Navigation=()=> {
              <Route exact path='/rejectedbookdetails' Component={RejectedBookDetails}/>
              <Route exact path='/changepassword' Component={ChangePassword}/>
 
-             <Route exact path='/dashboardpub' Component={DashboardPub}/>
+             {/* <Route exact path='/dashboardpub' Component={DashboardPub}/> */}
              <Route exact path='/pubdashboard' Component={PublisherDashboard}/>
 
              <Route exact path='/manageorderpub' Component={ManageOrderPub}/>

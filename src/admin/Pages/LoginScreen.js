@@ -128,10 +128,10 @@ const LoginScreen = () => {
                 console.log("Auth details received : ", authDeatils);
                 const result = jwtDecode(resp.token)
                 if (result.role === "South Shore Admin") {
-                    navigate('/admin/dashboard');
+                    navigate('/admin/managecategories');
                 }
                 else if (result.role === "Publisher Admin" || result.role === "Publisher User") {
-                    navigate('/admin/dashboardpub');
+                    navigate('/admin/booklistpub');
                 }
                 else {
                     navigate('/');
