@@ -108,21 +108,21 @@ const Navigation=()=> {
              <Route exact path='/changepassword' Component={ChangePassword}/>
 
              {/* <Route exact path='/dashboardpub' Component={DashboardPub}/> */}
-             <Route exact path='/pubdashboard' Component={PublisherDashboard}/>
+             {/* <Route exact path='/pubdashboard' Component={PublisherDashboard}/> */}
 
-             <Route exact path='/manageorderpub' Component={ManageOrderPub}/>
-             <Route exact path='/booklistpub' Component={BookListPub}/>
-             <Route exact path='/uploadbookspub' Component={UploadBooksPub}/>
-             <Route exact path='/changepasswordpub' Component={ChangePasswordPub}/>
-             <Route exact path='/managecontentpub' Component={ManageContentPub}/>
-             <Route exact path='/myprofilepub' Component={MyProfilePub}/>
-             <Route exact path='/manageuserspub' Component={ManageUsersPub}/>
+             {/* <Route exact path='/manageorderpub' Component={ManageOrderPub}/> */}
+             {/* <Route exact path='/booklistpub' Component={BookListPub}/> */}
+             {/* <Route exact path='/uploadbookspub' Component={UploadBooksPub}/> */}
+             {/* <Route exact path='/changepasswordpub' Component={ChangePasswordPub}/> */}
+             {/* <Route exact path='/managecontentpub' Component={ManageContentPub}/> */}
+             {/* <Route exact path='/myprofilepub' Component={MyProfilePub}/> */}
+             {/* <Route exact path='/manageuserspub' Component={ManageUsersPub}/> */}
              <Route exact path='/vieworderdetails' Component={ViewOrderDetails}/>
-             <Route exact path='/faqspub' Component={FAQPub}/>
-             <Route exact path='/managecouponspub' Component={ManageCouponsScreenPub}/>
-             <Route exact path='/invoicepub' Component={Invoice}/>
-             <Route exact path='/rejectedbooklistpub' Component={RejectedBookListPub}/>
-             <Route exact path='/bookdetailspub' Component={BookDetailsPub}/>
+             {/* <Route exact path='/faqspub' Component={FAQPub}/> */}
+             {/* <Route exact path='/managecouponspub' Component={ManageCouponsScreenPub}/> */}
+             {/* <Route exact path='/invoicepub' Component={Invoice}/> */}
+             {/* <Route exact path='/rejectedbooklistpub' Component={RejectedBookListPub}/> */}
+             {/* <Route exact path='/bookdetailspub' Component={BookDetailsPub}/> */}
 
              {/* <Route path="*" Component={NotFoundScreen} /> */}
          </Routes>

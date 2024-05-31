@@ -63,7 +63,7 @@ const HomePage = () => {
       </div>
       {/* <ReccomendedBooks/> */}
       {/* <Testimonials/> */}
-        <AboutSouthshoreCert/>
+        {/* <AboutSouthshoreCert/> */}
       {/* <Guideline/> */}
       {/* <Playstore/> */}
       {/* <Footer/> */}

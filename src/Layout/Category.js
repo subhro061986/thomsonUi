@@ -136,7 +136,7 @@ const Category = () => {
     // </div>
     // </div>
 
-    <div className="p-5">
+    <div className="p-5" style={{backgroundColor:'#F5F6FF'}}>
       <div className="section_head mb-2 fw500"><span className="fw600">
         Category
       </span></div>
@@ -146,8 +146,11 @@ const Category = () => {
           responsive={responsive}
           //autoPlay={true}
           //autoPlaySpeed={2000}
+          showDots={true}
+          dotListClass="custom-dot-list-style-publisher"
           infinite={true}
           containerClass="carousel-container-publisher"
+          itemClass="carousel-item-padding-40-px-publisher"
         >
 
           {/* {
@@ -156,7 +159,7 @@ const Category = () => {
 
           <div
             // key={index}
-            className="col-md border card_border_light rounded-4 book_card h380 m-3"
+            className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
           // onClick={() => goToCatagory(data.id)}
           >
@@ -188,7 +191,7 @@ const Category = () => {
 
           <div
             // key={index}
-            className="col-md border card_border_light rounded-4 book_card h380 m-3"
+            className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
           // onClick={() => goToCatagory(data.id)}
           >
@@ -220,7 +223,7 @@ const Category = () => {
 
           <div
             // key={index}
-            className="col-md border card_border_light rounded-4 book_card h380 m-3"
+            className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
           // onClick={() => goToCatagory(data.id)}
           >
@@ -252,7 +255,7 @@ const Category = () => {
 
           <div
             // key={index}
-            className="col-md border card_border_light rounded-4 book_card h380 m-3"
+            className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
           // onClick={() => goToCatagory(data.id)}
           >

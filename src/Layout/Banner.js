@@ -92,8 +92,8 @@ const TopBanner = () => {
                 </div>
                 <div className="col-md-6 banner_txt">
                     <div className="ban_head mb-2">Welcome to</div>
-                    <div className="ban_body">Thomson</div>
-                    <div className="ban_body mb-2">Reuters <span>UK</span></div>
+                    <div className="ban_body" style={{fontWeight:'700', lineHeight:'50px'}}>Thomson</div>
+                    <div className="ban_body mb-2" style={{fontWeight:'700', lineHeight:'50px'}}>Reuters <span>UK</span></div>
                     <div className="ban_foot mb-4">Trusted expertise, powerful technology
                         , advanced AI, and industry-leading insights help professionals know today and navigate tomorrow</div>
                     {/* <div className="d-flex mt-5">

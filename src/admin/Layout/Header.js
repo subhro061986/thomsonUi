@@ -27,7 +27,7 @@ const Header=(props)=> {
   const doLogOut = async() => {
     const resp = await logOut();
     if(resp === 'success'){
-      navigate("/");
+      navigate("/admin");
     }
     
   }

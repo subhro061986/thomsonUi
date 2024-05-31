@@ -39,12 +39,12 @@ const BookApproval = () => {
   // const [bookApprovalModal, setBookApprovalModal] = useState(false);  
   const openModal = (id) => {
     // setBookApprovalModal(true);
-    navigate("/approveorreject", { state: { bookid: id } });
+    navigate("/admin/approveorreject", { state: { bookid: id } });
   }
 
   const editBook = (id, status) => {
     // setBookApprovalModal(true);
-    navigate("/uploadbooks", { state: { BookId: id, bookstatus: status } });
+    navigate("/admin/uploadbooks", { state: { BookId: id, bookstatus: status } });
   }
 
   const delete_book = async (bookid) => {

@@ -130,14 +130,18 @@ const NewArrivalBooks = () => {
                 {/* Modern <span className="pub_span">Publishing House</span> */}
                 {/* {publisherData?.name} */}
             </div>
-            <div className="section_head mb-5 fw500"><span className="fw600">New Arrivals</span></div>
+            <div className="section_head fw500" style={{lineHeight:'20px'}}><span className="fw600">New Arrivals</span></div>
             <div className="row mx-3 mb-5">
 
                 <Carousel
                     responsive={responsive}
                     //autoPlay={true}
                     //autoPlaySpeed={2000}
+                    showDots={true}
+                    dotListClass="custom-dot-list-style-publisher"
                     infinite={true}
+                    containerClass="carousel-container-publisher"
+                    itemClass="carousel-item-padding-40-px-publisher"
                 >
 
                     {/* {
@@ -146,12 +150,12 @@ const NewArrivalBooks = () => {
 
                     <div
                         // key={index}
-                        className="col-md border card_border_light rounded-4 book_card h380 m-3"
+                        className="col-md border card_border_light new_book_card h380 m-3"
                         style={{ cursor: 'pointer' }}
                     // onClick={() => { gotoDetails(data.id) }}
                     >
-                        <div className="d-flex flex-column">
-                            <div className="d-flex justify-content-end mt-2 me-2"
+                        <div className="d-flex flex-column my-3">
+                            <div className="d-flex justify-content-end mt-1 me-3"
                             // onClick={(e) => Wishlist(e, data.id)}
                             >
                                 {/* {
@@ -171,7 +175,7 @@ const NewArrivalBooks = () => {
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="d-flex justify-content-center book_name mx-2 mt-3">
+                            <div className="d-flex justify-content-center book_name mx-2 mt-2">
                                 {/* {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title} */}
                                 Insurance Coverage of Construction Disputes
                             </div>
@@ -181,7 +185,7 @@ const NewArrivalBooks = () => {
                                 Name
                                 {/* {data.authors} */}
                             </div>
-                            <div className="d-flex justify-content-center price_style mt-3">
+                            <div className="d-flex justify-content-center new_price_style mt-1">
                                 {/* &#8377; */}
                                 {/* {data.price} */}
                                 $2,746.00
@@ -194,12 +198,12 @@ const NewArrivalBooks = () => {
 
                     <div
                         // key={index}
-                        className="col-md border card_border_light rounded-4 book_card h380 m-3"
+                        className="col-md border card_border_light new_book_card h380 m-3"
                         style={{ cursor: 'pointer' }}
                     // onClick={() => { gotoDetails(data.id) }}
                     >
-                        <div className="d-flex flex-column">
-                            <div className="d-flex justify-content-end mt-2 me-2"
+                        <div className="d-flex flex-column  my-3">
+                            <div className="d-flex justify-content-end mt-1 me-3"
                             // onClick={(e) => Wishlist(e, data.id)}
                             >
                                 {/* {
@@ -219,7 +223,7 @@ const NewArrivalBooks = () => {
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="d-flex justify-content-center book_name mx-2 mt-3">
+                            <div className="d-flex justify-content-center book_name mx-2 mt-2">
                                 {/* {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title} */}
                                 Insurance Coverage of Construction Disputes
                             </div>
@@ -229,7 +233,7 @@ const NewArrivalBooks = () => {
                                 Name
                                 {/* {data.authors} */}
                             </div>
-                            <div className="d-flex justify-content-center price_style mt-3">
+                            <div className="d-flex justify-content-center new_price_style mt-1">
                                 {/* &#8377; */}
                                 {/* {data.price} */}
                                 $2,746.00
@@ -240,12 +244,12 @@ const NewArrivalBooks = () => {
 
                     <div
                         // key={index}
-                        className="col-md border card_border_light rounded-4 book_card h380 m-3"
+                        className="col-md border card_border_light new_book_card h380 m-3"
                         style={{ cursor: 'pointer' }}
                     // onClick={() => { gotoDetails(data.id) }}
                     >
-                        <div className="d-flex flex-column">
-                            <div className="d-flex justify-content-end mt-2 me-2"
+                        <div className="d-flex flex-column my-3">
+                            <div className="d-flex justify-content-end mt-1 me-3"
                             // onClick={(e) => Wishlist(e, data.id)}
                             >
                                 {/* {
@@ -265,7 +269,7 @@ const NewArrivalBooks = () => {
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="d-flex justify-content-center book_name mx-2 mt-3">
+                            <div className="d-flex justify-content-center book_name mx-2 mt-2">
                                 {/* {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title} */}
                                 Insurance Coverage of Construction Disputes
                             </div>
@@ -275,7 +279,7 @@ const NewArrivalBooks = () => {
                                 Name
                                 {/* {data.authors} */}
                             </div>
-                            <div className="d-flex justify-content-center price_style mt-3">
+                            <div className="d-flex justify-content-center new_price_style mt-1">
                                 {/* &#8377; */}
                                 {/* {data.price} */}
                                 $2,746.00
@@ -286,12 +290,12 @@ const NewArrivalBooks = () => {
 
                     <div
                         // key={index}
-                        className="col-md border card_border_light rounded-4 book_card h380 m-3"
+                        className="col-md border card_border_light new_book_card h380 m-3"
                         style={{ cursor: 'pointer' }}
                     // onClick={() => { gotoDetails(data.id) }}
                     >
-                        <div className="d-flex flex-column">
-                            <div className="d-flex justify-content-end mt-2 me-2"
+                        <div className="d-flex flex-column my-3">
+                            <div className="d-flex justify-content-end mt-1 me-3"
                             // onClick={(e) => Wishlist(e, data.id)}
                             >
                                 {/* {
@@ -311,7 +315,7 @@ const NewArrivalBooks = () => {
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="d-flex justify-content-center book_name mx-2 mt-3">
+                            <div className="d-flex justify-content-center book_name mx-2 mt-2">
                                 {/* {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title} */}
                                 Insurance Coverage of Construction Disputes
                             </div>
@@ -321,7 +325,7 @@ const NewArrivalBooks = () => {
                                 Name
                                 {/* {data.authors} */}
                             </div>
-                            <div className="d-flex justify-content-center price_style mt-3">
+                            <div className="d-flex justify-content-center new_price_style mt-1">
                                 {/* &#8377; */}
                                 {/* {data.price} */}
                                 $2,746.00
@@ -332,12 +336,12 @@ const NewArrivalBooks = () => {
 
                     <div
                         // key={index}
-                        className="col-md border card_border_light rounded-4 book_card h380 m-3"
+                        className="col-md border card_border_light new_book_card h380 m-3"
                         style={{ cursor: 'pointer' }}
                     // onClick={() => { gotoDetails(data.id) }}
                     >
-                        <div className="d-flex flex-column">
-                            <div className="d-flex justify-content-end mt-2 me-2"
+                        <div className="d-flex flex-column my-3">
+                            <div className="d-flex justify-content-end mt-1 me-3"
                             // onClick={(e) => Wishlist(e, data.id)}
                             >
                                 {/* {
@@ -357,7 +361,7 @@ const NewArrivalBooks = () => {
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="d-flex justify-content-center book_name mx-2 mt-3">
+                            <div className="d-flex justify-content-center book_name mx-2 mt-2">
                                 {/* {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title} */}
                                 Insurance Coverage of Construction Disputes
                             </div>
@@ -367,7 +371,7 @@ const NewArrivalBooks = () => {
                                 Name
                                 {/* {data.authors} */}
                             </div>
-                            <div className="d-flex justify-content-center price_style mt-3">
+                            <div className="d-flex justify-content-center new_price_style mt-1">
                                 {/* &#8377; */}
                                 {/* {data.price} */}
                                 $2,746.00

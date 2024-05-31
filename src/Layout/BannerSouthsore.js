@@ -5,7 +5,7 @@ const BannerSouthsore = ()=>{
         <div className="banner_thomson" style={{boxShadow: '0px 10px 5px rgba(169, 170, 182, 0.25), 0px -1px 5px rgba(169, 170, 182, 0.25)',
             marginTop: '10px'}}>
             <div className="row">
-                <div className="col-md-6 banner_southsore_img" style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:'5%'}}>
+                <div className="col-md-6 banner_southsore_img" style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
                     {/* <img src={Banner}/> */}
                 </div>
                 <div className="col-md-6 banner_southsore_text" style={{marginTop: '5%', marginLeft:'58%'}}>

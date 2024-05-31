@@ -127,15 +127,15 @@ const LoginScreen = () => {
                 console.log("Login data received : ", resp);
                 console.log("Auth details received : ", authDeatils);
                 const result = jwtDecode(resp.token)
-                if (result.role === "South Shore Admin") {
+                // if (result.role === "South Shore Admin") {
                     navigate('/admin/managecategories');
-                }
-                else if (result.role === "Publisher Admin" || result.role === "Publisher User") {
-                    navigate('/admin/booklistpub');
-                }
-                else {
-                    navigate('/');
-                }
+                // }
+                // else if (result.role === "Publisher Admin" || result.role === "Publisher User") {
+                //     navigate('/admin/booklistpub');
+                // }
+                // else {
+                //     navigate('/admin');
+                // }
             }
 
         }

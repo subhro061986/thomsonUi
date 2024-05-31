@@ -694,6 +694,7 @@ input:focus {
 
 .card_border_light {
   border: 1px solid #CDD2DF;
+  border-radius: 40px;
   /* box-shadow: 0px 10px 40px 0px #C0BFEA4F; */
 }
 
@@ -758,7 +759,14 @@ input:focus {
   /* width: 90%; */
   width: 80%;
   cursor: pointer;
+  background-color: #FFFFFF;
   /* height: 408px; */
+}
+
+.new_book_card {
+  width: 90%;
+  cursor: pointer;
+  background-color: #FFFFFF;
 }
 
 .book_name {
@@ -816,6 +824,12 @@ input:focus {
   font-size: 1.5rem;
 }
 
+.new_price_style {
+  color: #000000;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
 .price-cutText {
   color: #7B8890;
   font-family: 'Poppins';
@@ -871,7 +885,7 @@ input:focus {
 }
 
 .h380 {
-  height: 95%;
+  height: 90%;
 }
 
 
@@ -3226,6 +3240,7 @@ body.active-modal {
   .book_card {
     width: 90%;
     cursor: pointer;
+    background-color: #FFFFFF;
     /* height: 408px; */
   }
 
@@ -4105,6 +4120,7 @@ body.active-modal {
   .book_card {
     width: 90%;
     cursor: pointer;
+    background-color: #FFFFFF;
     /* height: 408px; */
   }
 

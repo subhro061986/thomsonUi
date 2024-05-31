@@ -62,8 +62,8 @@ const TestMenu = () => {
                 {authDeatils.role === 'South Shore Admin' ? <SVG src={logoIcon} style={{ fill: '#fff', margin: 10 }} /> : (<img src={image === null ? noImg : imageurl} style={{width:'50%'}} alt="publisher logo" />)}
             </div>
             {/* Check the username / user type */}
-            {authDeatils.role === 'South Shore Admin' ? (
-                // Super admin menu
+            {/* {authDeatils.role === 'South Shore Admin' ? ( */}
+                {/* Super admin menu */}
                 <Sidebar>
                     <Menu>
                         {/* <MenuItem className="nest_sidebar">
@@ -73,13 +73,13 @@ const TestMenu = () => {
                             </Link>
                         </MenuItem> */}
                         <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/managecategories">
+                            <Link className="nav-link" to="/admin/managecategories">
                                 <SVG src={categoryIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Categories
                             </Link>
                         </MenuItem>
                         <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/managepublishers">
+                            <Link className="nav-link" to="/admin/managepublishers">
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Publishers
                             </Link>
@@ -87,28 +87,28 @@ const TestMenu = () => {
                         <SubMenu label="Manage Books" className="nest_sidebar"
                             icon={<SVG src={bookIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/bookapprovals">
+                                <Link className="nav-link" to="/admin/bookapprovals">
                                     Book Approval
                                 </Link>
                             </MenuItem>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/booklist">
+                                <Link className="nav-link" to="/admin/booklist">
                                     Book List
                                 </Link>
                             </MenuItem>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/rejectedbooklist">
+                                <Link className="nav-link" to="/admin/rejectedbooklist">
                                     Rejected Book List
                                 </Link>
                             </MenuItem>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/uploadbooks">
+                                <Link className="nav-link" to="/admin/uploadbooks">
                                     Upload Books
                                 </Link>
                             </MenuItem>
                         </SubMenu>
                         <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/manageusers">
+                            <Link className="nav-link" to="/admin/manageusers">
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Customer
                             </Link>
@@ -122,111 +122,28 @@ const TestMenu = () => {
                         <SubMenu label="Sales Register" className="nest_sidebar"
                             icon={<SVG src={contentIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/customersales">
+                                <Link className="nav-link" to="/admin/customersales">
                                     Customer Invoices
                                 </Link>
                             </MenuItem>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/publishersales">
+                                <Link className="nav-link" to="/admin/publishersales">
                                     Publisher Invoices
                                 </Link>
                             </MenuItem>
                         </SubMenu>
                         <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/changepassword">
+                            <Link className="nav-link" to="/admin/changepassword">
                                 <SVG src={settingsIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Change Password
                             </Link>
                         </MenuItem>
                     </Menu>
                 </Sidebar>
-            ) : (
-                // Publisher menu
-                <Sidebar>
-                    <Menu>
-                        {/* <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/dashboardpub">
-                                <SVG src={dashboardIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Dashboard
-                            </Link>
-                        </MenuItem> */}
-
-                        <SubMenu label="Manage Books" className="nest_sidebar"
-                            icon={<SVG src={bookIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
-
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/booklistpub">
-                                    Book List
-                                </Link>
-                            </MenuItem>
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/rejectedbooklistpub">
-                                    Rejected Book List
-                                </Link>
-                            </MenuItem>
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/uploadbookspub">
-                                    Upload Books
-                                </Link>
-                            </MenuItem>
-                        </SubMenu>
-
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/managecontentpub">
-                                <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Publisher Profile
-                            </Link>
-                        </MenuItem>
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/myprofilepub">
-                                <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                My Profile
-                            </Link>
-                        </MenuItem>
-                        {
-                            authDeatils.role === 'Publisher Admin' &&
-
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/manageuserspub">
-                                    <SVG src={usersIcon} style={{ marginRight: 10 }} />
-                                    Manage Users
-                                </Link>
-                            </MenuItem>
-                        }
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/manageorderpub">
-                                <SVG src={orderIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Manage Orders
-                            </Link>
-                        </MenuItem>
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/changepasswordpub">
-                                <SVG src={settingsIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Change Password
-                            </Link>
-                        </MenuItem>
-                        {/* <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/faqspub">
-                                <SVG src={contentIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                FAQs
-                            </Link>
-                        </MenuItem> */}
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/managecouponspub">
-                                <SVG src={couponsIcon} style={{ fill: '#fff', marginRight: 10 }} width={25} height={20} />
-                                Manage Coupons
-                            </Link>
-                        </MenuItem>
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" to="/invoicepub">
-                                <SVG src={contentIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Invoice
-                            </Link>
-                        </MenuItem>
-                    </Menu>
-                </Sidebar>
-            )
-            }
+            {/* ) : ( */}
+                
+            {/* ) */}
+            {/* } */}
         </div>
 
     );
