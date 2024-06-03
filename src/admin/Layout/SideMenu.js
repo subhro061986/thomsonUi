@@ -108,6 +108,14 @@ const TestMenu = () => {
                             </MenuItem>
                         </SubMenu>
                         <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            // to="/admin/manageusers"
+                            >
+                                <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Manage Distributor
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/manageusers">
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Customer
@@ -128,7 +136,7 @@ const TestMenu = () => {
                             </MenuItem>
                             <MenuItem className="nest_sidebar">
                                 <Link className="nav-link" to="/admin/publishersales">
-                                    Publisher Invoices
+                                    Distributer Invoices
                                 </Link>
                             </MenuItem>
                         </SubMenu>

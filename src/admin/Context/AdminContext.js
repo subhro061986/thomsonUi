@@ -78,7 +78,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       setCategoryList(response.data.output.length === 0 ? [] : response.data.output)
-      // console.log("GET ALL BOOK CATEGORY : ", response);
+      console.log("GET ALL BOOK CATEGORY : ", response);
       return response;
     }
     catch (error) {
@@ -338,7 +338,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       getAllCategory();
-      // console.log("EDIT CATEGORY RESPONSE : ", response);
+      console.log("EDIT CATEGORY RESPONSE : ", response);
       return response;
     }
     catch (error) {

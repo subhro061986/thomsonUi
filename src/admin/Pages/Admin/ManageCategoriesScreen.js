@@ -23,6 +23,7 @@ const ManageCategoriesScreen = () => {
   const [categoryDesc, setCategoryDesc] = useState('');
   const [modaltitle, setmodaltitle] = useState('');
   const [categoryParent, setCategoryParent] = useState(0);
+  const [shipmentDuration, setShipmentDuration] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const [categoriesModal, setcategoriesModal] = useState(false);
   const [deleteconfirmation, setdeleteconfirmation] = useState(false);
@@ -44,6 +45,7 @@ const ManageCategoriesScreen = () => {
       setmodaltitle('Add Category');
       setCategoryName('');
       setCategoryDesc('');
+      setShipmentDuration(0);
       setCategoryParent(0);
       setCategoryId(0);
     }
@@ -51,6 +53,7 @@ const ManageCategoriesScreen = () => {
       setmodaltitle('Edit Category');
       getCategoriesById(id);
       setCategoryId(id);
+      setShipmentDuration(0);
     }
   }
 
@@ -74,6 +77,7 @@ const ManageCategoriesScreen = () => {
     setCategoryName(category.name);
     setCategoryDesc(category.description);
     setCategoryParent(category.parentid);
+    setShipmentDuration(category.shipmentduration);
   }
 
   const selectParentId = (e) => {
@@ -88,7 +92,8 @@ const ManageCategoriesScreen = () => {
       let obj = {
         name: categoryName,
         description: categoryDesc,
-        parentid: categoryParent
+        parentid: categoryParent,
+        shipmentduration: shipmentDuration
       }
       let resp = await addCategory(obj);
       // console.log("Add category response : ", resp);
@@ -106,6 +111,7 @@ const ManageCategoriesScreen = () => {
           closeButton: false,
           theme: "light"
         });
+        
       }
       else {
         toast.error("Category addition failed", {
@@ -119,7 +125,7 @@ const ManageCategoriesScreen = () => {
           style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
         });
       }
-
+      
       closecategoriesModal();
     }
     else {
@@ -127,7 +133,8 @@ const ManageCategoriesScreen = () => {
       let obj = {
         name: categoryName,
         description: categoryDesc,
-        parentid: categoryParent
+        parentid: categoryParent,
+        shipmentduration: shipmentDuration
       }
       let resp = await editCategory(categoryId, obj);
 
@@ -143,6 +150,7 @@ const ManageCategoriesScreen = () => {
           closeButton: false,
           theme: "light"
         });
+        // console.log("Edit category response : ", resp);
       }
       else {
         toast.error("Category updation failed", {
@@ -195,6 +203,7 @@ const ManageCategoriesScreen = () => {
                 <th className="text-start">Name</th>
                 <th className="text-start">Parent</th>
                 <th className="text-start">Description</th>
+                <th className="text-start">Shipment Duration</th>
                 <th className="text-start">Status</th>
                 <th className="text-start">Actions</th>
               </tr>
@@ -206,6 +215,7 @@ const ManageCategoriesScreen = () => {
                   <td className="all_col text-start">{data.name}</td>
                   <td className="all_col text-start">{data.parent}</td>
                   <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
+                  <td className="all_col text-start">{data.shipmentduration}</td>
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td className="d-flex justify-content-start">
                     <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}
@@ -266,6 +276,9 @@ const ManageCategoriesScreen = () => {
                 <label className="form-label">Description</label>
                 <input type="text" className="form-control mb-2" placeholder="Type a Description"
                   value={categoryDesc} onChange={(e) => setCategoryDesc(e.target.value)} />
+                <label className="form-label">Shipment Duration</label>
+                <input type="number" className="form-control mb-2" placeholder="Type a Shipment Duration"
+                  value={shipmentDuration} onChange={(e) => setShipmentDuration(e.target.value)} />
 
                 {/* <ReactQuill placeholder="Enter Description here..."
                   theme="snow"
@@ -279,7 +292,7 @@ const ManageCategoriesScreen = () => {
           </Modal.Body>
           <Modal.Footer>
 
-            <button className="btn btn-main" onClick={saveCategory} style={{width:'20%'}}>
+            <button className="btn btn-main" onClick={saveCategory} style={{ width: '20%' }}>
               {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} /> */}
               Save
             </button>
