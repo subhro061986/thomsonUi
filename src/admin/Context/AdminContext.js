@@ -33,34 +33,35 @@ const AdminProvider = ({ children }) => {
       console.log('No token available');
     }
     else {
-      if (authDeatils.role === "Publisher Admin") {
+      console.log("authDetails:", authDeatils)
+      if (authDeatils.role === "Admin") {
         getAllCategory();
-        getAllBookList();
-        // get_pub_details();
-        // getAllCustomers_admin();
-        // getManageOrder();
-        getAllLanguage();
-        getAllCoupons();
+      //   getAllBookList();
+      //   // get_pub_details();
+      //   // getAllCustomers_admin();
+      //   // getManageOrder();
+      //   getAllLanguage();
+        // getAllCoupons();
       }
-      else if(authDeatils.role === "South Shore Admin" ){
-        getAllCategory();
-        getAllBookList();
-        getAllCustomers_admin();
-        getAllLanguage();
-        getAllPublishers();
-        get_dashboard();
-        let currentYear = new Date().getFullYear();
-        let currentMonth = new Date().getMonth()+1;
-        let paddedMonth=currentMonth.toString().padStart(2,'0')
-        let args = {
-          "yearmonth": currentYear + "-" + paddedMonth
-        };
+      // else if(authDeatils.role === "South Shore Admin" ){
+        // getAllCategory();
+        // getAllBookList();
+        // getAllCustomers_admin();
+        // getAllLanguage();
+        // getAllPublishers();
+        // get_dashboard();
+        // let currentYear = new Date().getFullYear();
+        // let currentMonth = new Date().getMonth()+1;
+        // let paddedMonth=currentMonth.toString().padStart(2,'0')
+        // let args = {
+        //   "yearmonth": currentYear + "-" + paddedMonth
+        // };
         // let args = {
         //   "yearmonth": "2024-05"
         // };
-        get_admin_monthlysales(args)
+        // get_admin_monthlysales(args)
         // get_book_details()
-      }
+      // }
     
       // getAllPublishers();
     }}
@@ -71,6 +72,7 @@ const AdminProvider = ({ children }) => {
 
   const getAllCategory = async () => {
     try {
+      console.log("test cat api :", Config.API_URL + Config.ALL_BOOK_CATEGORY)
       const response = await axios.get(Config.API_URL + Config.ALL_BOOK_CATEGORY,
         {
           headers: {
@@ -82,6 +84,7 @@ const AdminProvider = ({ children }) => {
       return response;
     }
     catch (error) {
+      setCategoryList([])
       console.log("Book_category_error : ", error);
     }
   }
@@ -111,7 +114,7 @@ const AdminProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-      // console.log("GET CATEGORY BY ID: ", response);
+      console.log("GET CATEGORY BY ID: ", response);
       return response;
     }
     catch (error) {
@@ -358,7 +361,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       getAllCategory();
-      // console.log("DELETE CATEGORY RESPONSE : ", response);
+      console.log("DELETE CATEGORY RESPONSE : ", response);
       return response;
     }
     catch (error) {

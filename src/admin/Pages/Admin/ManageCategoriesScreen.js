@@ -35,6 +35,7 @@ const ManageCategoriesScreen = () => {
 
   useEffect(() => {
     //getCategory();
+    console.log("category list:", categoryList);
   }
     , [authData]);
 
