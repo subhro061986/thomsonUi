@@ -778,8 +778,9 @@ const AdminProvider = ({ children }) => {
 
 
   const get_states_by_country = async (c_id) => {
+    
     try {
-      // console.log("country_id", c_id)
+      // console.log("country_id in state by country", c_id)
       const response = await axios.get(Config.API_URL + Config.GET_STATES_BY_COUNTRY + c_id,
         {
           headers: {
@@ -787,7 +788,8 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      // console.log(" get_states_by_country resp : ", response.data);
+        
+      console.log(" get_states_by_country resp : ", response.data);
       // setManageOrder(response.data);
       // get_myprofile()
       return response;

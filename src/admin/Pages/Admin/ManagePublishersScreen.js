@@ -110,6 +110,8 @@ const ManagePublishersScreen = () => {
   useEffect(() => {
     console.log("My_login_details ", authDeatils)
     get_countries()
+    get_states_by_country()
+    get_states()
   }, [authData])
 
   const get_state_inf = async (st_id) => {
@@ -268,7 +270,7 @@ const ManagePublishersScreen = () => {
 
 
   const select_states = async (e) => {
-    // alert(e.target.value)
+    alert(e.target.value)
     setStateId(e.target.value);
     console.log("state_id", e.target.value);
 
@@ -645,7 +647,7 @@ const ManagePublishersScreen = () => {
                   <input type="text" className="form-control mb-2" placeholder="Enter phone number"
                     onChange={(e) => setContactno(e.target.value)} value={contactno} required />
                   <p style={{ color: 'red' }}>{contactnoError}</p>
-                  <label className="form-label">About Publisher <span className="red"> *</span></label>
+                  {/* <label className="form-label">About Publisher <span className="red"> *</span></label> */}
                   {/* <div className="input-group">
                     <textarea className="form-control" placeholder="Enter about text for the publisher" aria-label="Enter about text for the publisher" onChange={(e) => setAbout(e.target.value)} value={about}></textarea>
                   </div> */}
@@ -653,11 +655,11 @@ const ManagePublishersScreen = () => {
 
 
 
-                  <ReactQuill placeholder="Enter Description here..."
+                  {/* <ReactQuill placeholder="Enter Description here..."
                     theme="snow"
                     value={about}
                     onChange={setAbout} required />
-                  <p style={{ color: 'red' }}>{aboutError}</p>
+                  <p style={{ color: 'red' }}>{aboutError}</p> */}
 
                   <label className="form-label" style={{ paddingTop: '4%' }}>Zip Code <span className="red"> *</span></label>
                   <input type="text" className="form-control mb-2" placeholder="Enter pin code"
@@ -668,8 +670,9 @@ const ManagePublishersScreen = () => {
                     onChange={(e) => setState(e.target.value)} value={state} /> */}
                   <select className="form-select publisher-profile-select" aria-label="Select state"
                     // value={selectedstate}  
-                    onChange={(e) => select_states(e)} required>
-                    <option disabled>--Select--</option>
+                    onChange={select_states} required>
+                    <option disabled>bcd--Select--</option>
+
                     {
                       stateList && stateList.map((data) => (
                         <option key={data.id} value={data.id} selected={stateId === data.id ? true : false}>{data.name}</option>
@@ -737,12 +740,12 @@ const ManagePublishersScreen = () => {
                   <p style={{ color: 'red' }}>{spcom1Error}</p> */}
 
 
-                  <label className="form-label">Banner Upload</label>
+                  {/* <label className="form-label">Banner Upload</label>
                   <div className="input-group mb-2">
                     <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
                       onChange={banner_image} required />
                   </div>
-                  <p style={{ color: 'red' }}>{bannerError}</p>
+                  <p style={{ color: 'red' }}>{bannerError}</p> */}
 
                   {/* <label className="form-label">Banner Text</label>
                   <input type="text" className="form-control mb-2" placeholder="Enter state"
@@ -835,7 +838,7 @@ const ManagePublishersScreen = () => {
                     <label className="form-label"> Contact Phone </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter phone number"
                       onChange={(e) => setContactno(e.target.value)} value={contactno} />
-                    <label className="form-label">About Publisher </label>
+                    {/* <label className="form-label">About Publisher </label> */}
                     {/* <div className="input-group" contentEditable="true"> */}
                     {/* <p className="form-control" 
                       placeholder="Enter about text for the publisher" 
@@ -844,10 +847,10 @@ const ManagePublishersScreen = () => {
                       dangerouslySetInnerHTML={{ __html: about }}
                       value={about}
                       ></p> */}
-                    <ReactQuill placeholder="Enter Description here..."
+                    {/* <ReactQuill placeholder="Enter Description here..."
                       theme="snow"
                       value={about}
-                      onChange={setAbout} />
+                      onChange={setAbout} /> */}
                     {/* </div> */}
                     <label className="form-label mt-2">Zip Code </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter pin code"
@@ -910,11 +913,11 @@ const ManagePublishersScreen = () => {
                     <label className="form-label">Special Commission 1 </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter sp comm 1"
                       onChange={(e) => setSpcom1(e.target.value)} value={spcom1} disabled /> */}
-                    <label className="form-label">Banner Upload</label>
+                    {/* <label className="form-label">Banner Upload</label>
                     <div className="input-group mb-2">
                       <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
                         onChange={banner_image} />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -1059,14 +1062,14 @@ const ManagePublishersScreen = () => {
                 </div>
               </div> */}
 
-              <div className="row mt-3">
+              {/* <div className="row mt-3">
                 <div className="col-md-12">
                   <div className="card card-body" style={{ minHeight: '297px' }}>
                     <p><strong> About &nbsp; </strong></p>
                     <div dangerouslySetInnerHTML={{ __html: about }}></div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </Modal.Body>
         </Modal>
