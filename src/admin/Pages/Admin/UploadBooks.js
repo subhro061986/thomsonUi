@@ -391,7 +391,7 @@ const UploadBooks = () => {
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
         formData.append('frontcoverimage', coverFront)
-        formData.append('backcoverimage', coverBack)
+        // formData.append('backcoverimage', coverBack)
         formData.append('price', price)
         formData.append('noofpages', pageNo)
         // formData.append('createdby', description)
@@ -510,10 +510,10 @@ const UploadBooks = () => {
                                             <option value="3">South Africa</option>
                                         </select>
                                     </div> */}
-                                    <div className="mb-3">
+                                    {/*<div className="mb-3">
                                         <label for="covBack" className="form-label">Cover Back &nbsp; &nbsp; <span className="red" style={{ fontSize: '11px' }}> {coverbacktext === 'null' ? 'No File Uploaded' : coverbacktext} </span></label>
                                         <input className="form-control" type="file" id="formFile" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverBackHandler(e)} />
-                                    </div>
+                                </div>*/}
                                     <div className="mb-3">
                                         <label for="edition" className="form-label">No. of Pages</label>
                                         <input type="number" className="form-control" id="exampleFormControlInput1" value={pageNo} placeholder="Enter no of pages" onChange={(e) => setPageNo(e.target.value)} />
@@ -549,12 +549,17 @@ const UploadBooks = () => {
                                     </div>
 
                                     <div className="mb-3">
-                                        <label for="genre" className="form-label">Choose File Type<span className="red"> *</span></label>
-                                        <select className="form-select" aria-label="Default select genre" onChange={(e) => fileTypeSelect(e)} required>
+                                        <label for="genre" className="form-label">Choose Cover Type<span className="red"> *</span></label>
+                                        <select className="form-select" aria-label="Default select genre" 
+                                        // onChange={(e) => fileTypeSelect(e)} 
+                                        required>
                                             <option selected disabled>--Select--</option>
-                                            <option selected={file === 'pdf' ? true : false} value="pdf">PDF</option>
+                                            {/* <option selected={file === 'pdf' ? true : false} value="pdf">PDF</option>
                                             <option selected={file === 'epub' ? true : false} value="epub">EPUB</option>
-                                            <option selected={file === 'both' ? true : false} value="both">Both</option>
+                                            <option selected={file === 'both' ? true : false} value="both">Both</option> */}
+                                            <option value="hardback">Hard Back</option>
+                                            <option value="paperback">Paper Back</option>
+                                            {/* <option selected={file === 'both' ? true : false} value="both">Both</option> */}
                                         </select>
                                     </div>
                                     {/* <div className="mb-3">
@@ -627,11 +632,11 @@ const UploadBooks = () => {
                                     </div> */}
 
                                     <div className="mb-3">
-                                        <label for="covFront" className="form-label">Cover Front  &nbsp; &nbsp; <span className="red" style={{ fontSize: '11px' }}> {coverfronttext === 'null' ? 'No File Uploaded' : coverfronttext} </span></label>
+                                        <label for="covFront" className="form-label"> Book Cover  &nbsp; &nbsp; <span className="red" style={{ fontSize: '11px' }}> {coverfronttext === 'null' ? 'No File Uploaded' : coverfronttext} </span></label>
                                         <input className="form-control" type="file" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverFrontHandler(e)} id="formFile" />
                                     </div>
 
-                                    {
+                                    {/* {
                                         fileTypeBool === true ? (fileType !== 'both' ? (
                                             <div className="mb-3">
                                                 <label for="covBack" className="form-label" >{fileType === 'epub' ? 'Upload EPUB File' : 'Upload PDF File'}<span className="red" style={{ fontSize: '11px' }}> * {fileType === 'epub' ? epubname : pdfname}</span></label>
@@ -651,7 +656,7 @@ const UploadBooks = () => {
 
                                             </div>
                                         )
-                                    }
+                                    } */}
 
 
                                     <div className="mb-3">

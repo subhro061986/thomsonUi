@@ -37,7 +37,8 @@ const AdminProvider = ({ children }) => {
       if (authDeatils.role === "Admin") {
         getAllCategory();
       //   getAllBookList();
-      //   // get_pub_details();
+        get_pub_details();
+        getAllPublishers();
       //   // getAllCustomers_admin();
       //   // getManageOrder();
       //   getAllLanguage();
@@ -744,7 +745,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      // console.log(" get_all_countries resp : ", response.data);
+      console.log(" get_all_countries resp : ", response.data);
       // setManageOrder(response.data);
       // get_myprofile()
       return response;

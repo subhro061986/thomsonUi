@@ -11,7 +11,8 @@ import noImg from '../assets/img/no-img.png';
 import usersIcon from '../assets/icons/users.svg';
 import settingsIcon from '../assets/icons/settings.svg';
 import couponsIcon from '../assets/icons/coupon.svg';
-import logoIcon from '../assets/icons/logoo.svg';
+// import logoIcon from '../assets/icons/logoo.svg';
+import logoIcon from '../assets/icons/book_central_logo.svg';
 import { jwtDecode } from "jwt-decode";
 
 import SVG from "react-inlinesvg";
@@ -59,7 +60,9 @@ const TestMenu = () => {
         <div className="sidebar sidebar-dark sidebar-fixed" id="sidebar">
             <div className="sidebar-brand d-none bg-light d-md-flex">
 
-                {authDeatils.role === 'South Shore Admin' ? <SVG src={logoIcon} style={{ fill: '#fff', margin: 10 }} /> : (<img src={image === null ? noImg : imageurl} style={{width:'50%'}} alt="publisher logo" />)}
+                {/* {authDeatils.role === 'South Shore Admin' ?  */}
+                <SVG src={logoIcon} style={{ fill: '#fff', margin: 10 }} /> 
+                {/* : (<img src={image === null ? noImg : imageurl} style={{width:'50%'}} alt="publisher logo" />)} */}
             </div>
             {/* Check the username / user type */}
             {/* {authDeatils.role === 'South Shore Admin' ? ( */}
