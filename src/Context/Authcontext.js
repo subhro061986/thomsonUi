@@ -114,7 +114,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getDataFromStorage();
-    wishlist_hide_show()
+    // wishlist_hide_show()
 
   }, [authData])
 
@@ -172,10 +172,11 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setAuthData('')
-    setWishlistshow(false)
+    // setWishlistshow(false)
     // setAuthUsername('')
     localStorage.setItem("userid", '');
     // localStorage.setItem("username", '');
+    console.log("log out from authcontext");
 
     return 'Success';
   }

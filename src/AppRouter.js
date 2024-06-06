@@ -119,7 +119,7 @@ const BeforeLogin=()=> {
 const Navigation=()=> {
   const {authData,isexpired} = useAuth()
   useEffect(() => {
-    
+    console.log('authdata from router', authData);
   }, [authData])
 
   if(authData==='' || authData=== null || authData===undefined && isexpired === true )

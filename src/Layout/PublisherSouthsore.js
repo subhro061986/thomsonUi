@@ -93,118 +93,36 @@ const PublisherSouthsore = () => {
             containerClass="carousel-container-publisher"
             itemClass="carousel-item-padding-40-px-publisher"
           >
-            {/* {allActivePublisher.map((data, index) => ( */}
+            {allActivePublisher.map((data, index) => (
 
-            {/* data.isactive === 1 && ( */}
+              data.isactive === 1 && (
             <div
-              // key={index}
+              key={index}
               className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
               // onClick={() => goToCatagory(data)}
               style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
             >
               <div
                 className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                // data-bs-toggle="tooltip" 
+                data-bs-toggle="tooltip" 
                 data-bs-placement="top"
-              // title={data.name}
+              title={data.name}
               >
-                <img src={art} alt={"Category Image Not Found"} />
-                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+                {/* <img src={art} alt={"Category Image Not Found"} /> */}
+                <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
 
               </div>
               <div className="text-center cat_txt fw500 mb-4">
                 {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                UK
+                {data.name.replace("Thompson Reuters ", "").trim()}
+                {/* UK */}
               </div>
             </div>
 
-            {/* ) */}
+            )
 
-            {/* ))} */}
-            <div
-              // key={index}
-              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              // onClick={() => goToCatagory(data)}
-              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
-            >
-              <div
-                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                // data-bs-toggle="tooltip" 
-                data-bs-placement="top"
-              // title={data.name}
-              >
-                <img src={art} alt={"Category Image Not Found"} />
-                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
-
-              </div>
-              <div className="text-center cat_txt fw500 mb-4">
-                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                USA
-              </div>
-            </div>
-            <div
-              // key={index}
-              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              // onClick={() => goToCatagory(data)}
-              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
-            >
-              <div
-                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                // data-bs-toggle="tooltip" 
-                data-bs-placement="top"
-              // title={data.name}
-              >
-                <img src={art} alt={"Category Image Not Found"} />
-                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
-
-              </div>
-              <div className="text-center cat_txt fw500 mb-4">
-                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                USA
-              </div>
-            </div>
-            <div
-              // key={index}
-              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              // onClick={() => goToCatagory(data)}
-              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
-            >
-              <div
-                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                // data-bs-toggle="tooltip" 
-                data-bs-placement="top"
-              // title={data.name}
-              >
-                <img src={art} alt={"Category Image Not Found"} />
-                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
-
-              </div>
-              <div className="text-center cat_txt fw500 mb-4">
-                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                USA
-              </div>
-            </div>
-            <div
-              // key={index}
-              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              // onClick={() => goToCatagory(data)}
-              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
-            >
-              <div
-                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                // data-bs-toggle="tooltip" 
-                data-bs-placement="top"
-              // title={data.name}
-              >
-                <img src={art} alt={"Category Image Not Found"} />
-                {/* <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
-
-              </div>
-              <div className="text-center cat_txt fw500 mb-4">
-                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                FLORIDA
-              </div>
-            </div>
+            ))}
+            
           </Carousel>
         </div>
 

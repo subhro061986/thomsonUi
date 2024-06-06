@@ -21,12 +21,14 @@ const TopBarSouthsore = () => {
   const [hideSignInBtn, setHideSignInBtn] = useState(true);
 
   useEffect(() => {
+    console.log('authdata in useeffect', authData);
     if (authData === null || authData === undefined || authData === "") {
       setHideSignInBtn(false);
     }
     else {
       setHideSignInBtn(true);
     }
+    
   }, [authData])
 
   const handleToggleSearch = () => {
@@ -46,9 +48,16 @@ const TopBarSouthsore = () => {
   }
 
   const gotoLogout = async () => {
-    await logOut();
-    setHideSignInBtn(false);
-    navigate('/');
+    console.log("authdata from to_1:", authData);
+    const resp = await logOut();
+    console.log("authdata from to:", authData);
+    if (resp === 'Success') {
+      setHideSignInBtn(false);
+      console.log("logged out")
+      navigate('/');
+      window.location.reload();
+    }
+
   }
 
   const formatResult = (item) => {

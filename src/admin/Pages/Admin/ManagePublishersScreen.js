@@ -270,7 +270,7 @@ const ManagePublishersScreen = () => {
 
 
   const select_states = async (e) => {
-    alert(e.target.value)
+    // alert(e.target.value)
     setStateId(e.target.value);
     console.log("state_id", e.target.value);
 
@@ -671,7 +671,7 @@ const ManagePublishersScreen = () => {
                   <select className="form-select publisher-profile-select" aria-label="Select state"
                     // value={selectedstate}  
                     onChange={select_states} required>
-                    <option disabled>bcd--Select--</option>
+                    <option value='0'>--Select--</option>
 
                     {
                       stateList && stateList.map((data) => (
@@ -723,7 +723,7 @@ const ManagePublishersScreen = () => {
                       onChange={(e) => setCountry(e.target.value)} value={country} /> */}
                   <select className="form-select publisher-profile-select" aria-label="Select country" 
                   onChange={(e) => select_country(e)} required>
-                    <option disabled>--Select--</option>
+                    <option value='0'>--Select--</option>
                     {
                       countries && countries.map((data) => (
                         <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
@@ -861,7 +861,7 @@ const ManagePublishersScreen = () => {
                     <select className="form-select publisher-profile-select" aria-label="Select state"
                       // value={selectedstate}  
                       onChange={(e) => select_states(e)}>
-                      <option disabled>--Select--</option>
+                      <option value='0'>--Select--</option>
                       {
                         stateList && stateList.map((data) => (
                           <option key={data.id} value={data.id} selected={stateId === data.id ? true : false}>{data.name}</option>
@@ -901,7 +901,7 @@ const ManagePublishersScreen = () => {
                     {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
                       onChange={(e) => setCountry(e.target.value)} value={country} /> */}
                     <select className="form-select publisher-profile-select" aria-label="Select country" onChange={(e) => select_country(e)}>
-                      <option disabled>--Select--</option>
+                      <option value='0'>--Select--</option>
                       {
                         countries && countries.map((data) => (
                           <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
@@ -988,10 +988,10 @@ const ManagePublishersScreen = () => {
             }
 
           </Modal.Body>
-          <Modal.Footer className="d-flex justify-content-between">
-            {existingId === '' &&
+          <Modal.Footer className="d-flex justify-content-end">
+            {/* {existingId === '' &&
               <div className="text-danger">Contact Phone No. is the Default Password for Login</div>
-            }
+            } */}
             <button className="btn btn-main" onClick={() => savePub()} style={{ width: '12%' }}>
               {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} />  */}
               Save
