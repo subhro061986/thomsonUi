@@ -38,7 +38,7 @@
     "RAZORPAY_PROCESS_PAYMENT": "user/razorpay/process-payment",
     "INVOICE_DETAILS": "user/customer-invoice-details",
     "NEWSLETTER": "newsletter",
-    "FORGOT_PASSWORD" : "user/forgot-password",
+    "FORGOT_PASSWORD" : "account/reset-password-mail",
 
     "SEARCH_BOOKS":"book/search",
     "home_links" : "http://ebooksjunction.com/demo/",

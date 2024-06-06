@@ -54,6 +54,7 @@ const SouthsoreScreen = () => {
 
   useEffect(() => {
     const urlContainsToken = window.location.href.includes('token');
+    console.log("urlContainsToken : ", urlContainsToken);
     if (urlContainsToken) {
       setModal(true);
       const queryString = window.location.search;

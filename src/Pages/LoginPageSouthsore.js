@@ -66,6 +66,7 @@ const LoginPageSouthsore = () => {
                 "email" : regEmail
             };
             const resp = await forgot_password(args);
+            console.log("forgot password resp : ",resp);
             toast.success(resp, {
                 position: "top-center",
                 autoClose: 2000,

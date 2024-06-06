@@ -36,7 +36,7 @@ const AdminProvider = ({ children }) => {
       console.log("authDetails:", authDeatils)
       if (authDeatils.role === "Admin") {
         getAllCategory();
-      //   getAllBookList();
+        getAllBookList();
         get_pub_details();
         getAllPublishers();
       //   // getAllCustomers_admin();

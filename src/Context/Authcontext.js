@@ -189,7 +189,7 @@ const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json'
           },
         })
-      console.log("ForgotPassword_resp: ", response.data.message);
+      console.log("ForgotPassword_resp: ", response);
       return response.data.message;
     }
     catch (error) {
