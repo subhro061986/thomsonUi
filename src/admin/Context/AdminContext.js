@@ -18,6 +18,7 @@ const AdminProvider = ({ children }) => {
   const [manageOrder, setManageOrder] = useState([]);
   const [pubInfoImg, setPubInfoImg] = useState('');
   const [languages, setLanguages] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
   const [allPublisher, setAllPublisher] = useState([]);
   const [allCoupons, setAllCoupons] = useState([]);
   const [ssadminDashboard, setSSadminDashboard] = useState([]);
@@ -41,7 +42,8 @@ const AdminProvider = ({ children }) => {
         getAllPublishers();
       //   // getAllCustomers_admin();
       //   // getManageOrder();
-      //   getAllLanguage();
+        getAllLanguage();
+        getAllCurrency();
         // getAllCoupons();
       }
       // else if(authDeatils.role === "South Shore Admin" ){
@@ -302,8 +304,27 @@ const AdminProvider = ({ children }) => {
             'Content-Type': 'application/json'
           },
         })
-      // console.log("GET Language DETAILS: ", response.data);
+      console.log("GET Language DETAILS: ", response.data);
         setLanguages(response.data.output)
+      return response;
+    }
+    catch (error) {
+      console.log("Get_language_error : ", error);
+    }
+  }
+
+  const getAllCurrency = async () => {
+    // console.log("Get_allLanguage")
+    try {
+      const response = await axios.get(Config.API_URL + Config.Currency_LIST,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET Currency DETAILS: ", response.data);
+        setCurrencies(response.data.output)
       return response;
     }
     catch (error) {
@@ -1217,6 +1238,7 @@ const AdminProvider = ({ children }) => {
         pubInfoImg,
         uploadBooksInBulk_admin,
         languages,
+        currencies,
         uploadSingleBook,
         updateSingleBook,
         allPublisher,

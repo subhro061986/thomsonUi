@@ -36,6 +36,7 @@
     "CHANGE_PUBLISHER_PASSWORD" : "user/profile/changepassword",
     "UPLOAD_BOOKS_BULK_ADMIN" : "book/uploadbook",
     "LANGUAGE_LIST" : "language/all",
+    "Currency_LIST" : "currency/",
     "UPLOAD_BOOKS_SINGLE" : "book/uploadsinglebook",
     "UPDATE_SINGLE_BOOK" : "book/updatesinglebook/",
     "APPROVE_BOOK" : "book/approve/",

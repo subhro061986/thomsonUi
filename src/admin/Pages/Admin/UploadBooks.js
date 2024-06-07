@@ -25,6 +25,7 @@ const UploadBooks = () => {
     const [isbn13, setIsbn13] = useState('');
     const [isbn10, setIsbn10] = useState('');
     const [title, setTitle] = useState('');
+    const [coverType, setCoverType] = useState('');
     const [publisher, setPublisher] = useState(0);
     const [volume, setVolume] = useState(0);
     const [year, setYear] = useState('');
@@ -35,6 +36,7 @@ const UploadBooks = () => {
     const [categoryId, setCategoryId] = useState(0);
     const [subcategory, setSubcategory] = useState('');
     const [languageId, setLanguageId] = useState(0);
+    const [currencyId, setCurrencyId] = useState(0);
     const [description, setDescription] = useState('');
     const [pdffile, setPdfFile] = useState('');
     const [epubfile, setEpubFile] = useState('');
@@ -60,7 +62,7 @@ const UploadBooks = () => {
     const [file, setFile] = useState('')
 
     const { authDeatils, authData } = useAuth();
-    const { categoryList, get_pub_details, languages, uploadSingleBook, updateSingleBook, uploadBooksInBulk_admin, getAllPublishers, allPublisher, get_book_details } = AdminProfile();
+    const { categoryList, get_pub_details, currencies, languages, uploadSingleBook, updateSingleBook, uploadBooksInBulk_admin, getAllPublishers, allPublisher, get_book_details } = AdminProfile();
 
     const location = useLocation()
     const navigate = useNavigate();
@@ -101,7 +103,9 @@ const UploadBooks = () => {
         const timer = setTimeout(() => {
             // console.log('setTimeout called!');
             navigate("/bookapprovals");
+            // window.location.reload()
         }, 4000);
+        // window.location.reload()
 
         return () => clearTimeout(timer);
     }
@@ -124,15 +128,13 @@ const UploadBooks = () => {
         formData.append('isbn10', isbn10)
         formData.append('isbn13', isbn13)
         formData.append('languageid', languageId)
-        formData.append('epdf_link', pdffile)
-        formData.append('epub_link', epubfile)
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
-        formData.append('frontcoverimage', coverFront)
-        formData.append('backcoverimage', coverBack)
+        formData.append('img', coverFront)
         formData.append('price', price)
         formData.append('noofpages', pageNo)
-        // formData.append('createdby', description)
+        formData.append('covertype', coverType)
+        formData.append('currencyid', currencyId)
         formData.append('effectivefrom', effectiveFrom)
 
 
@@ -220,10 +222,11 @@ const UploadBooks = () => {
         
         
         identify_filetype_no(resp)
-        setPdfname(resp?.epdf_link === 'null' ? 'No File Uploaded' : resp.epdf_link)
-        setEpubname(resp?.epub_link === 'null' ? 'No File Uploaded' : resp.epub_link)
+        // setPdfname(resp?.epdf_link === 'null' ? 'No File Uploaded' : resp.epdf_link)
+        // setEpubname(resp?.epub_link === 'null' ? 'No File Uploaded' : resp.epub_link)
 
         setTitle(resp?.title);
+        setCoverType(resp?.covertype)
         setDescription(resp?.description);
         setCategoryId(resp?.categoryid);
         setPublisher(resp?.publisherid);
@@ -232,14 +235,16 @@ const UploadBooks = () => {
         setIsbn13(resp?.isbn13);
         setIsbn10(resp?.isbn10);
         setLanguageId(resp?.languageid);
+        setCoverType(resp?.covertype);
+        setCurrencyId(resp?.currencyid);
         // console.log('lang_id',resp?.languageId)
-        setPdfFile(resp?.epdf_link);
-        setEpubFile(resp?.epub_link);
+        // setPdfFile(resp?.epdf_link);
+        // setEpubFile(resp?.epub_link);
         setVolume(resp?.volume);
 
        
-        setCoverbacktext(resp?.back_cover)
-        setCoverfronttext(resp?.front_cover)
+        // setCoverbacktext(resp?.back_cover)
+        // setCoverfronttext(resp?.front_cover)
         // console.log('year', resp?.publishdate)
 
 
@@ -328,7 +333,7 @@ const UploadBooks = () => {
     const coverFrontHandler = (e) => {
         // console.log("front image", URL.createObjectURL(e.target.files[0]))
         setCoverFront(e.target.files[0])
-        setCoverfronttext('')
+        // setCoverfronttext('')
         // setImageUrl(URL.createObjectURL(e.target.files[0]))
         // `${Config.API_URL + Config.PROFILE_IMAGES + image}`
     }
@@ -386,19 +391,17 @@ const UploadBooks = () => {
         formData.append('isbn10', isbn10)
         formData.append('isbn13', isbn13)
         formData.append('languageid', languageId)
-        formData.append('epdf_link', pdffile)
-        formData.append('epub_link', epubfile)
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
-        formData.append('frontcoverimage', coverFront)
-        // formData.append('backcoverimage', coverBack)
+        formData.append('covertype', coverType)
+        formData.append('img', coverFront)
         formData.append('price', price)
         formData.append('noofpages', pageNo)
-        // formData.append('createdby', description)
+        formData.append('currencyid', currencyId)
         formData.append('effectivefrom', effectiveFrom)
 
         const resp = await uploadSingleBook(formData);
-        // console.log("upload_single_book_resp", resp)
+        console.log("upload_single_book_resp", resp)
         if (resp?.data?.statuscode === '0') {
 
             toast.success(" Book Uploaded successfully", {
@@ -437,9 +440,9 @@ const UploadBooks = () => {
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <Header title="Upload Books" />
-                <div className="bg-white p-3 m-3 rounded-2">
+                {/* <div className="bg-white p-3 m-3 rounded-2">
                     <button type="button" className="btn btn-main" onClick={openModal}>Upload Books In Bulk</button>
-                </div>
+                </div> */}
                 <div className="m-3">
                     <div className="bg-white p-3 rounded-2">
                         <form>
@@ -463,6 +466,20 @@ const UploadBooks = () => {
                                         </select>
                                     </div>
                                     <div className="mb-3">
+                                        <label for="currency" className="form-label">Currency
+                                         {/* <span className="red"> *</span> */}
+                                         </label>
+                                        <select className="form-select" aria-label="Default select currency" 
+                                        onChange={(e) => setCurrencyId(e.target.value)} 
+                                        // required
+                                        >
+                                            <option selected value='0'>--Select--</option>
+                                            {currencies.map((data) => (
+                                                <option value={data.id} key={data.id} selected={currencyId === data.id ? true : false}>{data.symbol}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
                                         <label for="authorName" className="form-label">Author<span className="red"> *</span></label>
                                         <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Author Name" value={author} onChange={(e) => setAuthor(e.target.value)} required />
                                     </div>
@@ -470,50 +487,7 @@ const UploadBooks = () => {
                                         <label for="edition" className="form-label">Edition</label>
                                         <input type="number" className="form-control" id="exampleFormControlInput1" placeholder="Enter Book Edition" value={editionNo} onChange={(e) => Edition_no(e)} />
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label for="bookType" className="form-label">Book Type</label>
-                                        <select className="form-select" aria-label="Default select book type">
-                                            <option selected>Select book type</option>
-                                            <option value="1">Nonfiction</option>
-                                            <option value="2">Fiction</option>
-                                            <option value="3">Study</option>
-                                        </select>
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label for="exampleFormControlInput1" className="form-label">Discount</label>
-                                        <select className="form-select" aria-label="Default select discount">
-                                            <option selected>--Select--</option>
-                                            <option value="1">10%</option>
-                                            <option value="2">20%</option>
-                                            <option value="3">30%</option>
-                                        </select>
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label for="exampleFormControlInput1" className="form-label">Sub Category</label>
-                                        <select className="form-select" aria-label="Default select subcategory">
-                                            <option selected>--Select--</option>
-                                            <option value="1">Cookbook</option>
-                                            <option value="2">Fairytale</option>
-                                            <option value="3">Science</option>
-                                        </select>
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label for="exampleFormControlInput1" className="form-label">Product dimensions</label>
-                                        <input type="number" className="form-control" id="exampleFormControlInput1" placeholder="124 X 164" />
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label for="country" className="form-label">Country Origin<span className="red"> *</span></label>
-                                        <select className="form-select" aria-label="Default select country" required>
-                                            <option selected>--Select--</option>
-                                            <option value="1">India</option>
-                                            <option value="2">Sri Lanka</option>
-                                            <option value="3">South Africa</option>
-                                        </select>
-                                    </div> */}
-                                    {/*<div className="mb-3">
-                                        <label for="covBack" className="form-label">Cover Back &nbsp; &nbsp; <span className="red" style={{ fontSize: '11px' }}> {coverbacktext === 'null' ? 'No File Uploaded' : coverbacktext} </span></label>
-                                        <input className="form-control" type="file" id="formFile" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverBackHandler(e)} />
-                                </div>*/}
+                                    
                                     <div className="mb-3">
                                         <label for="edition" className="form-label">No. of Pages</label>
                                         <input type="number" className="form-control" id="exampleFormControlInput1" value={pageNo} placeholder="Enter no of pages" onChange={(e) => setPageNo(e.target.value)} />
@@ -550,27 +524,13 @@ const UploadBooks = () => {
 
                                     <div className="mb-3">
                                         <label for="genre" className="form-label">Choose Cover Type<span className="red"> *</span></label>
-                                        <select className="form-select" aria-label="Default select genre" 
-                                        // onChange={(e) => fileTypeSelect(e)} 
-                                        required>
-                                            <option selected disabled>--Select--</option>
-                                            {/* <option selected={file === 'pdf' ? true : false} value="pdf">PDF</option>
-                                            <option selected={file === 'epub' ? true : false} value="epub">EPUB</option>
-                                            <option selected={file === 'both' ? true : false} value="both">Both</option> */}
-                                            <option value="hardback">Hard Back</option>
-                                            <option value="paperback">Paper Back</option>
-                                            {/* <option selected={file === 'both' ? true : false} value="both">Both</option> */}
-                                        </select>
+                                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Book Title" value={coverType} 
+                                        onChange={(e) => setCoverType(e.target.value)} 
+                                        // required 
+                                        />
+                                        
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label for="exampleFormControlInput1" className="form-label">Practice Area</label>
-                                        <select className="form-select" aria-label="Default select genre">
-                                            <option selected>--Select--</option>
-                                            <option value="1">Administrative Law</option>
-                                            <option value="2">Governments</option>
-                                            <option value="3">Medical</option>
-                                        </select>
-                                    </div> */}
+                                    
                                     <div className="mb-3">
                                         <label for="language" className="form-label">Language <span className="red"> *</span></label>
                                         <select className="form-select" aria-label="Default select language" onChange={(e) => setLanguageId(e.target.value)} required>
@@ -580,15 +540,7 @@ const UploadBooks = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label for="covBack" className="form-label">Upload File<span className="red"> *</span></label>
-                                        <input className="form-control" type="file" id="formFile" required />
-                                    </div> */}
-
-                                    {/* <div className="mb-3">
-                                        <label for="exampleFormControlInput1" className="form-label">Title Description</label>
-                                        <textarea className="form-control" id="titleDesTextarea1" rows="2"></textarea>
-                                    </div> */}
+                                    
                                 </div>
                                 <div className="col-md-4">
                                     <div className="mb-3">
@@ -596,10 +548,7 @@ const UploadBooks = () => {
                                         <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Book Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                                     </div>
 
-                                    {/* <div className="mb-3">
-                                        <label for="titleRem" className="form-label">Title Remarks</label>
-                                        <textarea className="form-control" id="titleRemTextarea1" rows="2"></textarea>
-                                    </div> */}
+                                    
                                     <div className="mb-3">
                                         <label for="pubYear" className="form-label">Year of Publishing<span className="red"> *</span></label>
                                         <input type="text" className="form-control" id="pub_year" placeholder="Enter Year of Publishing" value={year} onChange={(e) => publishingDate(e)} required />
@@ -612,51 +561,16 @@ const UploadBooks = () => {
                                         <label for="Year" className="form-label">Effective From the Date<span className="red"> *</span></label>
                                         <input type="date" className="form-control" id="eff_date" value={effectiveFrom} placeholder="Enter effective date" onChange={(e) => setEffectiveFrom(e.target.value)} required />
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label for="disType" className="form-label">Select Coupon</label>
-                                        <select className="form-select" aria-label="Default select discount types">
-                                            <option selected>--Select--</option>
-                                            <option value="1">Seasonal discount</option>
-                                            <option value="2">Bulk discount</option>
-                                            <option value="3">Prepayment discount</option>
-                                        </select>
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label for="category" className="form-label">Sub Category<span className="red"> *</span></label>
-                                        <select className="form-select" aria-label="Default select category" required>
-                                            <option selected>--Select--</option>
-                                            <option value="1">Fantasy</option>
-                                            <option value="2">Self-help book</option>
-                                            <option value="3">Biography</option>
-                                        </select>
-                                    </div> */}
-
+                                    
                                     <div className="mb-3">
-                                        <label for="covFront" className="form-label"> Book Cover  &nbsp; &nbsp; <span className="red" style={{ fontSize: '11px' }}> {coverfronttext === 'null' ? 'No File Uploaded' : coverfronttext} </span></label>
+                                        <label for="covFront" className="form-label"> Book Cover  &nbsp; &nbsp; 
+                                        {/* <span className="red" style={{ fontSize: '11px' }}> 
+                                        {coverfronttext === 'null' ? 'No File Uploaded' : coverfronttext} </span> */}
+                                        </label>
                                         <input className="form-control" type="file" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverFrontHandler(e)} id="formFile" />
                                     </div>
 
-                                    {/* {
-                                        fileTypeBool === true ? (fileType !== 'both' ? (
-                                            <div className="mb-3">
-                                                <label for="covBack" className="form-label" >{fileType === 'epub' ? 'Upload EPUB File' : 'Upload PDF File'}<span className="red" style={{ fontSize: '11px' }}> * {fileType === 'epub' ? epubname : pdfname}</span></label>
-                                                <input className="form-control" type="file" accept={fileType === 'epub' ? '.epub' : '.pdf'} id="formFile" onChange={(e) => pdf_epub_handler(e)} required disabled={fileTypeBool === true ? false : true} />
-                                            </div>
-                                        ) : (
-                                            <div className="mb-3">
-                                                <label for="covBack" className="form-label">Upload EPUB File<span className="red" style={{ fontSize: '11px' }}> * {epubname}</span></label>
-                                                <input className="form-control" type="file" accept=".epub" id="formFile" onChange={(e) => epubHandler(e)} required disabled={fileTypeBool === true ? false : true} />
-                                                <label for="covBack" className="form-label mt-3">Upload PDF File<span className="red" style={{ fontSize: '11px' }}> * {pdfname}</span></label>
-                                                <input className="form-control" type="file" accept=".pdf" id="formFile" onChange={(e) => pdfHandler(e)} required disabled={fileTypeBool === true ? false : true} />
-                                            </div>
-                                        )) : (
-                                            <div className="mb-3">
-                                                <label for="covBack" className="form-label">Upload File<span className="red"> *</span>&nbsp;&nbsp;&nbsp;<span style={{ color: 'red' }}>{fileTypeBool === false ? 'Select file type' : ''}</span></label>
-                                                <input className="form-control" type="file" id="formFile" required disabled={fileTypeBool === true ? false : true} />
-
-                                            </div>
-                                        )
-                                    } */}
+                                    
 
 
                                     <div className="mb-3">
@@ -698,7 +612,7 @@ const UploadBooks = () => {
                         </form>
                     </div>
                     {/* =========Upload Books Modal========= */}
-                    <Modal show={uploadBooksModal} onHide={closeModal} centered
+                    {/* <Modal show={uploadBooksModal} onHide={closeModal} centered
                         backdrop="static"
                         dialogClassName="upload-books-modal"
                     >
@@ -707,53 +621,34 @@ const UploadBooks = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <div className="mb-1">
-                                {/* <label className="form-label" htmlFor='selectPublisher'>Select Publisher</label> */}
-                                {/* <select id='selectPublisher' className="form-select mb-2">
-                                    <option value={0}>Please Select a Publisher</option>
-                                    {
-                                        publisherList && publisherList.map((data, index) => (
-                                            <option key={index} value={data.id}>{data.name}</option>
-                                        ))
-                                    }
-                                </select> */}
-                                {/* <label className="form-label">Upload CSV file </label> */}
+                                
                                 <div className="mb-1">
                                     <label className="form-label">Upload CSV file </label>
                                     <div className="input-group my-2 d-flex justify-content-between align-items-center">
-                                        {/* <label className="form-label">Upload CSV</label> */}
+                                        
                                         <input type="file" accept=".xlsx, .csv"
                                             className="form-control" id="fileUpload"
                                             onChange={csvFile}
                                         />
                                     </div>
                                     <div className="input-group my-2 d-flex justify-content-between align-items-center">
-                                        {/* <button className="btn btn-primary">
-                                        <Link>Download Format</Link>
-                                        </button> */}
+                                        
                                         <a href={Format} download="CSV-Format-Document" target="_blank" rel="noopener noreferrer">Download Format</a>
                                     </div>
                                 </div>
 
 
-                                {/* <div className="input-group my-2 d-flex justify-content-between align-items-center">
-                                    <label className="input-group-text">Upload CSV</label>
-                                    <input type="file" accept=".xlsx, .csv" className="form-control" id="fileUpload" />
-                                </div>
-                                <div className="input-group my-2 d-flex justify-content-between align-items-center">
-                                    <button className="btn btn-primary">
-                                        Download Format
-                                    </button>
-                                </div> */}
+                               
 
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
                             <button className="btn btn-main" onClick={uploadBooksBulk} style={{width:'10%'}}>
-                                {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} />  */}
+                                
                                 Save
                             </button>
                         </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
                 </div>
 
                 <ToastContainer />

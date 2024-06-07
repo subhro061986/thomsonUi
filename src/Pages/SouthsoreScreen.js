@@ -37,6 +37,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const SouthsoreScreen = () => {
   const [modal, setModal] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [userRole, setUserRole] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -95,8 +96,10 @@ const SouthsoreScreen = () => {
     let My_token = token
 
     if (My_token !== "") {
-      const { email, exp } = jwtDecode(My_token)
+      const { email, role, exp } = jwtDecode(My_token)
+      console.log("decoded role= ", role)
       setUserEmail(email)
+      setUserRole(role)
       console.log("decoded token= ", email)
       // Refreshing the token a minute early to avoid latency issues
       const expirationTime = (exp * 1000) - 60000
@@ -115,7 +118,8 @@ const SouthsoreScreen = () => {
 
   const resendPasswordCreationMail = async () => {
     const json = {
-      email: userEmail
+      email: userEmail,
+      role: userRole
     }
     const resp = await resendPasswordCreationEmail(json)
     if (resp.statuscode === '0') {
