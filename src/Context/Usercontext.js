@@ -233,6 +233,7 @@ const UserProvider = ({ children }) => {
         })
         if(response.data.output.length > 0){
           setCategoryByPublisherList(response.data.output)
+          console.log("cat pub list :",response.data.output)
         }
         else{
           setCategoryByPublisherList([])
@@ -962,7 +963,7 @@ const UserProvider = ({ children }) => {
         getNewArrivals(4,response?.data?.output?.id)
         best_selling_books(4,response?.data?.output?.id)
         setActive(false)
-      //console.log("GET ALL PUBLISHERS BY ID : ", response);
+      console.log("GET ALL PUBLISHERS BY ID : ", response);
       return response;
     }
     catch (error) {

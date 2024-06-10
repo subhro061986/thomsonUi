@@ -42,9 +42,9 @@ const BookApproval = () => {
     navigate("/admin/approveorreject", { state: { bookid: id } });
   }
 
-  const editBook = (id, status) => {
+  const editBook = (id, isactive) => {
     // setBookApprovalModal(true);
-    navigate("/admin/uploadbooks", { state: { BookId: id, bookstatus: status } });
+    navigate("/admin/uploadbooks", { state: { BookId: id, bookstatus: isactive } });
   }
 
   const delete_book = async (bookid) => {
@@ -91,7 +91,7 @@ const BookApproval = () => {
                 <th>Cover</th>
                 <th>ISBN 13</th>
                 <th>Title</th>
-                <th>Publisher</th>
+                {/* <th>Publisher</th> */}
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
@@ -108,10 +108,10 @@ const BookApproval = () => {
                   </td>
                   <td className="all_col">{data.isbn13 === null ? "Not Available" : data.isbn13}</td>
                   <td className="all_col">{data?.title?.length > 0 ? data.title : "Not Available"}</td>
-                  <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td>
+                  {/* <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td> */}
                   <td className="all_col">{data.category.length > 0 ? data.category : "Not Available"}</td>
                   <td className="all_col">{data.price === null || data.price === '' ? "Not Available" : data.price}</td>
-                  <td className={`${data.status}`}>{data.status}</td>
+                  <td className={`${data.isactive}`}>{data.isactive===1? 'Active' : 'Inactive'}</td>
                   <td className="all_col">
                     {/* <SVG src={data.status === 'Pending' ? editIcon : null} style={{ fill: '#000', marginRight: 10 }} width={15} height={32}
                       onClick={() => editBook(data.id)}
@@ -122,12 +122,12 @@ const BookApproval = () => {
                     <SVG src={eye} style={{ fill: '#000', marginRight: 10 }} width={18} height={32}
                       onClick={() => openModal(data.id)} />
 
-                    <div className="form-check form-switch switch_class" style={{marginTop:'-19%',marginLeft:'40%'}} hidden={data.status === 'Pending' ? true : false}>
+                    {/* <div className="form-check form-switch switch_class" style={{marginTop:'-19%',marginLeft:'40%'}} hidden={data.status === 'Pending' ? true : false}>
                       <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
                       checked={data.isactive === 1 ? true : false}
                       onChange={(e) => rest_del_book(data.isactive, data.id)}
                       />
-                    </div>
+                    </div> */}
                   </td>
                 </tr>
                 )

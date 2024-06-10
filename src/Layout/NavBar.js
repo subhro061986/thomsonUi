@@ -219,6 +219,7 @@ const NavBar = () => {
                                     <li><Link >CAt 3</Link>  </li>
                                 </div>
                             </div> */}
+                            {/* <div style={{border:'1px solid black', fontSize:'12px', color:'red'}}>{categoryByPublisherList}</div> */}
 
                                 <select className="cat_dropdown mt-3 me-3"
                                     onChange={(e) => { cat_dropdown_nav(e) }}>

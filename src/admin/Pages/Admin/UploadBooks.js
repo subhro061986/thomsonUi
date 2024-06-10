@@ -88,7 +88,7 @@ const UploadBooks = () => {
                 setAccepted(false)
             }
 
-            // console.log("Status of the book", location.state)
+            console.log("Status of the book", location.state)
             bookData(location?.state?.BookId)
             setUpdate(true)
             // console.log(location?.state?.BookId)
