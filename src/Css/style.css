@@ -2775,6 +2775,14 @@ body.active-modal {
   width: 100%
 }
 
+.left_div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  background: transparent!important;
+  border: none !important;;
+}
+
 .card_padding_bottom {
   padding-bottom: 0%;
   padding-top: 0%;

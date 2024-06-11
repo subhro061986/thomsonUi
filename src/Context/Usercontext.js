@@ -28,6 +28,7 @@ const UserProvider = ({ children }) => {
   const [publisherData, setPublisherData] = useState('')
   const [publisherId, setPublisherId] = useState(0)
   const [categoryByPublisherList, setCategoryByPublisherList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
   
@@ -37,6 +38,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     getAllPublishers();
     getAllActivePublishers();
+    category_all();
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -44,6 +46,7 @@ const UserProvider = ({ children }) => {
 
     }
     else {
+      // category_all();
       // get_items()
       // total_price_itemsno()
       // cart_items({
@@ -192,7 +195,8 @@ const UserProvider = ({ children }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+            // 'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+            'Authorization': 'Bearer ' + authData
           },
 
         })
@@ -241,6 +245,36 @@ const UserProvider = ({ children }) => {
       
 
       return response.data
+
+    }
+    catch (error) {
+      console.log("Book_cat_by_publisher_error : ", error)
+    }
+  }
+
+  const category_all = async () => {
+    
+    try {
+      const response = await axios.post(Config.API_URL + Config.ALL_Cateory,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': 'Bearer ' + authData
+          },
+
+        })
+        // if(response.data.output.length > 0){
+          // setCategoryByPublisherList(response.data.output)
+          console.log("cat all list :",response)
+          setCategoryList(response.data.output)
+        // }
+        // else{
+        //   setCategoryByPublisherList([])
+        // }
+      
+
+      return response
 
     }
     catch (error) {
@@ -850,6 +884,7 @@ const UserProvider = ({ children }) => {
           },
         })
         setAllActivePublisher(response.data.output)
+        console.log("PUBLISHER resp from context: ", response.data.output);
       
       return response;
     }
@@ -1049,6 +1084,7 @@ const UserProvider = ({ children }) => {
       value={{
         getAllCategory,
         category_by_publisher,
+        category_all,
         getNewArrivals,
         allNewArrival,
         best_selling_books,
@@ -1085,6 +1121,7 @@ const UserProvider = ({ children }) => {
         publisherData,
         publisherId,
         categoryByPublisherList,
+        categoryList,
         getBookShelf,
         createOrder,
         processPayment,

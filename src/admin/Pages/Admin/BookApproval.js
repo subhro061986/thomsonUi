@@ -91,7 +91,7 @@ const BookApproval = () => {
                 <th>Cover</th>
                 <th>ISBN 13</th>
                 <th>Title</th>
-                {/* <th>Publisher</th> */}
+                <th>Publisher</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
@@ -108,7 +108,7 @@ const BookApproval = () => {
                   </td>
                   <td className="all_col">{data.isbn13 === null ? "Not Available" : data.isbn13}</td>
                   <td className="all_col">{data?.title?.length > 0 ? data.title : "Not Available"}</td>
-                  {/* <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td> */}
+                  <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td>
                   <td className="all_col">{data.category.length > 0 ? data.category : "Not Available"}</td>
                   <td className="all_col">{data.price === null || data.price === '' ? "Not Available" : data.price}</td>
                   <td className={`${data.isactive}`}>{data.isactive===1? 'Active' : 'Inactive'}</td>

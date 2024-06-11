@@ -48,7 +48,7 @@ const Category = () => {
     navigate('/category', { state: { category_id: cat_id } })
   }
 
-  const { getAllCategory, category_by_publisher, categoryByPublisherList } = UserProfile()
+  const { getAllCategory, category_by_publisher, categoryByPublisherList, categoryList } = UserProfile()
 
   const [allcategory, setAllcategory] = useState([])
   const [pubcat, setPubcat] = useState([])
@@ -153,15 +153,15 @@ const Category = () => {
           itemClass="carousel-item-padding-40-px-publisher"
         >
 
-          {/* {
-            categoryByPublisherList.map((data, index) => ( */}
+          {
+            categoryList.map((data, index) => (
 
 
           <div
-            // key={index}
+            key={index}
             className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
-          // onClick={() => goToCatagory(data.id)}
+          onClick={() => goToCatagory(data.id)}
           >
             <div className="d-flex flex-column py-3 px-4">
               <div className="d-flex my-3">
@@ -172,9 +172,9 @@ const Category = () => {
                 />
               </div>
               <div className="d-flex cat_title">
-                {/* {data.name} */}
+                {data.name}
                 {/* {data.name.length > 12 ? data.name.substring(0, 12) + ".." : data.name} */}
-                Legal
+                {/* Legal */}
               </div>
               <div className="category_desc mt-3">
                 Get trusted answers faster, make high-stakes decisions with confidence
@@ -189,103 +189,9 @@ const Category = () => {
             </div>
           </div>
 
-          <div
-            // key={index}
-            className="col-md border card_border_light book_card h380 m-3"
-            style={{ cursor: 'pointer' }}
-          // onClick={() => goToCatagory(data.id)}
-          >
-            <div className="d-flex flex-column py-3 px-4">
-              <div className="d-flex my-3">
-                <img
-                  // src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
-                  src={art1}
-                  width={100} height={100} alt={"Product Image Not Found"}
-                />
-              </div>
-              <div className="d-flex cat_title">
-                {/* {data.name} */}
-                {/* {data.name.length > 12 ? data.name.substring(0, 12) + ".." : data.name} */}
-                Tax and accounting
-              </div>
-              <div className="category_desc mt-3">
-                Increase efficiency, mitigate risk
-                , and provide premium client services with enhanced AI capabilities and expert insights
-              </div>
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
+          
 
-
-            </div>
-          </div>
-
-          <div
-            // key={index}
-            className="col-md border card_border_light book_card h380 m-3"
-            style={{ cursor: 'pointer' }}
-          // onClick={() => goToCatagory(data.id)}
-          >
-            <div className="d-flex flex-column py-3 px-4">
-              <div className="d-flex my-3">
-                <img
-                  // src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
-                  src={art}
-                  width={100} height={100} alt={"Product Image Not Found"}
-                />
-              </div>
-              <div className="d-flex cat_title">
-                {/* {data.name} */}
-                {/* {data.name.length > 12 ? data.name.substring(0, 12) + ".." : data.name} */}
-                News & Media
-              </div>
-              <div className="category_desc mt-3">
-                We tell all sides, but take none. We go back to the start
-                , where there’s no bias and no agenda to tell the real story
-              </div>
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
-
-
-            </div>
-          </div>
-
-          <div
-            // key={index}
-            className="col-md border card_border_light book_card h380 m-3"
-            style={{ cursor: 'pointer' }}
-          // onClick={() => goToCatagory(data.id)}
-          >
-            <div className="d-flex flex-column py-3 px-4">
-              <div className="d-flex my-3">
-                <img
-                  // src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
-                  src={art2}
-                  width={100} height={100} alt={"Product Image Not Found"}
-                />
-              </div>
-              <div className="d-flex cat_title">
-                {/* {data.name} */}
-                {/* {data.name.length > 12 ? data.name.substring(0, 12) + ".." : data.name} */}
-                Risk & Fraud
-              </div>
-              <div className="category_desc mt-3">
-                Risk is ever evolving — with AI-enhanced technology from Thomson Reuters
-                , you can anticipate tomorrow’s threats and evolve faster
-              </div>
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style my-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
-              {/* <div className="d-flex justify-content-center price_style mt-3">&#8377;</div> */}
-
-
-            </div>
-          </div>
-
-          {/* ))} */}
+          ))}
 
         </Carousel>
 

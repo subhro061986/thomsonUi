@@ -115,7 +115,8 @@ const CategoryDetailsPage = () => {
         // ** For direct navigation to category details page using url
 
         //book_category_by_publisher(1)
-    }, [location.state.category_id,wishlistitems])
+        // wishlistitems
+    }, [location.state.category_id])
 
     useEffect(() => {
         
@@ -347,7 +348,7 @@ const CategoryDetailsPage = () => {
     }
 
     const books_by_category = async (cat_id, pub_id) => {
-        console.log("GET BOOK BY CATEGORY",cat_id)
+        console.log("GET Category Id BY CATEGORY",cat_id)
         let json = {
             categoryid: cat_id,
             publisherid: pub_id
@@ -369,7 +370,7 @@ const CategoryDetailsPage = () => {
                 setAllBooks(resp?.output?.books)
                 setRawbooksdata(resp?.output?.books)
                 setNoofbooks(resp?.output?.books?.length)
-                setCategoryname(resp.output.books[0].category)
+                setCategoryname(resp.output.books[0].genre)
                 price_ranges(resp?.output?.books)
             }
             else {
@@ -666,7 +667,7 @@ const CategoryDetailsPage = () => {
                                 <div className="d-flex align-items-center header-top justify-content-between">
 
                                     <div className="categordet_div">
-                                        <div className="header">
+                                        <div className="header left_div">
                                             <div className="category_head margin_bt">
                                                 <b>{categoryname}</b>
 
@@ -757,7 +758,7 @@ const CategoryDetailsPage = () => {
                                                     <hr></hr>
                                                     <div className="d-flex align-items-center justify-content-center">
 
-                                                        <div className="  d-flex  price_style ">&#8377;{data.price} &nbsp;</div>
+                                                        <div className="  d-flex  price_style ">{data.price} &nbsp;</div>
                                                         {/* <div className="  d-flex  price-cutText ">&#8377;298</div> */}
                                                     </div>
                                                 </div>

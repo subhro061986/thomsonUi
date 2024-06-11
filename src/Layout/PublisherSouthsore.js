@@ -55,6 +55,7 @@ const PublisherSouthsore = () => {
   useEffect(() => {
     // book_category()
     //book_category_by_publisher(1)
+    // allActivePublisher()
   }, [])
 
 
