@@ -117,6 +117,7 @@ const ProductDetailsPage = () => {
     }
     const book_detail = async (book_id) => {
         const resp = await get_book_details(book_id)
+        console.log(" book details resp", resp)
         if (resp === undefined || resp === null) {
             setBookdetail({})
             setImages([])
@@ -456,7 +457,7 @@ const ProductDetailsPage = () => {
 
                             <div className="details_price fw600 mt-4">Price:</div>
                             <div className="disc_price fw600 mt-2">
-                                &#8377;{bookdetail.price}
+                                {bookdetail.symbol+bookdetail.price}
                                 {/* <span className="mrp text-decoration-line-through fw400 ps-3"> &#8377;298</span> */}
                             </div>
                             {isBookPresent ?
@@ -492,7 +493,7 @@ const ProductDetailsPage = () => {
                                     {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
                                 </span></li>
 
-                                <li>Format: <span>E-Book</span></li>
+                                <li>Cover Type: <span>{bookdetail.covertype}</span></li>
 
                             </ul>
 
