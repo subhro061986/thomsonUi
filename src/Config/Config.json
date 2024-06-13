@@ -3,7 +3,7 @@
 
     "API_URL" : "http://localhost:5000/",
 
-    "ALL_BOOK_CATEGORY" : "category",
+    "ALL_BOOK_CATEGORY" : "category/all",
     "ALL_Cateory":"category/get-parent-category",
     "NEW_ARRIVAL" : "book/newarrival",
     "BEST_SELLING" : "book/bestselling",

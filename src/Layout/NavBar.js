@@ -13,7 +13,7 @@ import close from "../Assets/Images/close-circle.png"
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const { category_by_publisher, items, categoryByPublisherList, category_all, categoryList } = UserProfile()
+    const { category_by_publisher, items, categoryByPublisherList, allCategoryList } = UserProfile()
     const { wishlistshow } = useAuth()
     const [pubcat, setPubcat] = useState([])
     const [cartno, setCartno] = useState()
@@ -143,7 +143,7 @@ const NavBar = () => {
                                     <Accordion.Item eventKey="0" className="accordian_item">
                                         <Accordion.Header>Categories-1</Accordion.Header>
                                         {
-                                            categoryList.map(
+                                            allCategoryList.map(
                                                 (data, index) => (
                                                     <Accordion.Body key={index} value={data.id}
                                                         onClick={() => cat_dropdown_nav_mobile(data.id)}>
@@ -233,7 +233,7 @@ const NavBar = () => {
                                     >
                                     <option defaultValue={"0"} disabled selected={true}>Categories</option>
 
-                                    {categoryList.map((data, index) => (
+                                    {allCategoryList.map((data, index) => (
 
                                         <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
 

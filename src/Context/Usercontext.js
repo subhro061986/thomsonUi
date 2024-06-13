@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
   const [publisherData, setPublisherData] = useState('')
   const [publisherId, setPublisherId] = useState(0)
   const [categoryByPublisherList, setCategoryByPublisherList] = useState([])
-  const [categoryList, setCategoryList] = useState([])
+  const [allCategoryList, setAllCategoryList] = useState([])
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
   
@@ -39,6 +39,7 @@ const UserProvider = ({ children }) => {
     getAllPublishers();
     getAllActivePublishers();
     category_all();
+    getAllCategory();
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -80,8 +81,10 @@ const UserProvider = ({ children }) => {
           },
 
         })
+        console.log("response of all category", response)
+        setAllCategoryList(response.data.output)
       return response.data
-
+      
     }
     catch (error) {
       console.log("Book_category_error : ", error)
@@ -253,7 +256,7 @@ const UserProvider = ({ children }) => {
   }
 
   const category_all = async () => {
-    
+    console.log("cat all list route:",Config.API_URL + Config.ALL_Cateory)
     try {
       const response = await axios.post(Config.API_URL + Config.ALL_Cateory,
 
@@ -267,7 +270,7 @@ const UserProvider = ({ children }) => {
         // if(response.data.output.length > 0){
           // setCategoryByPublisherList(response.data.output)
           console.log("cat all list :",response)
-          setCategoryList(response.data.output)
+          // setCategoryList(response.data.output)
         // }
         // else{
         //   setCategoryByPublisherList([])
@@ -1121,7 +1124,7 @@ const UserProvider = ({ children }) => {
         publisherData,
         publisherId,
         categoryByPublisherList,
-        categoryList,
+        allCategoryList,
         getBookShelf,
         createOrder,
         processPayment,

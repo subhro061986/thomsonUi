@@ -93,7 +93,7 @@ const ManageCategoriesScreen = () => {
       let obj = {
         name: categoryName,
         description: categoryDesc,
-        parentid: categoryParent,
+        // parentid: categoryParent,
         shipmentduration: shipmentDuration
       }
       let resp = await addCategory(obj);
@@ -134,7 +134,7 @@ const ManageCategoriesScreen = () => {
       let obj = {
         name: categoryName,
         description: categoryDesc,
-        parentid: categoryParent,
+        // parentid: categoryParent,
         shipmentduration: shipmentDuration
       }
       let resp = await editCategory(categoryId, obj);
@@ -202,7 +202,7 @@ const ManageCategoriesScreen = () => {
               <tr>
                 {/* <th>Category ID</th> */}
                 <th className="text-start">Name</th>
-                <th className="text-start">Parent</th>
+                {/* <th className="text-start">Parent</th> */}
                 <th className="text-start">Description</th>
                 <th className="text-start">Shipment Duration</th>
                 <th className="text-start">Status</th>
@@ -214,7 +214,7 @@ const ManageCategoriesScreen = () => {
                 <tr className="custom-table-row" key={index}>
                   {/* <td className="all_col">{data.id}</td> */}
                   <td className="all_col text-start">{data.name}</td>
-                  <td className="all_col text-start">{data.parent}</td>
+                  {/* <td className="all_col text-start">{data.parent}</td> */}
                   <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
                   <td className="all_col text-start">{data.shipmentduration}</td>
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
@@ -257,7 +257,7 @@ const ManageCategoriesScreen = () => {
           <Modal.Body>
             <div className="row">
               <div className="col-lg-12 mb-3">
-                <label className="form-label" htmlFor='cat_prod'>Parent Category</label>
+                {/* <label className="form-label" htmlFor='cat_prod'>Parent Category</label>
                 <select id='cat_prod' className="form-select mb-2" onChange={selectParentId}>
                   <option>Please Select</option>
                   {
@@ -270,7 +270,7 @@ const ManageCategoriesScreen = () => {
                       }
                     })
                   }
-                </select>
+                </select> */}
                 <label className="form-label">Category Name</label>
                 <input type="text" className="form-control mb-2" placeholder="Type Category Name"
                   value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />

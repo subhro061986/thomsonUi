@@ -12,7 +12,7 @@ import { useAuth } from '../Context/Authcontext';
 
 const NavBarSouthsore = () => {
     const navigate = useNavigate();
-    const { category_by_publisher, items, allActivePublisher } = UserProfile()
+    const { category_by_publisher, items, allActivePublisher, allCategoryList } = UserProfile()
     const { wishlistshow } = useAuth()
     const [drawerStat, setDrawerStat] = useState(false)
     // const [submneuDrawer, setsubmneuDrawer] = useState(false)
@@ -80,6 +80,14 @@ const NavBarSouthsore = () => {
         // window.scrollTo(0, 2850)
     }
 
+    const cat_dropdown_nav = (e) => {
+        let cat_id = e.target.value
+        console.log('cat_id from nav select', cat_id)
+        navigate('/category',
+            { state: { category_id: cat_id } }
+        )
+    }
+
 
 
 
@@ -119,9 +127,9 @@ const NavBarSouthsore = () => {
                                     {
                                         allActivePublisher.map(
                                             (data, index) => (
-                                                data.isactive === 1 && 
-                                                <Accordion.Body key={index} value={data.id} 
-                                                onClick={()=> get_pub_data_mobile(data.id)}>
+                                                data.isactive === 1 &&
+                                                <Accordion.Body key={index} value={data.id}
+                                                    onClick={() => get_pub_data_mobile(data.id)}>
                                                     {data.name}
                                                 </Accordion.Body>
                                             )
@@ -169,6 +177,25 @@ const NavBarSouthsore = () => {
                                         data.isactive === 1 &&
                                         <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
 
+                                    ))}
+
+                                </select>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <select className="cat_dropdown mt-3 me-3"
+                                    style={{width:'121px'}}
+                                    name="cars" id="cars"
+                                    onChange={(e) => { cat_dropdown_nav(e) }}
+                                >
+                                    <option defaultValue={"0"} disabled selected={true}>Practice Area</option>
+
+                                    {allCategoryList.map((data, index) => (
+                                        data.isactive === 1 && (
+
+                                        <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
+
+                                    )
                                     ))}
 
                                 </select>
