@@ -47,7 +47,10 @@
 
     "RAZORPAY_TEST_KEY":"rzp_test_onx4fvZbYNcUMB",
     "RAZORPAY_LIVE_KEY":"rzp_live_gXUYrgWkg9i2Fl",
-    "RAZORPAY_LIVE_KEY_SECRET":"jIoieogOsKkSFTna9gX5r0rJ"
+    "RAZORPAY_LIVE_KEY_SECRET":"jIoieogOsKkSFTna9gX5r0rJ",
+
+    "ADD_SHIPPING_ADDRESS":"shippingaddress/add",
+    "GET_ALL_SHIPPING_ADDRESS":"shippingaddress/"
     
 }
   

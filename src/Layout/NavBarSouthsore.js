@@ -49,7 +49,8 @@ const NavBarSouthsore = () => {
 
     const get_pub_data = (e) => {
         let pub_id = e.target.value
-        navigate('/home',
+        console.log("pub_id", pub_id)
+        navigate('/category',
             { state: { publisher_id: pub_id } }
         )
     }
@@ -168,9 +169,11 @@ const NavBarSouthsore = () => {
                                 
                             </li> */}
 
-                            <li className="nav-item dropdown">
+                            {/* <li className="nav-item dropdown">
                                 <select className="cat_dropdown mt-3 me-3"
-                                    name="cars" id="cars" onChange={(e) => { get_pub_data(e) }}>
+                                    name="cars" id="cars" 
+                                    onChange={(e) => { get_pub_data(e) }}
+                                    >
                                     <option defaultValue={"0"} disabled selected={true}>Publisher</option>
 
                                     {allActivePublisher.map((data, index) => (
@@ -180,7 +183,7 @@ const NavBarSouthsore = () => {
                                     ))}
 
                                 </select>
-                            </li>
+                            </li> */}
 
                             <li className="nav-item dropdown">
                                 <select className="cat_dropdown mt-3 me-3"

@@ -40,6 +40,8 @@ const UserProvider = ({ children }) => {
     getAllActivePublishers();
     category_all();
     getAllCategory();
+    // addShippingAddress();
+    getAllShippingAddress();
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -1081,6 +1083,49 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  // shipping Address APIs
+
+  const addShippingAddress = async (formData) => {
+    // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
+    
+    try {
+      const response = await axios.post(Config.API_URL + Config.ADD_SHIPPING_ADDRESS , formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // }
+      
+      console.log("Add shipping Response : ", response);
+      return response;
+
+    }
+
+    catch (error) {
+      console.log("Add shipping Response Error : ", error)
+    }
+  }
+
+  const getAllShippingAddress = async () => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_SHIPPING_ADDRESS,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL shipping address : ", response);
+      
+      return response;
+    }
+    catch (error) {
+      console.log("get_shipping address_error : ", error);
+    }
+  }
+
 
   return (
     <UserContext.Provider
@@ -1132,7 +1177,8 @@ const UserProvider = ({ children }) => {
         getCouponByPublisherId,
         sendEmail,
         getBooksBySearchText,
-        
+        addShippingAddress,
+        getAllShippingAddress
 
 
       }}
