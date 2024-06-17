@@ -8,6 +8,7 @@ const ProfileTab = () => {
     const [bookshelf, SetBookshelf] = useState(false)
     const [profiledet, SetProfiledet] = useState(false)
     const [myProfile, SetMyProfile] = useState(false)
+    const [myAddresses, SetMyAddresses] = useState(false)
     const [myCart, SetMyCart] = useState(false)
     const [changePassword, SetChangePassword] = useState(false)
     const [drawerStat, setDrawerStat] = useState(false)
@@ -29,6 +30,7 @@ const ProfileTab = () => {
             SetMyProfile(false)
             SetChangePassword(false)
             SetMyCart(false)
+            SetMyAddresses(false)
             
             console.log("type",type)
            
@@ -41,6 +43,7 @@ const ProfileTab = () => {
             SetMyProfile(false)
             SetChangePassword(false)
             SetMyCart(false)
+            SetMyAddresses(false)
             
         }
         else if (type === "myprofile") {
@@ -51,6 +54,7 @@ const ProfileTab = () => {
             SetMyProfile(true)
             SetChangePassword(false)
             SetMyCart(false)
+            SetMyAddresses(false)
         }
         else if (type === "changePassword") {
             console.log("changePassword")
@@ -60,6 +64,7 @@ const ProfileTab = () => {
             SetMyProfile(false)
             SetChangePassword(true)
             SetMyCart(true)
+            SetMyAddresses(false)
         }
         else if(type === "wishlist") {
             SetProfiledet(true)
@@ -68,6 +73,7 @@ const ProfileTab = () => {
             SetMyProfile(false)
             SetChangePassword(false)
             SetMyCart(false)  
+            SetMyAddresses(false)
         }
         else if(type === "cartpage") {
             SetMyCart(true)  
@@ -76,6 +82,16 @@ const ProfileTab = () => {
             SetOrder(false)
             SetMyProfile(false)
             SetChangePassword(false)
+            SetMyAddresses(false)
+        }
+        else if(type === "cartpage") {
+            SetMyCart(false)  
+            SetProfiledet(false)
+            SetBookshelf(false)
+            SetOrder(false)
+            SetMyProfile(false)
+            SetChangePassword(false)
+            SetMyAddresses(true)
         }
 
     }
@@ -105,6 +121,9 @@ const ProfileTab = () => {
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
                             </li>
                             <li className="nav-item">
+                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">My Addresses</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>
                             </li>
                         </ul>
@@ -129,6 +148,9 @@ const ProfileTab = () => {
                             </div>
                             <div className={"profile-item " + (myProfile === true ? "active" : '')} onClick={()=>mybookshelf("myprofile")}>
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
+                            </div>
+                            <div className={"profile-item " + (myAddresses === true ? "active" : '')} onClick={()=>mybookshelf("myAddresses")}>
+                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">My Addresses</Link>
                             </div>
                             <div className={"profile-item " + (changePassword === true ? "active" : '')} onClick={()=>mybookshelf("changePassword")}>
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>

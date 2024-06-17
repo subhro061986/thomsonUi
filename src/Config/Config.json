@@ -50,7 +50,9 @@
     "RAZORPAY_LIVE_KEY_SECRET":"jIoieogOsKkSFTna9gX5r0rJ",
 
     "ADD_SHIPPING_ADDRESS":"shippingaddress/add",
-    "GET_ALL_SHIPPING_ADDRESS":"shippingaddress/"
+    "GET_ALL_SHIPPING_ADDRESS":"shippingaddress",
+    "EDIT_SHIPPING_ADDRESS":"shippingaddress/edit",
+    "DELETE_SHIPPING_ADDRESS":"shippingaddress/delete"
     
 }
   

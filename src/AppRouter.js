@@ -35,6 +35,7 @@ import PrivacyPolicyPub from './Pages/PrivacyPolicyPub';
 import LoginScreen from './admin/Pages/LoginScreen';
 import DefaultScreen from './admin/DefaultScreen';
 import GalleryScreen from './admin/Pages/GalleryScreen';
+import ShippingAddress from './Pages/ShippingAddress';
 
 
 
@@ -63,6 +64,7 @@ const AfterLogin=()=> {
             <Route exact path="/epubreader" Component={EpubreaderScreen}/>
             <Route exact path="/pdfreader" Component={PdfreaderScreen}/>
             <Route exact path="/myprofile" Component={MyProfile}/>
+            <Route exact path="/shipping" Component={ShippingAddress}/>
             <Route exact path="/changePassword" Component={ChangePassword}/>
             <Route exact path="/billingaddress" Component={BillingAddressPage}/>
             <Route exact path="/orderconfirmation" Component={OrderConfirmation}/>

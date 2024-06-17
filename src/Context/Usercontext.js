@@ -31,6 +31,7 @@ const UserProvider = ({ children }) => {
   const [allCategoryList, setAllCategoryList] = useState([])
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
+  const [shippingList, setShippingList] = useState([])
   
 
 
@@ -40,8 +41,9 @@ const UserProvider = ({ children }) => {
     getAllActivePublishers();
     category_all();
     getAllCategory();
-    // addShippingAddress();
+    addShippingAddress();
     getAllShippingAddress();
+    getSippingAddressById();
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -1092,12 +1094,12 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(Config.API_URL + Config.ADD_SHIPPING_ADDRESS , formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
       // }
-      
+      getAllShippingAddress();
       console.log("Add shipping Response : ", response);
       return response;
 
@@ -1118,11 +1120,69 @@ const UserProvider = ({ children }) => {
           },
         })
       console.log("GET ALL shipping address : ", response);
+      setShippingList(response.data.output)
       
       return response;
     }
     catch (error) {
       console.log("get_shipping address_error : ", error);
+    }
+  }
+
+  const getSippingAddressById = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_SHIPPING_ADDRESS + "/" + id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET SHIPPING ADDRESS BY ID: ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("Get_shipping_by_id_error : ", error);
+    }
+  }
+
+  const editShippingAddress = async (id, args) => {
+    // console.log("Args :", args);
+    // console.log("Id :", id);
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_SHIPPING_ADDRESS + "/" + id, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        getAllShippingAddress();
+      console.log("EDIT SHIPPING RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("EDIT_SHIPPING_Error : ", error)
+    }
+  }
+
+  const delShippingAddress = async (id) => {
+    console.log("Id :", id);
+    try {
+      const response = await axios.post(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
+      {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        getAllShippingAddress();
+      console.log("DELETE SHIPPING RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("DEL_SHIPPING_Error : ", error)
     }
   }
 
@@ -1178,7 +1238,11 @@ const UserProvider = ({ children }) => {
         sendEmail,
         getBooksBySearchText,
         addShippingAddress,
-        getAllShippingAddress
+        getAllShippingAddress,
+        shippingList,
+        getSippingAddressById,
+        editShippingAddress,
+        delShippingAddress
 
 
       }}
