@@ -44,7 +44,7 @@ const ShippingAddress = () => {
         setAddAddressModal(true)
         
         const response = await getSippingAddressById(id)
-        console.log("response of all ship", response)
+        console.log("response of ship by id", response)
         if (id === 0) {
             setmodaltitle('Add Address')
             setStreetAddress('')
@@ -56,12 +56,12 @@ const ShippingAddress = () => {
         }
         else {
             setmodaltitle('Edit Address')
-            setStreetAddress(response.data.streetaddress)
-            setCountryId(response.data.countryid)
-            setStateId(response.data.stateid)
-            setCity(response.data.city)
-            setPin(response.data.pincode)
-            setShippingAddId(response.data.id)
+            setStreetAddress(response.data.output.streetaddress)
+            setCountryId(response.data.output.countryid)
+            setStateId(response.data.output.stateid)
+            setCity(response.data.output.city)
+            setPin(response.data.output.pincode)
+            setShippingAddId(id)
 
         }
     }
@@ -158,8 +158,9 @@ const ShippingAddress = () => {
                 city: city,
                 pincode: pin
             }
-            let response = await editShippingAddress(editShippingData)
+            let response = await editShippingAddress(editShippingData, shippingAddId)
             console.log(" add shipping response ", response)
+            closeAddAddressModal()
         }
         
 
@@ -190,7 +191,7 @@ const ShippingAddress = () => {
                     <Button className="mx-2 mt-3" onClick={() => openAddAddressModal(0)}>Add Address</Button>
                     <div className="row my-4 mx-1">
                         {shippingList.map((data, index) => (
-                            <div className="col-md-4 border border-secondary rounded mx-2 py-3 px-2" key={index}>
+                            <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-3 px-2" key={index}>
                                 <div>{data.streetaddress}</div>
                                 <div>{data.city}</div>
                                 <div>{data.statename}</div>

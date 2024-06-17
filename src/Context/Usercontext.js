@@ -44,6 +44,7 @@ const UserProvider = ({ children }) => {
     addShippingAddress();
     getAllShippingAddress();
     getSippingAddressById();
+    delShippingAddress();
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -1146,9 +1147,9 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const editShippingAddress = async (id, args) => {
-    // console.log("Args :", args);
-    // console.log("Id :", id);
+  const editShippingAddress = async (args, id) => {
+    console.log("Args in edit ship context :", args);
+    console.log("Id in edit ship context:", id);
     try {
       const response = await axios.post(Config.API_URL + Config.EDIT_SHIPPING_ADDRESS + "/" + id, args,
         {
@@ -1168,8 +1169,9 @@ const UserProvider = ({ children }) => {
 
   const delShippingAddress = async (id) => {
     console.log("Id :", id);
+    console.log("delShippingAddress token :", authData);
     try {
-      const response = await axios.post(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
+      const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
       {},
         {
           headers: {
