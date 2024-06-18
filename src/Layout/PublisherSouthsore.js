@@ -41,7 +41,8 @@ const PublisherSouthsore = () => {
   const navigate = useNavigate();
 
   const goToCatagory = (val) => {
-    navigate('/home', { state: { publisher_id: val.id } })
+    console.log("pub val : ",val);
+    navigate('/category', { state: { publisher_id: val.id } })
   }
 
   const { getAllCategory, category_by_publisher, allActivePublisher } = UserProfile()
@@ -100,7 +101,7 @@ const PublisherSouthsore = () => {
             <div
               key={index}
               className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              // onClick={() => goToCatagory(data)}
+              onClick={() => goToCatagory(data)}
               style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
             >
               <div

@@ -85,7 +85,7 @@ const NavBarSouthsore = () => {
         let cat_id = e.target.value
         console.log('cat_id from nav select', cat_id)
         navigate('/category',
-            { state: { category_id: cat_id } }
+            { state: { category_id: cat_id, type: "category" } }
         )
     }
 

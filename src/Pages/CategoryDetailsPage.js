@@ -110,6 +110,7 @@ const CategoryDetailsPage = () => {
 
     useEffect(() => {
         console.log("hello books",location.state.category_id)
+        console.log("hello books pub",location.state.publisherId)
         // book_category()
         books_by_category(location.state.category_id, publisherId)
         // ** For direct navigation to category details page using url
@@ -349,12 +350,14 @@ const CategoryDetailsPage = () => {
 
     const books_by_category = async (cat_id, pub_id) => {
         console.log("GET Category Id BY CATEGORY",cat_id)
+        // let 
         let json = {
             categoryid: cat_id,
             publisherid: pub_id
         }
         let current_page_no = 1
         let records_per_page = 6
+        
 
         const resp = await getBook_by_category(current_page_no, records_per_page, json)
         console.log("GET BOOK BY CATEGORY",resp)

@@ -195,7 +195,7 @@ const UserProvider = ({ children }) => {
 
 
   const getBook_by_category = async (currentpageno, record_no, args) => {
-    //console.log(" :", authData)
+    console.log(" args from get book by category:", args)
     try {
       const response = await axios.post(Config.API_URL + Config.BOOK_BY_GENRE +
         "?currentPage=" + currentpageno + "&recordPerPage=" + record_no, args,
@@ -1172,13 +1172,14 @@ const UserProvider = ({ children }) => {
     console.log("delShippingAddress token :", authData);
     try {
       const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
-      {},
+      
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
+        // setShippingList();
         getAllShippingAddress();
       console.log("DELETE SHIPPING RESPONSE : ", response);
       return response;

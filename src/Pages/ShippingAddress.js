@@ -33,6 +33,7 @@ const ShippingAddress = () => {
     const [stateList, setStateList] = useState([])
     const [stateId, setStateId] = useState(0)
     const [shippingAddId, setShippingAddId] = useState(0)
+    const [shipList, setShipList] = useState([])
 
     const navigate = useNavigate();
     const goToHome = () => {
@@ -74,7 +75,14 @@ const ShippingAddress = () => {
     useEffect(() => {
         get_countries()
         get_states()
+        getShipLists()
     }, []);
+
+    const getShipLists = async() =>{
+        const resp = await getAllShippingAddress()
+        console.log("ship list ", resp)
+        setShipList(resp.data.output)
+    }
 
     const get_countries = async () => {
         const resp = await get_country_list()
@@ -147,6 +155,7 @@ const ShippingAddress = () => {
             }
             let response = await addShippingAddress(addShippingData)
             console.log(" add shipping response ", response)
+            getShipLists()
             closeAddAddressModal()
         }
         else{
@@ -160,6 +169,7 @@ const ShippingAddress = () => {
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
             console.log(" add shipping response ", response)
+            getShipLists()
             closeAddAddressModal()
         }
         
@@ -169,6 +179,7 @@ const ShippingAddress = () => {
     const deleteAddress = async (id) => {
         const resp = await delShippingAddress(id)
         console.log("delete resp ", resp)
+        await getShipLists()
     }
 
 
