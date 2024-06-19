@@ -109,18 +109,18 @@ const CategoryDetailsPage = () => {
     }, [dropbool])
 
     useEffect(() => {
-        console.log("hello books",location.state.category_id)
-        console.log("hello books pub",location.state.publisherId)
+        console.log("hello books", location.state.category_id)
+        console.log("hello books pub", location.state.publisher_id)
         // book_category()
-        books_by_category(location.state.category_id, publisherId)
+        books_by_category(location.state.category_id, location.state.publisher_id)
         // ** For direct navigation to category details page using url
 
         //book_category_by_publisher(1)
-        // wishlistitems
-    }, [location.state.category_id])
+        // wishlistitems [location.state.category_id],
+    }, [location.state.publisher_id])
 
     useEffect(() => {
-        
+
         window.scrollTo(0, 0)
     }, [location.state.category_id])
 
@@ -161,59 +161,58 @@ const CategoryDetailsPage = () => {
     const price_ranges = (booksarr) => {
         const sorted_Products = booksarr.sort((a, b) => a.price - b.price);
         arr = ([...sorted_Products])
-        
+
 
         let price_min = arr[0].price
         let price_max = arr[arr.length - 1].price
 
-        
+
 
         let a = price_max - price_min
-        
-       
+
+
         let Filters_no = 0
-        if(arr.length>0 && arr.length<=6){
+        if (arr.length > 0 && arr.length <= 6) {
             Filters_no = 1
         }
-        else{
+        else {
             Filters_no = 5
         }
-         price_filters_arr = []
-        
+        price_filters_arr = []
+
         let b = a / Filters_no
         let val = 0
         let prev = 0
-        if(b>0){
+        if (b > 0) {
             price_filters_arr.push(`Under ₹${Math.trunc(b)}`)
             val = b
         }
-        
-        
-        if(b>0)
-        {
+
+
+        if (b > 0) {
             for (let i = 0; i < Filters_no; i++) {
-                
+
                 if (val <= a) {
                     prev = val
                     val = val + b
                     price_filters_arr.push(`₹${Math.trunc(prev)} - ₹${Math.trunc(val)}`)
-                    
+
                 }
 
             }
-        //price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
-    }
-    else{
-        price_filters_arr.push(`₹${Math.trunc(b)} - ₹${Math.trunc(price_max)}`)
-        
-    }
-    price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
-    
-        
+            //price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+        }
+        else {
+            price_filters_arr.push(`₹${Math.trunc(b)} - ₹${Math.trunc(price_max)}`)
+
+        }
+        price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+
+
 
 
         if (price_filters_arr.length > Filters_no) {
-            
+
             setPricerangefilters(price_filters_arr.splice(0, price_filters_arr.length / 2))
         }
         else {
@@ -222,9 +221,9 @@ const CategoryDetailsPage = () => {
         }
 
 
-        
 
-       
+
+
     }
 
 
@@ -235,7 +234,7 @@ const CategoryDetailsPage = () => {
         // console.log('range', index)
 
         if (index === 0) {
-            
+
             let range_pr = Number(range.split(' ')[1].split('₹')[1].trim())
 
 
@@ -276,9 +275,9 @@ const CategoryDetailsPage = () => {
 
 
             setBooks(books_in_range);
-            console.log("books",books)
+            console.log("books", books)
         }
-    
+
 
 
 
@@ -349,7 +348,8 @@ const CategoryDetailsPage = () => {
     }
 
     const books_by_category = async (cat_id, pub_id) => {
-        console.log("GET Category Id BY CATEGORY",cat_id)
+        console.log("GET Category Id BY CATEGORY", cat_id)
+        console.log("GET publisher Id BY publisher", pub_id)
         // let 
         let json = {
             categoryid: cat_id,
@@ -357,32 +357,32 @@ const CategoryDetailsPage = () => {
         }
         let current_page_no = 1
         let records_per_page = 6
-        
 
-        const resp = await getBook_by_category(current_page_no, records_per_page, json)
-        console.log("GET BOOK BY CATEGORY",resp)
-        if (resp === undefined || resp === null) {
-            setTempBooks([])
-            setBooks([])
-            setRawbooksdata([])
-        }
-        else {
-            if (resp?.output?.books?.length > 0) {
-                setTempBooks(resp?.output?.books)
-                setBooks(resp?.output?.books)
-                setAllBooks(resp?.output?.books)
-                setRawbooksdata(resp?.output?.books)
-                setNoofbooks(resp?.output?.books?.length)
-                setCategoryname(resp.output.books[0].genre)
-                price_ranges(resp?.output?.books)
-            }
-            else {
+        // if ((cat_id !== 0 && pub_id === 0) || (cat_id === 0 && pub_id !== 0)) {
+            const resp = await getBook_by_category(current_page_no, records_per_page, json)
+            console.log("GET BOOK BY CATEGORY", resp)
+            if (resp === undefined || resp === null) {
+                setTempBooks([])
                 setBooks([])
-                setAllBooks([])
                 setRawbooksdata([])
             }
-        }
-
+            else {
+                if (resp?.output?.books?.length > 0) {
+                    setTempBooks(resp?.output?.books)
+                    setBooks(resp?.output?.books)
+                    setAllBooks(resp?.output?.books)
+                    setRawbooksdata(resp?.output?.books)
+                    setNoofbooks(resp?.output?.books?.length)
+                    setCategoryname(resp.output.books[0].genre)
+                    price_ranges(resp?.output?.books)
+                }
+                else {
+                    setBooks([])
+                    setAllBooks([])
+                    setRawbooksdata([])
+                }
+            }
+        // }
     }
 
 
@@ -418,13 +418,13 @@ const CategoryDetailsPage = () => {
 
 
 
-    const Wishlist = (event, book_id ,index) => {
+    const Wishlist = (event, book_id, index) => {
 
         event.stopPropagation()
         if (wishlistshow === true) {
 
 
-            Add_To_Wishlist(book_id,index)
+            Add_To_Wishlist(book_id, index)
         }
         else {
             navigate('/login')
@@ -432,9 +432,9 @@ const CategoryDetailsPage = () => {
     }
 
 
-    const Add_To_Wishlist = async (book_id,index) => {
+    const Add_To_Wishlist = async (book_id, index) => {
 
-        console.log('book_index',index)
+        console.log('book_index', index)
 
         console.log("wishlist items : ", wishlistitems)
 
@@ -452,14 +452,14 @@ const CategoryDetailsPage = () => {
         // books_by_category(location.state ? location.state.category_id : 1)
         console.log("Wishlist_resp ", resp)
 
-        if (books[index].isFavourite === 0){
+        if (books[index].isFavourite === 0) {
             books[index].isFavourite = 1
         }
-        else{
+        else {
             books[index].isFavourite = 0
         }
 
-        
+
         console.log('index_book', books)
 
         setBooks([...books])
@@ -494,7 +494,7 @@ const CategoryDetailsPage = () => {
                     <TopBar />
                     <NavBar />
                 </div>
-                <Whatsapp/>
+                <Whatsapp />
                 <div className="container category-details">
                     {/* Adding books and filter here */}
                     <div className="row" >
@@ -541,7 +541,7 @@ const CategoryDetailsPage = () => {
                                     pricerangefilters.map((data, index) => (
 
                                         <ul className="price-search li_margin" key={index}>
-                                            <li style={{cursor:"pointer"}} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data} </li>
+                                            <li style={{ cursor: "pointer" }} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data} </li>
 
                                         </ul>
 
@@ -623,14 +623,14 @@ const CategoryDetailsPage = () => {
 
                                     <hr />
                                     <li>Refine your Search by Price</li>
-                                    
+
 
                                     {
 
                                         pricerangefilters.map((data, index) => (
 
                                             <ul className="price-search" key={index}>
-                                                <li style={{cursor:"pointer"}} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data}</li>
+                                                <li style={{ cursor: "pointer" }} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data}</li>
 
                                             </ul>
 
@@ -733,7 +733,7 @@ const CategoryDetailsPage = () => {
 
                                             <div key={index} className="col-md-3 border border-white bg-white rounded-4 book_card h380  category_det_card" onClick={() => { gotoDetails(data.id) }}>
                                                 <div className="d-flex flex-column">
-                                                    <div className="d-flex justify-content-end mt-2" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id,index)}>
+                                                    <div className="d-flex justify-content-end mt-2" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
                                                             data.isFavourite === 1 ? (<img src={wishlistedicon} width={27} height={27} />)
                                                                 :
@@ -747,13 +747,13 @@ const CategoryDetailsPage = () => {
                                                         {/* <img src={data.image !== null ? data.image : dummy}
                                                         width={120} height={170} /> */}
                                                         <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
-                                                            width={120} height={170} 
+                                                            width={120} height={170}
                                                             loading="lazy"
                                                         />
                                                     </div>
 
 
-                                                    <div className="d-flex justify-content-center book_name mx-2 mt-3" style={{minHeight:'48px'}}>{data?.title?.length > 21 ? data.title.substring(0, 21) + ".." : data.title}</div>
+                                                    <div className="d-flex justify-content-center book_name mx-2 mt-3" style={{ minHeight: '48px' }}>{data?.title?.length > 21 ? data.title.substring(0, 21) + ".." : data.title}</div>
                                                     {/* <div className="d-flex justify-content-center pub_name">Publisher: <span className="pub_span">Spring & River</span></div> */}
                                                     <div className="d-flex justify-content-center author_name mt-2">
                                                         Author: {data.authors?.length > 0 ? data.authors : "Not Found"}
