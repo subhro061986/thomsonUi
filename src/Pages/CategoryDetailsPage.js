@@ -64,6 +64,16 @@ const CategoryDetailsPage = () => {
     const [newarri, setNewarri] = useState(false)
     const [browsecat, setBrowsecat] = useState(false)
     const [tempBooks, setTempBooks] = useState([])
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(500);
+    const [minRange, setMinRange] = useState(0);
+    const [maxRange, setMaxRange] = useState(500);
+    const [range, setRange] = useState([0, 0]);
+
+    
+
+
+    
 
     // const [value, setValue] = useState([30, 60]);
 
@@ -123,6 +133,7 @@ const CategoryDetailsPage = () => {
 
         //book_category_by_publisher(1)
         // wishlistitems [location.state.category_id],
+        // console.log("tempBooks", tempBooks);
     }, [location.state.publisher_id, location.state.category_id])
 
     useEffect(() => {
@@ -393,8 +404,39 @@ const CategoryDetailsPage = () => {
                 setRawbooksdata([])
             }
         }
+
+        // const prices = tempBooks.map(data => parseFloat(data.price.replace('$ ', '')));
+        // const min = Math.min(...prices);
+        // const max = Math.max(...prices);
+
+        // setMinPrice(min);
+        // setMaxPrice(max);
+        // setRange([min, max]);
         // }
     }
+
+    const rangefunction=(e)=>{
+        console.log("range function", e)
+        setMaxRange(e[1])
+        setMinRange(e[0])
+    }
+
+    // const parsePrice = (price) => parseFloat(price.replace('$ ', ''));
+
+    // const getMinPrice = (tempBooks) => {
+    //     return Math.min(...tempBooks.map(data => parsePrice(data.price)));
+    // };
+
+    // const getMaxPrice = (tempBooks) => {
+    //     return Math.max(...tempBooks.map(data => parsePrice(data.price)));
+    // };
+
+    // const minPrice = getMinPrice(tempBooks);
+    // // console.log('minPrice', minPrice)
+    // const maxPrice = getMaxPrice(tempBooks);
+    // // console.log('maxPrice', maxPrice)
+
+    // const [range, setRange] = useState([minPrice, maxPrice]);
 
 
     // const book_category_by_publisher = async (publisher_id) => {
@@ -624,25 +666,32 @@ const CategoryDetailsPage = () => {
 
                         <div className="col-md-3">
                             <div className="web_filter">
-                                {/* <h4>Browse Categories</h4> */}
+                                <h4>{location.state.category_id ? "Publishers" : "Categories"}</h4>
 
                                 {location.state.category_id && (
-                                    <ul style={{ marginTop: '4%' }}>
+                                    <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
                                         {
                                             allActivePublisher.map((data, index) => (
                                                 data.isactive === 1 && (
-                                                    <li key={index}>{data.name}</li>
+                                                    <div key={index}>
+                                                        <input type="checkbox" className="me-1" value={data.id} />
+                                                        <label>{data.name}</label>
+                                                    </div>
+
                                                 )
                                             ))
                                         }
                                     </ul>
                                 )}
                                 {location.state.publisher_id && (
-                                    <ul style={{ marginTop: '4%' }}>
+                                    <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
                                         {
                                             allCategoryList.map((data, index) => (
                                                 data.isactive === 1 && (
-                                                <li key={index}>{data.name}</li>
+                                                    <div key={index}>
+                                                        <input type="checkbox" className="me-1" value={data.id} />
+                                                        <label>{data.name}</label>
+                                                    </div>
                                                 )
                                             ))
                                         }
@@ -668,11 +717,16 @@ const CategoryDetailsPage = () => {
                                     } */}
 
                                     {/* <div style={{userSelect:'none'}}>Custom Values</div> */}
-                                    <RangeSlider min={0} max={100} step={5}
-                                    // value={[0, 100]} 
+                                    <RangeSlider
+                                        min={0}
+                                        max={500}
+                                        step={1}
+                                        defaultValue={[0,500]}
+                                        // value={[0,500]}
+                                        onInput={(e)=>rangefunction(e)}
                                     />
 
-
+                                    <p>Selected range: ${minRange} - ${maxRange}</p>
 
                                     <hr />
                                     {/* <li>Language</li>
