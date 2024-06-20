@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 import { UserProfile } from "../Context/Usercontext"
 import Accordion from 'react-bootstrap/Accordion';
 import TopBar from "../Layout/TopBar";
@@ -39,7 +41,7 @@ import Whatsapp from "../Layout/Whatsapp";
 const CategoryDetailsPage = () => {
 
 
-    const { getBook_by_category, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
+    const { getBook_by_category, allCategoryList, allActivePublisher, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
     const { wishlistshow } = useAuth()
 
     const navigate = useNavigate();
@@ -53,6 +55,7 @@ const CategoryDetailsPage = () => {
     const [pricerangefilters, setPricerangefilters] = useState([])
     const [noofbooks, setNoofbooks] = useState()
     const [categoryname, setCategoryname] = useState("")
+    const [publisherName, setPublisherName] = useState("")
     const [category, setCategory] = useState([])
     const [pubcat, setPubcat] = useState([])
     const [togglepricedropdown, setTogglepricedropdown] = useState(false)
@@ -61,6 +64,8 @@ const CategoryDetailsPage = () => {
     const [newarri, setNewarri] = useState(false)
     const [browsecat, setBrowsecat] = useState(false)
     const [tempBooks, setTempBooks] = useState([])
+
+    // const [value, setValue] = useState([30, 60]);
 
     // let menuref = useRef()
 
@@ -109,6 +114,7 @@ const CategoryDetailsPage = () => {
     }, [dropbool])
 
     useEffect(() => {
+        console.log("hello location.state", location.state)
         console.log("hello books", location.state.category_id)
         console.log("hello books pub", location.state.publisher_id)
         // book_category()
@@ -117,12 +123,15 @@ const CategoryDetailsPage = () => {
 
         //book_category_by_publisher(1)
         // wishlistitems [location.state.category_id],
-    }, [location.state.publisher_id,location.state.category_id])
+    }, [location.state.publisher_id, location.state.category_id])
 
     useEffect(() => {
 
         window.scrollTo(0, 0)
-    }, [location.state.category_id,location.state.publisher_id])
+    }, [location.state.category_id, location.state.publisher_id])
+
+    let categry_id_nav = location.state.category_id
+    let publisher_id_car = location.state.publisher_id
 
 
 
@@ -360,29 +369,30 @@ const CategoryDetailsPage = () => {
         let records_per_page = 6
 
         // if ((cat_id !== 0 && pub_id === 0) || (cat_id === 0 && pub_id !== 0)) {
-            const resp = await getBook_by_category(current_page_no, records_per_page, json)
-            console.log("GET BOOK BY CATEGORY", resp)
-            if (resp === undefined || resp === null) {
-                setTempBooks([])
-                setBooks([])
-                setRawbooksdata([])
+        const resp = await getBook_by_category(current_page_no, records_per_page, json)
+        console.log("GET BOOK BY CATEGORY", resp)
+        if (resp === undefined || resp === null) {
+            setTempBooks([])
+            setBooks([])
+            setRawbooksdata([])
+        }
+        else {
+            if (resp?.output?.books?.length > 0) {
+                setTempBooks(resp?.output?.books)
+                setBooks(resp?.output?.books)
+                setAllBooks(resp?.output?.books)
+                setRawbooksdata(resp?.output?.books)
+                setNoofbooks(resp?.output?.books?.length)
+                setCategoryname(resp.output.books[0].category)
+                setPublisherName(resp.output.books[0].publisher)
+                price_ranges(resp?.output?.books)
             }
             else {
-                if (resp?.output?.books?.length > 0) {
-                    setTempBooks(resp?.output?.books)
-                    setBooks(resp?.output?.books)
-                    setAllBooks(resp?.output?.books)
-                    setRawbooksdata(resp?.output?.books)
-                    setNoofbooks(resp?.output?.books?.length)
-                    setCategoryname(resp.output.books[0].genre)
-                    price_ranges(resp?.output?.books)
-                }
-                else {
-                    setBooks([])
-                    setAllBooks([])
-                    setRawbooksdata([])
-                }
+                setBooks([])
+                setAllBooks([])
+                setRawbooksdata([])
             }
+        }
         // }
     }
 
@@ -615,18 +625,37 @@ const CategoryDetailsPage = () => {
                         <div className="col-md-3">
                             <div className="web_filter">
                                 {/* <h4>Browse Categories</h4> */}
-                                <ul style={{ marginTop: '4%' }}>
+
+                                {location.state.category_id && (
+                                    <ul style={{ marginTop: '4%' }}>
+                                        {
+                                            allActivePublisher.map((data, index) => (
+                                                data.isactive === 1 && (
+                                                    <li key={index}>{data.name}</li>
+                                                )
+                                            ))
+                                        }
+                                    </ul>
+                                )}
+                                {location.state.publisher_id && (
+                                    <ul style={{ marginTop: '4%' }}>
+                                        {
+                                            allCategoryList.map((data, index) => (
+                                                data.isactive === 1 && (
+                                                <li key={index}>{data.name}</li>
+                                                )
+                                            ))
+                                        }
+                                    </ul>
+                                )}
+
+
+                                <hr />
+                                <ul>
+                                    <li className="mb-3">Price</li>
+
 
                                     {/* {
-                                        pubcat.map((data, index) => (
-                                            <li key={index}>{data.name}</li>
-                                        ))} */}
-
-                                    <hr />
-                                    <li>Refine your Search by Price</li>
-
-
-                                    {
 
                                         pricerangefilters.map((data, index) => (
 
@@ -635,7 +664,13 @@ const CategoryDetailsPage = () => {
 
                                             </ul>
 
-                                        ))}
+                                        ))
+                                    } */}
+
+                                    {/* <div style={{userSelect:'none'}}>Custom Values</div> */}
+                                    <RangeSlider min={0} max={100} step={5}
+                                    // value={[0, 100]} 
+                                    />
 
 
 
@@ -667,13 +702,13 @@ const CategoryDetailsPage = () => {
                         <div className="col-md-9 ">
                             <div className="container details">
 
-                                <div className="details_path mt-3 margin_bt_1"><span className="fw700">Home</span><span className="fw400"> &gt; {categoryname} &gt;</span></div>
+                                <div className="details_path mt-3 margin_bt_1"><span className="fw700">Home</span><span className="fw400"> &gt; {location.state.category_id ? categoryname : publisherName} &gt;</span></div>
                                 <div className="d-flex align-items-center header-top justify-content-between">
 
                                     <div className="categordet_div">
                                         <div className="header left_div">
                                             <div className="category_head margin_bt">
-                                                <b>{categoryname}</b>
+                                                <b>{location.state.category_id ? categoryname : publisherName}</b>
 
                                             </div>
                                             <div className="category_head_search_results">
