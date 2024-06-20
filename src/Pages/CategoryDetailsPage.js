@@ -117,12 +117,12 @@ const CategoryDetailsPage = () => {
 
         //book_category_by_publisher(1)
         // wishlistitems [location.state.category_id],
-    }, [location.state.publisher_id])
+    }, [location.state.publisher_id,location.state.category_id])
 
     useEffect(() => {
 
         window.scrollTo(0, 0)
-    }, [location.state.category_id])
+    }, [location.state.category_id,location.state.publisher_id])
 
 
 
@@ -355,6 +355,7 @@ const CategoryDetailsPage = () => {
             categoryid: cat_id,
             publisherid: pub_id
         }
+        console.log("GET json", json)
         let current_page_no = 1
         let records_per_page = 6
 
