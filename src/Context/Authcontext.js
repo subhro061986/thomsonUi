@@ -22,6 +22,9 @@ const AuthProvider = ({ children }) => {
   const [wishlistshow, setWishlistshow] = useState(false)
   const [isexpired, setIsexpired] = useState(false)
   const [uuid,SetUuid] = useState()
+  const [cartCount, setCartCount] = useState(0)
+  const [cartItems, setCartItems] = useState([])
+  const image_path = Config.API_URL + Config.PUB_IMAGES;
 
   // !  wishlistshow === isLoggedin
 
@@ -115,6 +118,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     getDataFromStorage();
     // wishlist_hide_show()
+    getCartData(authData)
 
   }, [authData])
 
@@ -147,12 +151,15 @@ const AuthProvider = ({ children }) => {
         setWishlistshow(true)
         // setAuthUsername(response.data.data[0].username)
         localStorage.setItem("userid", response.data.token);
+        getCartData(response.data.token)
+
         // localStorage.setItem("username", response.data.data[0].username);
       }
       else {
         setAuthData('')
         // setAuthUsername('')
-        localStorage.setItem("userid", '');
+        await localStorage.setItem("userid", '');
+        await localStorage.setItem("cartData", '');
         // localStorage.setItem("username", '');
       }
       return response
@@ -177,10 +184,17 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("userid", '');
     // localStorage.setItem("username", '');
     console.log("log out from authcontext");
-
+    // getCartData('')
+    setCartCount(0)
+    setCartItems([])
     return 'Success';
   }
 
+  const clearCartStorage = async () => {
+    localStorage.setItem("cartData", "")
+    setCartCount(0)
+    setCartItems([])
+  }
   const forgot_password = async (args) => {
     try {
       const response = await axios.post(Config.API_URL + Config.FORGOT_PASSWORD, args,
@@ -269,6 +283,204 @@ const AuthProvider = ({ children }) => {
 
   }
 
+  const getCartData = async (token) => {
+    let sendUUid={
+      deviceid: uuid
+    }
+    console.log("SEND UUID",sendUUid)
+    let tok=''
+    if (authData === '' || authData === null || authData === undefined) {
+      tok=token
+    }
+    else {
+      tok=authData
+    }
+    // -------- Before Login ----------//
+    if (tok === '' || tok === null || tok === undefined) {
+      let cc =  localStorage.getItem("cartData")
+      
+      if (cc !== null) {
+        let tempCartItems = JSON.parse(cc)
+        setCartCount(tempCartItems.length)
+        setCartItems(tempCartItems)
+      }
+    }
+    // -------- After Login ----------//
+    else {
+      
+      try {
+        clearCartStorage()
+        const response = await axios.post(Config.API_URL + Config.GET_CART_ITEMS, sendUUid,
+
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + tok
+            },
+
+          })
+
+        console.log("get_cart_items : ", response.data);
+
+        let cd=response.data.output
+        cd.map((item,index) =>{
+          item.image = image_path + item.publisherid + '/' + item.image + '?d=' + new Date();
+        })
+        // console.log("items after change= ",cd)
+        // let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.front_cover + '?d=' + new Date();
+
+        setCartItems(cd)
+        setCartCount(response.data.output.length)
+
+        return response.data
+
+      }
+      catch (error) {
+        console.log("get_cart_items_error : ", error)
+      }
+
+
+    }
+  }
+  const add_book_to_storage = async (data) => {
+
+
+    let tempCartArray = []
+    let isPresent=false
+    console.log("inside add book to storage")
+    // -------- Before Login ----------//
+    if (authData === '' || authData === null || authData === undefined) {
+      const cd =  localStorage.getItem('cartData');
+      console.log("existing cart Data= ", cd)
+
+      // nothing present in async storage i.e first entry
+      if (cd === null) {
+        setCartCount(1)
+        tempCartArray.push(data)
+
+        localStorage.setItem("cartData", JSON.stringify(tempCartArray));
+
+      }
+      // if data already present in async storage
+      else {
+        tempCartArray = JSON.parse(cd)
+        
+        // check if book already present in list of data
+        let index = tempCartArray.findIndex((item, i) => {
+          return item.bookid === data.bookid
+        });
+
+        // if book is not present 
+        if (index == -1) {
+          //add the new book to cart and update the count
+          tempCartArray.push(data)
+          setCartCount(tempCartArray.length)
+          localStorage.setItem("cartData", JSON.stringify(tempCartArray));
+
+
+        }
+        // book already present in cart and do nothing 
+        else {
+          isPresent=true
+          console.log("Book already present in cart")
+        }
+
+      }
+      setCartItems(tempCartArray)
+
+    }
+    // -------- After Login ----------//
+    else {
+      try {
+
+        // check if book already present in cart or not
+        let index = cartItems.findIndex((item, i) => {
+          return item.id === data.bookid
+        });
+      
+       // if book not present in cart
+        if (index == -1) {
+          // save data to backend 
+          const response = await axios.post(Config.API_URL + Config.ADD_SINGLE_ITEM, data,
+
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authData
+              },
+
+            })
+
+          console.log('add Single item resp=', response)
+
+          // get new updated cart items
+          getCartData(authData)
+        }
+        else {
+          isPresent=true
+          console.log("Book already present in cart!")
+        }
+
+      }
+      catch (error) {
+        console.log('Add single item error=', error)
+      }
+
+    }
+
+    // console.log("cart: ", response);
+    if (isPresent) {
+      return {message :"Book already present in cart",isPresent : true}
+    }
+    return {message :"Item added to cart",isPresent : false}
+  }
+
+  const remove_cart_item = async (args,buyNow) => {
+
+    try {
+      const response = await axios.post(Config.API_URL + Config.REMOVE_CART_ITEM,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+        //if the function is called from buynow button then the state needs to be change quickly hence the manual state change
+        if(buyNow){
+          removeBookFromState(args.bookid)
+        }
+        // if it gets called from another place like cart page then we can call the getCardData api to fix it
+        else{
+          console.log("inside if of get cart adter removal")
+          getCartData(authData)
+
+        }
+
+
+      // await price_items_signin(response.data)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("remove_cart_item_error : ", error)
+    }
+  }
+  const removeBookFromState=(bookid) =>{
+    
+    setCartCount(cartCount-1)
+    let index = cartItems.findIndex((item, i) => {
+      return item.id === bookid
+    });
+    let tempArr=cartItems
+    tempArr.splice(index,1)
+    setCartItems(tempArr)
+    localStorage.setItem("cartData", JSON.stringify(tempArr));
+  }
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -281,7 +493,16 @@ const AuthProvider = ({ children }) => {
         uuid,
         Registration,
         createNewPassword,
-        resendPasswordCreationEmail
+        resendPasswordCreationEmail,
+        getCartData,
+        cartItems,
+        cartCount,
+        remove_cart_item,
+        removeBookFromState,
+        clearCartStorage,
+        image_path,
+        add_book_to_storage
+
         // authUsername
       }}
     >

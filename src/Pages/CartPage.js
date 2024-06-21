@@ -24,9 +24,17 @@ import Whatsapp from "../Layout/Whatsapp";
 
 const CartPage = () => {
 
-    const { wishlistshow, uuid, authData } = useAuth()
+    const {
+        authData,
+        getCartData,
+        cartItems,
+        cartCount,
+        remove_cart_item,
+        removeBookFromState,
+        clearCartStorage,
+        uuid } = useAuth()
 
-    const { get_items, price, items, cart_items, remove_cart_item, applyCoupon } = UserProfile()
+    const { get_items, price, items, cart_items, applyCoupon } = UserProfile()
     const navigate = useNavigate();
     const [getcartitems, setGetcartitems] = useState([])
     // const [quanity, setQuantity] = useState()
@@ -35,138 +43,115 @@ const CartPage = () => {
 
     const [count, setCount] = useState(1);
     const [total, setTotal] = useState(1);
-
+    const [subtotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        console.log("AUTH DATA ", authData)
-        get_cart_items()
+        // clearCartStorage()
 
-
-    }, [dependencyvar])
-
-
-
-    const get_cart_items = async () => {
-
-        console.log("Cart_UUID :", uuid)
-
-        console.log("Cart_wishlistshow_bool ", wishlistshow)
-
-        if (wishlistshow === false) {
-            setGetcartitems(JSON.parse(localStorage.getItem("cart_data")) || [])
+        if (cartCount == 0) {
+            setSubTotal(0)
         }
         else {
-
-            let json = {
-
-                deviceid: uuid
-                // "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
-            }
-
-            GetcartItems_signin(json)
+            findSubtotal()
 
         }
+        console.log("cart items= ", cartItems)
+    }, [cartCount])
 
+
+    const findSubtotal = () => {
+        let subtotal = 0;
+        if (cartItems.length > 0) {
+            cartItems.map((data, index) => {
+                subtotal = subtotal + data.price
+            })
+
+            console.log("subtotal function=", subtotal)
+            setSubTotal(subtotal)
+
+        } else {
+            setSubTotal(0)
+        }
 
     }
+    // const get_cart_items = async () => {
 
-    const GetcartItems_signin = async (json) => {
-
-        const resp = await cart_items(json)
-        console.log("cart_resp", resp)
-        if (resp === undefined || resp === null) {
-            setGetcartitems([])
-        }
-        else {
-            if (resp.output.length > 0) {
-                setGetcartitems(resp.output)
-            }
-            else (
-                setGetcartitems([])
-            )
-
-        }
+    //     console.log("Cart_UUID :", uuid)
 
 
-    }
+    //     if (wishlistshow === false) {
+    //         setGetcartitems(JSON.parse(localStorage.getItem("cart_data")) || [])
+    //     }
+    //     else {
 
-    // const handleSetCoupon = (e) => {
-    //     setCoupon(e.target.value)
+    //         let json = {
+
+    //             deviceid: uuid
+    //             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
+    //         }
+
+    //         GetcartItems_signin(json)
+
+    //     }
+
+
     // }
+
+    // const GetcartItems_signin = async (json) => {
+
+    //     const resp = await cart_items(json)
+    //     console.log("cart_resp", resp)
+    //     if (resp === undefined || resp === null) {
+    //         setGetcartitems([])
+    //     }
+    //     else {
+    //         if (resp.output.length > 0) {
+    //             setGetcartitems(resp.output)
+    //         }
+    //         else (
+    //             setGetcartitems([])
+    //         )
+
+    //     }
+
+
+    // }
+
+   
 
 
     const gotoDetails = (book_id) => {
         navigate('/productdetails', { state: { BOOK_ID: book_id } })
     }
 
+    const removeCartItems = async (item) => {
 
+        console.log("Data to be removed= ", cartItems)
+        if (item["bookid"] === undefined)
+            item.bookid = item.id
+        item.deviceid = uuid
+        // check before login
+        if (authData === '' || authData === null || authData === undefined) {
 
+            console.log("item to be removed= ", item)
+            removeBookFromState()
+        }
+        // after login
+        else {
+            const response = await remove_cart_item(item, 0)
+            console.log("response after removal= ", response)
+        }
+    }
 
-    const Remove_Cart_Item = async (book_id) => {
-        console.log("remove", book_id)
-
-        if (wishlistshow === true) {
-            let remove_json = {
-                deviceid: uuid,
-                // "9E7C1A59-7473-405F-81A7-11E25C70F0AC",
-                bookid: book_id
-            }
-
-            console.log("Remove_json ", remove_json)
-
-            const resp = await remove_item(remove_json)
-            console.log("Remove_cart :", resp)
-            await get_cart_items()
+    const proceedToCheckout = () => {
+        if (authData === '' || authData === null || authData === undefined) {
+           alert("Please Login to Buy!")
         }
         else {
-            let is_book_exists = getcartitems.find((val) => val.my_book_id === book_id)
-            if (is_book_exists !== undefined) {
+            navigate("/billingAddress", { buynow: 0 })
 
-
-
-                let localstorage_array = [...getcartitems]
-                let arr_index = getcartitems.indexOf(is_book_exists)
-                // console.log("index", arr_index)
-
-                localstorage_array.splice(arr_index, 1)
-                localStorage.setItem("cart_data", JSON.stringify(localstorage_array))
-                // console.log("localarray_after_remove :", JSON.parse(localStorage.getItem("cart_data")))
-                setDependencyvar(!dependencyvar)
-                get_items()
-            }
-        }
-
-
-    }
-
-
-
-    const remove_item = async (remove_json) => {
-        const resp = await remove_cart_item(remove_json)
-    }
-
-
-
-    const Proceed_to_Checkout = async () => {
-
-        if (wishlistshow === true) {
-            // let checkoutPrice=parseInt(price *100)
-            // console.log('checkout price= ',checkoutPrice)
-            // let pageData={
-            //     cartItems:getcartitems,
-            //     total_price:checkoutPrice.toString(),
-            // }
-            // console.log("get cart items",getcartitems)
-            // * Something here ......
-            // navigate('/billingaddress',{state:{pageData:pageData}})
-            navigate('/billingaddress', { state: { buynow: 0 } })
-        }
-        else {
-            navigate("/login")
         }
     }
-
-
     // const applyCouponCode = async () => {
     //     let json = {
     //         couponcode: coupon
@@ -203,7 +188,7 @@ const CartPage = () => {
                 <Whatsapp />
 
                 {
-                    getcartitems.length === 0 &&
+                    cartItems.length === 0 &&
                     (
                         <div className="my-5 py-5 px-5">
                             <div className="row mb-5">
@@ -236,7 +221,7 @@ const CartPage = () => {
 
 
                 {
-                    getcartitems.length !== 0 &&
+                    cartItems.length !== 0 &&
                     (
 
                         <div className="row cartpage_div">
@@ -259,78 +244,78 @@ const CartPage = () => {
                                             Product Details
                                         </div>
 
-                                        {console.log('cart items', getcartitems)}
+                                        {console.log('cart items', cartItems)}
 
                                         {
 
-                                            getcartitems.length > 0 && getcartitems.map((data, index) => (
+                                            cartItems.length > 0 && cartItems.map((data, index) => (
+                                                <div>{data}</div>
 
+                                                // <div key={index} className="book-card cart-page-border-bottom py-3">
+                                                //     {/* {console.log("cartdata",data)} */}
+                                                //     <div className="book-img"
+                                                //         onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
+                                                //     >
 
-                                                <div key={index} className="book-card cart-page-border-bottom py-3">
-                                                    {/* {console.log("cartdata",data)} */}
-                                                    <div className="book-img"
-                                                        onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
-                                                    >
+                                                //         {
 
-                                                        {
-
-                                                            wishlistshow === true ? (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
-                                                                : (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
-                                                        }
-
-
-
-                                                    </div>
-                                                    <div className="book-details">
-                                                        <div className="book-heading">
-                                                            <span className="book-title">{data.title !== null ? data.title : "Not Available"}</span>
-
-                                                        </div>
-
-                                                        {wishlistshow === true ?
-                                                            (<div className="details">Author: {data.authors !== null ? data.authors : "Not Found"}</div>) : (
-                                                                <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
-                                                            )}
-                                                        <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
-                                                        <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
-
-                                                        {/* increment decrement button */}
-
-                                                        <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
-                                                            <button
-                                                            onClick={decrement} 
-                                                            className="buttonStyle"
-                                                            >-</button>
-                                                            <input
-                                                                type="text"
-                                                                value={count}
-                                                                readOnly
-                                                                style={{ width: '50px', textAlign: 'center' }}
-                                                            />
-                                                            <button
-                                                            onClick={increment} 
-                                                            className="buttonStyle"
-                                                            >+</button>
-                                                        </div>
-                                                        <div className="bottom-menu my-3">
-
-                                                            <div className="action-btns">
-
-
-                                                                {/* <span className="save-for-later">Save for later</span> */}
-
-                                                                {
-                                                                    wishlistshow === true ? (<button className="remove-from-cart button-solid button_color" onClick={() => Remove_Cart_Item(data.id)}>Remove</button>)
-                                                                        : (<button className="remove-from-cart button-solid button_color" onClick={() => Remove_Cart_Item(data.my_book_id)}>Remove</button>)
-                                                                }
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                //             wishlistshow === true ? (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
+                                                //                 : (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
+                                                //         }
 
 
 
-                                                </div>
+                                                //     </div>
+                                                //     <div className="book-details">
+                                                //         <div className="book-heading">
+                                                //             <span className="book-title">{data.title !== null ? data.title : "Not Available"}</span>
+
+                                                //         </div>
+
+                                                //         {wishlistshow === true ?
+                                                //             (<div className="details">Author: {data.authors !== null ? data.authors : "Not Found"}</div>) : (
+                                                //                 <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
+                                                //             )}
+                                                //         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
+                                                //         <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
+
+                                                //         {/* increment decrement button */}
+
+                                                //         <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
+                                                //             <button
+                                                //             onClick={decrement} 
+                                                //             className="buttonStyle"
+                                                //             >-</button>
+                                                //             <input
+                                                //                 type="text"
+                                                //                 value={count}
+                                                //                 readOnly
+                                                //                 style={{ width: '50px', textAlign: 'center' }}
+                                                //             />
+                                                //             <button
+                                                //             onClick={increment} 
+                                                //             className="buttonStyle"
+                                                //             >+</button>
+                                                //         </div>
+                                                //         <div className="bottom-menu my-3">
+
+                                                //             <div className="action-btns">
+
+
+                                                //                 {/* <span className="save-for-later">Save for later</span> */}
+
+                                                //                 {
+                                                //                     wishlistshow === true ? (<button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data.id)}>Remove</button>)
+                                                //                         : (<button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data.my_book_id)}>Remove</button>)
+                                                //                 }
+
+                                                //             </div>
+                                                //         </div>
+                                                //     </div>
+
+
+
+                                                // </div>
 
                                             ))
 
@@ -363,9 +348,9 @@ const CartPage = () => {
                                 
                                 <hr></hr> */}
                                 <div className="d-flex justify-content-center mt-5">
-                                    <button type="button" disabled={getcartitems.length > 0 ? false : true}
+                                    <button type="button" disabled={cartItems.length > 0 ? false : true}
                                         className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
-                                        onClick={Proceed_to_Checkout}
+                                        onClick={proceedToCheckout}
                                     // style={{ width: '30%' }}
                                     >
                                         Place Order
