@@ -14,7 +14,7 @@ import close from "../Assets/Images/close-circle.png"
 const NavBar = () => {
     const navigate = useNavigate();
     const { category_by_publisher, items, categoryByPublisherList, allCategoryList } = UserProfile()
-    const { wishlistshow } = useAuth()
+    const { wishlistshow,cartCount } = useAuth()
     const [pubcat, setPubcat] = useState([])
     const [cartno, setCartno] = useState()
     const [drawerStat, setDrawerStat] = useState(false)
@@ -239,7 +239,7 @@ const NavBar = () => {
                                     <img src={shopping_cart} />
                                 </button>
                                 {/* <span className="badge rounded-pill text-bg-danger">{cartno}</span> */}
-                                <span className="badge rounded-pill text-bg-danger">{items}</span>
+                                <span className="badge rounded-pill text-bg-danger">{cartCount}</span>
                             </li>
                         </ul>
                     </nav >

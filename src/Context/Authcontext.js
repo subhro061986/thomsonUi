@@ -287,9 +287,9 @@ const AuthProvider = ({ children }) => {
   }
 
   const getCartData = async (token,tempuuid) => {
-    console.log('uuid= ',tempuuid)
+    // console.log('uuid= ',tempuuid)
     let sendUUid={
-      deviceid: uuid
+      deviceid: tempuuid
     }
     console.log("SEND UUID",sendUUid)
     let tok=''
@@ -302,8 +302,7 @@ const AuthProvider = ({ children }) => {
     // -------- Before Login ----------//
     if (tok === '' || tok === null || tok === undefined) {
       let cc =  localStorage.getItem("cartData")
-      
-      if (cc !== null) {
+      if (cc !== null && cc !== undefined && cc !== '') {
         let tempCartItems = JSON.parse(cc)
         setCartCount(tempCartItems.length)
         setCartItems(tempCartItems)
@@ -358,7 +357,7 @@ const AuthProvider = ({ children }) => {
       console.log("existing cart Data= ", cd)
 
       // nothing present in async storage i.e first entry
-      if (cd === null) {
+      if (cd === null || cd === '' || cd === undefined) {
         setCartCount(1)
         tempCartArray.push(data)
 
