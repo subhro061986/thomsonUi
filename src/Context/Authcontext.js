@@ -109,6 +109,9 @@ const AuthProvider = ({ children }) => {
       SetUuid(my_unique_id)
 
     }
+
+    getCartData(authData,my_unique_id)
+
   }
 
   
@@ -116,10 +119,10 @@ const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
+    detect_unique_id()
     getDataFromStorage();
-    // wishlist_hide_show()
-    getCartData(authData)
-
+    wishlist_hide_show()
+    
   }, [authData])
 
 
@@ -158,8 +161,8 @@ const AuthProvider = ({ children }) => {
       else {
         setAuthData('')
         // setAuthUsername('')
-        await localStorage.setItem("userid", '');
-        await localStorage.setItem("cartData", '');
+        localStorage.setItem("userid", '');
+        localStorage.setItem("cartData", '');
         // localStorage.setItem("username", '');
       }
       return response
@@ -283,7 +286,8 @@ const AuthProvider = ({ children }) => {
 
   }
 
-  const getCartData = async (token) => {
+  const getCartData = async (token,tempuuid) => {
+    console.log('uuid= ',tempuuid)
     let sendUUid={
       deviceid: uuid
     }
