@@ -222,8 +222,8 @@ const BillingAddressPage = () => {
         setPlaceOrderResponse(respPlaceOrder)
         if(respPlaceOrder.output !== null)
             setOrderTotal(respPlaceOrder.output.totalAmount)
-        setTogglePayment(false)
-        setShowCoupon(true)
+        // setTogglePayment(false)
+        // setShowCoupon(true)
     
         // return respPlaceOrder
     }
@@ -428,7 +428,7 @@ const BillingAddressPage = () => {
                             </div>
                             <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Save</Button>
                             <hr></hr>
-                            {showCoupon &&
+                            {/* {showCoupon &&
                                 <div className="container p-1 d-flex justify-content-start align-items-center ">
                                     <div className="w-100" >
                                     <h2 className="card-title"><b>Apply Coupon</b></h2>
@@ -463,14 +463,15 @@ const BillingAddressPage = () => {
                                     </div>
                                 </div>
 
-                            }
+                            } */}
 
 
-                            {
+                            {/* {
                                 togglepayment === true? 
-                                <Button className="mt-2 rounded-pill px-4" variant="outline-gray" disabled >Place Order & Pay</Button> :
+                                <Button className="mt-2 rounded-pill px-4" variant="outline-gray" disabled >Place Order & Pay</Button> 
+                                : */}
                                 <Button className="mt-2 rounded-pill px-4" variant="outline-primary"  onClick={handlePayment}>Place Order & Pay</Button> 
-                            }
+                            {/* } */}
 
                         </div>
                     </div>

@@ -114,7 +114,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getDataFromStorage();
-    // wishlist_hide_show()
+    wishlist_hide_show()
 
   }, [authData])
 

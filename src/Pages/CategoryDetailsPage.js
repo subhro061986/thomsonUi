@@ -132,9 +132,8 @@ const CategoryDetailsPage = () => {
         // ** For direct navigation to category details page using url
 
         //book_category_by_publisher(1)
-        // wishlistitems [location.state.category_id],
         // console.log("tempBooks", tempBooks);
-    }, [location.state.publisher_id, location.state.category_id])
+    }, [location.state.publisher_id, location.state.category_id, wishlistitems])
 
     useEffect(() => {
 

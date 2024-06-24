@@ -58,7 +58,7 @@ const UserProvider = ({ children }) => {
       // cart_items({
       //   deviceid: "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
       // })
-      // get_wishlist_books(1, 5)
+      get_wishlist_books(1, 5)
       // localstorage_price_items_signin()
       // get_wish_books_id()
     }
@@ -203,8 +203,8 @@ const UserProvider = ({ children }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
-            'Authorization': 'Bearer ' + authData
+            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+            // 'Authorization': 'Bearer ' + authData
           },
 
         })
