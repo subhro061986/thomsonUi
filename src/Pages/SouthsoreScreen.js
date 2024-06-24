@@ -177,8 +177,8 @@ const SouthsoreScreen = () => {
       <div id="features">
         {/* <HowtoSouthsore /> */}
       </div>
-      {/* <NewArrivalBooks />
-      <BestSellingBooks />
+      <NewArrivalBooks />
+      {/* <BestSellingBooks />
       <Testimonials/>
       <ReccomendedBooks/> */}
 
