@@ -57,7 +57,7 @@ const responsive = {
 
 const ProductDetailsPage = () => {
 
-    const { wishlistshow, uuid } = useAuth();
+    const { authData,wishlistshow, uuid,add_book_to_storage,remove_cart_item} = useAuth();
 
     const navigate = useNavigate()
 
@@ -67,7 +67,6 @@ const ProductDetailsPage = () => {
         cart_items,
         add_delete_to_wishlist,
         getBookShelf,
-        remove_cart_item,
         get_items } = UserProfile()
 
     const [bookdetail, setBookdetail] = useState({})
@@ -189,159 +188,224 @@ const ProductDetailsPage = () => {
 
     // let basket = []
 
-    const add_to_cart = async (bookid, toCheckout) => {
+    // const add_to_cart = async (bookid, toCheckout) => {
 
-        console.log("Product_det_wishlistshow_bool ", wishlistshow)
+    //     console.log("Product_det_wishlistshow_bool ", wishlistshow)
 
-        if (wishlistshow === false) {
-            console.log("added to cart")
+    //     if (wishlistshow === false) {
+    //         console.log("added to cart")
 
 
-            addto_cart(bookdetail)
-            if (toCheckout) {
-                navigate("/login")
-            }
-            else {
+    //         addto_cart(bookdetail)
+    //         if (toCheckout) {
+    //             navigate("/login")
+    //         }
+    //         else {
 
-                toast.success("Item Added to Cart", {
-                    position: "bottom-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    closeButton: false,
-                    theme: "dark",
-                });
-            }
-            // navigation("/cartpage")
+    //             toast.success("Item Added to Cart", {
+    //                 position: "bottom-center",
+    //                 autoClose: 2000,
+    //                 hideProgressBar: true,
+    //                 closeOnClick: true,
+    //                 pauseOnHover: true,
+    //                 draggable: true,
+    //                 closeButton: false,
+    //                 theme: "dark",
+    //             });
+    //         }
+    //         // navigation("/cartpage")
 
             
-        }
-        else {
-            const get_json =
-            {
-                deviceid: uuid
-                // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" 
-            }
+    //     }
+    //     else {
+    //         const get_json =
+    //         {
+    //             deviceid: uuid
+    //             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" 
+    //         }
 
-            const resp = await cart_items(get_json)
+    //         const resp = await cart_items(get_json)
 
-            console.log("get_json ", get_json)
+    //         console.log("get_json ", get_json)
 
-            let book_exist_arr = resp.output.filter((val) => {
-                return (
-                    val.id === bookid
-                )
-            })
+    //         let book_exist_arr = resp.output.filter((val) => {
+    //             return (
+    //                 val.id === bookid
+    //             )
+    //         })
 
 
 
-            if (book_exist_arr.length === 0) {
+    //         if (book_exist_arr.length === 0) {
 
-                add_single(bookid)
+    //             add_single(bookid)
 
-                toast.success("Item Added to Cart", {
-                    position: "bottom-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    closeButton: false,
-                    theme: "dark",
-                });
+    //             toast.success("Item Added to Cart", {
+    //                 position: "bottom-center",
+    //                 autoClose: 2000,
+    //                 hideProgressBar: true,
+    //                 closeOnClick: true,
+    //                 pauseOnHover: true,
+    //                 draggable: true,
+    //                 closeButton: false,
+    //                 theme: "dark",
+    //             });
 
-            }
-            else {
+    //         }
+    //         else {
 
-                if (toCheckout) {
+    //             if (toCheckout) {
 
-                    // remove book from cart
-                    Remove_Cart_Item(bookid)
+    //                 // remove book from cart
+    //                 Remove_Cart_Item(bookid)
 
-                    // add book again to the cart such that it is the last item added
-                    add_single(bookid)
+    //                 // add book again to the cart such that it is the last item added
+    //                 add_single(bookid)
                     
-                }
-                else {
+    //             }
+    //             else {
 
-                    console.log("The Book already exists in the cart")
-                    toast.info("Book Already Added", {
-                        position: "top-center",
-                        autoClose: 3000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        closeButton: false,
-                        // theme: "light",
-                        style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
-                    });
-                }
-            }
+    //                 console.log("The Book already exists in the cart")
+    //                 toast.info("Book Already Added", {
+    //                     position: "top-center",
+    //                     autoClose: 3000,
+    //                     hideProgressBar: true,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: true,
+    //                     draggable: true,
+    //                     closeButton: false,
+    //                     // theme: "light",
+    //                     style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
+    //                 });
+    //             }
+    //         }
 
-            if (toCheckout) {
-                navigate("/billingaddress", { state: { buynow: 1 } })
-            }
+    //         if (toCheckout) {
+    //             navigate("/billingaddress", { state: { buynow: 1 } })
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 
-    const add_single = async (bookid) => {
-        const json = {
-            "deviceid": uuid,
-            // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" , 
-            "bookid": bookid
-        }
-        const resp = await add_single_item(json)
-        console.log("single_item_added ", resp.message)
-    }
+    // const add_single = async (bookid) => {
+    //     const json = {
+    //         "deviceid": uuid,
+    //         // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" , 
+    //         "bookid": bookid
+    //     }
+    //     const resp = await add_single_item(json)
+    //     console.log("single_item_added ", resp.message)
+    // }
 
-    const Remove_Cart_Item = async (book_id) => {
-        console.log("remove", book_id)
+    // const Remove_Cart_Item = async (book_id) => {
+    //     console.log("remove", book_id)
 
-        if (wishlistshow === true) {
-            let remove_json = {
-                deviceid: uuid,
-                // "9E7C1A59-7473-405F-81A7-11E25C70F0AC",
-                bookid: book_id
-            }
+    //     if (wishlistshow === true) {
+    //         let remove_json = {
+    //             deviceid: uuid,
+    //             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC",
+    //             bookid: book_id
+    //         }
 
-            console.log("Remove_json ", remove_json)
+    //         console.log("Remove_json ", remove_json)
 
-            const resp = await remove_item(remove_json)
+    //         const resp = await remove_item(remove_json)
             
-        }
-        else {
-            let cartItems=JSON.parse(localStorage.getItem("cart_data")) || []
+    //     }
+    //     else {
+    //         let cartItems=JSON.parse(localStorage.getItem("cart_data")) || []
             
-            let is_book_exists = cartItems.find((val) => val.my_book_id === book_id)
-            if (is_book_exists !== undefined) {
+    //         let is_book_exists = cartItems.find((val) => val.my_book_id === book_id)
+    //         if (is_book_exists !== undefined) {
 
 
 
-                let localstorage_array = [...cartItems]
-                let arr_index = cartItems.indexOf(is_book_exists)
-                // console.log("index", arr_index)
+    //             let localstorage_array = [...cartItems]
+    //             let arr_index = cartItems.indexOf(is_book_exists)
+    //             // console.log("index", arr_index)
 
-                localstorage_array.splice(arr_index, 1)
-                localStorage.setItem("cart_data", JSON.stringify(localstorage_array))
-                // console.log("localarray_after_remove :", JSON.parse(localStorage.getItem("cart_data")))
-                setDependencyvar(!dependencyvar)
-                get_items()
-            }
-        }
+    //             localstorage_array.splice(arr_index, 1)
+    //             localStorage.setItem("cart_data", JSON.stringify(localstorage_array))
+    //             // console.log("localarray_after_remove :", JSON.parse(localStorage.getItem("cart_data")))
+    //             setDependencyvar(!dependencyvar)
+    //             get_items()
+    //         }
+    //     }
 
 
-    }
+    // }
 
-    const remove_item = async (remove_json) => {
-        const resp = await remove_cart_item(remove_json)
-        console.log("Remove_cart :", resp) 
-    }
+    // const remove_item = async (remove_json) => {
+    //     const resp = await remove_cart_item(remove_json)
+    //     console.log("Remove_cart :", resp) 
+    // }
  
+    const add_to_cart = async (bookid, toCheckout) => {
+        console.log('bookDetails',bookdetail)
+        console.log("default image=",defaultimg)
+        let json_data = {
+            title: bookdetail.title,
+            authors: bookdetail.authors,
+            price: bookdetail.price,
+            publisher: bookdetail.publisher,
+            items_no: 1,
+            image: defaultimg,
+            category: bookdetail.category,
+            publisherid: bookdetail.publisherid,
+            bookid:bookdetail.id,
+            deviceid:uuid
+          }
+
+          // before login
+
+        if(authData === '' || authData === null || authData === undefined){
+        
+            const resp= await add_book_to_storage(json_data)
+            // for buy now
+            if (toCheckout) {
+                alert("Please Login to Buy this book!")
+            }
+            // for add to cart
+            else {
+                alert(resp.message);
+            }
+        }
+
+        // after login
+        else {
+        
+        const resp= await add_book_to_storage(json_data)
+
+        // for buy now
+            if(toCheckout){
+
+                if(resp.isPresent){
+                    // remove data from backend
+                    remove_item_and_add(json_data)
+                }
+                navigate('/billingAddress', {buynow : 1})
+            }
+            // for add to cart
+            else {
+                alert(resp.message);
+            }
+        }
+    }
+
+    const remove_item_and_add = async (remove_json) => {
+
+        console.log("remove json:",remove_json)
+        const resp = await remove_cart_item(remove_json,1)
+        console.log("Remove_cart :", resp) 
+        if(resp.statuscode === "0"){
+
+            const response = await add_book_to_storage(remove_json)
+            console.log("response after adding= ",response)
+        }
+
+
+    }
 
 
 
