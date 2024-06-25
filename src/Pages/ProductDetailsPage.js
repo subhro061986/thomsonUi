@@ -354,7 +354,8 @@ const ProductDetailsPage = () => {
             category: bookdetail.category,
             publisherid: bookdetail.publisherid,
             bookid:bookdetail.id,
-            deviceid:uuid
+            deviceid:uuid,
+            quantity:1
           }
 
           // before login

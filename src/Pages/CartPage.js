@@ -39,7 +39,7 @@ const CartPage = () => {
     const [getcartitems, setGetcartitems] = useState([])
     // const [quanity, setQuantity] = useState()
     const [dependencyvar, setDependencyvar] = useState(false)
-    // const [coupon, setCoupon] = useState('')
+    const [wishlistshow, setWishlistshow] = useState(false)
 
     const [count, setCount] = useState(1);
     const [total, setTotal] = useState(1);
@@ -60,10 +60,17 @@ const CartPage = () => {
 
 
     const findSubtotal = () => {
+        console.log("inside cart")
         let subtotal = 0;
         if (cartItems.length > 0) {
             cartItems.map((data, index) => {
-                subtotal = subtotal + data.price
+                if(typeof(data.price) === 'string'){
+                    subtotal = subtotal + parseFloat(data.price.replace(/,/g, ''))
+                }else {
+                    subtotal = subtotal + data.price
+
+                }
+
             })
 
             console.log("subtotal function=", subtotal)
@@ -126,7 +133,7 @@ const CartPage = () => {
 
     const removeCartItems = async (item) => {
 
-        console.log("Data to be removed= ", cartItems)
+        console.log("Data to be removed= ", item)
         if (item["bookid"] === undefined)
             item.bookid = item.id
         item.deviceid = uuid
@@ -134,7 +141,7 @@ const CartPage = () => {
         if (authData === '' || authData === null || authData === undefined) {
 
             console.log("item to be removed= ", item)
-            removeBookFromState()
+            removeBookFromState(item.bookid)
         }
         // after login
         else {
@@ -161,15 +168,15 @@ const CartPage = () => {
     //     console.log(res)
     // }
 
-    const increment = () => {
-        setCount(count + 1);
-        setTotal(total + 1);
+    const increment = (data) => {
+        console.log("data= ", data)
+        data["quantity"]+=1
+        
     };
 
-    const decrement = () => {
-        if (count > 0) {
-            setCount(count - 1);
-            setTotal(total - 1);
+    const decrement = (data) => {
+        if (data["quantity"] > 0) {
+            data["quantity"]-=1
         }
     };
 
@@ -232,12 +239,6 @@ const CartPage = () => {
                                         <div className="header cart-page-border-bottom py-2">
                                             <h2>My Cart</h2>
 
-                                            {/* <Link to="/home" style={{ textDecoration: 'none' }}>
-
-                                                <span className="back-to-home cursor-pointer" ><img src={arrow_left} /> Back to home</span>
-
-                                            </Link> */}
-
                                         </div>
 
                                         <div className="secondary-header cart-page-border-bottom py-2">
@@ -249,73 +250,63 @@ const CartPage = () => {
                                         {
 
                                             cartItems.length > 0 && cartItems.map((data, index) => (
-                                                <div>{data}</div>
+                                                
 
-                                                // <div key={index} className="book-card cart-page-border-bottom py-3">
-                                                //     {/* {console.log("cartdata",data)} */}
-                                                //     <div className="book-img"
-                                                //         onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
-                                                //     >
+                                                <div key={index} className="book-card cart-page-border-bottom py-3">
+                                                    
+                                                    <div className="book-img"
+                                                        onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
+                                                    >
 
-                                                //         {
+                                                        
 
-                                                //             wishlistshow === true ? (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
-                                                //                 : (<img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />)
-                                                //         }
-
-
-
-                                                //     </div>
-                                                //     <div className="book-details">
-                                                //         <div className="book-heading">
-                                                //             <span className="book-title">{data.title !== null ? data.title : "Not Available"}</span>
-
-                                                //         </div>
-
-                                                //         {wishlistshow === true ?
-                                                //             (<div className="details">Author: {data.authors !== null ? data.authors : "Not Found"}</div>) : (
-                                                //                 <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
-                                                //             )}
-                                                //         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
-                                                //         <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
-
-                                                //         {/* increment decrement button */}
-
-                                                //         <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
-                                                //             <button
-                                                //             onClick={decrement} 
-                                                //             className="buttonStyle"
-                                                //             >-</button>
-                                                //             <input
-                                                //                 type="text"
-                                                //                 value={count}
-                                                //                 readOnly
-                                                //                 style={{ width: '50px', textAlign: 'center' }}
-                                                //             />
-                                                //             <button
-                                                //             onClick={increment} 
-                                                //             className="buttonStyle"
-                                                //             >+</button>
-                                                //         </div>
-                                                //         <div className="bottom-menu my-3">
-
-                                                //             <div className="action-btns">
-
-
-                                                //                 {/* <span className="save-for-later">Save for later</span> */}
-
-                                                //                 {
-                                                //                     wishlistshow === true ? (<button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data.id)}>Remove</button>)
-                                                //                         : (<button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data.my_book_id)}>Remove</button>)
-                                                //                 }
-
-                                                //             </div>
-                                                //         </div>
-                                                //     </div>
+                                                            <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />
+                                                        
 
 
 
-                                                // </div>
+                                                    </div>
+                                                    <div className="book-details">
+                                                        <div className="book-heading">
+                                                            <span className="book-title">{data.title !== null ? data.title : "Not Available"}</span>
+
+                                                        </div>
+
+                                                        
+                                                                <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
+                                                        
+                                                        <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
+                                                        <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
+
+                                                        
+
+                                                        <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
+                                                            <button
+                                                            onClick={()=>decrement(data)} 
+                                                            className="buttonStyle"
+                                                            >-</button>
+                                                            <input
+                                                                type="text"
+                                                                value={data["quantity"]}
+                                                                readOnly
+                                                                style={{ width: '50px', textAlign: 'center' }}
+                                                            />
+                                                            <button
+                                                            onClick={()=>increment(data)} 
+                                                            className="buttonStyle"
+                                                            >+</button>
+                                                        </div>
+                                                        <div className="bottom-menu my-3">
+
+                                                            <div className="action-btns">    
+                                                                <button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data)}>Remove</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
 
                                             ))
 
@@ -323,8 +314,8 @@ const CartPage = () => {
 
                                         <div className="subtotal">
                                             <span className="label">Total</span>
-                                            <span className="qty">({items} items)</span>
-                                            <span className="price">₹{price}</span>
+                                            <span className="qty">({cartCount} items)</span>
+                                            <span className="price">₹{subtotal}</span>
                                         </div>
 
                                     </div>
@@ -332,26 +323,11 @@ const CartPage = () => {
                                 </div>
                             </div>
                             <div className="col-md-3 mt-3">
-                                {/* <h3 className="applyCouponSection ms-3"><b>Apply Coupon</b></h3>
-                                <hr></hr>
-                                
-                                    {authData!==""?(
-                                            <input placeholder="Insert Coupon Code" className="form-control p_hold mb-4" type="text" onChange={handleSetCoupon} />
-                                        ):(
-                                            <h6>Please Login for apply coupon code</h6>
-                                        )
-                                        
-                                    }
-                                    {authData!=="" &&
-                                        <Button variant="outline-primary" onClick={applyCouponCode}> Apply Coupon </Button>
-                                    }
-                                
-                                <hr></hr> */}
+                            
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button" disabled={cartItems.length > 0 ? false : true}
                                         className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={proceedToCheckout}
-                                    // style={{ width: '30%' }}
                                     >
                                         Place Order
                                     </button>
@@ -361,7 +337,6 @@ const CartPage = () => {
                                     <button type="button"
                                         className="btn btn-outline-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={() => { navigate('/home') }}
-                                    //style={{ width: '30%' }}
                                     >
                                         Continue Shopping
                                     </button>
