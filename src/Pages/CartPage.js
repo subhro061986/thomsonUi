@@ -32,6 +32,12 @@ const CartPage = () => {
         remove_cart_item,
         removeBookFromState,
         clearCartStorage,
+        decrementQuantityFromState,
+        incrementQuantityFromState,
+        incrementQuantity,
+        decrementQuantity,
+        subTotal,
+        findSubtotal,
         uuid } = useAuth()
 
     const { get_items, price, items, cart_items, applyCoupon } = UserProfile()
@@ -41,46 +47,40 @@ const CartPage = () => {
     const [dependencyvar, setDependencyvar] = useState(false)
     const [wishlistshow, setWishlistshow] = useState(false)
 
-    const [count, setCount] = useState(1);
-    const [total, setTotal] = useState(1);
-    const [subtotal, setSubTotal] = useState(0)
+    // const [count, setCount] = useState(1);
+    // const [total, setTotal] = useState(1);
+    // const [subtotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        // clearCartStorage()
 
-        if (cartCount == 0) {
-            setSubTotal(0)
-        }
-        else {
-            findSubtotal()
+        findSubtotal()
 
-        }
         console.log("cart items= ", cartItems)
     }, [cartCount])
 
 
-    const findSubtotal = () => {
-        console.log("inside cart")
-        let subtotal = 0;
-        if (cartItems.length > 0) {
-            cartItems.map((data, index) => {
-                if(typeof(data.price) === 'string'){
-                    subtotal = subtotal + parseFloat(data.price.replace(/,/g, ''))
-                }else {
-                    subtotal = subtotal + data.price
+    // const findSubtotal = () => {
+    //     console.log("inside cart")
+    //     let subtotal = 0;
+    //     if (cartItems.length > 0) {
+    //         cartItems.map((data, index) => {
+    //             if(typeof(data.price) === 'string'){
+    //                 subtotal = subtotal + (parseFloat(data.price.replace(/,/g, '') * data['quantity']))
+    //             }else {
+    //                 subtotal = subtotal + (data.price * data['quantity'])
 
-                }
+    //             }
 
-            })
+    //         })
 
-            console.log("subtotal function=", subtotal)
-            setSubTotal(subtotal)
+    //         console.log("subtotal function=", subtotal)
+    //         setSubTotal(subtotal)
 
-        } else {
-            setSubTotal(0)
-        }
+    //     } else {
+    //         setSubTotal(0)
+    //     }
 
-    }
+    // }
     // const get_cart_items = async () => {
 
     //     console.log("Cart_UUID :", uuid)
@@ -124,7 +124,7 @@ const CartPage = () => {
 
     // }
 
-   
+
 
 
     const gotoDetails = (book_id) => {
@@ -133,7 +133,6 @@ const CartPage = () => {
 
     const removeCartItems = async (item) => {
 
-        console.log("Data to be removed= ", item)
         if (item["bookid"] === undefined)
             item.bookid = item.id
         item.deviceid = uuid
@@ -152,7 +151,7 @@ const CartPage = () => {
 
     const proceedToCheckout = () => {
         if (authData === '' || authData === null || authData === undefined) {
-           alert("Please Login to Buy!")
+            alert("Please Login to Buy!")
         }
         else {
             navigate("/billingAddress", { buynow: 0 })
@@ -168,15 +167,41 @@ const CartPage = () => {
     //     console.log(res)
     // }
 
-    const increment = (data) => {
-        console.log("data= ", data)
-        data["quantity"]+=1
-        
+    const increment = async (item) => {
+        if (authData === undefined || authData === "" || authData == null) {
+            incrementQuantityFromState(item.bookid)
+        }
+        else {
+            let json = {
+                bookid: item.id,
+                quantity: item["quantity"] + 1
+            }
+            const response = await incrementQuantity(json)
+            console.log("response after increment= ", response)
+        }
+
+
     };
 
-    const decrement = (data) => {
-        if (data["quantity"] > 0) {
-            data["quantity"]-=1
+    const decrement = async (item) => {
+        if (authData === undefined || authData === "" || authData == null) {
+            decrementQuantityFromState(item.bookid)
+        }
+        else {
+            let json = {
+                bookid: item.id,
+                quantity: item["quantity"] - 1
+            }
+            if (item["quantity"] > 1) {
+                const response = await decrementQuantity(json)
+                console.log("response after decrement= ", response)
+
+            }
+            else {
+                alert("you must have atleasst one quantity")
+
+            }
+
         }
     };
 
@@ -250,18 +275,18 @@ const CartPage = () => {
                                         {
 
                                             cartItems.length > 0 && cartItems.map((data, index) => (
-                                                
+
 
                                                 <div key={index} className="book-card cart-page-border-bottom py-3">
-                                                    
+
                                                     <div className="book-img"
                                                         onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
                                                     >
 
-                                                        
 
-                                                            <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />
-                                                        
+
+                                                        <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />
+
 
 
 
@@ -272,18 +297,18 @@ const CartPage = () => {
 
                                                         </div>
 
-                                                        
-                                                                <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
-                                                        
+
+                                                        <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
+
                                                         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
-                                                        <div className="price-details">Price: <span className="price">₹{data.price}</span></div>
+                                                        <div className="price-details">Price: <span className="price">₹{data.amount}</span></div>
 
-                                                        
 
-                                                        <div style={{ display: 'flex', alignItems: 'center', marginTop:'36px' }}>
+
+                                                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '36px' }}>
                                                             <button
-                                                            onClick={()=>decrement(data)} 
-                                                            className="buttonStyle"
+                                                                onClick={() => decrement(data)}
+                                                                className="buttonStyle"
                                                             >-</button>
                                                             <input
                                                                 type="text"
@@ -292,13 +317,13 @@ const CartPage = () => {
                                                                 style={{ width: '50px', textAlign: 'center' }}
                                                             />
                                                             <button
-                                                            onClick={()=>increment(data)} 
-                                                            className="buttonStyle"
+                                                                onClick={() => increment(data)}
+                                                                className="buttonStyle"
                                                             >+</button>
                                                         </div>
                                                         <div className="bottom-menu my-3">
 
-                                                            <div className="action-btns">    
+                                                            <div className="action-btns">
                                                                 <button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data)}>Remove</button>
                                                             </div>
                                                         </div>
@@ -315,7 +340,7 @@ const CartPage = () => {
                                         <div className="subtotal">
                                             <span className="label">Total</span>
                                             <span className="qty">({cartCount} items)</span>
-                                            <span className="price">₹{subtotal}</span>
+                                            <span className="price">₹{subTotal}</span>
                                         </div>
 
                                     </div>
@@ -323,7 +348,7 @@ const CartPage = () => {
                                 </div>
                             </div>
                             <div className="col-md-3 mt-3">
-                            
+
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button" disabled={cartItems.length > 0 ? false : true}
                                         className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"

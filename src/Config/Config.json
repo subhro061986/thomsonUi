@@ -18,6 +18,7 @@
     "ADD_SINGLE_ITEM" : "cart/add" ,
     "ADD_MULTIPLE_ITEMS" : "cart/add-multiple" ,
     "REMOVE_CART_ITEM" : "cart/remove",
+    "EDIT_CART_ITEM" : "cart/edit",
     "MY_PROFILE" : "user/profile",
     "CHANGE_PERSONAL_INFO" : "user/profile/changepersonalinfo",
     "CHANGE_CONTACT_INFO" : "user/profile/changecontactinfo",
