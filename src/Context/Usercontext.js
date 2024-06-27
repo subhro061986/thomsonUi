@@ -474,8 +474,8 @@ const UserProvider = ({ children }) => {
           },
 
         })
-
-      setWishlistItems(response.data.output.books)
+        console.log("wishlist_respfromcontext: ", response.data)
+      setWishlistItems(response.data.output)
 
       return response.data
 
@@ -490,6 +490,7 @@ const UserProvider = ({ children }) => {
 
 
   const add_delete_to_wishlist = async (args) => {
+    console.log("add_del_wish_args", args);
     try {
       const response = await axios.post(Config.API_URL + Config.ADD_DELETE_IN_WISHLIST, args,
 
@@ -501,7 +502,8 @@ const UserProvider = ({ children }) => {
 
         })
 
-        
+       console.log("add_del_wish_resp", response);
+      //  setWishlistItems(response.data)
 
       return response.data
 

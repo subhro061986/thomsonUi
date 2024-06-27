@@ -471,6 +471,7 @@ const CategoryDetailsPage = () => {
 
 
     const Wishlist = (event, book_id, index) => {
+        console.log('wish e', event)
 
         event.stopPropagation()
         if (wishlistshow === true) {
@@ -501,6 +502,7 @@ const CategoryDetailsPage = () => {
 
 
         const resp = await add_delete_to_wishlist(json)
+        
         // books_by_category(location.state ? location.state.category_id : 1)
         console.log("Wishlist_resp ", resp)
 
@@ -518,7 +520,7 @@ const CategoryDetailsPage = () => {
 
 
 
-        if (resp.message === "Information saved successfully.") {
+        if (resp.message === "Item added to wishlist.") {
 
             // toast.success("Item Added to Wishlist", {
             //     position: "bottom-center",
@@ -545,6 +547,7 @@ const CategoryDetailsPage = () => {
                 <div className="container">
                     <TopBar />
                     <NavBar />
+                    
                 </div>
                 <Whatsapp />
                 <div className="container category-details">
@@ -699,6 +702,7 @@ const CategoryDetailsPage = () => {
 
 
                                 <hr />
+                                
                                 <ul>
                                     <li className="mb-3">Price</li>
 
@@ -814,6 +818,7 @@ const CategoryDetailsPage = () => {
 
 
                                 <div className="row card_padding_bottom">
+                                    
 
                                     {
                                         //books.map((data, index) => (

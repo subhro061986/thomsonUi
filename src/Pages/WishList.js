@@ -59,8 +59,8 @@ const WishList = () => {
         }
         else {
             console.log("else")
-            if (resp.statuscode === "0" && resp.output.books?.length > 0) {
-                setWishbooks(resp.output.books)
+            if (resp.statuscode === "0" && resp.output?.length > 0) {
+                setWishbooks(resp.output)
                 // get_wish_books_id()
             }
 
@@ -204,8 +204,8 @@ const WishList = () => {
                                                 <Card.Subtitle className="Subtitle">Author: {data.authors?.length > 0 ? data.authors : "Not Found"}</Card.Subtitle>
                                                 <div className="price">
                                                     <hr />
-                                                    <Card.Text className=" d-inline priceText">₹{data.price !== null ? data.price : "Not Updated"}</Card.Text>
-                                                    <Card.Text className=" d-inline price-cutText ps-2">₹187</Card.Text>
+                                                    <Card.Text className=" d-inline priceText">{data.price !== null ? data.price : "Not Updated"}</Card.Text>
+                                                    {/* <Card.Text className=" d-inline price-cutText ps-2">187</Card.Text> */}
 
                                                 </div>
 
