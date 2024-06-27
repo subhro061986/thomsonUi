@@ -21,9 +21,10 @@ const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState('');
   const [wishlistshow, setWishlistshow] = useState(false)
   const [isexpired, setIsexpired] = useState(false)
-  const [uuid,SetUuid] = useState()
+  const [uuid, SetUuid] = useState()
   const [cartCount, setCartCount] = useState(0)
   const [cartItems, setCartItems] = useState([])
+  const [subTotal, setSubTotal]= useState(0)
   const image_path = Config.API_URL + Config.PUB_IMAGES;
 
   // !  wishlistshow === isLoggedin
@@ -84,7 +85,7 @@ const AuthProvider = ({ children }) => {
       setIsexpired(false)
     }
 
-   
+
 
   }
 
@@ -94,9 +95,9 @@ const AuthProvider = ({ children }) => {
 
     let my_unique_id = localStorage.getItem("unique_id")
 
-    if (my_unique_id === "" || my_unique_id === null || my_unique_id === undefined ){
+    if (my_unique_id === "" || my_unique_id === null || my_unique_id === undefined) {
 
-     
+
       let system_uuid = uuidv4()
       console.log("in If ", system_uuid)
       localStorage.setItem('unique_id', system_uuid)
@@ -104,17 +105,17 @@ const AuthProvider = ({ children }) => {
 
 
     }
-    else{
-      console.log("in else ",my_unique_id)
+    else {
+      console.log("in else ", my_unique_id)
       SetUuid(my_unique_id)
 
     }
 
-    getCartData(authData,my_unique_id)
+    getCartData(authData, my_unique_id)
 
   }
 
-  
+
 
 
 
@@ -123,7 +124,7 @@ const AuthProvider = ({ children }) => {
     getDataFromStorage();
     wishlist_hide_show()
 
-    
+
   }, [authData])
 
 
@@ -287,22 +288,22 @@ const AuthProvider = ({ children }) => {
 
   }
 
-  const getCartData = async (token,tempuuid) => {
+  const getCartData = async (token, tempuuid) => {
     // console.log('uuid= ',tempuuid)
-    let sendUUid={
+    let sendUUid = {
       deviceid: tempuuid
     }
-    console.log("SEND UUID",sendUUid)
-    let tok=''
+    console.log("SEND UUID", sendUUid)
+    let tok = ''
     if (authData === '' || authData === null || authData === undefined) {
-      tok=token
+      tok = token
     }
     else {
-      tok=authData
+      tok = authData
     }
     // -------- Before Login ----------//
     if (tok === '' || tok === null || tok === undefined) {
-      let cc =  localStorage.getItem("cartData")
+      let cc = localStorage.getItem("cartData")
       if (cc !== null && cc !== undefined && cc !== '') {
         let tempCartItems = JSON.parse(cc)
         setCartCount(tempCartItems.length)
@@ -311,7 +312,7 @@ const AuthProvider = ({ children }) => {
     }
     // -------- After Login ----------//
     else {
-      
+
       try {
         clearCartStorage()
         const response = await axios.post(Config.API_URL + Config.GET_CART_ITEMS, sendUUid,
@@ -326,8 +327,8 @@ const AuthProvider = ({ children }) => {
 
         console.log("get_cart_items : ", response.data);
 
-        let cd=response.data.output
-        cd.map((item,index) =>{
+        let cd = response.data.output
+        cd.map((item, index) => {
           item.image = image_path + item.publisherid + '/' + item.image + '?d=' + new Date();
         })
         // console.log("items after change= ",cd)
@@ -350,11 +351,11 @@ const AuthProvider = ({ children }) => {
 
 
     let tempCartArray = []
-    let isPresent=false
+    let isPresent = false
     console.log("inside add book to storage")
     // -------- Before Login ----------//
     if (authData === '' || authData === null || authData === undefined) {
-      const cd =  localStorage.getItem('cartData');
+      const cd = localStorage.getItem('cartData');
       console.log("existing cart Data= ", cd)
 
       // nothing present in async storage i.e first entry
@@ -368,7 +369,7 @@ const AuthProvider = ({ children }) => {
       // if data already present in async storage
       else {
         tempCartArray = JSON.parse(cd)
-        
+
         // check if book already present in list of data
         let index = tempCartArray.findIndex((item, i) => {
           return item.bookid === data.bookid
@@ -385,7 +386,7 @@ const AuthProvider = ({ children }) => {
         }
         // book already present in cart and do nothing 
         else {
-          isPresent=true
+          isPresent = true
           console.log("Book already present in cart")
         }
 
@@ -401,8 +402,8 @@ const AuthProvider = ({ children }) => {
         let index = cartItems.findIndex((item, i) => {
           return item.id === data.bookid
         });
-      
-       // if book not present in cart
+
+        // if book not present in cart
         if (index == -1) {
           // save data to backend 
           const response = await axios.post(Config.API_URL + Config.ADD_SINGLE_ITEM, data,
@@ -421,7 +422,7 @@ const AuthProvider = ({ children }) => {
           getCartData(authData)
         }
         else {
-          isPresent=true
+          isPresent = true
           console.log("Book already present in cart!")
         }
 
@@ -434,15 +435,15 @@ const AuthProvider = ({ children }) => {
 
     // console.log("cart: ", response);
     if (isPresent) {
-      return {message :"Book already present in cart",isPresent : true}
+      return { message: "Book already present in cart", isPresent: true }
     }
-    return {message :"Item added to cart",isPresent : false}
+    return { message: "Item added to cart", isPresent: false }
   }
 
-  const remove_cart_item = async (args,buyNow) => {
+  const remove_cart_item = async (args, buyNow) => {
 
     try {
-      const response = await axios.post(Config.API_URL + Config.REMOVE_CART_ITEM,args,
+      const response = await axios.post(Config.API_URL + Config.REMOVE_CART_ITEM, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -451,16 +452,16 @@ const AuthProvider = ({ children }) => {
 
         })
 
-        //if the function is called from buynow button then the state needs to be change quickly hence the manual state change
-        if(buyNow){
-          removeBookFromState(args.bookid)
-        }
-        // if it gets called from another place like cart page then we can call the getCardData api to fix it
-        else{
-          console.log("inside if of get cart adter removal")
-          getCartData(authData)
+      //if the function is called from buynow button then the state needs to be change quickly hence the manual state change
+      if (buyNow) {
+        removeBookFromState(args.bookid)
+      }
+      // if it gets called from another place like cart page then we can call the getCardData api to fix it
+      else {
+        console.log("inside if of get cart adter removal")
+        getCartData(authData)
 
-        }
+      }
 
 
       // await price_items_signin(response.data)
@@ -472,19 +473,122 @@ const AuthProvider = ({ children }) => {
       console.log("remove_cart_item_error : ", error)
     }
   }
-  const removeBookFromState=(bookid) =>{
-    
-    setCartCount(cartCount-1)
+  const removeBookFromState = (bookid) => {
+
+    setCartCount(cartCount - 1)
     let index = cartItems.findIndex((item, i) => {
       return item.id === bookid
     });
-    let tempArr=cartItems
-    tempArr.splice(index,1)
+    let tempArr = cartItems
+    tempArr.splice(index, 1)
     setCartItems(tempArr)
     localStorage.setItem("cartData", JSON.stringify(tempArr));
   }
 
+  const incrementQuantityFromState = (bookid) => {
+    setCartCount(cartCount + 1)
+    let index = cartItems.findIndex((item, i) => {
+      return item.bookid === bookid
+    });
+    let tempArr = cartItems
+    console.log("tempArr index= ",tempArr[index])
+    tempArr[index]["quantity"] += 1
+    tempArr[index]["amount"]= tempArr[index]["price"] * tempArr[index]["quantity"]
+    setCartItems(tempArr)
+    localStorage.setItem("cartData", JSON.stringify(tempArr));
+    getCartData(authData)
+    findSubtotal()
 
+  }
+
+
+  const decrementQuantityFromState = (bookid) => {
+    
+    let index = cartItems.findIndex((item, i) => {
+      return item.bookid === bookid
+    });
+    let tempArr = cartItems
+    console.log("tempArr index= ",tempArr[index])
+    if (tempArr[index]["quantity"] > 1) {  
+      setCartCount(cartCount - 1)
+      tempArr[index]["quantity"] -= 1
+      tempArr[index]["amount"]= tempArr[index]["price"] * tempArr[index]["quantity"]
+      setCartItems(tempArr)
+      localStorage.setItem("cartData", JSON.stringify(tempArr));
+      getCartData(authData)
+      findSubtotal()
+    }
+    else {
+      // removeBookFromState(bookid)
+      alert("you must have atleasst one quantity")
+    }
+  }
+
+  const incrementQuantity = async(args) =>{
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_CART_ITEM, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+        getCartData(authData)
+
+
+      // await price_items_signin(response.data)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("remove_cart_item_error : ", error)
+    }
+  }
+
+  const decrementQuantity = async(args) =>{
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_CART_ITEM, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+        getCartData(authData)
+
+
+
+      // await price_items_signin(response.data)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("remove_cart_item_error : ", error)
+    }
+  }
+  const findSubtotal = () => {
+    let subtotal = 0;
+    if (cartItems.length > 0) {
+        cartItems.map((data, index) => {
+                subtotal = subtotal + data.amount
+        })
+
+        console.log("subtotal function=", subtotal)
+        setSubTotal(subtotal)
+
+    } else {
+        setSubTotal(0)
+    }
+
+}
+
+  
   return (
     <AuthContext.Provider
       value={{
@@ -505,7 +609,13 @@ const AuthProvider = ({ children }) => {
         removeBookFromState,
         clearCartStorage,
         image_path,
-        add_book_to_storage
+        add_book_to_storage,
+        decrementQuantityFromState,
+        incrementQuantityFromState,
+        incrementQuantity,
+        decrementQuantity,
+        subTotal,
+        findSubtotal
 
         // authUsername
       }}

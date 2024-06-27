@@ -361,7 +361,10 @@ const ProductDetailsPage = () => {
           // before login
 
         if(authData === '' || authData === null || authData === undefined){
-        
+            
+            json_data["price"]=parseFloat(json_data.price.replace(/,/g, ''))
+            json_data["amount"]=  json_data["price"] 
+            console.log("json data= ",json_data)
             const resp= await add_book_to_storage(json_data)
             // for buy now
             if (toCheckout) {
