@@ -480,7 +480,7 @@ const CategoryDetailsPage = () => {
             Add_To_Wishlist(book_id, index)
         }
         else {
-            navigate('/login')
+            navigate('/loginsouthsore')
         }
     }
 
@@ -506,17 +506,31 @@ const CategoryDetailsPage = () => {
         // books_by_category(location.state ? location.state.category_id : 1)
         console.log("Wishlist_resp ", resp)
 
-        if (books[index].isFavourite === 0) {
-            books[index].isFavourite = 1
+        // if (books[index].isFavourite === 0) {
+        //     books[index].isFavourite = 1
+        // }
+        // else {
+        //     books[index].isFavourite = 0
+        // }
+
+
+        // console.log('index_book', books)
+
+        // setBooks([...books])
+
+        if (tempBooks[index].isFavourite === 0) {
+            tempBooks[index].isFavourite = 1
         }
         else {
-            books[index].isFavourite = 0
+            tempBooks[index].isFavourite = 0
         }
 
 
-        console.log('index_book', books)
+        console.log('index_book', tempBooks)
 
-        setBooks([...books])
+        setTempBooks([...tempBooks])
+
+        console.log('index_book_1', tempBooks)
 
 
 

@@ -184,7 +184,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setAuthData('')
-    // setWishlistshow(false)
+    setWishlistshow(false)
     // setAuthUsername('')
     localStorage.setItem("userid", '');
     // localStorage.setItem("username", '');
