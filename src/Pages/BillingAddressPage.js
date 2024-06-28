@@ -16,6 +16,7 @@ import useRazorpay from "react-razorpay";
 import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
 import FooterSouthsore from "../Layout/FooterSouthsore";
+import ShippingComp from "../Layout/ShipppingComp";
 
 const BillingAddressPage = () => {
     const { authData } = useAuth()
@@ -464,77 +465,7 @@ const BillingAddressPage = () => {
                                     <h2 className="card-title"><b>Shipping Address</b></h2>
 
                                     <hr></hr>
-                                    <div className=" row card-text">
-
-                                        <div className="col-md-6">
-                                            <label className="form_label">Address</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={addressHandler} value={address} />
-
-                                            <label className="form_label mt-2">City</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={cityHandler} value={city} />
-
-                                            <label className="form_label mt-2">Name</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={nameHandler} value={name} />
-
-                                            <label className="form_label mt-2">Email</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={emailHandler} value={email} />
-
-                                            <label className="form_label mt-2">Phone</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={phoneHandler} value={phone} />
-                                        </div>
-
-                                        <div className="col-md-6">
-                                            <label className="form_label ">Country</label>
-                                            <select className="form-control p_hold" onChange={countryHandler} value={selectedCountry}>
-
-                                                <option disabled > Please Select</option>
-
-                                                {
-                                                    countryList.map((country, index) => (
-
-                                                        <option
-                                                            key={country.id}
-                                                            value={country.id}
-                                                            selected={selectedCountry === country.id ? true : false}
-
-                                                        >
-                                                            {country.name}
-                                                        </option>
-
-                                                    ))
-                                                }
-
-                                            </select>
-
-                                            <label className="form_label mt-2">State</label>
-                                            <select className="form-control p_hold"
-                                                onChange={stateHandler} >
-
-                                                <option disabled> Please Select</option>
-
-                                                {
-                                                    stateList.map((state, index) => (
-
-                                                        <option key={state.id} value={state.id} selected={selectedState === state.id ? true : false}> {state.name} </option>
-
-                                                    ))
-                                                }
-                                            </select>
-
-
-                                            <label className="form_label mt-2">PIN</label>
-                                            <input className="form-control p_hold" type="text"
-                                                onChange={pinHandler} value={pin} />
-                                        </div>
-
-                                    </div>
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Save</Button>
-                                    <hr></hr>
+                                    <ShippingComp/>
                                                                    
 
                                 </div>
