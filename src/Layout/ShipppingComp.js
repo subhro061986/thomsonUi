@@ -35,6 +35,20 @@ const ShippingComp = () => {
     const [shippingAddId, setShippingAddId] = useState(0)
     const [shipList, setShipList] = useState([])
 
+    const [checkedItems, setCheckedItems] = useState(
+        shippingList.reduce((acc, data) => {
+          acc[data.id] = data.defaultChecked;
+          return acc;
+        }, {})
+      );
+    
+      const handleCheckboxChange = (id) => {
+        setCheckedItems((prevState) => ({
+          ...prevState,
+          [id]: !prevState[id],
+        }));
+      };
+
     const navigate = useNavigate();
     const goToHome = () => {
         navigate("/home")
@@ -203,16 +217,21 @@ const ShippingComp = () => {
                 <Button className="mt-3" onClick={() => openAddAddressModal(0)}>Add Address</Button></div>
             <div className="row my-4 mx-1">
                 {shippingList.map((data, index) => (
-                    <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-3 px-2 text-start text-wrap" key={index}>
-                        <div>{data.streetaddress}</div>
-                        <div>{data.city}</div>
-                        <div>{data.statename}</div>
-                        <div>{data.pincode}</div>
-                        <div>{data.countryname}</div>
-                        <div className="d-flex">
-                            <Button className="me-2" onClick={() => openAddAddressModal(data.id)}>Edit</Button>
-                            {/* <Button onClick={() => deleteAddress(data.id)}>Delete</Button> */}
+                    <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-2 px-2 text-start text-wrap" key={index}>
+                        <input class="form-check-input" type="radio" checked={checkedItems[data.id]}
+                            onChange={() => handleCheckboxChange(data.id)} value={data.id} />
+                        <div className="">
+                            <div>{data.streetaddress}</div>
+                            <div>{data.city}</div>
+                            <div>{data.statename}</div>
+                            <div>{data.pincode}</div>
+                            <div>{data.countryname}</div>
+                            <div className="d-flex">
+                                <Button className="me-2" onClick={() => openAddAddressModal(data.id)}>Edit</Button>
+                                {/* <Button onClick={() => deleteAddress(data.id)}>Delete</Button> */}
+                            </div>
                         </div>
+
                     </div>
                 ))}
             </div>
