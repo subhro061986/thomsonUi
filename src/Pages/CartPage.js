@@ -154,7 +154,7 @@ const CartPage = () => {
             alert("Please Login to Buy!")
         }
         else {
-            navigate("/billingAddress", { buynow: 0 })
+            navigate("/billingaddress", { state:{buynow: 0} })
 
         }
     }
