@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0)
   const [cartItems, setCartItems] = useState([])
   const [subTotal, setSubTotal]= useState(0)
+  const [authRole, setAuthRole] = useState('');
   const image_path = Config.API_URL + Config.PUB_IMAGES;
 
   // !  wishlistshow === isLoggedin
@@ -151,8 +152,11 @@ const AuthProvider = ({ children }) => {
 
         })
       console.log("token", response)
+      let decode_resp = jwtDecode(response.data.token)
+      console.log("decoded_resp : ", decode_resp)
       if (response.status === 200) {
         setAuthData(response.data.token)
+        setAuthRole(decode_resp.role)
         setWishlistshow(true)
         // setAuthUsername(response.data.data[0].username)
         localStorage.setItem("userid", response.data.token);
@@ -162,6 +166,7 @@ const AuthProvider = ({ children }) => {
       }
       else {
         setAuthData('')
+        setAuthRole('')
         // setAuthUsername('')
         localStorage.setItem("userid", '');
         localStorage.setItem("cartData", '');
@@ -596,6 +601,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         forgot_password,
         authData,
+        authRole,
         wishlistshow,
         isexpired,
         uuid,
