@@ -249,7 +249,7 @@ const ManageDistributorScreen = () => {
         <>
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="Manage Publishers" />
+                <Header title="Manage Distributor" />
                 <div className="bg-white p-3 m-3 rounded-2">
                     <button type="button" className="btn btn-main" onClick={() => openAddAddressModal(0)}>Add Distributor</button>
                 </div>
