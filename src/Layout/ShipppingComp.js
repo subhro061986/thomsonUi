@@ -15,7 +15,16 @@ import NavBarSouthsore from "../Layout/NavBarSouthsore";
 
 const ShippingComp = () => {
 
-    const { getAllShippingAddress, shippingList, addShippingAddress, getSippingAddressById, editShippingAddress, delShippingAddress, get_country_list, get_state_list } = UserProfile()
+    const { getAllShippingAddress, 
+        shippingList, 
+        addShippingAddress, 
+        getSippingAddressById, 
+        editShippingAddress, 
+        delShippingAddress, 
+        get_country_list, 
+        get_state_list,
+        selectShippingAddress,
+        selectedShippingAddress, } = UserProfile()
 
     const [addAddressModal, setAddAddressModal] = useState(false);
     const [modaltitle, setmodaltitle] = useState('');
@@ -34,6 +43,7 @@ const ShippingComp = () => {
     const [stateId, setStateId] = useState(0)
     const [shippingAddId, setShippingAddId] = useState(0)
     const [shipList, setShipList] = useState([])
+    const [tempShippingArr,setTempShippingArr]=useState(shippingList)
 
     const [checkedItems, setCheckedItems] = useState(
         shippingList.reduce((acc, data) => {
@@ -42,11 +52,12 @@ const ShippingComp = () => {
         }, {})
       );
     
-      const handleCheckboxChange = (id) => {
-        setCheckedItems((prevState) => ({
-          ...prevState,
-          [id]: !prevState[id],
-        }));
+      const handleCheckboxChange = async(id) => {
+        // setCheckedItems((prevState) => ({
+        //   ...prevState,
+        //   [id]: !prevState[id],
+        // }));
+        const resp= await selectShippingAddress(id);
       };
 
     const navigate = useNavigate();
@@ -89,13 +100,26 @@ const ShippingComp = () => {
     useEffect(() => {
         get_countries()
         get_states()
-        getShipLists()
     }, []);
 
+    useEffect(() => {
+        getShipLists()
+        console.log('selectedShippingAddress',selectedShippingAddress)
+    }, [selectedShippingAddress]);
+
     const getShipLists = async () => {
-        const resp = await getAllShippingAddress()
-        console.log("ship list ", resp)
-        setShipList(resp.data.output)
+       let tempArr=tempShippingArr
+       for(let i=0;i<tempArr.length;i++){
+        if(tempArr[i]['id'] === selectedShippingAddress){
+            tempArr[i]['checked']=true;
+        }
+        else {
+            tempArr[i]['checked']=false;
+        }
+
+       }
+       console.log("temp shipping arr= ",tempArr)
+       setTempShippingArr([...tempArr]);
     }
 
     const get_countries = async () => {
@@ -216,9 +240,9 @@ const ShippingComp = () => {
             <div className="d-flex ms-2">
                 <Button className="mt-3" onClick={() => openAddAddressModal(0)}>Add Address</Button></div>
             <div className="row my-4 mx-1">
-                {shippingList.map((data, index) => (
+                {tempShippingArr.map((data, index) => (
                     <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-2 px-2 text-start text-wrap" key={index}>
-                        <input class="form-check-input" type="radio" checked={checkedItems[data.id]}
+                        <input class="form-check-input" type="radio" checked={data.checked}
                             onChange={() => handleCheckboxChange(data.id)} value={data.id} />
                         <div className="">
                             <div>{data.streetaddress}</div>
