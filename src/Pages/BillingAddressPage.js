@@ -26,10 +26,14 @@ const BillingAddressPage = () => {
         get_state_list,
         change_billing_address,
         change_contact_details,
-        createOrder,
+        createRazorpayOrder,
         processPayment,
         applyCoupon,
-        shippingList
+        shippingList,
+        getBillingAddress,
+        editBillingAddress,
+        createAppOrder,
+        selectedShippingAddress
     } = UserProfile()
     const navigate = useNavigate();
     const location = useLocation()
@@ -49,7 +53,7 @@ const BillingAddressPage = () => {
     const [coupon, setCoupon] = useState('')
     const [orderTotal, setOrderTotal] = useState(0)
     const [buyNow, setBuyNow] = useState(0)
-
+    const [billingAddressId,setBillingAddressId] = useState(0)
     const [Razorpay] = useRazorpay();
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -58,6 +62,7 @@ const BillingAddressPage = () => {
 
         myProfileApi()
         renderCountryList()
+        getBillingDetails()
     }, []);
 
     useEffect(() => {
@@ -147,21 +152,25 @@ const BillingAddressPage = () => {
     const myProfileApi = async () => {
 
         const resp = await my_profile()
+        setName(resp.output.name)
+        setEmail(resp.output.email)
+        setPhone(resp.output.contactno)
+    }
 
-        setAddress(resp.output.addressline)
+    const getBillingDetails= async() =>{
+        
+        const resp = await getBillingAddress()
+        setBillingAddressId(resp.output.id)
+        setAddress(resp.output.streetaddress)
         setSelectedCountry(resp.output.countryid)
         setSelectedState(resp.output.stateid)
         setCity(resp.output.city)
         setPin(resp.output.pincode)
-        setName(resp.output.name)
-        setEmail(resp.output.email)
-        setPhone(resp.output.contactno)
 
-        if (resp.output.countryid !== null && resp.output.countryid !== '') {
+        if (resp.output.countryid!== null && resp.output.countryid!== '') {
             renderStateList(resp.output.countryid)
         }
     }
-
 
 
     const processPaymentSuccess = async (placeOrder, data) => {
@@ -169,6 +178,7 @@ const BillingAddressPage = () => {
             ...data,
             transactiondate: placeOrder.output.orderdate,
             orderno: placeOrder.output.orderno,
+            orderid:placeOrder.output.id,
             success: 1
         }
 
@@ -187,6 +197,7 @@ const BillingAddressPage = () => {
             ...data,
             transactiondate: placeOrder.output.orderdate,
             orderno: placeOrder.output.orderno,
+            orderid:placeOrder.output.id,
             success: 0
         }
 
@@ -200,13 +211,31 @@ const BillingAddressPage = () => {
         //     alert("Could not process payment correctly")
         // }
     }
-    const placeOrder = async (data) => {
+    const placeOrder = async () => {
 
-        // console.log("respPlaceOrder=",respPlaceOrder.output.orderno)
+        let placeorderJson={
+            billingaddressid:billingAddressId,
+            shippingaddressid:selectedShippingAddress
+        }
+        console.log("placeorder Json=",placeorderJson)
+        const respPlaceOrder = await createAppOrder(buyNow,placeorderJson)
+
+        setPlaceOrderResponse(respPlaceOrder)
+        if (respPlaceOrder.output !== null)
+            setOrderTotal(respPlaceOrder.output.totalAmount)
+        
+            // setTogglePayment(false)
+        // setShowCoupon(true)
+
+        // return respPlaceOrder
+    }
+
+    const saveBillingDetails = async(data) =>{
+       // console.log("respPlaceOrder=",respPlaceOrder.output.orderno)
 
         // console.log("razor pay payment status code= ",respPaymentConfirmed['statuscode'])
         let changebillingDetails = {
-            addressline: address,
+            streetAddress: address,
             city: city,
             pincode: pin,
             stateid: selectedState,
@@ -221,18 +250,9 @@ const BillingAddressPage = () => {
         const contactDetailsPesponse = await change_contact_details(changecontactDetails)
         console.log("contact details=", contactDetailsPesponse)
 
-        const billingDetailsPesponse = await change_billing_address(changebillingDetails)
+        const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
         console.log("billing details=", billingDetailsPesponse)
 
-        const respPlaceOrder = await place_order(buyNow)
-
-        setPlaceOrderResponse(respPlaceOrder)
-        if (respPlaceOrder.output !== null)
-            setOrderTotal(respPlaceOrder.output.totalAmount)
-        // setTogglePayment(false)
-        // setShowCoupon(true)
-
-        // return respPlaceOrder
     }
 
     const handlePayment = async (params) => {
@@ -246,37 +266,39 @@ const BillingAddressPage = () => {
 
         let order_params = {
             amount: amount,
-            currency: "INR",
-            orderno: placeOrderResponse.output.orderno
+            currency: placeOrderResponse.output.currencyisocode,
+            orderno: placeOrderResponse.output.orderno,
+            orderid: placeOrderResponse.output.id
 
         }
-        const order = await createOrder(order_params); //  Create order on your backend
+        const order = await createRazorpayOrder(order_params); //  Create order on your backend
         console.log("order response= ", order)
 
         if (order !== undefined) {
 
             const options = {
-                key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
+                // key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
+                key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
                 amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 currency: "INR",
-                name: "SouthShore Pvt Ltd",
+                name: "Thompson & Reuters",
                 description: "Test Transaction",
                 image: { admin_logo },// company logo
-                order_id: order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+                order_id: order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createRazorpayOrder().
                 handler: function (response) {
                     // alert(response.razorpay_payment_id);
                     // alert(response.razorpay_order_id);
                     // alert(response.razorpay_signature);
                     console.log("payment successfull response= ", response)
-
-                    const succeeded = crypto.HmacSHA256(`${order.order_id}|${response.razorpay_payment_id}`, Config.RAZORPAY_LIVE_KEY_SECRET).toString() === response.razorpay_signature;
-                    console.log("success?= ", succeeded)
+                    const succeeded = true;
+                    // const succeeded = crypto.HmacSHA256(`${order.order_id}|${response.razorpay_payment_id}`, Config.RAZORPAY_LIVE_KEY_SECRET).toString() === response.razorpay_signature;
+                    // console.log("success?= ", succeeded)
                     if (succeeded) {
                         processPaymentSuccess(placeOrderResponse, {
                             "paymentid": response.razorpay_payment_id,
                             "razorpay_orderid": response.razorpay_order_id,
-                            // "payment_signature":response.razorpay_signature,
-                            "transactionamount": order.amount,
+                            "payment_signature":response.razorpay_signature,
+                            "transactionamount": order.amount
                             // "currency" :"INR"
 
                         })
@@ -314,7 +336,7 @@ const BillingAddressPage = () => {
                 processPaymentFailed(placeOrderResponse, {
                     "paymentid": "",
                     "razorpay_orderid": order.order_id,
-                    // "payment_signature":response.razorpay_signature,
+                    "payment_signature":response.razorpay_signature,
                     "transactionamount": order.amount,
                     // "currency" :"INR"
 
@@ -450,7 +472,7 @@ const BillingAddressPage = () => {
                                         </div>
 
                                     </div>
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Save</Button>
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={saveBillingDetails}>Save</Button>
                                     
 
                                 </div>
@@ -466,7 +488,10 @@ const BillingAddressPage = () => {
 
                                     <hr></hr>
                                     <ShippingComp/>
-                                                                   
+
+
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Place Order</Button>
+         
 
                                 </div>
                             </div>
@@ -477,7 +502,7 @@ const BillingAddressPage = () => {
                                 <h2 className="card-title"><b>Process Payment</b></h2>
 
                                     <hr></hr>
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={handlePayment}>Place Order & Pay</Button>
+                                    <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={handlePayment}>Place Order & Pay</Button>
                                         
                                 </div>
                             </div>

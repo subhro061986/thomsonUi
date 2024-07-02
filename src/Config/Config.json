@@ -36,8 +36,8 @@
     "BOOK_SHELF" : "user/bookshelf",
     "PUB_IMAGES" : "uploads/publishers/",
     "GET_PUB_DETAILS" : "publisher/",
-    "RAZORPAY_CREATE_ORDER": "user/razorpay/order",
-    "RAZORPAY_PROCESS_PAYMENT": "user/razorpay/process-payment",
+    "RAZORPAY_CREATE_ORDER": "order/razorpay/order",
+    "RAZORPAY_PROCESS_PAYMENT": "order/razorpay/process-payment",
     "INVOICE_DETAILS": "user/customer-invoice-details",
     "NEWSLETTER": "newsletter",
     "FORGOT_PASSWORD" : "account/reset-password-mail",
@@ -53,7 +53,11 @@
     "ADD_SHIPPING_ADDRESS":"shippingaddress/add",
     "GET_ALL_SHIPPING_ADDRESS":"shippingaddress",
     "EDIT_SHIPPING_ADDRESS":"shippingaddress/edit",
-    "DELETE_SHIPPING_ADDRESS":"shippingaddress/delete"
+    "DELETE_SHIPPING_ADDRESS":"shippingaddress/delete",
     
+    "GET_BILLING_ADDRESS":"billingaddress",
+    "EDIT_BILLING_ADDRESS":"billingaddress/edit",
+
+    "ORDER_CREATE":"order/create"
 }
   

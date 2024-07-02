@@ -32,6 +32,8 @@ const UserProvider = ({ children }) => {
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
   const [shippingList, setShippingList] = useState([])
+  const [selectedShippingAddress, setSelectedShippingAddress] = useState(0)
+
   
 
 
@@ -42,7 +44,6 @@ const UserProvider = ({ children }) => {
     category_all();
     getAllCategory();
     addShippingAddress();
-    getAllShippingAddress();
     getSippingAddressById();
     delShippingAddress();
     
@@ -59,6 +60,8 @@ const UserProvider = ({ children }) => {
       //   deviceid: "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
       // })
       get_wishlist_books(1, 5)
+      getAllShippingAddress();
+
       // localstorage_price_items_signin()
       // get_wish_books_id()
     }
@@ -938,7 +941,7 @@ const UserProvider = ({ children }) => {
   }
 
   /* Razor Pay */
-  const createOrder = async (data) => {
+  const createRazorpayOrder = async (data) => {
     try {
       const response = await axios.post(Config.API_URL + Config.RAZORPAY_CREATE_ORDER,data,
         {
@@ -1191,7 +1194,70 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  const getBillingAddress = async () => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_BILLING_ADDRESS,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET billing address : ", response.data);
+     
+      
+      return response.data;
+    }
+    catch (error) {
+      console.log("get_shipping address_error : ", error);
+    }
+  }
 
+  const editBillingAddress = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_BILLING_ADDRESS,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("edit billing address : ", response.data);
+     
+      
+      return response.data;
+    }
+    catch (error) {
+      console.log("get_shipping address_error : ", error);
+    }
+  }
+
+  const createAppOrder = async (buyNow,args) => {
+    try {
+      const response = await axios.post(Config.API_URL +Config.ORDER_CREATE+ `?buynow=${buyNow}`,args ,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+      
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("place_order_error : ", error)
+    }
+  }
+
+  const selectShippingAddress = async(id) =>{
+    setSelectedShippingAddress(id)
+    return id
+  }
   return (
     <UserContext.Provider
       value={{
@@ -1236,7 +1302,7 @@ const UserProvider = ({ children }) => {
         categoryByPublisherList,
         allCategoryList,
         getBookShelf,
-        createOrder,
+        createRazorpayOrder,
         processPayment,
         getInvoiceById,
         getCouponByPublisherId,
@@ -1247,7 +1313,12 @@ const UserProvider = ({ children }) => {
         shippingList,
         getSippingAddressById,
         editShippingAddress,
-        delShippingAddress
+        delShippingAddress,
+        getBillingAddress,
+        editBillingAddress,
+        createAppOrder,
+        selectShippingAddress,
+        selectedShippingAddress
 
 
       }}
