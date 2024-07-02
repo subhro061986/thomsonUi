@@ -112,7 +112,7 @@ const TestMenu = () => {
                         </SubMenu>
                         <MenuItem className="nest_sidebar">
                             <Link className="nav-link" 
-                            // to="/admin/manageusers"
+                            to="/admin/managedistributor"
                             >
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Distributor

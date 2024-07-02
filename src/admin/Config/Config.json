@@ -53,6 +53,8 @@
     "GET_ALL_CUSTOMER_INVOICES" : "user/customer-all-invoice",
     "GET_ALL_PUBLISHER_INVOICES" : "user/publisher-all-invoice",
     "GET_PUBLISHER_INVOICE" : "user/publisher-invoice",
-    "FORGOT_PASSWORD" : "user/forgot-password"
+    "FORGOT_PASSWORD" : "user/forgot-password",
+    "ADD_Distributor" : "distributor/add",
+    "EDIT_DISTRIBUTOR_ADDRESS" : "distributor/edit"
 
 }

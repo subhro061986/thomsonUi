@@ -40,6 +40,7 @@ const AdminProvider = ({ children }) => {
         getAllBookList();
         get_pub_details();
         getAllPublishers();
+        get_all_countries();
       //   // getAllCustomers_admin();
       //   // getManageOrder();
         getAllLanguage();
@@ -762,7 +763,7 @@ const AdminProvider = ({ children }) => {
       const response = await axios.get(Config.API_URL + Config.GET_ALL_COUNTRIES,
         {
           headers: {
-            // 'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
@@ -1194,6 +1195,109 @@ const AdminProvider = ({ children }) => {
     }
   }
 
+  //Distributor Management
+
+  const addDistributor = async (formData) => {
+    // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
+    
+    try {
+      const response = await axios.post(Config.API_URL + Config.ADD_Distributor , formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // }
+      // getAllDistributor();
+      console.log("Add distributor Response : ", response);
+      return response;
+
+    }
+
+    catch (error) {
+      console.log("Add distributor Response Error : ", error)
+    }
+  }
+
+  // const getAllDistributor = async () => {
+  //   try {
+  //     const response = await axios.get(Config.API_URL + Config.GET_ALL_Distributor,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + authData
+  //         },
+  //       })
+  //     console.log("GET ALL shipping address : ", response);
+  //     setDistributorList(response.data.output)
+      
+  //     return response;
+  //   }
+  //   catch (error) {
+  //     console.log("get_shipping address_error : ", error);
+  //   }
+  // }
+
+  // const getDistributorById = async (id) => {
+  //   try {
+  //     const response = await axios.get(Config.API_URL + Config.GET_ALL_SHIPPING_ADDRESS + "/" + id,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + authData
+  //         },
+  //       })
+  //     console.log("GET SHIPPING ADDRESS BY ID: ", response);
+  //     return response;
+  //   }
+  //   catch (error) {
+  //     console.log("Get_shipping_by_id_error : ", error);
+  //   }
+  // }
+
+  const editDistributor = async (args, id) => {
+    console.log("Args in edit distributor context :", args);
+    console.log("Id in edit distributor context:", id);
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_DISTRIBUTOR_ADDRESS + "/" + id, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        // getAllDistributor();
+      console.log("EDIT distributor RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("EDIT_distributor_Error : ", error)
+    }
+  }
+
+  // const delDistributor = async (id) => {
+  //   console.log("Id :", id);
+  //   console.log("delShippingAddress token :", authData);
+  //   try {
+  //     const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
+      
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + authData
+  //         },
+  //       })
+  //       // setShippingList();
+  //       getAllDistributor();
+  //     console.log("DELETE SHIPPING RESPONSE : ", response);
+  //     return response;
+  //   }
+  //   catch (error) {
+  //     console.log("DEL_SHIPPING_Error : ", error)
+  //   }
+  // }
+
   
 
   return (
@@ -1263,7 +1367,9 @@ const AdminProvider = ({ children }) => {
         dimensionsVal,
         legendVal,
         currMonthlySale,
-        prevMonthlySale
+        prevMonthlySale,
+        addDistributor,
+        editDistributor
       
       }}
     >
