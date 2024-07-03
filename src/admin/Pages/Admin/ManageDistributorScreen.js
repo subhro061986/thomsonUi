@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ManageDistributorScreen = () => {
 
-    const { getAllShippingAddress, shippingList, addDistributor, getSippingAddressById, editDistributor, delShippingAddress, get_all_countries, get_state_list, get_state_by_id, get_states_by_country } = AdminProfile()
+    const { getAllDistributor, distributorList, addDistributor, restore_distributor, delete_distributor, get_all_countries, get_state_list, get_state_by_id, get_states_by_country } = AdminProfile()
 
     const [addAddressModal, setAddAddressModal] = useState(false);
     const [modaltitle, setmodaltitle] = useState('');
@@ -38,10 +38,12 @@ const ManageDistributorScreen = () => {
     const [distributorAddId, setDistributorAddId] = useState(0)
     const [shipList, setShipList] = useState([])
 
+    const { authDeatils, authData } = useAuth();
+
     const navigate = useNavigate();
-    const goToHome = () => {
-        navigate("/home")
-    }
+    // const goToHome = () => {
+    //     navigate("/home")
+    // }
 
     const openAddAddressModal = async (
         // id
@@ -88,16 +90,17 @@ const ManageDistributorScreen = () => {
 
 
     useEffect(() => {
+        console.log("My_login_details_IN_dist ", authData)
         get_countries()
         get_states()
-        // getShipLists()
-    }, []);
+        console.log("distributor list ", distributorList)
+    }, [authData]);
 
-    const getShipLists = async () => {
-        const resp = await getAllShippingAddress()
-        console.log("ship list ", resp)
-        setShipList(resp.data.output)
-    }
+    // const getShipLists = async () => {
+    //     const resp = await getAllShippingAddress()
+    //     console.log("ship list ", resp)
+    //     setShipList(resp.data.output)
+    // }
 
     const get_countries = async () => {
         const resp = await get_all_countries()
@@ -209,35 +212,39 @@ const ManageDistributorScreen = () => {
                 style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
             });
         }
-        // }
-        // else {
-
-        //     let editDistributorData = {
-        //         name: name,
-        //         email: email,
-        //         contactno : phone,
-        //         altcontactno : altPhone,
-        //         addressline: streetAddress,
-        //         countryid: countryId,
-        //         stateid: stateId,
-        //         city: city,
-        //         pincode: pin,
-        //         gstin : gstIn
-        //     }
-        //     let response = await editDistributor(editDistributorData, distributorAddId)
-        //     console.log(" edit distributor response ", response)
-        //     getShipLists()
-        //     closeAddAddressModal()
-        // }
-
+        getAllDistributor()
 
     }
 
-    const deleteAddress = async (id) => {
-        const resp = await delShippingAddress(id)
-        console.log("delete resp ", resp)
-        await getShipLists()
-    }
+    const delete_Dist = async (id) => {
+        const response = await delete_distributor(id);
+        getAllDistributor()
+    
+      }
+    
+    
+      const restore_Dist = async (id) => {
+        const response = await restore_distributor(id);
+        getAllDistributor()
+    
+      }
+
+      const act_inact_dist = (activeVal, id) => {
+        // console.log("event :  ", e.target.value);
+        if (activeVal === 1) {
+    
+          if (window.confirm("Do you want to deactivate the distributor?") == true) {
+            console.log("You pressed OK!");
+            delete_Dist(id);
+          } else {
+            console.log("You pressed cancel!");
+          }
+    
+        }
+        else {
+            restore_Dist(id);
+        }
+      }
 
 
 
@@ -260,62 +267,35 @@ const ManageDistributorScreen = () => {
                                 {/* <th>Logo</th> */}
                                 <th className="text-start">Name</th>
                                 {/* <th className="text-start">Contact Person</th> */}
-                                <th className="text-start">Contact Email</th>
-                                <th className="text-start">Contact Phone</th>
-
-
+                                <th className="text-start">Email</th>
+                                <th className="text-start">Contact No</th>
+                                <th className="text-start">gstIn</th>
                                 <th className="text-start">Status</th>
                                 <th className="text-start">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="text-center">
-                            {/* {
-                                publisherList && publisherList.map((data, index) => (
+                            {
+                                distributorList.map((data, index) => (
                                     <tr className="custom-table-row" key={index}>
                                         
                                         <td className="all_col text-start" data-bs-toggle="tooltip" data-bs-placement="top" title={data.name} style={{ cursor: "pointer" }}>{data.name === null ? 'Not Available' : data.name.length > 18 ? data.name.substring(0, 18) + '...' : data.name}</td>
                                         
                                         <td className="all_col text-start">{data.email === null || data?.email?.length === 0 ? 'Not Available' : data.email}</td>
                                         <td className="all_col text-start">{data.contactno === null || data?.contactno?.length === 0 ? 'Not Available' : data.contactno}</td>
-
-
+                                        <td className="all_col text-start">{data.gstin === null || data?.gstin?.length === 0 ? 'Not Available' : data.gstin}</td>
                                         <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                                         <td className="d-flex justify-content-start align-items-start">
-                                            <SVG src={editIcon}
-                                                style={{ fill: '#FF0000', marginRight: 10, marginTop: 1 }}
-                                                width={15} height={15}
-                                                onClick={() => editPubMoadl(data.id)} />
-                                           
-
-
+                                            
                                             <div className="form-check form-switch" style={{ marginRight: 5 }} >
                                                 <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                                                    onChange={(e) => act_inact_pub(data.isactive, data.id)} />
+                                                    onChange={(e) => act_inact_dist(data.isactive, data.id)} 
+                                                    />
                                             </div>
-
-
-                                            <SVG src={eye}
-                                                height={20} width={20}
-                                                onClick={() => openOrderDescriptionModal(data.id)}
-                                                style={{ fill: '#787B85' }}
-                                            />
                                         </td>
                                     </tr>
                                 ))
-                            } */}
-                            {/* <tr className="custom-table-row">
-                  <td><img src={jurisPressLogo} alt="publisher logo" /></td>
-                  <td className="all_col">Juris Press</td>
-                  <td className="all_col">9553456780</td>
-                  <td className="all_col">info@jurispress.com</td>
-                  <td className="act_col">Active</td>
-                  <td className="all_col">12/A MG Road, Mum...</td>
-                  <td className="all_col">Lorem ipsum, dolor...</td>
-                  <td>
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15} />
-                    <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} />
-                  </td>
-                </tr> */}
+                            }
                         </tbody>
                     </table>
                 </div>

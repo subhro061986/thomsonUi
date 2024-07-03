@@ -7,7 +7,8 @@ import { useAuth } from "../Context/Authcontext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from "react-bootstrap";
-import loginsideimg from "../Assets/Images/loginsideimg.png"
+import loginsideimg from "../Assets/Images/New_login_img.png"
+import bookCentral from "../Assets/Images/book_central_logo_png.png"
 import sms from "../Assets/Images/sms.png"
 import eyeslash from "../Assets/Images/eyeslash.png"
 import eye_open from "../Assets/Images/eye_open.png"
@@ -180,6 +181,7 @@ const LoginPageSouthsore = () => {
                         </div>
                         <div className="col-md-6 bg-white bor_rad left_form">
                             <div className="card-body my-4">
+                                <img src={bookCentral} height={80} width={80} className="mb-3"/>
                                 <div className="header1">Login</div>
                                 <p className="header_sub pt-1">Enter your email & password to login our website</p>
                                 <div className="pos_rel">

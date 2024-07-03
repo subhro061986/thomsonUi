@@ -55,6 +55,8 @@
     "GET_PUBLISHER_INVOICE" : "user/publisher-invoice",
     "FORGOT_PASSWORD" : "user/forgot-password",
     "ADD_Distributor" : "distributor/add",
-    "EDIT_DISTRIBUTOR_ADDRESS" : "distributor/edit"
+    "GET_ALL_Distributor" : "distributor",
+    "RESTORE_DISTRIBUTOR" : "distributor/restore/",
+    "DELETE_DISTRIBUTOR" : "distributor/delete/"
 
 }

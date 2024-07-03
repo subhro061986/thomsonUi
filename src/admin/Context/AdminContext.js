@@ -27,6 +27,8 @@ const AdminProvider = ({ children }) => {
   const [legendVal, setlegendVal] = useState([]);
   const [currMonthlySale, setMonthlyCurrSale] = useState({});
   const [prevMonthlySale, setMonthlyPrevSale] = useState({});
+  const [distributorList, setDistributorList] = useState({});
+
   useEffect(() => {
     
     // console.log(authData);
@@ -45,6 +47,8 @@ const AdminProvider = ({ children }) => {
       //   // getManageOrder();
         getAllLanguage();
         getAllCurrency();
+
+        getAllDistributor();
         // getAllCoupons();
       }
       // else if(authDeatils.role === "South Shore Admin" ){
@@ -1209,7 +1213,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // }
-      // getAllDistributor();
+      getAllDistributor();
       console.log("Add distributor Response : ", response);
       return response;
 
@@ -1220,24 +1224,24 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  // const getAllDistributor = async () => {
-  //   try {
-  //     const response = await axios.get(Config.API_URL + Config.GET_ALL_Distributor,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': 'Bearer ' + authData
-  //         },
-  //       })
-  //     console.log("GET ALL shipping address : ", response);
-  //     setDistributorList(response.data.output)
+  const getAllDistributor = async () => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_Distributor,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL distributor address : ", response);
+      setDistributorList(response.data.output)
       
-  //     return response;
-  //   }
-  //   catch (error) {
-  //     console.log("get_shipping address_error : ", error);
-  //   }
-  // }
+      return response;
+    }
+    catch (error) {
+      console.log("get_distributor_error : ", error);
+    }
+  }
 
   // const getDistributorById = async (id) => {
   //   try {
@@ -1256,47 +1260,61 @@ const AdminProvider = ({ children }) => {
   //   }
   // }
 
-  const editDistributor = async (args, id) => {
-    console.log("Args in edit distributor context :", args);
-    console.log("Id in edit distributor context:", id);
-    try {
-      const response = await axios.post(Config.API_URL + Config.EDIT_DISTRIBUTOR_ADDRESS + "/" + id, args,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authData
-          },
-        })
-        // getAllDistributor();
-      console.log("EDIT distributor RESPONSE : ", response);
-      return response;
-    }
-    catch (error) {
-      console.log("EDIT_distributor_Error : ", error)
-    }
-  }
-
-  // const delDistributor = async (id) => {
-  //   console.log("Id :", id);
-  //   console.log("delShippingAddress token :", authData);
+  // const editDistributor = async (args, id) => {
+  //   console.log("Args in edit distributor context :", args);
+  //   console.log("Id in edit distributor context:", id);
   //   try {
-  //     const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
-      
+  //     const response = await axios.post(Config.API_URL + Config.EDIT_DISTRIBUTOR_ADDRESS + "/" + id, args,
   //       {
   //         headers: {
   //           'Content-Type': 'application/json',
   //           'Authorization': 'Bearer ' + authData
   //         },
   //       })
-  //       // setShippingList();
-  //       getAllDistributor();
-  //     console.log("DELETE SHIPPING RESPONSE : ", response);
+  //       // getAllDistributor();
+  //     console.log("EDIT distributor RESPONSE : ", response);
   //     return response;
   //   }
   //   catch (error) {
-  //     console.log("DEL_SHIPPING_Error : ", error)
+  //     console.log("EDIT_distributor_Error : ", error)
   //   }
   // }
+
+  const restore_distributor = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.RESTORE_DISTRIBUTOR + id, {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // console.log(" RESTORE PUBLISHER USERS : ", response.data);
+      setDistributorList(response);
+      return response;
+    }
+    catch (error) {
+      console.log("RESTORE distributor error : ", error);
+    }
+  }
+
+  const delete_distributor = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.DELETE_DISTRIBUTOR + id, {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // console.log(" DELETE PUBLISHER USERS : ", response.data);
+      setDistributorList(response);
+      return response;
+    }
+    catch (error) {
+      console.log("DELETE distributor error : ", error);
+    }
+  }
 
   
 
@@ -1369,7 +1387,10 @@ const AdminProvider = ({ children }) => {
         currMonthlySale,
         prevMonthlySale,
         addDistributor,
-        editDistributor
+        getAllDistributor,
+        distributorList,
+        restore_distributor,
+        delete_distributor
       
       }}
     >
