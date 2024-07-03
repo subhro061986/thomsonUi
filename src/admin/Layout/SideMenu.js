@@ -118,12 +118,12 @@ const TestMenu = () => {
                                 Manage Distributor
                             </Link>
                         </MenuItem>
-                        <MenuItem className="nest_sidebar">
+                        {/* <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/manageusers">
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Customer
                             </Link>
-                        </MenuItem>
+                        </MenuItem> */}
                         {/* <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/manageorder">
                                 <SVG src={orderIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
