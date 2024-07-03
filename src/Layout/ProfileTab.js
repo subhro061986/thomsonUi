@@ -105,9 +105,9 @@ const ProfileTab = () => {
                 drawerStat == true && (
                     <nav className="navbar navbar-expand-lg top-nav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf</Link>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders</Link>
                             </li>
@@ -134,9 +134,9 @@ const ProfileTab = () => {
                 drawerStat == false && (
                     <div className="profile-tab-nav profile_tab_bar_menu">
                         <div className="container d-flex justify-content-start align-items-center">
-                            <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
+                            {/* <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf {bookshelf}</Link>
-                            </div>
+                            </div> */}
                             <div className={"profile-item " + (order === true ? "active" : '')} onClick={()=>mybookshelf("myorder")}>
                                 <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders {order}</Link>
                             </div>

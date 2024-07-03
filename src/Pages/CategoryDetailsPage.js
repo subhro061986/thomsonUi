@@ -70,10 +70,10 @@ const CategoryDetailsPage = () => {
     const [maxRange, setMaxRange] = useState(500);
     const [range, setRange] = useState([0, 0]);
 
-    
 
 
-    
+
+
 
     // const [value, setValue] = useState([30, 60]);
 
@@ -414,7 +414,7 @@ const CategoryDetailsPage = () => {
         // }
     }
 
-    const rangefunction=(e)=>{
+    const rangefunction = (e) => {
         console.log("range function", e)
         setMaxRange(e[1])
         setMinRange(e[0])
@@ -502,7 +502,7 @@ const CategoryDetailsPage = () => {
 
 
         const resp = await add_delete_to_wishlist(json)
-        
+
         // books_by_category(location.state ? location.state.category_id : 1)
         console.log("Wishlist_resp ", resp)
 
@@ -561,7 +561,7 @@ const CategoryDetailsPage = () => {
                 <div className="container">
                     <TopBar />
                     <NavBar />
-                    
+
                 </div>
                 <Whatsapp />
                 <div className="container category-details">
@@ -689,10 +689,10 @@ const CategoryDetailsPage = () => {
                                         {
                                             allActivePublisher.map((data, index) => (
                                                 data.isactive === 1 && (
-                                                    <div key={index}>
-                                                        <input type="checkbox" className="me-1" value={data.id} />
+                                                    <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
+                                                        <input type="checkbox" className="me-2" value={data.id} />
                                                         <label>{data.name}</label>
-                                                    </div>
+                                                    </li>
 
                                                 )
                                             ))
@@ -704,10 +704,10 @@ const CategoryDetailsPage = () => {
                                         {
                                             allCategoryList.map((data, index) => (
                                                 data.isactive === 1 && (
-                                                    <div key={index}>
-                                                        <input type="checkbox" className="me-1" value={data.id} />
+                                                    <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
+                                                        <input type="checkbox" className="me-2" value={data.id} />
                                                         <label>{data.name}</label>
-                                                    </div>
+                                                    </li>
                                                 )
                                             ))
                                         }
@@ -716,12 +716,12 @@ const CategoryDetailsPage = () => {
 
 
                                 <hr />
-                                
-                                <ul>
-                                    <li className="mb-3">Price</li>
 
 
-                                    {/* {
+                                <p className="mb-4">Price</p>
+
+
+                                {/* {
 
                                         pricerangefilters.map((data, index) => (
 
@@ -733,20 +733,21 @@ const CategoryDetailsPage = () => {
                                         ))
                                     } */}
 
-                                    {/* <div style={{userSelect:'none'}}>Custom Values</div> */}
-                                    <RangeSlider
-                                        min={0}
-                                        max={500}
-                                        step={1}
-                                        defaultValue={[0,500]}
-                                        // value={[0,500]}
-                                        onInput={(e)=>rangefunction(e)}
-                                    />
+                                {/* <div style={{userSelect:'none'}}>Custom Values</div> */}
+                                <RangeSlider
+                                    min={0}
+                                    max={500}
+                                    step={1}
+                                    defaultValue={[0, 500]}
+                                    // value={[0,500]}
+                                    onInput={(e) => rangefunction(e)}
 
-                                    <p>Selected range: ${minRange} - ${maxRange}</p>
+                                />
 
-                                    <hr />
-                                    {/* <li>Language</li>
+                                <p className="mt-4">{minRange} to {maxRange}</p>
+
+                                <hr />
+                                {/* <li>Language</li>
                                     <ul className="languages">
                                         <li>English</li>
                                         <li>Bengali</li>
@@ -756,7 +757,7 @@ const CategoryDetailsPage = () => {
                                         <li>Spanish</li>
                                     </ul> 
                                     <hr />*/}
-                                    {/* <li>Publication Year</li>
+                                {/* <li>Publication Year</li>
                                     <input type="range" min="2000" max="2023" className="slider" id="myRange"></input>
                                     <hr />
                                     <li>New Arrivals</li>
@@ -765,7 +766,7 @@ const CategoryDetailsPage = () => {
                                         <li>Last 30 days</li>
                                         <li>Last 90 days</li>
                                     </ul> */}
-                                </ul>
+
                             </div>
                         </div>
 
@@ -831,15 +832,15 @@ const CategoryDetailsPage = () => {
                                 <hr />
 
 
-                                <div className="row card_padding_bottom">
-                                    
+                                <div className="row d-flex justify-content-between card_padding_bottom">
+
 
                                     {
                                         //books.map((data, index) => (
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className="col-md-3 border border-white bg-white rounded-4 book_card h380  category_det_card" onClick={() => { gotoDetails(data.id) }}>
+                                            <div key={index} className=" bg-white rounded-4 book_card " style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px'}} onClick={() => { gotoDetails(data.id) }}>
                                                 <div className="d-flex flex-column">
                                                     <div className="d-flex justify-content-end mt-2" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
@@ -866,11 +867,19 @@ const CategoryDetailsPage = () => {
                                                     <div className="d-flex justify-content-center author_name mt-2">
                                                         Author: {data.authors?.length > 0 ? data.authors : "Not Found"}
                                                     </div>
-                                                    <hr></hr>
-                                                    <div className="d-flex align-items-center justify-content-center">
+                                                    <div className="d-flex align-items-center justify-content-center mb-3">
 
                                                         <div className="  d-flex  price_style ">{data.price} &nbsp;</div>
                                                         {/* <div className="  d-flex  price-cutText ">&#8377;298</div> */}
+                                                    </div>
+                                                    <div className="d-flex justify-content-center mb-3">
+
+                                                    <button type="button" style={{ width: '70%' }}
+                                                        className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
+                                                        // onClick={() => add_to_cart(bookdetail.id, false)}
+                                                        >
+                                                        Add to Cart
+                                                    </button>
                                                     </div>
                                                 </div>
                                             </div>

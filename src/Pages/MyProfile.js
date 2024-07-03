@@ -179,7 +179,7 @@ const MyProfile = () => {
                         {/* <div className="right" onClick={goToHome}>
                             <span className="back-to-home cursor-pointer"><img src={arrow_left} /> Back to home</span>
                         </div> */}
-                         <BackButton/>
+                         {/* <BackButton/> */}
                     </div>
                     {/* <form> */}
                     <div className="row mb-5">

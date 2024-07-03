@@ -199,18 +199,18 @@ const ShippingAddress = () => {
 
                 <Whatsapp />
                 <div className="container">
-                    <Button className="mx-2 mt-3" onClick={() => openAddAddressModal(0)}>Add Address</Button>
+                    <button className="btn rounded-pill d-flex justify-content-center align-items-center mt-2 px-4 py-2"  style={{background:'#058EFA',color:"white"}} onClick={() => openAddAddressModal(0)}>Add Address</button>
                     <div className="row my-4 mx-1">
                         {shippingList.map((data, index) => (
-                            <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-3 px-2" key={index}>
+                            <div className="col-md-3 border border-secondary  mx-2 mt-3 py-3 px-3" style={{borderRadius:15}} key={index}>
                                 <div>{data.streetaddress}</div>
                                 <div>{data.city}</div>
                                 <div>{data.statename}</div>
                                 <div>{data.pincode}</div>
                                 <div>{data.countryname}</div>
                                 <div className="d-flex">
-                                    <Button className="me-2" onClick={() => openAddAddressModal(data.id)}>Edit</Button>
-                                    <Button onClick={() => deleteAddress(data.id)}>Delete</Button>
+                                    <button className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center mt-2 px-4"  onClick={() => openAddAddressModal(data.id)}>Edit</button>
+                                    <button className="btn btn-outline-danger rounded-pill d-flex justify-content-center align-items-center mt-2 mx-2 px-4" onClick={() => deleteAddress(data.id)}>Delete</button>
                                 </div>
                             </div>
                         ))}

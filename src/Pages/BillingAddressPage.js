@@ -17,6 +17,8 @@ import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
 import FooterSouthsore from "../Layout/FooterSouthsore";
 import ShippingComp from "../Layout/ShipppingComp";
+import verify from "../Assets/Images/verify.png";
+
 
 const BillingAddressPage = () => {
     const { authData } = useAuth()
@@ -53,7 +55,7 @@ const BillingAddressPage = () => {
     const [coupon, setCoupon] = useState('')
     const [orderTotal, setOrderTotal] = useState(0)
     const [buyNow, setBuyNow] = useState(0)
-    const [billingAddressId,setBillingAddressId] = useState(0)
+    const [billingAddressId, setBillingAddressId] = useState(0)
     const [Razorpay] = useRazorpay();
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -68,7 +70,8 @@ const BillingAddressPage = () => {
     useEffect(() => {
         setBuyNow(location.state.buynow)
     }, [location.state.buynow])
-
+    
+    
     const countryHandler = async (e) => {
         if (selectedCountry == null && selectedCountry == '') {
             try {
@@ -157,8 +160,8 @@ const BillingAddressPage = () => {
         setPhone(resp.output.contactno)
     }
 
-    const getBillingDetails= async() =>{
-        
+    const getBillingDetails = async () => {
+
         const resp = await getBillingAddress()
         setBillingAddressId(resp.output.id)
         setAddress(resp.output.streetaddress)
@@ -167,7 +170,7 @@ const BillingAddressPage = () => {
         setCity(resp.output.city)
         setPin(resp.output.pincode)
 
-        if (resp.output.countryid!== null && resp.output.countryid!== '') {
+        if (resp.output.countryid !== null && resp.output.countryid !== '') {
             renderStateList(resp.output.countryid)
         }
     }
@@ -178,7 +181,7 @@ const BillingAddressPage = () => {
             ...data,
             transactiondate: placeOrder.output.orderdate,
             orderno: placeOrder.output.orderno,
-            orderid:placeOrder.output.id,
+            orderid: placeOrder.output.id,
             success: 1
         }
 
@@ -197,7 +200,7 @@ const BillingAddressPage = () => {
             ...data,
             transactiondate: placeOrder.output.orderdate,
             orderno: placeOrder.output.orderno,
-            orderid:placeOrder.output.id,
+            orderid: placeOrder.output.id,
             success: 0
         }
 
@@ -213,25 +216,25 @@ const BillingAddressPage = () => {
     }
     const placeOrder = async () => {
 
-        let placeorderJson={
-            billingaddressid:billingAddressId,
-            shippingaddressid:selectedShippingAddress
+        let placeorderJson = {
+            billingaddressid: billingAddressId,
+            shippingaddressid: selectedShippingAddress
         }
-        console.log("placeorder Json=",placeorderJson)
-        const respPlaceOrder = await createAppOrder(buyNow,placeorderJson)
+        console.log("placeorder Json=", placeorderJson)
+        const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
 
         setPlaceOrderResponse(respPlaceOrder)
         if (respPlaceOrder.output !== null)
             setOrderTotal(respPlaceOrder.output.totalAmount)
-        
-            // setTogglePayment(false)
+
+        // setTogglePayment(false)
         // setShowCoupon(true)
 
         // return respPlaceOrder
     }
 
-    const saveBillingDetails = async(data) =>{
-       // console.log("respPlaceOrder=",respPlaceOrder.output.orderno)
+    const saveBillingDetails = async (data) => {
+        // console.log("respPlaceOrder=",respPlaceOrder.output.orderno)
 
         // console.log("razor pay payment status code= ",respPaymentConfirmed['statuscode'])
         let changebillingDetails = {
@@ -297,7 +300,7 @@ const BillingAddressPage = () => {
                         processPaymentSuccess(placeOrderResponse, {
                             "paymentid": response.razorpay_payment_id,
                             "razorpay_orderid": response.razorpay_order_id,
-                            "payment_signature":response.razorpay_signature,
+                            "payment_signature": response.razorpay_signature,
                             "transactionamount": order.amount
                             // "currency" :"INR"
 
@@ -336,7 +339,7 @@ const BillingAddressPage = () => {
                 processPaymentFailed(placeOrderResponse, {
                     "paymentid": "",
                     "razorpay_orderid": order.order_id,
-                    "payment_signature":response.razorpay_signature,
+                    "payment_signature": response.razorpay_signature,
                     "transactionamount": order.amount,
                     // "currency" :"INR"
 
@@ -371,14 +374,18 @@ const BillingAddressPage = () => {
     const handleComplete = () => {
         navigate('/')
     };
+
+    const navigateToHome =()=>{
+        navigate('/')
+    }
     const tabChanged = ({ prevIndex, nextIndex }) => {
         console.log("prevIndex", prevIndex);
         console.log("nextIndex", nextIndex);
 
-        
+
     };
 
-  
+
     return (
         <div className="main-container">
 
@@ -473,7 +480,7 @@ const BillingAddressPage = () => {
 
                                     </div>
                                     <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={saveBillingDetails}>Save</Button>
-                                    
+
 
                                 </div>
                             </div>
@@ -487,11 +494,11 @@ const BillingAddressPage = () => {
                                     <h2 className="card-title"><b>Shipping Address</b></h2>
 
                                     <hr></hr>
-                                    <ShippingComp/>
+                                    <ShippingComp />
 
 
                                     <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Place Order</Button>
-         
+
 
                                 </div>
                             </div>
@@ -499,17 +506,38 @@ const BillingAddressPage = () => {
                         <FormWizard.TabContent title="Process Payment" icon="ti-money">
                             <div className="card">
                                 <div className="cardd-body">
-                                <h2 className="card-title"><b>Process Payment</b></h2>
+                                    <h2 className="card-title"><b>Process Payment</b></h2>
 
                                     <hr></hr>
                                     <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={handlePayment}>Place Order & Pay</Button>
-                                        
+
                                 </div>
                             </div>
                         </FormWizard.TabContent>
                         <FormWizard.TabContent title="Confirm Order" icon="ti-check">
-                            <h3>Last Tab</h3>
-                            <p>Some content for the last tab</p>
+                            <h3>Order Confirmed</h3>
+                            <div className="billingAddress" >
+
+                                <div className="container ">
+
+                                    <div className=" card " >
+
+                                        <div class="card-body">
+                                            <img src={verify} width={100} height={100} className="mb-2" />
+                                            <h2 className="card-title mb-2"><b>Order Confirmed</b></h2>
+                                            <div className="card-subtitle mb-2 ">Thank you for choosing <span className="blueText">book central</span>, your order has been confirm and your purchased item will be added in your bookshelf. <br />
+                                                <span className="blueText" > <strong>The invoice can be downloaded from the customer portal.</strong></span>
+                                            </div>
+
+                                            
+                                            <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={navigateToHome}>Continue shopping</Button>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </FormWizard.TabContent>
                     </FormWizard>
                     {/* add style */}

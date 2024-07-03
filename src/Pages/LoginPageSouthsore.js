@@ -110,7 +110,7 @@ const LoginPageSouthsore = () => {
 
             if (resp?.status === 200) {
                 // navigate('/');
-                navigate('/mybookshelf');
+                navigate('/myprofile');
               
                 // NotificationManager.success(resp.message, 'Success !', 5000,);
                 console.log("Logged in ")

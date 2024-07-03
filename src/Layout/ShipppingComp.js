@@ -238,10 +238,11 @@ const ShippingComp = () => {
             {/* <Whatsapp /> */}
             {/* <div className="container"> */}
             <div className="d-flex ms-2">
-                <Button className="mt-3" onClick={() => openAddAddressModal(0)}>Add Address</Button></div>
+            <button className="btn rounded-pill d-flex justify-content-center align-items-center mt-2 px-4 py-2"  style={{background:'#058EFA',color:"white"}} onClick={() => openAddAddressModal(0)}>Add Address</button>
+                </div>
             <div className="row my-4 mx-1">
                 {tempShippingArr.map((data, index) => (
-                    <div className="col-md-3 border border-secondary rounded mx-2 mt-3 py-2 px-2 text-start text-wrap" key={index}>
+                    <div className="col-md-3 text-start border border-secondary  mx-2 mt-3 py-3 px-3" style={{borderRadius:15}} key={index}>
                         <input class="form-check-input" type="radio" checked={data.checked}
                             onChange={() => handleCheckboxChange(data.id)} value={data.id} />
                         <div className="">
@@ -251,7 +252,7 @@ const ShippingComp = () => {
                             <div>{data.pincode}</div>
                             <div>{data.countryname}</div>
                             <div className="d-flex">
-                                <Button className="me-2" onClick={() => openAddAddressModal(data.id)}>Edit</Button>
+                            <button className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center mt-2 px-4"  onClick={() => openAddAddressModal(data.id)}>Edit</button>
                                 {/* <Button onClick={() => deleteAddress(data.id)}>Delete</Button> */}
                             </div>
                         </div>

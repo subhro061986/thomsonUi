@@ -57,7 +57,7 @@ const responsive = {
 
 const ProductDetailsPage = () => {
 
-    const { authData,wishlistshow, uuid,add_book_to_storage,remove_cart_item} = useAuth();
+    const { authData, wishlistshow, uuid, add_book_to_storage, remove_cart_item } = useAuth();
 
     const navigate = useNavigate()
 
@@ -215,7 +215,7 @@ const ProductDetailsPage = () => {
     //         }
     //         // navigation("/cartpage")
 
-            
+
     //     }
     //     else {
     //         const get_json =
@@ -261,7 +261,7 @@ const ProductDetailsPage = () => {
 
     //                 // add book again to the cart such that it is the last item added
     //                 add_single(bookid)
-                    
+
     //             }
     //             else {
 
@@ -311,11 +311,11 @@ const ProductDetailsPage = () => {
     //         console.log("Remove_json ", remove_json)
 
     //         const resp = await remove_item(remove_json)
-            
+
     //     }
     //     else {
     //         let cartItems=JSON.parse(localStorage.getItem("cart_data")) || []
-            
+
     //         let is_book_exists = cartItems.find((val) => val.my_book_id === book_id)
     //         if (is_book_exists !== undefined) {
 
@@ -340,10 +340,10 @@ const ProductDetailsPage = () => {
     //     const resp = await remove_cart_item(remove_json)
     //     console.log("Remove_cart :", resp) 
     // }
- 
+
     const add_to_cart = async (bookid, toCheckout) => {
-        console.log('bookDetails',bookdetail)
-        console.log("default image=",defaultimg)
+        console.log('bookDetails', bookdetail)
+        console.log("default image=", defaultimg)
         let json_data = {
             title: bookdetail.title,
             authors: bookdetail.authors,
@@ -353,19 +353,19 @@ const ProductDetailsPage = () => {
             image: defaultimg,
             category: bookdetail.category,
             publisherid: bookdetail.publisherid,
-            bookid:bookdetail.id,
-            deviceid:uuid,
-            quantity:1
-          }
+            bookid: bookdetail.id,
+            deviceid: uuid,
+            quantity: 1
+        }
 
-          // before login
+        // before login
 
-        if(authData === '' || authData === null || authData === undefined){
-            
-            json_data["price"]=parseFloat(json_data.price.replace(/,/g, ''))
-            json_data["amount"]=  json_data["price"] 
-            console.log("json data= ",json_data)
-            const resp= await add_book_to_storage(json_data)
+        if (authData === '' || authData === null || authData === undefined) {
+
+            json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
+            json_data["amount"] = json_data["price"]
+            console.log("json data= ", json_data)
+            const resp = await add_book_to_storage(json_data)
             // for buy now
             if (toCheckout) {
                 alert("Please Login to Buy this book!")
@@ -378,17 +378,17 @@ const ProductDetailsPage = () => {
 
         // after login
         else {
-        
-        const resp= await add_book_to_storage(json_data)
 
-        // for buy now
-            if(toCheckout){
+            const resp = await add_book_to_storage(json_data)
 
-                if(resp.isPresent){
+            // for buy now
+            if (toCheckout) {
+
+                if (resp.isPresent) {
                     // remove data from backend
                     remove_item_and_add(json_data)
                 }
-                navigate('/billingAddress', {buynow : 1})
+                navigate('/billingAddress', { buynow: 1 })
             }
             // for add to cart
             else {
@@ -399,13 +399,13 @@ const ProductDetailsPage = () => {
 
     const remove_item_and_add = async (remove_json) => {
 
-        console.log("remove json:",remove_json)
-        const resp = await remove_cart_item(remove_json,1)
-        console.log("Remove_cart :", resp) 
-        if(resp.statuscode === "0"){
+        console.log("remove json:", remove_json)
+        const resp = await remove_cart_item(remove_json, 1)
+        console.log("Remove_cart :", resp)
+        if (resp.statuscode === "0") {
 
             const response = await add_book_to_storage(remove_json)
-            console.log("response after adding= ",response)
+            console.log("response after adding= ", response)
         }
 
 
@@ -499,8 +499,10 @@ const ProductDetailsPage = () => {
 
                     </div>
                     <div className="col-md-8 product_details_text_container">
-                        <div className="book_details_all ms-4 pt-2 pb-5">
+                        <div className=" ms-4 pt-2 pb-5">
                             <div className="details_head fw600">{bookdetail.title}</div>
+                            <div className="mt-1">Author: <span>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></div>
+                            <div className="mt-1">Publisher: <span>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></div>
                             <div className="details_desc_head fw600 mt-3">Description</div>
 
                             {
@@ -522,16 +524,34 @@ const ProductDetailsPage = () => {
 
                             }
 
+                            <div className="prod_details fw500 mt-5 mb-2">Product Details</div>
+                            <div className="product_details details_list">
+                                <ul className="ul_border">
+                                    <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
+                                    <li>Cover Type: <span>{bookdetail.covertype}</span></li>
+                                    
+                                    <li>Publishing Date: <span>
+                                        {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
+                                    </span></li>
 
-                            <div className="details_price fw600 mt-4">Price:</div>
-                            <div className="disc_price fw600 mt-2">
-                                {bookdetail.symbol+bookdetail.price}
-                                {/* <span className="mrp text-decoration-line-through fw400 ps-3"> &#8377;298</span> */}
+
+                                </ul>
+
+                                <hr className='hr' />
+
+                                <ul className="ul_2">
+                                    <li>Edition No: <span>{bookdetail.editionno !== null ? bookdetail.editionno : "No Editions Found"}</span></li>
+                                    <li>ISBN-10: <span>{bookdetail.isbn10 !== null ? bookdetail.isbn10 : "Not Found"}</span></li>
+                                    <li>ISBN-13: <span>{bookdetail.isbn13 !== null ? bookdetail.isbn13 : "Not Found"}</span></li>
+                                    
+                                </ul>
                             </div>
+                            <hr></hr>
+                            <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{color:'#000000'}}>{bookdetail.symbol + bookdetail.price}</span></div>
                             {isBookPresent ?
 
                                 <div className="d-flex flex-row justify-content-start mt-5">
-                                    <button type="button" 
+                                    <button type="button"
                                         className="btn btn-outline-secondary rounded-pill fw500 txt_color_64646F me-4 "
                                         onClick={() => go_to_bookshelf()}>
                                         Go To Your Bookshelf
@@ -542,38 +562,17 @@ const ProductDetailsPage = () => {
                                 :
 
                                 <div className="d-flex flex-row justify-content-start mt-5 button_width">
-                                    <button type="button" style={{ width: '185px' }}
-                                        className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center details_btn fw500 txt_color_64646F me-4"
+                                    <button type="button" style={{ width: '70%' }}
+                                        className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center details_btn fw500 txt_color_64646F me-4"
                                         onClick={() => add_to_cart(bookdetail.id, false)}>
                                         Add to Cart
                                     </button>
-                                    <button type="button" className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center details_btn txt_color_FFFFFF fw500" onClick={() => add_to_cart(bookdetail.id, true)}>Buy Now</button>
+                                    {/* <button type="button" className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center details_btn txt_color_FFFFFF fw500" onClick={() => add_to_cart(bookdetail.id, true)}>Buy Now</button> */}
                                 </div>
                             }
 
                         </div>
-                        <div className="prod_details fw500 ms-4 mt-5 mb-2">Product Details</div>
-                        <div className="product_details details_list ms-2">
-                            <ul className="ul_border">
-                                <li>Author: <span>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></li>
-                                <li>Publisher: <span>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></li>
-                                <li>Publishing Date: <span>
-                                    {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
-                                </span></li>
 
-                                <li>Cover Type: <span>{bookdetail.covertype}</span></li>
-
-                            </ul>
-
-                            <hr className='hr' />
-
-                            <ul className="ul_2">
-                                <li>Edition No: <span>{bookdetail.editionno !== null ? bookdetail.editionno : "No Editions Found"}</span></li>
-                                <li>ISBN-10: <span>{bookdetail.isbn10 !== null ? bookdetail.isbn10 : "Not Found"}</span></li>
-                                <li>ISBN-13: <span>{bookdetail.isbn13 !== null ? bookdetail.isbn13 : "Not Found"}</span></li>
-                                <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

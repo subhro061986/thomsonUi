@@ -6,7 +6,7 @@ import lang from "../Assets/Images/lang.png";
 import biography from "../Assets/Images/biography.png";
 import history from "../Assets/Images/history.png";
 import dictionary from "../Assets/Images/dictionary.png";
-import desktop from "../Assets/Images/desktop.png";
+import ThomsonLogo from "../Assets/Images/ThomsonReuterLogo.png";
 import science from "../Assets/Images/science.png";
 import { UserProfile } from "../Context/Usercontext"
 import Config from "../Config/Config.json"
@@ -111,8 +111,8 @@ const PublisherSouthsore = () => {
               title={data.name}
               >
                 {/* <img src={art} alt={"Category Image Not Found"} /> */}
-                <img src={data.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
-
+                {/* <img src={data.logo === null || data.logo === "" ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
+                <img src={ThomsonLogo} alt="publisher logo" width={140}/>
               </div>
               <div className="text-center cat_txt fw500 mb-4">
                 {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}

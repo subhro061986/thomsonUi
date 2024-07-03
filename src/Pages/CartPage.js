@@ -237,7 +237,7 @@ const CartPage = () => {
 
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button"
-                                        className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        className="btn btn-secondary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={() => { navigate('/') }}
                                         style={{ width: '20%' }}
                                     >
@@ -360,7 +360,7 @@ const CartPage = () => {
                                 </div>
                                 <div className="d-flex justify-content-center mt-2">
                                     <button type="button"
-                                        className="btn btn-outline-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={() => { navigate('/home') }}
                                     >
                                         Continue Shopping
