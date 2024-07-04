@@ -33,8 +33,8 @@ import NavBarSouthsore from "../Layout/NavBarSouthsore";
 
 const WishList = () => {
 
-    const { get_wishlist_books, add_delete_to_wishlist, wishlistitems,cart_items ,add_single_item} = UserProfile()
-    const { wishlistshow,uuid } = useAuth();
+    const { get_wishlist_books, add_delete_to_wishlist, wishlistitems, cart_items, add_single_item } = UserProfile()
+    const { wishlistshow, uuid } = useAuth();
 
     const [wishbooks, setWishbooks] = useState([])
 
@@ -89,19 +89,19 @@ const WishList = () => {
 
             if (book_exist_arr.length === 0) {
 
-               await add_single(bookid)
+                await add_single(bookid)
 
-               toast.success("Item Added to Cart", {
-                position: "bottom-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                closeButton:false,
-                theme: "dark",
+                toast.success("Item Added to Cart", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    closeButton: false,
+                    theme: "dark",
                 });
-            // console.log("added")
+                // console.log("added")
             }
             else {
                 console.log("The Book already exists in the cart")
@@ -112,10 +112,10 @@ const WishList = () => {
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
-                    closeButton:false,
+                    closeButton: false,
                     // theme: "light",
-                    style: {fontWeight: 'bold',backgroundColor:"rgb(220, 249, 252)"}
-                    });
+                    style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
+                });
             }
         }
 
@@ -123,12 +123,12 @@ const WishList = () => {
 
     const add_single = async (bookid) => {
         const json = {
-            "deviceid" : uuid,
+            "deviceid": uuid,
             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" , 
-            "bookid" : bookid 
-          }
+            "bookid": bookid
+        }
         const resp = await add_single_item(json)
-        console.log("single_item_added " , resp.message)
+        console.log("single_item_added ", resp.message)
     }
 
 
@@ -158,22 +158,24 @@ const WishList = () => {
         <div className="main-container">
             <div className="container">
                 <TopBarSouthsore />
-                <NavBarSouthsore/>
+                <NavBarSouthsore />
                 <ProfileTab />
             </div>
-            
-            <Whatsapp/>
+
+            <Whatsapp />
             <div className="main-container wishlist">
 
                 <div className="container ">
                     <div className="d-flex align-items-center justify-content-between mt-5">
-                        <div className="d-flex align-items-center">
-                            <div className="headerText">My Wishlist</div>
-                            <div className="itemCountText">({" " + wishlistitems?.length + " items"})</div>
+                        <div 
+                        // className="d-flex align-items-center"
+                        >
+                            <div className="headerText mb-3">My Wishlist</div>
+                            <div className="itemCountText mb-3">{" " + wishlistitems?.length + " Products"}</div>
 
                         </div>
                         <div>
-                            <BackButton/>
+                            {/* <BackButton /> */}
 
                         </div>
                     </div>
@@ -187,32 +189,37 @@ const WishList = () => {
 
 
                                 <div key={index} className="col-md-3 wishlisht_mobile_container">
-                                    <Card className="card-des mb-3">
-                                        <div className="d-flex flex-row-reverse p-2" onClick={() => remove_item(data.id)}>
+                                    <Card className="card-des mb-3 pb-3">
+                                        <div className="d-flex flex-row-reverse p-2 me-3 mt-3" onClick={() => remove_item(data.id)}>
 
                                             <SVG src={closeIcon}></SVG>
                                         </div>
                                         <div >
 
-                                            <Card.Img className="img" variant="top" 
-                                            // src={data.image !== null ? data.image : dummy} 
-                                            src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
+                                            <Card.Img className="img" variant="top"
+                                                // src={data.image !== null ? data.image : dummy} 
+                                                src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
                                             />
                                             <Card.Body>
 
                                                 <Card.Title className="headerText">{data.title.length > 21 ? data.title.substring(0, 21) + ".." : data.title}</Card.Title>
-                                                <Card.Subtitle className="Subtitle">Author: {data.authors?.length > 0 ? data.authors : "Not Found"}</Card.Subtitle>
+                                                <Card.Subtitle className="Subtitle mb-4">Author: {data.authors?.length > 0 ? data.authors : "Not Found"}</Card.Subtitle>
                                                 <div className="price">
-                                                    <hr />
+                                                    {/* <hr /> */}
                                                     <Card.Text className=" d-inline priceText">{data.price !== null ? data.price : "Not Updated"}</Card.Text>
                                                     {/* <Card.Text className=" d-inline price-cutText ps-2">187</Card.Text> */}
 
                                                 </div>
 
-                                                <Card.Footer className="footerText" onClick={() => add_to_cart(data.id)}
-                                                style={{cursor:"pointer"}}>
+                                                <button
+                                                    // className="footerText" 
+                                                    onClick={() => add_to_cart(data.id)}
+                                                    // style={{cursor:"pointer"}}
+                                                    type="button" style={{ width: '62%', fontWeight: '600' }}
+                                                    className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2 ms-5"
+                                                >
                                                     Add to Cart
-                                                </Card.Footer>
+                                                </button>
                                             </Card.Body>
                                         </div>
                                     </Card>
@@ -223,7 +230,7 @@ const WishList = () => {
 
                     </div>
                     <div className="d-flex justify-content-center mt-5 mb-5">
-                        <Button variant="outline-secondary" className="rounded-pill  py-2">Continue Shopping</Button>
+                        <Button variant="outline-dark" className="rounded-pill  py-3 px-4" style={{color:'#061927', fontWeight:'500'}}>Continue Shopping</Button>
                     </div>
 
                 </div>

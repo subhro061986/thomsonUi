@@ -17,6 +17,22 @@
   margin: 25% auto !important;
 }
 
+/* .range-slider-yellow .range-slider__range {
+  background: #ffbf00;
+  transition: height 0.3s;
+}
+
+.range-slider-yellow .range-slider__thumb {
+  background: #faa307;
+  transition: transform 0.3s;
+} */
+.range-slider .range-slider__range {
+  background-color: #FF9D2B!important;
+}
+.range-slider .range-slider__thumb {
+  background-color: #FF9D2B!important;
+}
+
 /* Top bar designs */
 .top-bar {
   width: 100%;
@@ -569,6 +585,8 @@ input:focus {
 
 /*WishList*/
 
+
+
 .wishlist {
   background-color: #F7F8FA;
   min-height: 1000px;
@@ -579,6 +597,13 @@ input:focus {
   font-size: 20px;
   font-weight: 600;
   color: #26252C;
+  line-height: 28px;
+}
+
+.wishlist .Subtitle {
+  line-height: 26px;
+  color: #64646F;
+  font-size: 16px;
 }
 
 .wishlist .itemCountText {
@@ -591,8 +616,8 @@ input:focus {
 }
 
 .wishlist .card-des {
-  border-radius: 20px;
-  border: 1px solid #C1CED9;
+  border: 1px solid #AFB7BD;
+  border-radius: 40px;
   background: #FFF;
   text-align: center;
 }
@@ -896,23 +921,24 @@ input:focus {
 
 .wishlist .headerText {
   font-family: 'Poppins';
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
   color: #26252C;
+  line-height: 32px;
 }
 
 .wishlist .itemCountText {
   color: #6A738D;
   font-family: "Poppins";
-  font-size: 15px;
+  font-size: 22px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 28px;
 }
 
 .wishlist .card-des {
-  border-radius: 20px;
-  border: 1px solid #C1CED9;
+  border: 1px solid #AFB7BD;
+  border-radius: 40px;
   background: #FFF;
   text-align: center;
 }
@@ -947,8 +973,10 @@ input:focus {
   /* 200% */
 }
 
+
+
 .wishlist .card-des .price .priceText {
-  color: #2F4FA0;
+  color: #000;
   font-family: 'Poppins';
   font-size: 24px;
   font-style: normal;
@@ -1087,6 +1115,8 @@ input:focus {
 
 .book_bg {
   background-color: rgba(230, 233, 238, 1);
+  border: 1px solid #AFB7BD;
+  border-radius: 40px;
   /* height: 548px;
   width: 425px; */
 }
@@ -1103,12 +1133,28 @@ input:focus {
   color: rgba(38, 37, 44, 1);
 }
 
+.Product_author {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #64646F;
+}
+
+.Product_pub {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #64646F;
+}
+
 .details_desc_head {
   font-family: Roboto;
   font-size: 16px;
   line-height: 28px;
   text-align: left;
-  color: rgba(87, 90, 99, 1);
+  color: #26252C;
 }
 
 .details_desc {
@@ -1166,7 +1212,7 @@ input:focus {
   line-height: 28px;
   letter-spacing: 0px;
   text-align: left;
-  color: #575A63;
+  color: #26252C;
 }
 
 .details_list>ul>li {
@@ -1583,6 +1629,8 @@ button-solid:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: transparent !important;
+  border: none !important;
 }
 
 .cart-page>.order-list>.header>h2 {
@@ -3037,7 +3085,7 @@ body.active-modal {
 .buttonStyle {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 10px;
   border-width: 1px;
   border-color: #ccc;
   margin: 0 10px;
@@ -3045,6 +3093,14 @@ body.active-modal {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
+}
+
+.inc_dec_input{
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 376px)and (min-width: 280px) {

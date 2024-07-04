@@ -456,7 +456,7 @@ const ProductDetailsPage = () => {
                 <div className="row mt-5">
                     <div className="col-md-4 product_image_div">
                         <div className="book_bg pb-5">
-                            <div className="d-flex justify-content-end align-items-center pt-2">
+                            <div className="d-flex justify-content-end align-items-center pt-2 me-2">
                                 <button className="btn btn-circle" onClick={(e) => Wishlist(e, bookdetail.id)}>
                                     {
                                         bookdetail.isFavourite === 1 ? (<img src={wishblue} width={27} height={27} />)
@@ -467,7 +467,7 @@ const ProductDetailsPage = () => {
                             </div>
                             <div className="d-flex justify-content-center align-items-center ">
                                 {/* <img src={defaultimg?.length > 0 ? defaultimg.image : dummy} className="d-flex justify-content-center align-items-center product_image" /> */}
-                                <img src={defaultimg ? defaultimg : dummy} width={300} height={300}
+                                <img src={defaultimg ? defaultimg : dummy} width={246} height={250}
                                     className="d-flex justify-content-center align-items-center product_image"
                                     loading="lazy"
                                 />
@@ -501,8 +501,8 @@ const ProductDetailsPage = () => {
                     <div className="col-md-8 product_details_text_container">
                         <div className=" ms-4 pt-2 pb-5">
                             <div className="details_head fw600">{bookdetail.title}</div>
-                            <div className="mt-1">Author: <span>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></div>
-                            <div className="mt-1">Publisher: <span>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></div>
+                            <div className="mt-1 Product_author">Author: <span style={{fontWeight:'400'}}>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></div>
+                            <div className="mt-1 Product_pub">Publisher: <span style={{fontWeight:'500'}}>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></div>
                             <div className="details_desc_head fw600 mt-3">Description</div>
 
                             {
@@ -529,7 +529,7 @@ const ProductDetailsPage = () => {
                                 <ul className="ul_border">
                                     <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
                                     <li>Cover Type: <span>{bookdetail.covertype}</span></li>
-                                    
+
                                     <li>Publishing Date: <span>
                                         {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
                                     </span></li>
@@ -543,11 +543,33 @@ const ProductDetailsPage = () => {
                                     <li>Edition No: <span>{bookdetail.editionno !== null ? bookdetail.editionno : "No Editions Found"}</span></li>
                                     <li>ISBN-10: <span>{bookdetail.isbn10 !== null ? bookdetail.isbn10 : "Not Found"}</span></li>
                                     <li>ISBN-13: <span>{bookdetail.isbn13 !== null ? bookdetail.isbn13 : "Not Found"}</span></li>
-                                    
+
                                 </ul>
                             </div>
                             <hr></hr>
-                            <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{color:'#000000'}}>{bookdetail.symbol + bookdetail.price}</span></div>
+                            <div className="d-flex justify-content-between">
+                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol + bookdetail.price}</span></div>
+
+                                {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
+                                <div style={{ display: 'flex', alignItems: 'center'}}>
+                                    <button
+                                        // onClick={() => decrement(data)}
+                                        className="buttonStyle"
+                                    >-</button>
+                                    <input
+                                        type="text"
+                                        // value={data["quantity"]}
+                                        readOnly
+                                        // style={{ width: '50px', textAlign: 'center' }}
+                                        className="inc_dec_input"
+                                    />
+                                    <button
+                                        // onClick={() => increment(data)}
+                                        className="buttonStyle"
+                                    >+</button>
+                                </div>
+                            </div>
+
                             {isBookPresent ?
 
                                 <div className="d-flex flex-row justify-content-start mt-5">

@@ -22,7 +22,8 @@ const NavBar = () => {
     const [selectedId, setSelectedId] = useState(0);
 
     const toggleModal = () => {
-        setModal(true);
+        setModal(false);
+        navigate('/')
     };
     const handleClose=()=>{
         setModal(false)

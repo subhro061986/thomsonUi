@@ -11,7 +11,7 @@ const BannerSouthsore = () => {
                     {/* <img src={Banner}/> */}
                 </div>
                 <div className="col-md-6 banner_southsore_text" style={{ marginTop: '5%', marginLeft: '58%' }}>
-                    <div className="ban_head mb-2">A one stop shop for</div>
+                    <div className="ban_head mb-2" style={{color: '#64646F'}}>A one stop shop for</div>
                     <p className="welcome_text"
                     >legal &</p>
                     <p className="welcome_text"

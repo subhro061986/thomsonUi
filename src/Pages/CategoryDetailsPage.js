@@ -741,7 +741,8 @@ const CategoryDetailsPage = () => {
                                     defaultValue={[0, 500]}
                                     // value={[0,500]}
                                     onInput={(e) => rangefunction(e)}
-
+                                    // className="range-slider-yellow"
+                                    style={{accentColor: '#000'}}
                                 />
 
                                 <p className="mt-4">{minRange} to {maxRange}</p>
@@ -840,9 +841,9 @@ const CategoryDetailsPage = () => {
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className=" bg-white rounded-4 book_card " style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px'}} onClick={() => { gotoDetails(data.id) }}>
+                                            <div key={index} className=" bg-white book_card py-3" style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px', borderRadius:'20px'}} onClick={() => { gotoDetails(data.id) }}>
                                                 <div className="d-flex flex-column">
-                                                    <div className="d-flex justify-content-end mt-2" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
+                                                    <div className="d-flex justify-content-end mt-1 me-1" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
                                                             data.isFavourite === 1 ? (<img src={wishlistedicon} width={27} height={27} />)
                                                                 :

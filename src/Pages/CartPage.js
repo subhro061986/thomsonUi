@@ -261,12 +261,15 @@ const CartPage = () => {
 
                                 <div className=" cart-page">
                                     <div className="order-list">
-                                        <div className="header cart-page-border-bottom py-2">
+                                        <div 
+                                        className="header"
+                                        // cart-page-border-bottom 
+                                        >
                                             <h2>My Cart</h2>
 
                                         </div>
 
-                                        <div className="secondary-header cart-page-border-bottom py-2">
+                                        <div className="secondary-header cart-page-border-bottom pb-2">
                                             Product Details
                                         </div>
 
@@ -298,7 +301,7 @@ const CartPage = () => {
                                                         </div>
 
 
-                                                        <div className="details">Author: {data.author !== null ? data.author : "Not Found"}</div>
+                                                        <div className="details">Author: {data.authors !== null ? data.authors : "Not Found"}</div>
 
                                                         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
                                                         <div className="price-details">Price: <span className="price">₹{data.amount}</span></div>
@@ -314,7 +317,8 @@ const CartPage = () => {
                                                                 type="text"
                                                                 value={data["quantity"]}
                                                                 readOnly
-                                                                style={{ width: '50px', textAlign: 'center' }}
+                                                                // style={{ width: '50px', textAlign: 'center' }}
+                                                                className="inc_dec_input"
                                                             />
                                                             <button
                                                                 onClick={() => increment(data)}

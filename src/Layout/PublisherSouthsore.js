@@ -82,7 +82,7 @@ const PublisherSouthsore = () => {
     // <div id="myCarousel" classNameName="carousel slide" data-bs-ride="carousel">
     <div className="d-flex justify-content-between align-items-center list_pub_bg">
       <div className="container">
-        <div className="d-flex justify-content-center align-items-center section_head fw700">List of Publishers</div>
+        <div className="d-flex justify-content-center align-items-center section_head fw700">Listed Publishers</div>
 
         <div className="row mx-0">
           <Carousel

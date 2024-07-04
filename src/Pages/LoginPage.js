@@ -9,7 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'react-bootstrap';
 import { Modal } from "react-bootstrap";
-import loginsideimg from "../Assets/Images/loginsideimg.png"
+import loginsideimg from "../Assets/Images/New_login_img.png"
+import bookCentral from "../Assets/Images/book_central_logo_png.png"
 import sms from "../Assets/Images/sms.png"
 import eyeslash from "../Assets/Images/eyeslash.png"
 import eye_open from "../Assets/Images/eye_open.png"
@@ -22,7 +23,7 @@ import Whatsapp from "../Layout/Whatsapp";
 const Login = () => {
     const navigate = useNavigate();
 
-    const {  items } = UserProfile()
+    const { items } = UserProfile()
 
     const { logIn, logOut, authData, forgot_password } = useAuth()
     const [email, setEmail] = useState('')
@@ -67,9 +68,9 @@ const Login = () => {
 
     const sendEmail = async () => {
         // connect to the api here
-        if(regEmail !== ""){
+        if (regEmail !== "") {
             const args = {
-                "email" : regEmail
+                "email": regEmail
             };
             const resp = await forgot_password(args);
             toast.success(resp, {
@@ -79,7 +80,7 @@ const Login = () => {
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                closeButton:false,
+                closeButton: false,
                 // style: {fontWeight: 'bold',backgroundColor:"rgb(255, 237, 246)"}
             });
             closeModal();
@@ -112,8 +113,8 @@ const Login = () => {
             console.log("login response", resp)
 
             if (resp?.status === 200) {
-                if(items >0 ) {navigate('/cartpage')}
-                else{ navigate('/home')};
+                if (items > 0) { navigate('/cartpage') }
+                else { navigate('/') };
                 // NotificationManager.success(resp.message, 'Success !', 5000,);
                 console.log("Logged in ")
                 // toast.success("Logged in Successfully", {
@@ -170,19 +171,20 @@ const Login = () => {
                     <TopBar />
                     <NavBar />
                 </div>
-                <Whatsapp/>
+                <Whatsapp />
                 <div className="category_bg login_bg">
                     <div className="row">
                         <div className="col-md-6">
                             <div>
                                 <img src={loginsideimg}
-                                className="log_img_st"
-                                    // style={{ borderTopLeftRadius: '8%', borderBottomLeftRadius: '8%', width: '103%', height: '100%' }} 
-                                    />
+                                    className="log_img_st"
+                                // style={{ borderTopLeftRadius: '8%', borderBottomLeftRadius: '8%', width: '103%', height: '100%' }} 
+                                />
                             </div>
                         </div>
                         <div className="col-md-6 bg-white bor_rad left_form">
                             <div className="card-body my-4">
+                                <img src={bookCentral} height={80} width={80} className="mb-3" />
                                 <div className="header1">Login</div>
                                 <p className="header_sub pt-1">Enter your email & password to login our website</p>
                                 <div className="pos_rel">

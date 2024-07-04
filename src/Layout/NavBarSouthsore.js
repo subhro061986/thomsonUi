@@ -141,7 +141,7 @@ const NavBarSouthsore = () => {
                         </li>
 
                         <li className="nav-item" onClick={gotoCert}>
-                            <HashLink smooth className="nav-link" to='/#about_ss' > About Us </HashLink>
+                            <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
                         </li>
 
                         {/* <li className="nav-item">
@@ -205,7 +205,7 @@ const NavBarSouthsore = () => {
                             </li>
 
                             <li className="nav-item" onClick={gotoCert}>
-                                <HashLink smooth className="nav-link" to='/#about_ss' > About Us </HashLink>
+                                <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
                                 {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     About Southshore
                                 </Link> */}
