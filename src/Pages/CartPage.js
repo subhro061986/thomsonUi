@@ -288,7 +288,10 @@ const CartPage = () => {
 
 
 
-                                                        <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} />
+                                                        <img 
+                                                        src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} 
+                                                        className="mx-2 my-2"
+                                                        />
 
 
 
@@ -307,7 +310,7 @@ const CartPage = () => {
                                                         <div className="price-details">Price: <span className="price">₹{data.amount}</span></div>
 
 
-
+                                                        {/* <div className="mb-3">Quantity</div> */}
                                                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '36px' }}>
                                                             <button
                                                                 onClick={() => decrement(data)}
