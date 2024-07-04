@@ -176,7 +176,7 @@ const LoginScreen = () => {
                         <label for="formGroupExampleInput" className="form-label form_label">Email</label>
                         
                         <input type="text"
-                            className="form-control login_input"
+                            className="form-control login_input pe-5"
                             id="formGroupExampleInput"
                             placeholder="Your email address"
                             value={username}
@@ -191,7 +191,7 @@ const LoginScreen = () => {
                         <label for="formGroupExampleInput2" className="form-label form_label">Password</label>
                         
                         <input type={passShow ? "text" : "password"}
-                            className="form-control login_input"
+                            className="form-control login_input pe-5"
                             id="formGroupExampleInput2"
                             placeholder="Enter your password"
                             value={password}
