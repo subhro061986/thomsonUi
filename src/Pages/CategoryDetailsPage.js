@@ -35,6 +35,7 @@ import arrow_circle_right from "../Assets/Images/arrow-circle-right.png"
 
 import SVG from "react-inlinesvg";
 import Whatsapp from "../Layout/Whatsapp";
+import FooterSouthsore from "../Layout/FooterSouthsore";
 
 
 
@@ -856,7 +857,8 @@ const CategoryDetailsPage = () => {
                                                     <div className="d-flex justify-content-center">
                                                         {/* <img src={data.image !== null ? data.image : dummy}
                                                         width={120} height={170} /> */}
-                                                        <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
+                                                        {/* <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} */}
+                                                        <img src={ dummy }
                                                             width={120} height={170}
                                                             loading="lazy"
                                                         />
@@ -899,9 +901,7 @@ const CategoryDetailsPage = () => {
 
                     </div>
                 </div>
-                <Guideline />
-                <Playstore />
-                <Footer />
+                <FooterSouthsore />
 
 
 

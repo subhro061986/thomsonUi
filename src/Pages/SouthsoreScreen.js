@@ -163,7 +163,7 @@ const SouthsoreScreen = () => {
   return (
     <div className="main-container">
       <div className="container">
-        <TopBarSouthsore />
+        <TopBar />
         <NavBarSouthsore />
       </div>
       <div id="head_banner">

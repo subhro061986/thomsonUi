@@ -91,19 +91,10 @@ const TestMenu = () => {
                             icon={<SVG src={bookIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
                             <MenuItem className="nest_sidebar">
                                 <Link className="nav-link" to="/admin/bookapprovals">
-                                    Book Approval
-                                </Link>
-                            </MenuItem>
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/admin/booklist">
                                     Book List
                                 </Link>
                             </MenuItem>
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/admin/rejectedbooklist">
-                                    Rejected Book List
-                                </Link>
-                            </MenuItem>
+                            
                             <MenuItem className="nest_sidebar">
                                 <Link className="nav-link" to="/admin/uploadbooks">
                                     Upload Books

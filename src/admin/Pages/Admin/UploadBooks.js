@@ -102,7 +102,7 @@ const UploadBooks = () => {
 
         const timer = setTimeout(() => {
             // console.log('setTimeout called!');
-            navigate("/booklist");
+            navigate("/admin/bookapprovals");
             // window.location.reload()
         }, 4000);
         // window.location.reload()

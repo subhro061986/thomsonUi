@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
 import Footer from "../Layout/Footer";
@@ -21,6 +21,7 @@ import verify from "../Assets/Images/verify.png";
 
 
 const BillingAddressPage = () => {
+    const formWizardRef = useRef();
     const { authData } = useAuth()
     const { place_order,
         my_profile,
@@ -70,8 +71,8 @@ const BillingAddressPage = () => {
     useEffect(() => {
         setBuyNow(location.state.buynow)
     }, [location.state.buynow])
-    
-    
+
+
     const countryHandler = async (e) => {
         if (selectedCountry == null && selectedCountry == '') {
             try {
@@ -216,21 +217,26 @@ const BillingAddressPage = () => {
     }
     const placeOrder = async () => {
 
-        let placeorderJson = {
-            billingaddressid: billingAddressId,
-            shippingaddressid: selectedShippingAddress
+        console.log("selected shipping address=",selectedShippingAddress)
+        if(selectedShippingAddress > 0){
+
+            let placeorderJson = {
+                billingaddressid: billingAddressId,
+                shippingaddressid: selectedShippingAddress
+            }
+            console.log("placeorder Json=", placeorderJson)
+            const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
+    
+            setPlaceOrderResponse(respPlaceOrder)
+            if (respPlaceOrder.output !== null) {
+                setOrderTotal(respPlaceOrder.output.totalAmount)
+                formWizardRef.current?.goToTab(2);
+            }
+
+        } else {
+            alert("Please select a shipping address.")
         }
-        console.log("placeorder Json=", placeorderJson)
-        const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
 
-        setPlaceOrderResponse(respPlaceOrder)
-        if (respPlaceOrder.output !== null)
-            setOrderTotal(respPlaceOrder.output.totalAmount)
-
-        // setTogglePayment(false)
-        // setShowCoupon(true)
-
-        // return respPlaceOrder
     }
 
     const saveBillingDetails = async (data) => {
@@ -255,6 +261,11 @@ const BillingAddressPage = () => {
 
         const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
         console.log("billing details=", billingDetailsPesponse)
+
+        if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
+            // console.log("check,",formWizardRef.current)
+            formWizardRef.current?.goToTab(1);
+        }
 
     }
 
@@ -354,33 +365,25 @@ const BillingAddressPage = () => {
         }
     };
 
-    const applyCouponCode = async () => {
-
-        let json = {
-            couponcode: coupon,
-            orderid: placeOrderResponse.output.id
-        }
-        // ... applycoupon api endpoint here
-        if (coupon === "" || coupon === undefined || coupon === null)
-            alert("Coupon Code cannot be empty!")
-        else {
-            const res = await applyCoupon(json)
-            setOrderTotal(res.output.totalAmount)
-            console.log(res)
-
-        }
-    }
 
     const handleComplete = () => {
         navigate('/')
     };
 
-    const navigateToHome =()=>{
+    const navigateToHome = () => {
         navigate('/')
     }
-    const tabChanged = ({ prevIndex, nextIndex }) => {
-        console.log("prevIndex", prevIndex);
-        console.log("nextIndex", nextIndex);
+    const tabChanged = async (index) => {
+        console.log('index=',index)
+        if (index === 0) {
+            saveBillingDetails()
+        }
+        else if (index === 1) {
+            placeOrder()
+        }
+        else if (index === 2) {
+            handlePayment()
+        }
 
 
     };
@@ -399,7 +402,16 @@ const BillingAddressPage = () => {
                 <div className="container ">
                     <FormWizard
                         onComplete={handleComplete}
-                        onTabChange={tabChanged}
+                        // onTabChange={tabChanged}
+                        ref={formWizardRef}
+                        backButtonTemplate={()=> (<></>)}
+                        nextButtonTemplate={(handleNext) => (
+                            <></>
+                        )}
+                        finishButtonTemplate={(handleComplete) => (
+                            <></>
+                        )}
+
                     >
                         <FormWizard.TabContent title="Billing Address" icon="ti-user" >
 
@@ -479,7 +491,7 @@ const BillingAddressPage = () => {
                                         </div>
 
                                     </div>
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={saveBillingDetails}>Save</Button>
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(0)}>Save & Next</Button>
 
 
                                 </div>
@@ -497,7 +509,7 @@ const BillingAddressPage = () => {
                                     <ShippingComp />
 
 
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={placeOrder}>Place Order</Button>
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(1)}>Place Order</Button>
 
 
                                 </div>
@@ -509,36 +521,12 @@ const BillingAddressPage = () => {
                                     <h2 className="card-title"><b>Process Payment</b></h2>
 
                                     <hr></hr>
-                                    <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={handlePayment}>Place Order & Pay</Button>
+                                    <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(2)}>Confirm Order</Button>
 
                                 </div>
                             </div>
                         </FormWizard.TabContent>
-                        <FormWizard.TabContent title="Confirm Order" icon="ti-check">
-                            <h3>Order Confirmed</h3>
-                            <div className="billingAddress" >
-
-                                <div className="container ">
-
-                                    <div className=" card " >
-
-                                        <div class="card-body">
-                                            <img src={verify} width={100} height={100} className="mb-2" />
-                                            <h2 className="card-title mb-2"><b>Order Confirmed</b></h2>
-                                            <div className="card-subtitle mb-2 ">Thank you for choosing <span className="blueText">book central</span>, your order has been confirm and your purchased item will be added in your bookshelf. <br />
-                                                <span className="blueText" > <strong>The invoice can be downloaded from the customer portal.</strong></span>
-                                            </div>
-
-                                            
-                                            <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={navigateToHome}>Continue shopping</Button>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </FormWizard.TabContent>
+                        
                     </FormWizard>
                     {/* add style */}
                     <style>{`
