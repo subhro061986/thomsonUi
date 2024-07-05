@@ -232,7 +232,7 @@ const ApproveOrRejectBook = () => {
               </div>
               
               <div className="row">
-                <div className="mt-3">
+                {/* <div className="mt-3">
                     <div className="fs-12">EPUB Link : 
                     <span className= {bookResponse.epub_link === null || bookResponse.epub_link === "null" ? "text-muted" : "text-primary"}>
                       &nbsp;{bookResponse.epub_link === null || bookResponse.epub_link === "null" ? "Not Available" : bookResponse.epub_link} 
@@ -249,7 +249,7 @@ const ApproveOrRejectBook = () => {
                     </span>
                     </div>
                     
-                </div>
+                </div> */}
 
                 <div className="mt-1">
                     <div className="fs-12">Edition Number : 

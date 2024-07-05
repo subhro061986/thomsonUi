@@ -9059,7 +9059,7 @@ html:not([dir=rtl]) .callout {
 }
 
 .header {
-  --cui-header-min-height: 4rem;
+  --cui-header-min-height: 5.25rem;
   --cui-header-padding-x: 0.5rem;
   --cui-header-padding-y: 0.5rem;
   --cui-header-bg: #fff;

@@ -112,7 +112,7 @@ const ManageCategoriesScreen = () => {
           closeButton: false,
           theme: "light"
         });
-        
+
       }
       else {
         toast.error("Category addition failed", {
@@ -126,7 +126,7 @@ const ManageCategoriesScreen = () => {
           style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
         });
       }
-      
+
       closecategoriesModal();
     }
     else {
@@ -218,23 +218,25 @@ const ManageCategoriesScreen = () => {
                   <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
                   <td className="all_col text-start">{data.shipmentduration}</td>
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
-                  <td className="d-flex justify-content-start">
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}
-                      onClick={() => opencategoriesModal(data.id)}
+                  <td>
+                    <div className="d-flex justify-content-start align-items-start">
+                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}
+                        onClick={() => opencategoriesModal(data.id)}
 
-                    />
-                    {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15}
+                      />
+                      {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15}
                     onClick={()=>deleteCategory(data.id)}
                     /> */}
-                    <div className="form-check form-switch d-flex justify-content-start mt-1" >
-                      <input
-                        checked={data.isactive === 1 ? true : false}
-                        className="form-check-input"
-                        type="checkbox"
-                        // checked={true}
-                        id="flexSwitchCheckDefault"
-                        onChange={(e) => act_inact_cat(e, data.id)}
-                      />
+                      <div className="form-check form-switch d-flex justify-content-start mt-1" >
+                        <input
+                          checked={data.isactive === 1 ? true : false}
+                          className="form-check-input"
+                          type="checkbox"
+                          // checked={true}
+                          id="flexSwitchCheckDefault"
+                          onChange={(e) => act_inact_cat(e, data.id)}
+                        />
+                      </div>
                     </div>
                   </td>
                 </tr>

@@ -285,7 +285,7 @@ const ManageDistributorScreen = () => {
                                         <td className="all_col text-start">{data.contactno === null || data?.contactno?.length === 0 ? 'Not Available' : data.contactno}</td>
                                         <td className="all_col text-start">{data.gstin === null || data?.gstin?.length === 0 ? 'Not Available' : data.gstin}</td>
                                         <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
-                                        <td className="d-flex justify-content-start align-items-start">
+                                        <td>
                                             
                                             <div className="form-check form-switch" style={{ marginRight: 5 }} >
                                                 <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"

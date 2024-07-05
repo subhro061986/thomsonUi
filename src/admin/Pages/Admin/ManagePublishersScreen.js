@@ -302,7 +302,7 @@ const ManagePublishersScreen = () => {
       // console.log('name', name)
       // console.log('city', city)
 
-      
+
 
       // if (
       //   // about === '' ||
@@ -326,31 +326,16 @@ const ManagePublishersScreen = () => {
 
 
       // else {
-        
-
-        let resp = await addPub_admin();
-        console.log("add_resp ", resp)
-
-        if (resp !== undefined) {
-
-          if (resp.data.statuscode === '0' && resp.data.message === 'Information saved successfully.') {
-
-            toast.success("Publisher added successfully", {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              closeButton: false,
-              theme: "light"
-            });
-          }
-        }
 
 
-        else {
-          toast.error("Publisher addition failed", {
+      let resp = await addPub_admin();
+      console.log("add_resp ", resp)
+
+      if (resp !== undefined) {
+
+        if (resp.data.statuscode === '0' && resp.data.message === 'Information saved successfully.') {
+
+          toast.success("Publisher added successfully", {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: true,
@@ -358,10 +343,25 @@ const ManagePublishersScreen = () => {
             pauseOnHover: true,
             draggable: true,
             closeButton: false,
-            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            theme: "light"
           });
         }
-        console.log("admin_add_pub_called ", resp)
+      }
+
+
+      else {
+        toast.error("Publisher addition failed", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          closeButton: false,
+          style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+        });
+      }
+      console.log("admin_add_pub_called ", resp)
 
 
 
@@ -438,7 +438,7 @@ const ManagePublishersScreen = () => {
     // setBannerImageHandler(null);
 
     // clear modal
-    
+
   }
 
   const editPubMoadl = (id) => {
@@ -581,26 +581,28 @@ const ManagePublishersScreen = () => {
 
 
                     <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
-                    <td className="d-flex justify-content-start align-items-start">
-                      <SVG src={editIcon}
-                        style={{ fill: '#FF0000', marginRight: 10, marginTop: 1 }}
-                        width={15} height={15}
-                        onClick={() => editPubMoadl(data.id)} />
-                      {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} 
+                    <td>
+                      <div className="d-flex justify-content-start align-items-start">
+                        <SVG src={editIcon}
+                          style={{ fill: '#FF0000', marginRight: 10, marginTop: 1 }}
+                          width={15} height={15}
+                          onClick={() => editPubMoadl(data.id)} />
+                        {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} 
                       onClick={()=>openActInactModal(data.id)}/> */}
 
 
-                      <div className="form-check form-switch" style={{ marginRight: 5 }} >
-                        <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                          onChange={(e) => act_inact_pub(data.isactive, data.id)} />
+                        <div className="form-check form-switch" style={{ marginRight: 5 }} >
+                          <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                            onChange={(e) => act_inact_pub(data.isactive, data.id)} />
+                        </div>
+
+
+                        <SVG src={eye}
+                          height={20} width={20}
+                          onClick={() => openOrderDescriptionModal(data.id)}
+                          style={{ fill: '#787B85' }}
+                        />
                       </div>
-
-
-                      <SVG src={eye}
-                        height={20} width={20}
-                        onClick={() => openOrderDescriptionModal(data.id)}
-                        style={{ fill: '#787B85' }}
-                      />
                     </td>
                   </tr>
                 ))
@@ -631,60 +633,60 @@ const ManagePublishersScreen = () => {
           </Modal.Header>
           <Modal.Body>
             {existingId === '' ? (
-            <div className="mb-1">
-              <div className="row">
-                <div className="col-md-6">
-                  <label className="form-label">Publisher Name <span className="red"> *</span></label>
+              <div className="mb-1">
+                <div className="row">
+                  <div className="col-md-6">
+                    <label className="form-label">Publisher Name <span className="red"> *</span></label>
 
-                  <input type="text" className="form-control mb-2" placeholder="Type Publisher Name"
-                    onChange={(e) => setName(e.target.value)} value={name} required />
-                  <p style={{ color: 'red' }}>{nameError}</p>
-                  {/* <label className="form-label"> Contact Person <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Type Publisher Name"
+                      onChange={(e) => setName(e.target.value)} value={name} required />
+                    <p style={{ color: 'red' }}>{nameError}</p>
+                    {/* <label className="form-label"> Contact Person <span className="red"> *</span></label>
                   <input type="text" className="form-control mb-2" placeholder="Enter Contact Person"
                     onChange={(e) => setContactPerson(e.target.value)} value={contactperson} required />
                   <p style={{ color: 'red' }}>{contactpersonError}</p> */}
-                  <label className="form-label"> Contact Phone <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter phone number"
-                    onChange={(e) => setContactno(e.target.value)} value={contactno} required />
-                  <p style={{ color: 'red' }}>{contactnoError}</p>
-                  {/* <label className="form-label">About Publisher <span className="red"> *</span></label> */}
-                  {/* <div className="input-group">
+                    <label className="form-label"> Contact Phone <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter phone number"
+                      onChange={(e) => setContactno(e.target.value)} value={contactno} required />
+                    <p style={{ color: 'red' }}>{contactnoError}</p>
+                    {/* <label className="form-label">About Publisher <span className="red"> *</span></label> */}
+                    {/* <div className="input-group">
                     <textarea className="form-control" placeholder="Enter about text for the publisher" aria-label="Enter about text for the publisher" onChange={(e) => setAbout(e.target.value)} value={about}></textarea>
                   </div> */}
 
 
 
 
-                  {/* <ReactQuill placeholder="Enter Description here..."
+                    {/* <ReactQuill placeholder="Enter Description here..."
                     theme="snow"
                     value={about}
                     onChange={setAbout} required />
                   <p style={{ color: 'red' }}>{aboutError}</p> */}
 
-                  <label className="form-label" style={{ paddingTop: '4%' }}>Zip Code <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter pin code"
-                    onChange={(e) => setPin(e.target.value)} value={pin} required />
-                  <p style={{ color: 'red' }}>{pinError}</p>
-                  <label className="form-label">State</label>
-                  {/* <input type="text" className="form-control mb-2" placeholder="Enter state"
+                    <label className="form-label" style={{ paddingTop: '4%' }}>Zip Code <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter pin code"
+                      onChange={(e) => setPin(e.target.value)} value={pin} required />
+                    <p style={{ color: 'red' }}>{pinError}</p>
+                    <label className="form-label">State</label>
+                    {/* <input type="text" className="form-control mb-2" placeholder="Enter state"
                     onChange={(e) => setState(e.target.value)} value={state} /> */}
-                  <select className="form-select publisher-profile-select" aria-label="Select state"
-                    // value={selectedstate}  
-                    onChange={select_states} required>
-                    <option value='0'>--Select--</option>
+                    <select className="form-select publisher-profile-select" aria-label="Select state"
+                      // value={selectedstate}  
+                      onChange={select_states} required>
+                      <option value='0'>--Select--</option>
 
-                    {
-                      stateList && stateList.map((data) => (
-                        <option key={data.id} value={data.id} selected={stateId === data.id ? true : false}>{data.name}</option>
-                      ))
-                    }
-                  </select>
-                  <p style={{ color: 'red' }}>{stateError}</p>
-                  <label className="form-label">GSTIN <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter GSTIN"
-                    onChange={(e) => setGst(e.target.value)} value={gst} required />
-                  <p style={{ color: 'red' }}>{gstError}</p>
-                  {/* <label className="form-label">Revenue Share % <span className="red"> *</span></label>
+                      {
+                        stateList && stateList.map((data) => (
+                          <option key={data.id} value={data.id} selected={stateId === data.id ? true : false}>{data.name}</option>
+                        ))
+                      }
+                    </select>
+                    <p style={{ color: 'red' }}>{stateError}</p>
+                    <label className="form-label">GSTIN <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter GSTIN"
+                      onChange={(e) => setGst(e.target.value)} value={gst} required />
+                    <p style={{ color: 'red' }}>{gstError}</p>
+                    {/* <label className="form-label">Revenue Share % <span className="red"> *</span></label>
                   <input type="text" className="form-control mb-2" placeholder="Enter commission"
                     onChange={(e) => setCommission(e.target.value)} value={commission} required />
                   <p style={{ color: 'red' }}>{commissionError}</p>
@@ -692,45 +694,45 @@ const ManagePublishersScreen = () => {
                   <input type="text" className="form-control mb-2" placeholder="Enter sp comm 2"
                     onChange={(e) => setSpcom2(e.target.value)} value={spcom2} required />
                   <p style={{ color: 'red' }}>{spcom2Error}</p> */}
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Upload Logo</label>
-                  <div className="input-group mb-2">
-                    <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
-                      onChange={image} required />
-                    <p style={{ color: 'red' }}>{logoError}</p>
                   </div>
-                  <label className="form-label">Email <span className="red"> *</span></label>
-                  <input type="email" className="form-control mb-2" placeholder="Enter email"
-                    onChange={(e) => setContactemail(e.target.value)} value={contactemail} required />
-                  <p style={{ color: 'red' }}>{contactemailError}</p>
-                  <label className="form-label"> Alternative Contact Phone <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
-                    onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
-                  <label className="form-label">Address <span className="red"> *</span></label>
-                  <div className="input-group">
-                    <textarea className="form-control" placeholder="Enter the publisher's address" aria-label="Enter the publisher's address" onChange={(e) => setAdressline(e.target.value)} value={adressline} required></textarea>
-                  </div>
-                  <p style={{ color: 'red' }}>{adresslineError}</p>
-                  <label className="form-label">City <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter city"
-                    onChange={(e) => setCity(e.target.value)} value={city} required />
-                  <p style={{ color: 'red' }}>{cityError}</p>
-                  <label className="form-label">Country</label>
-                  {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
+                  <div className="col-md-6">
+                    <label className="form-label">Upload Logo</label>
+                    <div className="input-group mb-2">
+                      <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
+                        onChange={image} required />
+                      <p style={{ color: 'red' }}>{logoError}</p>
+                    </div>
+                    <label className="form-label">Email <span className="red"> *</span></label>
+                    <input type="email" className="form-control mb-2" placeholder="Enter email"
+                      onChange={(e) => setContactemail(e.target.value)} value={contactemail} required />
+                    <p style={{ color: 'red' }}>{contactemailError}</p>
+                    <label className="form-label"> Alternative Contact Phone <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
+                      onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
+                    <label className="form-label">Address <span className="red"> *</span></label>
+                    <div className="input-group">
+                      <textarea className="form-control" placeholder="Enter the publisher's address" aria-label="Enter the publisher's address" onChange={(e) => setAdressline(e.target.value)} value={adressline} required></textarea>
+                    </div>
+                    <p style={{ color: 'red' }}>{adresslineError}</p>
+                    <label className="form-label">City <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter city"
+                      onChange={(e) => setCity(e.target.value)} value={city} required />
+                    <p style={{ color: 'red' }}>{cityError}</p>
+                    <label className="form-label">Country</label>
+                    {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
                     onChange={(e) => setCountry(e.target.value)} value={country} /> */}
-                  {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
+                    {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
                       onChange={(e) => setCountry(e.target.value)} value={country} /> */}
-                  <select className="form-select publisher-profile-select" aria-label="Select country" 
-                  onChange={(e) => select_country(e)} required>
-                    <option value='0'>--Select--</option>
-                    {
-                      countries && countries.map((data) => (
-                        <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
-                      ))}
-                  </select>
-                  <p style={{ color: 'red' }}>{countryError}</p>
-                  {/* <label className="form-label">Max Discount Permissible <span className="red"> *</span></label>
+                    <select className="form-select publisher-profile-select" aria-label="Select country"
+                      onChange={(e) => select_country(e)} required>
+                      <option value='0'>--Select--</option>
+                      {
+                        countries && countries.map((data) => (
+                          <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
+                        ))}
+                    </select>
+                    <p style={{ color: 'red' }}>{countryError}</p>
+                    {/* <label className="form-label">Max Discount Permissible <span className="red"> *</span></label>
                   <input type="text" className="form-control mb-2" placeholder="Enter max discount"
                     onChange={(e) => setMaxdiscount(e.target.value)} value={maxdiscount} required />
                   <p style={{ color: 'red' }}>{maxdiscountError}</p>
@@ -740,50 +742,50 @@ const ManagePublishersScreen = () => {
                   <p style={{ color: 'red' }}>{spcom1Error}</p> */}
 
 
-                  {/* <label className="form-label">Banner Upload</label>
+                    {/* <label className="form-label">Banner Upload</label>
                   <div className="input-group mb-2">
                     <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
                       onChange={banner_image} required />
                   </div>
                   <p style={{ color: 'red' }}>{bannerError}</p> */}
 
-                  {/* <label className="form-label">Banner Text</label>
+                    {/* <label className="form-label">Banner Text</label>
                   <input type="text" className="form-control mb-2" placeholder="Enter state"
                     onChange={(e) => setBannertext(e.target.value)} value={bannertext} /> */}
+                  </div>
                 </div>
-              </div>
 
 
-              {/* <div className="d-flex justify-content-between align-items-center"> */}
-              {/* <div className="form-group"> */}
+                {/* <div className="d-flex justify-content-between align-items-center"> */}
+                {/* <div className="form-group"> */}
 
-              {/* </div> */}
-              {/* <div className="form-group"> */}
-              {/* <label className="form-label"> Contact Phone</label>
+                {/* </div> */}
+                {/* <div className="form-group"> */}
+                {/* <label className="form-label"> Contact Phone</label>
               <input type="text" className="form-control mb-2" placeholder="Enter phone number"
                 onChange={(e) => setContactno(e.target.value)} value={contactno} /> */}
 
 
 
 
-              {/* </div> */}
+                {/* </div> */}
 
-              {/* <div className="form-group"> */}
+                {/* <div className="form-group"> */}
 
-              {/* </div> */}
-              {/* <div className="form-group"> */}
+                {/* </div> */}
+                {/* <div className="form-group"> */}
 
-              {/* </div> */}
-              {/* <div className="form-group"> */}
+                {/* </div> */}
+                {/* <div className="form-group"> */}
 
-              {/* </div> */}
-              {/* <div className="form-group"> */}
+                {/* </div> */}
+                {/* <div className="form-group"> */}
 
-              {/* </div> */}
-              {/* <div className="form-group"> */}
+                {/* </div> */}
+                {/* <div className="form-group"> */}
 
 
-              {/* <label className="form-label">Pan No</label>
+                {/* <label className="form-label">Pan No</label>
               <input type="text" className="form-control mb-2" placeholder="Enter pan no" 
               onChange={(e) => setPan(e.target.value)} value={pan} /> */}
 
@@ -793,12 +795,12 @@ const ManagePublishersScreen = () => {
 
 
 
-              {/* </div> */}
-              {/* </div> */}
+                {/* </div> */}
+                {/* </div> */}
 
-              {/* <div className="d-flex justify-content-between align-items-center"> */}
+                {/* <div className="d-flex justify-content-between align-items-center"> */}
 
-              {/* <div className="d-flex justify-content-between align-items-center">
+                {/* <div className="d-flex justify-content-between align-items-center">
                 <div className="form-group">
                   <label className="form-label">Facebook</label>
                   <input type="text" className="form-control mb-2" placeholder="Enter Facebook url" />
@@ -808,7 +810,7 @@ const ManagePublishersScreen = () => {
                   <input type="text" className="form-control mb-2" placeholder="Enter LinkedIn url" />
                 </div>
               </div> */}
-              {/* <div className="d-flex justify-content-between align-items-center">
+                {/* <div className="d-flex justify-content-between align-items-center">
                 <div className="form-group">
                   <label className="form-label">YouTube</label>
                   <input type="text" className="form-control mb-2" placeholder="Enter YouTube url" />
@@ -818,12 +820,12 @@ const ManagePublishersScreen = () => {
                   <input type="text" className="form-control mb-2" placeholder="Enter Instagram url" />
                 </div>
               </div> */}
-              {/* <div className="d-flex justify-content-start align-items-center is-active">
+                {/* <div className="d-flex justify-content-start align-items-center is-active">
                 <label>Is Active ?</label>
                 <input className="form-check-input mt-0" type="checkbox" />
               </div> */}
-              {/* </div> */}
-            </div>
+                {/* </div> */}
+              </div>
             ) : (
               <div className="mb-1">
                 {/* <p>{existingId}</p> */}

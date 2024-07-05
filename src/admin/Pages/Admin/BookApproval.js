@@ -132,48 +132,7 @@ const BookApproval = () => {
                 </tr>
                 )
               ))}
-              {/* <tr className="custom-table-row">
-                <td className="all_col"><img src={book2} /></td>
-                <td className="all_col">Kids in Space</td>
-                <td className="all_col">₹399</td>
-                <td className="all_col">15%</td>
-                <td className="all_col">29/04/2022</td>
-                <td className="all_col">https://www.example...</td>
-                <td className="all_col">Fiction</td>
-                <td className="all_col">Juris Press</td>
-                <td className="approved">Approved</td>
-                <td>
-                  <SVG src={approveIcon} style={{ fill: '#198754', marginRight: 10 }} width={15} onClick={openModal} />
-                </td>
-              </tr>
-              <tr className="custom-table-row">
-                <td className="all_col"><img src={book3} /></td>
-                <td className="all_col">Love Hypothesis</td>
-                <td className="all_col">₹539</td>
-                <td className="all_col">25%</td>
-                <td className="all_col">09/07/2022</td>
-                <td className="all_col">https://www.example...</td>
-                <td className="all_col">Fiction</td>
-                <td className="all_col">Modern Publishing</td>
-                <td className="rejected">Rejected</td>
-                <td>
-                  <SVG src={rejectIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} onClick={openModal} />
-                </td>
-              </tr>
-              <tr className="custom-table-row">
-                <td className="all_col"><img src={book4} /></td>
-                <td className="all_col">Red White and Royal Blue</td>
-                <td className="all_col">₹239</td>
-                <td className="all_col">20%</td>
-                <td className="all_col">09/04/2023</td>
-                <td className="all_col">https://www.example...</td>
-                <td className="all_col">Fiction</td>
-                <td className="all_col">Modern Publishing</td>
-                <td className="approved">Approved</td>
-                <td>
-                  <SVG src={approveIcon} style={{ fill: '#198754', marginRight: 10 }} width={15} onClick={openModal} />
-                </td>
-              </tr> */}
+              
             </tbody>
           </table>
         </div>
