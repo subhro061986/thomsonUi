@@ -289,7 +289,7 @@ const CartPage = () => {
 
 
                                                         <img 
-                                                        src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} 
+                                                        src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} 
                                                         className="mx-2 my-2"
                                                         />
 
@@ -346,7 +346,7 @@ const CartPage = () => {
 
                                         <div className="subtotal">
                                             <span className="label">Total</span>
-                                            <span className="qty">({cartCount} items)</span>
+                                            <span className="qty">({cartCount} items) :</span>
                                             <span className="price">₹{subTotal}</span>
                                         </div>
 

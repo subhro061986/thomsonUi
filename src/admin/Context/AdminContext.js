@@ -1282,7 +1282,7 @@ const AdminProvider = ({ children }) => {
 
   const restore_distributor = async (id) => {
     try {
-      const response = await axios.get(Config.API_URL + Config.RESTORE_DISTRIBUTOR + id, {},
+      const response = await axios.get(Config.API_URL + Config.RESTORE_DISTRIBUTOR + id,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1290,7 +1290,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // console.log(" RESTORE PUBLISHER USERS : ", response.data);
-      setDistributorList(response);
+      // setDistributorList(response);
       return response;
     }
     catch (error) {
@@ -1299,8 +1299,9 @@ const AdminProvider = ({ children }) => {
   }
 
   const delete_distributor = async (id) => {
+    console.log(" DELETE token USERS : ", authData);
     try {
-      const response = await axios.get(Config.API_URL + Config.DELETE_DISTRIBUTOR + id, {},
+      const response = await axios.get(Config.API_URL + Config.DELETE_DISTRIBUTOR + id,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1308,7 +1309,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // console.log(" DELETE PUBLISHER USERS : ", response.data);
-      setDistributorList(response);
+      // setDistributorList(response);
       return response;
     }
     catch (error) {

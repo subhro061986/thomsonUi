@@ -218,7 +218,7 @@ const WishList = () => {
                                                     type="button" style={{ width: '62%', fontWeight: '600' }}
                                                     className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2 ms-5"
                                                 >
-                                                    Add to Cart
+                                                    Move to Cart
                                                 </button>
                                             </Card.Body>
                                         </div>

@@ -1802,7 +1802,7 @@ button-solid:focus {
 
 .remove-from-cart {
   padding-left: 10px;
-  color: rgba(9, 126, 218, 1);
+  color: #D64000;
   cursor: pointer;
 }
 
@@ -1827,7 +1827,7 @@ button-solid:focus {
 
 .cart-page>.order-list>.book-card>.book-details>.price-details>.price,
 .cart-page>.order-list>.subtotal>.price {
-  color: #2F4FA0;
+  color: #000000;
   font-family: 'Poppins';
   font-size: 24px;
   font-style: normal;
@@ -1849,11 +1849,13 @@ button-solid:focus {
 .cart-page>.order-list>.subtotal>.label {
   font-weight: 500;
   font-size: 20px;
+  color: #64646F;
 }
 
 .cart-page>.order-list>.subtotal>.qty {
   font-weight: 400;
   font-size: 15px;
+  color: #64646F;
 }
 
 .cursor-pointer {
