@@ -216,7 +216,7 @@ const ManageCategoriesScreen = () => {
                   <td className="all_col text-start">{data.name}</td>
                   {/* <td className="all_col text-start">{data.parent}</td> */}
                   <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
-                  <td className="all_col text-start">{data.shipmentduration}</td>
+                  <td className="all_col text-start">{data.shipmentduration}  Day(s)</td>
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td className="d-flex justify-content-start">
                     <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}

@@ -157,7 +157,7 @@ const WishList = () => {
     return (
         <div className="main-container">
             <div className="container">
-                <TopBarSouthsore />
+                <TopBar />
                 <NavBarSouthsore />
                 <ProfileTab />
             </div>
@@ -198,7 +198,8 @@ const WishList = () => {
 
                                             <Card.Img className="img" variant="top"
                                                 // src={data.image !== null ? data.image : dummy} 
-                                                src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                // src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                src={dummy}
                                             />
                                             <Card.Body>
 

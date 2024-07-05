@@ -121,7 +121,7 @@ const ProfileTab = () => {
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">My Addresses</Link>
+                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">Shipping Addresses</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>
@@ -150,7 +150,7 @@ const ProfileTab = () => {
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
                             </div>
                             <div className={"profile-item " + (myAddresses === true ? "active" : '')} onClick={()=>mybookshelf("myAddresses")}>
-                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">My Addresses</Link>
+                                <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">Shipping Addresses</Link>
                             </div>
                             <div className={"profile-item " + (changePassword === true ? "active" : '')} onClick={()=>mybookshelf("changePassword")}>
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>

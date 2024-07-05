@@ -192,7 +192,7 @@ const ShippingAddress = () => {
         <>
             <div className="main-container">
                 <div className="container">
-                    <TopBarSouthsore />
+                    <TopBar />
                     <NavBarSouthsore />
                     <ProfileTab />
                 </div>

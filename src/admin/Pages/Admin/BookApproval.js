@@ -83,7 +83,7 @@ const BookApproval = () => {
     <>
       <SideMenu />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header title="Book Approval" />
+        <Header title="Book List" />
         <div className="m-3">
           <table className="table bg-white">
             <thead className="text-center">

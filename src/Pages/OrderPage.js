@@ -36,7 +36,7 @@ const OrderPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        getMyOrders()
+        // getMyOrders()
     }, [])
 
    const calculateTotalCGST =(invoices) =>{
@@ -205,39 +205,29 @@ const OrderPage = () => {
 
     }
 
-    const getMyOrders = async () => {
-        let myOrdersResponse = await myorders(1, 10)
-        if (myOrdersResponse.statuscode === "0") {
-            let tempArray = myOrdersResponse.output.books
-            // console.log("tempArray= ",tempArray)
-            SetOrders(tempArray)
+    // const getMyOrders = async () => {
+    //     let myOrdersResponse = await myorders(1, 10)
+    //     if (myOrdersResponse.statuscode === "0") {
+    //         let tempArray = myOrdersResponse.output.books
+    //         // console.log("tempArray= ",tempArray)
+    //         SetOrders(tempArray)
 
-        }
-        console.log("myOrderDetails= ", myOrdersResponse)
-    }
+    //     }
+    //     console.log("myOrderDetails= ", myOrdersResponse)
+    // }
     return (
         <div className="main-container">
             <div className="container">
-                <TopBarSouthsore />
+                <TopBar />
                 <NavBarSouthsore/>
                 <ProfileTab />
             </div>
             
             <Whatsapp/>
-            <div className="order_main_bg pt-3">
+            {/* <div className="order_main_bg pt-3">
                 <div className="d-flex justify-content-between py-3">
                     <div className="d-flex align-items-center orderHeaderText">My Orders</div>
-                    {/* <button className="btn btn-light home_back" onClick={gotoHome}><img src={arrow_left} />Back to home</button> */}
-                    <BackButton/>
-                    {/* <div className="top-bar-right">
-                        <form>
-                            <div className="form-group search-bar">
-                                <img src={search_icon} />
-                                <input type="text" className="form-control search-box" placeholder="Search by Author, Title, ISBN" />
-                            </div>
-                        </form>
-                        <button className="btn btn-light home_back" onClick={gotoHome}><img src={arrow_left} />Back to home</button>
-                    </div> */}
+
                 </div>
 
                 {orders.map((book, index) => (
@@ -246,7 +236,6 @@ const OrderPage = () => {
                             <div className="d-flex justify-content-start book_section rounded-4">
                                 <div className="d-flex align-items-center px-3">
                                     <img 
-                                        //src={book.image}
                                         src={book.image === null || book.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.image + '?d=' + new Date()}
                                         width={120} height={170}
                                     />
@@ -272,7 +261,8 @@ const OrderPage = () => {
 
                 )}
 
-            </div>
+            </div> */}
+            <div className="order_main_bg pt-3"><p>Work in Progress</p></div>
             <FooterSouthsore />
         </div>
     );
