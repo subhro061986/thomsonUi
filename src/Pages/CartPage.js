@@ -289,8 +289,8 @@ const CartPage = () => {
 
 
                                                         <img 
-                                                        src={ dummy }
-                                                        // src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} 
+                                                        // src={ dummy }
+                                                        src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} 
                                                         className="mx-2 my-2"
                                                         />
 

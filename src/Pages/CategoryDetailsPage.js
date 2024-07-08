@@ -834,7 +834,7 @@ const CategoryDetailsPage = () => {
                                 <hr />
 
 
-                                <div className="row d-flex justify-content-between card_padding_bottom">
+                                <div className="row d-flex card_padding_bottom">
 
 
                                     {
@@ -842,7 +842,7 @@ const CategoryDetailsPage = () => {
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className=" bg-white book_card py-3" style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px', borderRadius:'20px'}} onClick={() => { gotoDetails(data.id) }}>
+                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px', borderRadius:'20px'}} onClick={() => { gotoDetails(data.id) }}>
                                                 <div className="d-flex flex-column">
                                                     <div className="d-flex justify-content-end mt-1 me-1" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
@@ -857,8 +857,8 @@ const CategoryDetailsPage = () => {
                                                     <div className="d-flex justify-content-center">
                                                         {/* <img src={data.image !== null ? data.image : dummy}
                                                         width={120} height={170} /> */}
-                                                        {/* <img src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} */}
-                                                        <img src={ dummy }
+                                                        <img src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                       
                                                             width={120} height={170}
                                                             loading="lazy"
                                                         />

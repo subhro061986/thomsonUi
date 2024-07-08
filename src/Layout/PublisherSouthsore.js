@@ -111,8 +111,8 @@ const PublisherSouthsore = () => {
               title={data.name}
               >
                 {/* <img src={art} alt={"Category Image Not Found"} /> */}
-                {/* <img src={data.logo === null || data.logo === "" ? noImg : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} /> */}
-                <img src={ThomsonLogo} alt="publisher logo" width={140}/>
+                <img src={data.logo === null || data.logo === "" ? ThomsonLogo : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
+                {/* <img src={ThomsonLogo} alt="publisher logo" width={140}/> */}
               </div>
               <div className="text-center cat_txt fw500 mb-4">
                 {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}

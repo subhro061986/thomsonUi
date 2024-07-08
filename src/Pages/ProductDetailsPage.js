@@ -162,7 +162,7 @@ const ProductDetailsPage = () => {
         //     return (val.isdefault !== true)
         // })
         // setNondefaultimg(non_default_image)
-        let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.front_cover + '?d=' + new Date();
+        let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.img + '?d=' + new Date();
         let backCover = image_path + pub_obj.publisherid + '/' + pub_obj.back_cover + '?d=' + new Date();
         console.log("PUB OBJ FC IMAGE : ", frontCover);
         console.log("PUB OBJ BC IMAGE : ", backCover);

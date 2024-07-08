@@ -197,9 +197,10 @@ const WishList = () => {
                                         <div >
 
                                             <Card.Img className="img" variant="top"
-                                                // src={data.image !== null ? data.image : dummy} 
-                                                // src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
-                                                src={dummy}
+                                                src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                width={223}
+                                                height={247}
+                                                // src={dummy}
                                             />
                                             <Card.Body>
 
