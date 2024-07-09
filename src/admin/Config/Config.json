@@ -1,5 +1,5 @@
 {
-    "API_UR" : "https://www.bookscentral.in/api/",
+    "API_URL" : "https://www.bookscentral.in/api/",
 
     "API_URL_LOCAL" : "http://localhost:5000/",
     "ALL_BOOK_CATEGORY" : "category/all",
