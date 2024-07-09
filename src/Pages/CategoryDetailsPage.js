@@ -745,8 +745,12 @@ const CategoryDetailsPage = () => {
                                     // className="range-slider-yellow"
                                     style={{accentColor: '#000'}}
                                 />
-
-                                <p className="mt-4">{minRange} to {maxRange}</p>
+                                <div className="mt-4 d-flex justify-content-between align-items-center">
+                                    <input type="text" value={minRange} className="form-control" readOnly={true}/>
+                                     <span className="px-2">to</span> 
+                                     <input type="text" value={maxRange} className="form-control" readOnly={true}/>
+                                </div>
+                                {/* <p className="mt-4">{minRange} to {maxRange}</p> */}
 
                                 <hr />
                                 {/* <li>Language</li>

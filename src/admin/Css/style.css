@@ -4117,17 +4117,17 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-  --cui-btn-color: #321fdb;
-  --cui-btn-border-color: #321fdb;
+  --cui-btn-color: #058EFA;
+  --cui-btn-border-color: #058EFA;
   --cui-btn-hover-color: rgba(255, 255, 255, 0.87);
-  --cui-btn-hover-bg: #5b4ce2;
-  --cui-btn-hover-border-color: #4735df;
+  --cui-btn-hover-bg: #058EFA;
+  --cui-btn-hover-border-color: #058EFA;
   --cui-btn-focus-shadow-rgb: 50, 31, 219;
   --cui-btn-active-color: rgba(255, 255, 255, 0.87);
-  --cui-btn-active-bg: #5b4ce2;
-  --cui-btn-active-border-color: #4735df;
+  --cui-btn-active-bg: #058EFA;
+  --cui-btn-active-border-color: #058EFA;
   --cui-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 21, 0.125);
-  --cui-btn-disabled-color: #321fdb;
+  --cui-btn-disabled-color: #058EFA;
   --cui-btn-disabled-bg: transparent;
   --cui-gradient: none;
 }

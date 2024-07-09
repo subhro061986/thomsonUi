@@ -41,11 +41,9 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     getAllPublishers();
     getAllActivePublishers();
-    category_all();
+    //category_all();
     getAllCategory();
-    addShippingAddress();
-    getSippingAddressById();
-    delShippingAddress();
+   
     
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -61,6 +59,9 @@ const UserProvider = ({ children }) => {
       // })
       get_wishlist_books(1, 5)
       getAllShippingAddress();
+      addShippingAddress();
+      getSippingAddressById();
+      delShippingAddress();
 
       // localstorage_price_items_signin()
       // get_wish_books_id()
@@ -119,33 +120,33 @@ const UserProvider = ({ children }) => {
     }
     
     //console.log("NEW ARRIVAL URL===>",Config.API_URL + Config.NEW_ARRIVAL + "/"+ pub_id +  "?recordPerPage=" + record_no)
-    try {
-      const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "/"+ pub_id +  "?recordPerPage=" + record_no,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
-          },
+    // try {
+    //   const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "/"+ pub_id +  "?recordPerPage=" + record_no,
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+    //       },
 
-        })
-        if (response === undefined || response === null) {
-          setallNewArrival([])
-      }
-      else {
-          if (response.data.statuscode === "0" && response.data.output.length > 0) {
-            setallNewArrival(response.data.output)
-          }
-          else {
-            setallNewArrival([])
-          }
-      }
+    //     })
+    //     if (response === undefined || response === null) {
+    //       setallNewArrival([])
+    //   }
+    //   else {
+    //       if (response.data.statuscode === "0" && response.data.output.length > 0) {
+    //         setallNewArrival(response.data.output)
+    //       }
+    //       else {
+    //         setallNewArrival([])
+    //       }
+    //   }
       
-      return response.data
+    //   return response.data
 
-    }
-    catch (error) {
-      console.log("Book_new_arrival error : ", error)
-    }
+    // }
+    // catch (error) {
+    //   console.log("Book_new_arrival error : ", error)
+    // }
   }
 
 
@@ -165,34 +166,34 @@ const UserProvider = ({ children }) => {
     else{
       pub_id=publisher_id
     }
-    try {
-      const response = await axios.get(Config.API_URL + Config.BEST_SELLING + "/"+ pub_id + "?recordPerPage=" + record_per_page,
+    // try {
+    //   const response = await axios.get(Config.API_URL + Config.BEST_SELLING + "/"+ pub_id + "?recordPerPage=" + record_per_page,
 
-        {
-          headers: {
-            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
-          },
+    //     {
+    //       headers: {
+    //         'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+    //       },
 
-        })
-        if (response === undefined || response === null) {
-          setAllBestSeller([])
-      }
-      else {
-          if (response.data.statuscode === "0" && response.data.output.length > 0) {
-            setAllBestSeller(response.data.output)
-          }
-          else {
-            setAllBestSeller([])
-          }
-      }
+    //     })
+    //     if (response === undefined || response === null) {
+    //       setAllBestSeller([])
+    //   }
+    //   else {
+    //       if (response.data.statuscode === "0" && response.data.output.length > 0) {
+    //         setAllBestSeller(response.data.output)
+    //       }
+    //       else {
+    //         setAllBestSeller([])
+    //       }
+    //   }
         
-      return response.data
+    //   return response.data
 
-    }
-    catch (error) {
-      setAllBestSeller([])
-      console.log("Book_details_error : ", error)
-    }
+    // }
+    // catch (error) {
+    //   setAllBestSeller([])
+    //   console.log("Book_details_error : ", error)
+    // }
   }
 
 
@@ -263,35 +264,35 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const category_all = async () => {
-    console.log("cat all list route:",Config.API_URL + Config.ALL_Cateory)
-    try {
-      const response = await axios.post(Config.API_URL + Config.ALL_Cateory,
+  // const category_all = async () => {
+  //   console.log("cat all list route:",Config.API_URL + Config.ALL_Cateory)
+  //   try {
+  //     const response = await axios.post(Config.API_URL + Config.ALL_Cateory,
 
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Authorization': 'Bearer ' + authData
-          },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           // 'Authorization': 'Bearer ' + authData
+  //         },
 
-        })
-        // if(response.data.output.length > 0){
-          // setCategoryByPublisherList(response.data.output)
-          console.log("cat all list :",response)
-          // setCategoryList(response.data.output)
-        // }
-        // else{
-        //   setCategoryByPublisherList([])
-        // }
+  //       })
+  //       // if(response.data.output.length > 0){
+  //         // setCategoryByPublisherList(response.data.output)
+  //         console.log("cat all list :",response)
+  //         // setCategoryList(response.data.output)
+  //       // }
+  //       // else{
+  //       //   setCategoryByPublisherList([])
+  //       // }
       
 
-      return response
+  //     return response
 
-    }
-    catch (error) {
-      console.log("Book_cat_by_publisher_error : ", error)
-    }
-  }
+  //   }
+  //   catch (error) {
+  //     console.log("Book_cat_by_publisher_error : ", error)
+  //   }
+  // }
 
 
   const get_book_details = async (book_id) => {
@@ -1263,7 +1264,7 @@ const UserProvider = ({ children }) => {
       value={{
         getAllCategory,
         category_by_publisher,
-        category_all,
+        //category_all,
         getNewArrivals,
         allNewArrival,
         best_selling_books,
