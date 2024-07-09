@@ -7,6 +7,8 @@ import bookIcon from '../assets/icons/book.svg';
 import contentIcon from '../assets/icons/notes.svg';
 import categoryIcon from '../assets/icons/align-left.svg';
 import userIcon from '../assets/icons/user.svg';
+import shippingIcon from '../assets/icons/truck.svg';
+import ordersIcon from '../assets/icons/order.svg';
 import noImg from '../assets/img/no-img.png';
 import usersIcon from '../assets/icons/users.svg';
 import settingsIcon from '../assets/icons/settings.svg';
@@ -107,6 +109,22 @@ const TestMenu = () => {
                             >
                                 <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Distributor
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            // to="/admin/managedistributor"
+                            >
+                                <SVG src={shippingIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Manage Shipper
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            // to="/admin/managedistributor"
+                            >
+                                <SVG src={ordersIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Manage Orders
                             </Link>
                         </MenuItem>
                         {/* <MenuItem className="nest_sidebar">
