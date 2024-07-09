@@ -39,7 +39,7 @@ const Header=(props)=> {
           <div className="header-nav d-md-flex"><h4> {props.title} </h4></div>
 
           <div className="header-nav d-md-flex">
-            <button type="button" className="logout_button" 
+            <button type="button" className="btn btn-outline-dark" 
             onClick={doLogOut}
             >
               {/* <SVG src={offIcon} style={{fill:'#fff',marginRight:10}} width={20}/>  */}

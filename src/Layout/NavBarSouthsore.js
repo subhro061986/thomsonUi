@@ -3,6 +3,8 @@ import facebook from "../Assets/Images/fb-rounded.png";
 import instagram from "../Assets/Images/ig-rounded.png";
 import youtube from "../Assets/Images/yt-rounded.png";
 import startupindia from "../Assets/Images/startup-india.png";
+import heart from "../Assets/Images/heart.png";
+import shopping_cart from "../Assets/Images/shopping-cart.png";
 import menu from '../Assets/Images/menu.png';
 import { Link, useNavigate } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion';
@@ -13,7 +15,7 @@ import { useAuth } from '../Context/Authcontext';
 const NavBarSouthsore = () => {
     const navigate = useNavigate();
     const { category_by_publisher, items, allActivePublisher, allCategoryList } = UserProfile()
-    const { wishlistshow } = useAuth()
+    const { wishlistshow,cartCount } = useAuth()
     const [drawerStat, setDrawerStat] = useState(false)
     // const [submneuDrawer, setsubmneuDrawer] = useState(false)
     const [pubcat, setPubcat] = useState([])
@@ -90,7 +92,19 @@ const NavBarSouthsore = () => {
     }
 
 
+    const gotoWishlist = () => {
+        if (wishlistshow === true) {
+            navigate('/wishlist')
+        }
+        else {
+            navigate('/login')
+        }
 
+    }
+
+    const goToCart = () => {
+        navigate('/cartpage');
+    }
 
     return (
         <>
@@ -236,6 +250,16 @@ const NavBarSouthsore = () => {
                                 <li className="d-flex justify-content-end align-items-center"><img src={startupindia} alt="Start up India logo" /></li>
                             </div>
                         </ul> */}
+                        <ul className="navbar-nav right-nav mb-2 mb-lg-0 wishlist_cart_icons">
+                            <li className="borders"><button className="btn btn-circle" onClick={gotoWishlist}><img src={heart} /></button></li>
+                            <li className="pos_rel">
+                                <button className="btn btn-circle" onClick={goToCart}>
+                                    <img src={shopping_cart} />
+                                </button>
+                                {/* <span className="badge rounded-pill text-bg-danger">{cartno}</span> */}
+                                <span className="badge rounded-pill text-bg-danger">{cartCount}</span>
+                            </li>
+                        </ul>
                     </nav >
                 )
             }

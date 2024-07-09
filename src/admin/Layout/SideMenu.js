@@ -139,7 +139,7 @@ const TestMenu = () => {
                                 Manage Orders
                             </Link>
                         </MenuItem> */}
-                        <SubMenu label="Sales Register" className="nest_sidebar"
+                        {/* <SubMenu label="Sales Register" className="nest_sidebar"
                             icon={<SVG src={contentIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
                             <MenuItem className="nest_sidebar">
                                 <Link className="nav-link" to="/admin/customersales">
@@ -151,7 +151,7 @@ const TestMenu = () => {
                                     Distributer Invoices
                                 </Link>
                             </MenuItem>
-                        </SubMenu>
+                        </SubMenu> */}
                         <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/changepassword">
                                 <SVG src={settingsIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
