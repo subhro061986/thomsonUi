@@ -579,6 +579,7 @@ const AuthProvider = ({ children }) => {
   }
   const findSubtotal = () => {
     let subtotal = 0;
+    
     if (cartItems.length > 0) {
         cartItems.map((data, index) => {
                 subtotal = subtotal + data.amount
@@ -590,7 +591,7 @@ const AuthProvider = ({ children }) => {
     } else {
         setSubTotal(0)
     }
-
+    return subtotal
 }
 
   

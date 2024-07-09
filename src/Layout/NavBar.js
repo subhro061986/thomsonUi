@@ -228,12 +228,12 @@ const NavBar = () => {
                             </li>  */}
                         </ul>
                         <ul className="navbar-nav right-nav mb-2 mb-lg-0 wishlist_cart_icons">
-                            <li className="pos_rel me-2">
+                            {/* <li className="pos_rel me-2">
                                 <button className="btn btn-circle">
                                     <img src={notification} />
                                 </button>
-                                {/* <span className="badge rounded-pill text-bg-danger">5</span> */}
-                            </li>
+                                <span className="badge rounded-pill text-bg-danger">5</span>
+                            </li> */}
                             <li className="borders"><button className="btn btn-circle" onClick={gotoWishlist}><img src={heart} /></button></li>
                             <li className="pos_rel">
                                 <button className="btn btn-circle" onClick={goToCart}>
