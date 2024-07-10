@@ -57,6 +57,11 @@
     "ADD_Distributor" : "distributor/add",
     "GET_ALL_Distributor" : "distributor",
     "RESTORE_DISTRIBUTOR" : "distributor/restore/",
-    "DELETE_DISTRIBUTOR" : "distributor/delete/"
+    "DELETE_DISTRIBUTOR" : "distributor/delete/",
+    "GET_ALL_SHIPPER" : "shipper",
+    "ADD_SHIPPER" : "shipper/add",
+    "EDIT_SHIPPER" : "shipper/edit",
+    "RESTORE_SHIPPER" : "shipper/restore/",
+    "DELETE_SHIPPER" : "shipper/delete/"
 
 }

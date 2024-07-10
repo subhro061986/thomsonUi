@@ -39,6 +39,7 @@ import PublisherDashboard from './Pages/Publisher/PublisherDashboard';
 import DashboardScreenNew from './Pages/Admin/DashboardScreenNew';
 import BookDetailsPub from './Pages/Publisher/BookDetailsPub';
 import ManageDistributorScreen from './Pages/Admin/ManageDistributorScreen';
+import ManageShipper from './Pages/Admin/ManageShipper';
 
 
 // const BeforeLogin=()=>{
@@ -96,6 +97,7 @@ const Navigation=()=> {
              <Route exact path='/manageusers' Component={ManageUserScreen}/>
              <Route exact path='/managepublishers' Component={ManagePublishersScreen}/>
              <Route exact path='/managecategories' Component={ManageCategoriesScreen}/>
+             <Route exact path='/manageshippers' Component={ManageShipper}/>
              <Route exact path='/managedistributor' Component={ManageDistributorScreen}/>
              <Route exact path='/uploadbooks' Component={UploadBooks}/>
              <Route exact path='/booklist' Component={BookList}/>

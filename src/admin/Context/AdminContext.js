@@ -28,9 +28,10 @@ const AdminProvider = ({ children }) => {
   const [currMonthlySale, setMonthlyCurrSale] = useState({});
   const [prevMonthlySale, setMonthlyPrevSale] = useState({});
   const [distributorList, setDistributorList] = useState({});
+  const [shipperInfoList, setShipperInfoList] = useState({});
 
   useEffect(() => {
-    
+
     // console.log(authData);
     if (authData === null || authData === undefined || authData === '') {
       console.log('No token available');
@@ -43,36 +44,38 @@ const AdminProvider = ({ children }) => {
         get_pub_details();
         getAllPublishers();
         get_all_countries();
-      //   // getAllCustomers_admin();
-      //   // getManageOrder();
+        //   // getAllCustomers_admin();
+        //   // getManageOrder();
         getAllLanguage();
         getAllCurrency();
 
         getAllDistributor();
+        getAllShipper();
         // getAllCoupons();
       }
       // else if(authDeatils.role === "South Shore Admin" ){
-        // getAllCategory();
-        // getAllBookList();
-        // getAllCustomers_admin();
-        // getAllLanguage();
-        // getAllPublishers();
-        // get_dashboard();
-        // let currentYear = new Date().getFullYear();
-        // let currentMonth = new Date().getMonth()+1;
-        // let paddedMonth=currentMonth.toString().padStart(2,'0')
-        // let args = {
-        //   "yearmonth": currentYear + "-" + paddedMonth
-        // };
-        // let args = {
-        //   "yearmonth": "2024-05"
-        // };
-        // get_admin_monthlysales(args)
-        // get_book_details()
-      // }
-    
+      // getAllCategory();
+      // getAllBookList();
+      // getAllCustomers_admin();
+      // getAllLanguage();
       // getAllPublishers();
-    }}
+      // get_dashboard();
+      // let currentYear = new Date().getFullYear();
+      // let currentMonth = new Date().getMonth()+1;
+      // let paddedMonth=currentMonth.toString().padStart(2,'0')
+      // let args = {
+      //   "yearmonth": currentYear + "-" + paddedMonth
+      // };
+      // let args = {
+      //   "yearmonth": "2024-05"
+      // };
+      // get_admin_monthlysales(args)
+      // get_book_details()
+      // }
+
+      // getAllPublishers();
+    }
+  }
     , [authData]);
 
 
@@ -150,7 +153,7 @@ const AdminProvider = ({ children }) => {
   const getAllBookList = async () => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
     try {
-      console.log("auth data= ",authData)
+      console.log("auth data= ", authData)
       const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 50, {},
         {
           headers: {
@@ -172,9 +175,9 @@ const AdminProvider = ({ children }) => {
 
   const uploadSingleBook = async (formData) => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
-    
+
     try {
-      const response = await axios.post(Config.API_URL + Config.UPLOAD_BOOKS_SINGLE , formData,
+      const response = await axios.post(Config.API_URL + Config.UPLOAD_BOOKS_SINGLE, formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -182,7 +185,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // }
-      if(response.data.statuscode === '0'){
+      if (response.data.statuscode === '0') {
         getAllBookList()
       }
       // console.log(" Upload Single Book Response : ", response);
@@ -195,7 +198,7 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const updateSingleBook = async (id,formdata) => {
+  const updateSingleBook = async (id, formdata) => {
     // console.log('token in single update', authData)
     // console.log('took_update_id', id)
     // console.log('update_api',Config.API_URL + Config.UPDATE_SINGLE_BOOK + id)
@@ -208,7 +211,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // }
-      if(response.data.statuscode === '0'){
+      if (response.data.statuscode === '0') {
         getAllBookList()
       }
       // console.log(" update Single Book Response : ", response);
@@ -310,7 +313,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       console.log("GET Language DETAILS: ", response.data);
-        setLanguages(response.data.output)
+      setLanguages(response.data.output)
       return response;
     }
     catch (error) {
@@ -329,7 +332,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       console.log("GET Currency DETAILS: ", response.data);
-        setCurrencies(response.data.output)
+      setCurrencies(response.data.output)
       return response;
     }
     catch (error) {
@@ -380,7 +383,7 @@ const AdminProvider = ({ children }) => {
     // console.log("Id :", id);
     try {
       const response = await axios.post(Config.API_URL + Config.DEL_CATEGORY + "/" + id,
-      {},
+        {},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -682,7 +685,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      
+
       // setManageOrder(response.data);
       // get_myprofile()
       return response;
@@ -723,13 +726,13 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-        // console.log(" uget_pub_details resp : ", response);
-        if(response.data.statuscode === 0){
-          setPubInfoImg(Config.API_URL + Config.PUB_IMAGES + response.data.output.id + "/" + response.data.output.logo + '?d=' + new Date())
-        }
-        else{
-          setPubInfoImg('')
-        }
+      // console.log(" uget_pub_details resp : ", response);
+      if (response.data.statuscode === 0) {
+        setPubInfoImg(Config.API_URL + Config.PUB_IMAGES + response.data.output.id + "/" + response.data.output.logo + '?d=' + new Date())
+      }
+      else {
+        setPubInfoImg('')
+      }
       // setManageOrder(response.data);
       // get_myprofile()
       return response;
@@ -804,7 +807,7 @@ const AdminProvider = ({ children }) => {
 
 
   const get_states_by_country = async (c_id) => {
-    
+
     try {
       // console.log("country_id in state by country", c_id)
       const response = await axios.get(Config.API_URL + Config.GET_STATES_BY_COUNTRY + c_id,
@@ -814,7 +817,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-        
+
       console.log(" get_states_by_country resp : ", response.data);
       // setManageOrder(response.data);
       // get_myprofile()
@@ -845,11 +848,11 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const get_book_details = async (book_id,token) => {
+  const get_book_details = async (book_id, token) => {
     // console.log('my_token',token)
     // console.log('book_id_det',book_id)
     try {
-      
+
       const response = await axios.get(Config.API_URL + "book/" + book_id,
 
         {
@@ -870,7 +873,7 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const approveBook = async (book_id) =>{
+  const approveBook = async (book_id) => {
     try {
       const response = await axios.post(Config.API_URL + Config.APPROVE_BOOK + book_id, {},
         {
@@ -892,9 +895,9 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const rejectBook = async (book_id, rejectionReason) =>{
+  const rejectBook = async (book_id, rejectionReason) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.REJECT_BOOK + book_id, {rejectionreason:rejectionReason},
+      const response = await axios.post(Config.API_URL + Config.REJECT_BOOK + book_id, { rejectionreason: rejectionReason },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -904,7 +907,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-        getAllBookList();
+      getAllBookList();
       // }
       return response.data.message;
     }
@@ -913,7 +916,7 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const deletebook = async (book_id) =>{
+  const deletebook = async (book_id) => {
     try {
       const response = await axios.post(Config.API_URL + Config.DELETE_BOOK + book_id, {},
         {
@@ -925,7 +928,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-        getAllBookList();
+      getAllBookList();
       // }
       return response;
     }
@@ -934,7 +937,7 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  const restorebook = async (book_id) =>{
+  const restorebook = async (book_id) => {
     try {
       const response = await axios.post(Config.API_URL + Config.RESTORE_BOOK + book_id, {},
         {
@@ -946,7 +949,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-        getAllBookList();
+      getAllBookList();
       // }
       return response;
     }
@@ -1075,7 +1078,7 @@ const AdminProvider = ({ children }) => {
   // Dashboard
   const get_dashboard = async () => {
     console.log("token 1029 : ", authData);
-    try {      
+    try {
       const response = await axios.get(Config.API_URL + "dashboard",
         {
           headers: {
@@ -1093,9 +1096,9 @@ const AdminProvider = ({ children }) => {
   }
 
   const get_admin_monthlysales = async (args) => {
-    console.log("ARGS FRM CONTEXT",args)
+    console.log("ARGS FRM CONTEXT", args)
     try {
-      const response = await axios.post(Config.API_URL + "dashboard/monthly", args, 
+      const response = await axios.post(Config.API_URL + "dashboard/monthly", args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1114,26 +1117,26 @@ const AdminProvider = ({ children }) => {
         monthlySeriesTwo.name = sortedArray[i].currentseries;
         monthlySeriesTwo.data.push(sortedArray[i].current);
       }
-      console.log("MONTHLY SERIES",monthlySeriesTwo)
+      console.log("MONTHLY SERIES", monthlySeriesTwo)
       setMonthlyCurrSale(monthlySeriesTwo);
       setMonthlyPrevSale(monthlySeriesOne);
-    //   let diamVal=['name'];
-    //   let points=[];
-    //   let keys=Object.keys(response.data.output.monthlySale[0]);
-    //   keys.forEach(element=>{
-    //     if (element!='index' && element!='name'){
-    //       points.push(element);
-    //     }
-    //   });
-    //   points.sort(function(a, b){return new Date('01-'+a) - new Date('01-'+b)});
-    //   diamVal=[...diamVal,...points];
-    //   setlegendVal(points)
-    //   setDimensionsVal(diamVal)
-    //   console.log("DIMENSION VAL",diamVal)
-    // console.log("SALES VAL",response.data.output.monthlySale)
-    // console.log("LEGEND VAL",points)
-          return response.data.output;
-        }
+      //   let diamVal=['name'];
+      //   let points=[];
+      //   let keys=Object.keys(response.data.output.monthlySale[0]);
+      //   keys.forEach(element=>{
+      //     if (element!='index' && element!='name'){
+      //       points.push(element);
+      //     }
+      //   });
+      //   points.sort(function(a, b){return new Date('01-'+a) - new Date('01-'+b)});
+      //   diamVal=[...diamVal,...points];
+      //   setlegendVal(points)
+      //   setDimensionsVal(diamVal)
+      //   console.log("DIMENSION VAL",diamVal)
+      // console.log("SALES VAL",response.data.output.monthlySale)
+      // console.log("LEGEND VAL",points)
+      return response.data.output;
+    }
     catch (error) {
       setSalesVal([])
       setMonthlyCurrSale({})
@@ -1144,11 +1147,11 @@ const AdminProvider = ({ children }) => {
   }
 
   // end of dashboard
-  
+
   const get_customer_invoices = async (args) => {
-    try {    
-      console.log('auth data= ',args)  
-      const response = await axios.post(Config.API_URL + Config.GET_ALL_CUSTOMER_INVOICES,args,
+    try {
+      console.log('auth data= ', args)
+      const response = await axios.post(Config.API_URL + Config.GET_ALL_CUSTOMER_INVOICES, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1162,11 +1165,11 @@ const AdminProvider = ({ children }) => {
       console.log("Customer Invoice_error : ", error)
     }
   }
-  
+
   const get_publisher_invoices = async (args) => {
-    try {    
-     
-      const response = await axios.post(Config.API_URL + Config.GET_ALL_PUBLISHER_INVOICES,args,
+    try {
+
+      const response = await axios.post(Config.API_URL + Config.GET_ALL_PUBLISHER_INVOICES, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1180,11 +1183,11 @@ const AdminProvider = ({ children }) => {
       console.log("Publisher Invoice_error : ", error)
     }
   }
-  
+
   const get_single_publisher_invoice = async (args) => {
-    try {    
-     
-      const response = await axios.post(Config.API_URL + Config.GET_PUBLISHER_INVOICE,args,
+    try {
+
+      const response = await axios.post(Config.API_URL + Config.GET_PUBLISHER_INVOICE, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1203,9 +1206,9 @@ const AdminProvider = ({ children }) => {
 
   const addDistributor = async (formData) => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
-    
+
     try {
-      const response = await axios.post(Config.API_URL + Config.ADD_Distributor , formData,
+      const response = await axios.post(Config.API_URL + Config.ADD_Distributor, formData,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1235,7 +1238,7 @@ const AdminProvider = ({ children }) => {
         })
       console.log("GET ALL distributor address : ", response);
       setDistributorList(response.data.output)
-      
+
       return response;
     }
     catch (error) {
@@ -1317,7 +1320,125 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-  
+  // Manage Shipper
+
+  const getAllShipper = async () => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_SHIPPER,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL shipper info : ", response);
+      setShipperInfoList(response.data.output)
+
+      return response;
+    }
+    catch (error) {
+      console.log("get_shipper_info_error : ", error);
+    }
+  }
+
+  const addShipper = async (formData) => {
+    // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
+
+    try {
+      const response = await axios.post(Config.API_URL + Config.ADD_SHIPPER, formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // }
+      getAllShipper();
+      console.log("Add shipper Response : ", response);
+      return response;
+
+    }
+
+    catch (error) {
+      console.log("Add shipper Response Error : ", error)
+    }
+  }
+
+  const getShipperById = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_SHIPPER + "/" + id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET shipper BY ID: ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("Get_shipper_by_id_error : ", error);
+    }
+  }
+
+  const editShipper = async (id, args) => {
+    // console.log("Args :", args);
+    // console.log("Id :", id);
+    try {
+      const response = await axios.post(Config.API_URL + Config.EDIT_SHIPPER + "/" + id, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        getAllShipper();
+      console.log("EDIT shipper RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("EDIT_shipper_Error : ", error)
+    }
+  }
+
+  const restore_shipper = async (id) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.RESTORE_SHIPPER + id, {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // console.log(" RESTORE PUBLISHER USERS : ", response.data);
+      getAllShipper()
+      return response;
+    }
+    catch (error) {
+      console.log("RESTORE shipper error : ", error);
+    }
+  }
+
+  const delete_shipper = async (id) => {
+    console.log(" DELETE token in shipper : ", authData);
+    try {
+      const response = await axios.post(Config.API_URL + Config.DELETE_SHIPPER + id, {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // console.log(" DELETE PUBLISHER USERS : ", response.data);
+      getAllShipper()
+      return response;
+    }
+    catch (error) {
+      console.log("DELETE shipper error : ", error);
+    }
+  }
+
+
 
   return (
     <AdminContext.Provider
@@ -1391,8 +1512,15 @@ const AdminProvider = ({ children }) => {
         getAllDistributor,
         distributorList,
         restore_distributor,
-        delete_distributor
-      
+        delete_distributor,
+        getAllShipper,
+        shipperInfoList,
+        addShipper,
+        getShipperById,
+        editShipper,
+        restore_shipper,
+        delete_shipper
+
       }}
     >
       {children}
