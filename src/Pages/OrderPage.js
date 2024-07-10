@@ -251,30 +251,30 @@ const OrderPage = () => {
                                 </div>
                                 <div className="d-flex flex-column ms-4">
                                     <div className="op_head mb-2 mt-1">
-                                        {/* {book.title} */}
-                                        Book Name
+                                        {book.title}
+                                        {/* Book Name */}
                                     </div>
                                     <div className="op_auth">Author: <span>
-                                        Author Name
-                                        {/* {book.authors} */}
+                                        {/* Author Name */}
+                                        {book.authors}
                                     </span></div>
                                     <div className="op_auth mb-5">Publisher: <span>
                                         {book.publisher}
                                         {/* Publisher Name */}
                                     </span></div>
-                                    <div className="op_price">Price: <span className="ms-2">₹
-                                        300
-                                        {/* {book.price} */}
+                                    <div className="op_price">Price: <span className="ms-2">
+                                        {/* 300 */}
+                                        {book.totalamount}
                                     </span></div>
                                 </div>
                             </div>
                             <div className="d-flex order_actions">
                                 <div className="op_ono">Order No: <span>
-                                    {/* {book.orderno} */}
-                                    ORD/24-25/00000003
+                                    {book.orderno}
+                                    {/* ORD/24-25/00000003 */}
                                 </span></div>
                                 <div className="op_pay_div">
-                                    <div className="op_paystat me-4">Payment Status: <span>Complete</span></div>
+                                    <div className="op_paystat me-4">Payment Status: <span>{book.status}</span></div>
                                     <div><button className="btn btn-outline-primary rounded-pill op_btn"
                                     // onClick={() => { getInvoice(book.invoiceid) }}
                                     >Download Invoice</button></div>
