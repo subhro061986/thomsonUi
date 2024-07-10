@@ -13,7 +13,7 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
 
-  const { authData, wishlistshow , isexpired, uuid} = useAuth();
+  const { authData, wishlistshow, isexpired, uuid } = useAuth();
 
   // const [catrproducts , setCartproducts] = useState([])
   const [isActive, setActive] = useState(false)
@@ -34,7 +34,7 @@ const UserProvider = ({ children }) => {
   const [shippingList, setShippingList] = useState([])
   const [selectedShippingAddress, setSelectedShippingAddress] = useState(0)
 
-  
+
 
 
 
@@ -43,8 +43,9 @@ const UserProvider = ({ children }) => {
     getAllActivePublishers();
     //category_all();
     getAllCategory();
-   
-    
+    getNewArrivals()
+
+
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
       // total_price_itemsno()
@@ -62,6 +63,7 @@ const UserProvider = ({ children }) => {
       addShippingAddress();
       getSippingAddressById();
       delShippingAddress();
+      myorders();
 
       // localstorage_price_items_signin()
       // get_wish_books_id()
@@ -69,15 +71,15 @@ const UserProvider = ({ children }) => {
   }
     , [authData]);
 
-    
-    useEffect(() => {
-        let  loc_pub = localStorage.getItem('publisher_id')
 
-        if(publisherId === 0 || publisherId === '0' || publisherId === '' || publisherId === null || publisherId === undefined){
-          setPublisherId(loc_pub)
-        }
-        
-      }, [publisherId]);
+  useEffect(() => {
+    let loc_pub = localStorage.getItem('publisher_id')
+
+    if (publisherId === 0 || publisherId === '0' || publisherId === '' || publisherId === null || publisherId === undefined) {
+      setPublisherId(loc_pub)
+    }
+
+  }, [publisherId]);
 
   // ** --------------------- GALLERY API ------------------------------
 
@@ -90,10 +92,10 @@ const UserProvider = ({ children }) => {
           },
 
         })
-        console.log("response of all category", response)
-        setAllCategoryList(response.data.output)
+      console.log("response of all category", response)
+      setAllCategoryList(response.data.output)
       return response.data
-      
+
     }
     catch (error) {
       console.log("Book_category_error : ", error)
@@ -102,69 +104,55 @@ const UserProvider = ({ children }) => {
 
 
 
-  const getNewArrivals = async (record_no,publisher_id) => {
-    let pub_id=0;
-    if(publisher_id===undefined || publisher_id===0 || publisher_id==='0')
-    {
-      if(publisherId===0 || publisherId==='0'){
-        pub_id=localStorage.getItem('publisher_id')
-      }
-      else{
-        pub_id=publisherId
-        
-      }
-      
-    }
-    else{
-      pub_id=publisher_id
-    }
-    
-    //console.log("NEW ARRIVAL URL===>",Config.API_URL + Config.NEW_ARRIVAL + "/"+ pub_id +  "?recordPerPage=" + record_no)
-    // try {
-    //   const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "/"+ pub_id +  "?recordPerPage=" + record_no,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
-    //       },
+  const getNewArrivals = async (record_no) => {
 
-    //     })
-    //     if (response === undefined || response === null) {
-    //       setallNewArrival([])
-    //   }
-    //   else {
-    //       if (response.data.statuscode === "0" && response.data.output.length > 0) {
-    //         setallNewArrival(response.data.output)
-    //       }
-    //       else {
-    //         setallNewArrival([])
-    //       }
-    //   }
-      
-    //   return response.data
 
-    // }
-    // catch (error) {
-    //   console.log("Book_new_arrival error : ", error)
-    // }
+    console.log("NEW ARRIVAL URL===>", Config.API_URL + Config.NEW_ARRIVAL + "?recordPerPage=" + record_no)
+    try {
+      const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "?recordPerPage=" + 5,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+          },
+
+        })
+      if (response === undefined || response === null) {
+        setallNewArrival([])
+      }
+      else {
+        if (response.data.statuscode === "0" && response.data.output.length > 0) {
+          setallNewArrival(response.data.output)
+        }
+        else {
+          setallNewArrival([])
+        }
+      }
+      console.log("new arr resp",response)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("Book_new_arrival error : ", error)
+    }
   }
 
 
-  const best_selling_books = async (record_per_page,publisher_id) => {
-    let pub_id=0;
-    if(publisher_id===undefined || publisher_id===0 || publisher_id==='0')
-    {
-      if(publisherId===0 || publisherId==='0'){
-        pub_id=localStorage.getItem('publisher_id')
+  const best_selling_books = async (record_per_page, publisher_id) => {
+    let pub_id = 0;
+    if (publisher_id === undefined || publisher_id === 0 || publisher_id === '0') {
+      if (publisherId === 0 || publisherId === '0') {
+        pub_id = localStorage.getItem('publisher_id')
       }
-      else{
-        pub_id=publisherId
-        
+      else {
+        pub_id = publisherId
+
       }
-      
+
     }
-    else{
-      pub_id=publisher_id
+    else {
+      pub_id = publisher_id
     }
     // try {
     //   const response = await axios.get(Config.API_URL + Config.BEST_SELLING + "/"+ pub_id + "?recordPerPage=" + record_per_page,
@@ -186,7 +174,7 @@ const UserProvider = ({ children }) => {
     //         setAllBestSeller([])
     //       }
     //   }
-        
+
     //   return response.data
 
     // }
@@ -222,22 +210,21 @@ const UserProvider = ({ children }) => {
 
 
   const category_by_publisher = async (publisher_id) => {
-    let pub_id=0;
-    if(publisher_id===undefined || publisher_id===0 || publisher_id==='0')
-    {
-      if(publisherId===0 || publisherId==='0'){
-        pub_id=localStorage.getItem('publisher_id')
+    let pub_id = 0;
+    if (publisher_id === undefined || publisher_id === 0 || publisher_id === '0') {
+      if (publisherId === 0 || publisherId === '0') {
+        pub_id = localStorage.getItem('publisher_id')
       }
-      else{
-        pub_id=publisherId
-        
+      else {
+        pub_id = publisherId
+
       }
-      
+
     }
-    else{
-      pub_id=publisher_id
+    else {
+      pub_id = publisher_id
     }
-    
+
     try {
       const response = await axios.get(Config.API_URL + "publisher/" + pub_id + "/category",
 
@@ -247,14 +234,14 @@ const UserProvider = ({ children }) => {
           },
 
         })
-        if(response.data.output.length > 0){
-          setCategoryByPublisherList(response.data.output)
-          console.log("cat pub list :",response.data.output)
-        }
-        else{
-          setCategoryByPublisherList([])
-        }
-      
+      if (response.data.output.length > 0) {
+        setCategoryByPublisherList(response.data.output)
+        console.log("cat pub list :", response.data.output)
+      }
+      else {
+        setCategoryByPublisherList([])
+      }
+
 
       return response.data
 
@@ -284,7 +271,7 @@ const UserProvider = ({ children }) => {
   //       // else{
   //       //   setCategoryByPublisherList([])
   //       // }
-      
+
 
   //     return response
 
@@ -307,7 +294,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      
+
 
       return response.data
 
@@ -318,7 +305,7 @@ const UserProvider = ({ children }) => {
   }
   const place_order = async (buyNow) => {
     try {
-      const response = await axios.get(Config.API_URL +Config.PLACE_ORDER+ `?buynow=${buyNow}` ,
+      const response = await axios.get(Config.API_URL + Config.PLACE_ORDER + `?buynow=${buyNow}`,
 
         {
           headers: {
@@ -328,7 +315,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      
+
 
       return response.data
 
@@ -340,7 +327,7 @@ const UserProvider = ({ children }) => {
 
   const myorders = async (currentpageno, record_no) => {
     try {
-      const response = await axios.get(Config.API_URL +Config.MY_ORDERS + "?currentPage="+ currentpageno + "&recordPerPage="+record_no,
+      const response = await axios.get(Config.API_URL + Config.MY_ORDERS + "?currentPage=" + currentpageno + "&recordPerPage=" + record_no,
 
         {
           headers: {
@@ -350,7 +337,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      //console.log("myorders_resp : ", response);
+      console.log("myorders_resp : ", response);
 
       return response.data
 
@@ -362,7 +349,7 @@ const UserProvider = ({ children }) => {
 
   const applyCoupon = async (args) => {
     try {
-      const response = await axios.post(Config.API_URL +Config.COUPON_CODE ,args,
+      const response = await axios.post(Config.API_URL + Config.COUPON_CODE, args,
 
         {
           headers: {
@@ -372,7 +359,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      
+
 
       return response.data
 
@@ -465,9 +452,9 @@ const UserProvider = ({ children }) => {
   const get_wishlist_books = async (current_page, record_per_page) => {
 
 
-    
+
     try {
-      
+
       const response = await axios.get(Config.API_URL + Config.GET_WISHLIST_BOOKS +
         "?currentPage=" + current_page + "&recordPerPage=" + record_per_page,
 
@@ -478,7 +465,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
-        console.log("wishlist_respfromcontext: ", response.data)
+      console.log("wishlist_respfromcontext: ", response.data)
       setWishlistItems(response.data.output)
 
       return response.data
@@ -506,7 +493,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-       console.log("add_del_wish_resp", response);
+      console.log("add_del_wish_resp", response);
       //  setWishlistItems(response.data)
 
       return response.data
@@ -520,11 +507,11 @@ const UserProvider = ({ children }) => {
   // *  ------------------  Cart (After Sign-in ) ------------------------- 
 
   const cart_items = async (args) => {
-  
+
     try {
       //console.log("get_carg_args :", args)
       const response = await axios.post(Config.API_URL + Config.GET_CART_ITEMS, args,
-      
+
 
         {
           headers: {
@@ -534,7 +521,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-     
+
       setCartItems(response.data.output)
 
       return response.data
@@ -584,18 +571,18 @@ const UserProvider = ({ children }) => {
     if (local_storage_data === undefined || local_storage_data === null) {
 
       localstorage_bookids = []
-      
+
     }
 
     else {
 
-      
+
       const resp = await cart_items({
         deviceid: local_storage_uuid
         // "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
       })
 
-      if (resp === undefined || resp === null ) {
+      if (resp === undefined || resp === null) {
         localstorage_bookids = []
         //console.log("My_uuid :", local_storage_uuid)
       }
@@ -648,7 +635,7 @@ const UserProvider = ({ children }) => {
       price_items_signin(response)
     }
 
-    
+
 
 
   }
@@ -713,9 +700,9 @@ const UserProvider = ({ children }) => {
   const remove_cart_item = async (args) => {
 
     try {
-      
 
-      const response = await axios.post(Config.API_URL + Config.REMOVE_CART_ITEM,args,
+
+      const response = await axios.post(Config.API_URL + Config.REMOVE_CART_ITEM, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -897,9 +884,9 @@ const UserProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-        setAllActivePublisher(response.data.output)
-        console.log("PUBLISHER resp from context: ", response.data.output);
-      
+      setAllActivePublisher(response.data.output)
+      console.log("PUBLISHER resp from context: ", response.data.output);
+
       return response;
     }
     catch (error) {
@@ -914,8 +901,8 @@ const UserProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-        setAllActivePublisher1(response.data.output)
-      
+      setAllActivePublisher1(response.data.output)
+
       return response;
     }
     catch (error) {
@@ -925,14 +912,14 @@ const UserProvider = ({ children }) => {
 
   const getBookShelf = async () => {
     try {
-      const response = await axios.get(Config.API_URL + Config.BOOK_SHELF+"?currentPage=" + 1 + "&recordPerPage=" + 10,
+      const response = await axios.get(Config.API_URL + Config.BOOK_SHELF + "?currentPage=" + 1 + "&recordPerPage=" + 10,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-        // setAllActivePublisher(response.data.output)
+      // setAllActivePublisher(response.data.output)
       //console.log("GET BOOKSHELF RESPONSE : ", response);
       return response.data;
     }
@@ -944,14 +931,14 @@ const UserProvider = ({ children }) => {
   /* Razor Pay */
   const createRazorpayOrder = async (data) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.RAZORPAY_CREATE_ORDER,data,
+      const response = await axios.post(Config.API_URL + Config.RAZORPAY_CREATE_ORDER, data,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-        
+
       //console.log("razor pay create order  : ", response);
       return response.data;
     }
@@ -961,14 +948,14 @@ const UserProvider = ({ children }) => {
   }
   const processPayment = async (data) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.RAZORPAY_PROCESS_PAYMENT,data,
+      const response = await axios.post(Config.API_URL + Config.RAZORPAY_PROCESS_PAYMENT, data,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-        
+
       //console.log("razor pay payment confirmed  : ", response);
       return response.data;
     }
@@ -976,42 +963,40 @@ const UserProvider = ({ children }) => {
       console.log("BOOKSHELF CONTEXT ERROR: ", error);
     }
   }
-  
-    const getPublishersById = async (id) => {
-    
+
+  const getPublishersById = async (id) => {
+
     //setPublisherId(0)
-    let pub_id=0;
-    if(id===undefined || id===0 || id==='0')
-    {
-      if(publisherId===0 || publisherId==='0')
-      {
-        pub_id=localStorage.getItem('publisher_id')
+    let pub_id = 0;
+    if (id === undefined || id === 0 || id === '0') {
+      if (publisherId === 0 || publisherId === '0') {
+        pub_id = localStorage.getItem('publisher_id')
       }
-      else{
-        pub_id=publisherId
+      else {
+        pub_id = publisherId
       }
-      
+
     }
-    else{
-      pub_id=id
+    else {
+      pub_id = id
     }
-    
+
     try {
       setActive(true)
-      const response = await axios.get(Config.API_URL + Config.GET_PUB_DETAILS+pub_id,
+      const response = await axios.get(Config.API_URL + Config.GET_PUB_DETAILS + pub_id,
         {
           headers: {
             'Content-Type': 'application/json',
           },
         })
-        
-        setPublisherData(response?.data?.output)
-        setPublisherId(response?.data?.output?.id)
-        localStorage.setItem('publisher_id',response?.data?.output?.id)
-        category_by_publisher(response?.data?.output?.id)
-        getNewArrivals(4,response?.data?.output?.id)
-        best_selling_books(4,response?.data?.output?.id)
-        setActive(false)
+
+      setPublisherData(response?.data?.output)
+      setPublisherId(response?.data?.output?.id)
+      localStorage.setItem('publisher_id', response?.data?.output?.id)
+      category_by_publisher(response?.data?.output?.id)
+      getNewArrivals(4, response?.data?.output?.id)
+      best_selling_books(4, response?.data?.output?.id)
+      setActive(false)
       console.log("GET ALL PUBLISHERS BY ID : ", response);
       return response;
     }
@@ -1040,15 +1025,15 @@ const UserProvider = ({ children }) => {
 
   const getCouponByPublisherId = async (data) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.GET_COUPON_BY_PUBLISHERID,data,
+      const response = await axios.post(Config.API_URL + Config.GET_COUPON_BY_PUBLISHERID, data,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-        
-      
+
+
       return response.data;
     }
     catch (error) {
@@ -1058,15 +1043,15 @@ const UserProvider = ({ children }) => {
 
   const sendEmail = async (data) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.NEWSLETTER,data,
+      const response = await axios.post(Config.API_URL + Config.NEWSLETTER, data,
         {
           headers: {
             'Content-Type': 'application/json',
             // 'Authorization': 'Bearer ' + authData
           },
         })
-        
-      
+
+
       return response.data;
     }
     catch (error) {
@@ -1076,14 +1061,14 @@ const UserProvider = ({ children }) => {
 
   const getBooksBySearchText = async (data) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.SEARCH_BOOKS,data,
+      const response = await axios.post(Config.API_URL + Config.SEARCH_BOOKS, data,
         {
           headers: {
             'Content-Type': 'application/json',
             // 'Authorization': 'Bearer ' + authData
           },
         })
-        
+
       //console.log("news letter details  : ", response);
       return response.data;
     }
@@ -1096,9 +1081,9 @@ const UserProvider = ({ children }) => {
 
   const addShippingAddress = async (formData) => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
-    
+
     try {
-      const response = await axios.post(Config.API_URL + Config.ADD_SHIPPING_ADDRESS , formData,
+      const response = await axios.post(Config.API_URL + Config.ADD_SHIPPING_ADDRESS, formData,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1128,7 +1113,7 @@ const UserProvider = ({ children }) => {
         })
       console.log("GET ALL shipping address : ", response);
       setShippingList(response.data.output)
-      
+
       return response;
     }
     catch (error) {
@@ -1164,7 +1149,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-        getAllShippingAddress();
+      getAllShippingAddress();
       console.log("EDIT SHIPPING RESPONSE : ", response);
       return response;
     }
@@ -1178,15 +1163,15 @@ const UserProvider = ({ children }) => {
     console.log("delShippingAddress token :", authData);
     try {
       const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
-      
+
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-        // setShippingList();
-        getAllShippingAddress();
+      // setShippingList();
+      getAllShippingAddress();
       console.log("DELETE SHIPPING RESPONSE : ", response);
       return response;
     }
@@ -1205,8 +1190,8 @@ const UserProvider = ({ children }) => {
           },
         })
       console.log("GET billing address : ", response.data);
-     
-      
+
+
       return response.data;
     }
     catch (error) {
@@ -1216,7 +1201,7 @@ const UserProvider = ({ children }) => {
 
   const editBillingAddress = async (args) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.EDIT_BILLING_ADDRESS,args,
+      const response = await axios.post(Config.API_URL + Config.EDIT_BILLING_ADDRESS, args,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1224,8 +1209,8 @@ const UserProvider = ({ children }) => {
           },
         })
       console.log("edit billing address : ", response.data);
-     
-      
+
+
       return response.data;
     }
     catch (error) {
@@ -1233,9 +1218,9 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const createAppOrder = async (buyNow,args) => {
+  const createAppOrder = async (buyNow, args) => {
     try {
-      const response = await axios.post(Config.API_URL +Config.ORDER_CREATE+ `?buynow=${buyNow}`,args ,
+      const response = await axios.post(Config.API_URL + Config.ORDER_CREATE + `?buynow=${buyNow}`, args,
 
         {
           headers: {
@@ -1245,7 +1230,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      
+
 
       return response.data
 
@@ -1255,7 +1240,7 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const selectShippingAddress = async(id) =>{
+  const selectShippingAddress = async (id) => {
     setSelectedShippingAddress(id)
     return id
   }
@@ -1324,12 +1309,12 @@ const UserProvider = ({ children }) => {
 
       }}
     >
-    <LoadingOverlay
-      active={isActive}
-      spinner
-      text='Loading your content...'
-    >
-      {children}
+      <LoadingOverlay
+        active={isActive}
+        spinner
+        text='Loading your content...'
+      >
+        {children}
       </LoadingOverlay>
 
     </UserContext.Provider>

@@ -1,7 +1,7 @@
 {
-    "API_URL" : "https://www.bookscentral.in/api/",
+    "API_URL_LOCAL" : "https://www.bookscentral.in/api/",
 
-    "API_URL_LOCAL" : "http://localhost:5000/",
+    "API_URL" : "http://localhost:5000/",
 
     "ALL_BOOK_CATEGORY" : "category/all",
     "ALL_Cateory":"category/get-parent-category",
@@ -25,7 +25,7 @@
     "CHANGE_BILLING_ADDRESS" : "user/profile/changebillingaddress",
     "CHANGE_PASSWORD" : "user/profile/changepassword",
     "PLACE_ORDER":"user/placeorder",
-    "MY_ORDERS":"user/order",
+    "MY_ORDERS":"order/userOrders",
     "COUPON_CODE":"user/applycoupon",
     "GET_COUPON_BY_PUBLISHERID":"coupon/all",
     "UPLOAD_URL":"uploads/profileImages/",

@@ -36,32 +36,32 @@ const OrderPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        // getMyOrders()
+        getMyOrders()
     }, [])
 
-   const calculateTotalCGST =(invoices) =>{
-    let totalCGST = 0;
-    invoices.map((invoice) => {
-        totalCGST += invoice.cgst
-    })
-    return totalCGST
-   }
-   const calculateTotalSGST =(invoices) =>{
-    let totalSGST = 0;
-    invoices.map((invoice) => {
-        totalSGST += invoice.sgst
-    })
-    return totalSGST
-   }
-   const calculateTotalIGST =(invoices) =>{
-    let totalIGST = 0;
-    invoices.map((invoice) => {
-        totalIGST += invoice.igst
-    })
-    return totalIGST
-   }
-   const generateInvoiceHTML = (invoice) => {
-    return `
+    const calculateTotalCGST = (invoices) => {
+        let totalCGST = 0;
+        invoices.map((invoice) => {
+            totalCGST += invoice.cgst
+        })
+        return totalCGST
+    }
+    const calculateTotalSGST = (invoices) => {
+        let totalSGST = 0;
+        invoices.map((invoice) => {
+            totalSGST += invoice.sgst
+        })
+        return totalSGST
+    }
+    const calculateTotalIGST = (invoices) => {
+        let totalIGST = 0;
+        invoices.map((invoice) => {
+            totalIGST += invoice.igst
+        })
+        return totalIGST
+    }
+    const generateInvoiceHTML = (invoice) => {
+        return `
     <html>
         <body >
             <table width="100%" style="border:none;font-family:verdana;font-size:9px;">
@@ -133,16 +133,16 @@ const OrderPage = () => {
                                 <th style="text-align:left;">Base Amount</th>
                                 <th style="text-align:left;">Discount</th>
                                 ${invoice.userstateid == invoice.companystateid ?
-        `<th style="text-align:left;">CGST</th>
+                `<th style="text-align:left;">CGST</th>
                                      <th style="text-align:left;">SGST</th>` :
-        `<th style="text-align:left;">IGST</th>`
-      }
+                `<th style="text-align:left;">IGST</th>`
+            }
                                 <th style="text-align:left;">Total</th>
                             </tr>
                             </thead>
                             <tbody>
                             ${invoice.invoiceitems.map((invoiceItem, index) => (
-        `<tr key=${index} style="border-bottom:1px solid #333;">
+                `<tr key=${index} style="border-bottom:1px solid #333;">
                                         <td style="text-align:left;">
                                         ${invoiceItem.booktitle}<br/>
                                             <small>${invoiceItem.isbn13}</small>
@@ -152,25 +152,25 @@ const OrderPage = () => {
                                         <td style="text-align:left;"> ${invoiceItem.amount}</td>
                                         <td style="text-align:left;"> ${invoiceItem.discount}</td>
                                         ${invoice.userstateid == invoice.companystateid ?
-          `<td style="text-align:left;">${invoiceItem.cgst}</td>
+                    `<td style="text-align:left;">${invoiceItem.cgst}</td>
                                             <td style="text-align:left;">${invoiceItem.sgst}</td>` :
-          `<td style="text-align:left;">${invoiceItem.igst}</td>`
-        }
+                    `<td style="text-align:left;">${invoiceItem.igst}</td>`
+                }
                                         <td style="text-align:left;">${invoiceItem.linetotal}</td>
                                     </tr>`
-      ))}
+            ))}
                             </tbody>
                             <tfoot style="border-top:1px solid #333;">
                                 <tr style="border-bottom:1px solid #333;">
                                
                                     ${invoice.userstateid == invoice.companystateid ?
-        `
+                `
                                       <td colspan="5" style="text-align:left;font-weight:bold;">Total</td>
                                       <td style="text-align:left;">${calculateTotalCGST(invoice.invoiceitems)}</td>
                                        <td style="text-align:left;">${calculateTotalSGST(invoice.invoiceitems)}</td>` :
-        `<td colspan="5" style="text-align:left;font-weight:bold;">Total</td>
+                `<td colspan="5" style="text-align:left;font-weight:bold;">Total</td>
                                       <td style="text-align:left;">${calculateTotalIGST(invoice.invoiceitems)}</td>`
-      }
+            }
                                     <td style="text-align:left; font-weight:bold;"> ${invoice.total}</td>
                                 </tr>
                             </tfoot>
@@ -180,7 +180,7 @@ const OrderPage = () => {
             </table>
         </body>
     </html>`
-  }
+    }
     const getInvoice = async (id) => {
         const resp = await getInvoiceById(id)
         console.log("Resp= ", resp)
@@ -190,79 +190,111 @@ const OrderPage = () => {
 
         const width = pdf.internal.pageSize.getWidth();
         pdf.html(generateInvoiceHTML(resp.output), {
-                width: width,
-                windowWidth: 794,
-                // margin: 'auto',
-                margin: [10, 10, 10, 10],
-                // html2canvas: { scale: 0.57 },
-            })
+            width: width,
+            windowWidth: 794,
+            // margin: 'auto',
+            margin: [10, 10, 10, 10],
+            // html2canvas: { scale: 0.57 },
+        })
             .then(() => {
                 pdf.addImage(img, 'PNG', 10, 750, 150, 50);
-                pdf.save('invoice_'+resp.output.orderno+'.pdf');
+                pdf.save('invoice_' + resp.output.orderno + '.pdf');
             });
         // pdf.html(generateInvoiceHTML(), 10, 10)
         // pdf.save("test.pdf")
 
     }
 
-    // const getMyOrders = async () => {
-    //     let myOrdersResponse = await myorders(1, 10)
-    //     if (myOrdersResponse.statuscode === "0") {
-    //         let tempArray = myOrdersResponse.output.books
-    //         // console.log("tempArray= ",tempArray)
-    //         SetOrders(tempArray)
+    const getMyOrders = async () => {
+        let myOrdersResponse = await myorders(1, 10)
+        console.log("resp from order page", myOrdersResponse)
+        if (myOrdersResponse.statuscode === "0") {
+            let tempArray = myOrdersResponse.output.orders
+            console.log("tempArray from order= ", tempArray)
+            SetOrders(tempArray)
 
-    //     }
-    //     console.log("myOrderDetails= ", myOrdersResponse)
-    // }
+        }
+        console.log("myOrderDetails= ", myOrdersResponse)
+    }
     return (
         <div className="main-container">
             <div className="container">
                 <TopBar />
-                <NavBarSouthsore/>
+                <NavBarSouthsore />
                 <ProfileTab />
             </div>
-            
-            <Whatsapp/>
-            {/* <div className="order_main_bg pt-3">
+
+            <Whatsapp />
+            <div className="order_main_bg pt-3">
                 <div className="d-flex justify-content-between py-3">
                     <div className="d-flex align-items-center orderHeaderText">My Orders</div>
 
                 </div>
 
                 {orders.map((book, index) => (
-                    <div className="light_border_top d-flex justify-content-between order_card py-4" key={index}>
-                        <div className="d-flex justify-content-start">
-                            <div className="d-flex justify-content-start book_section rounded-4">
-                                <div className="d-flex align-items-center px-3">
-                                    <img 
-                                        src={book.image === null || book.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.image + '?d=' + new Date()}
-                                        width={120} height={170}
-                                    />
-                                    
+                    <div
+                        key={index}
+                    >
+                        <div className=" d-flex justify-content-between order_card light_border_top py-4"
+                            // key={index}
+                        >
+                            <div className="d-flex justify-content-start">
+                                <div className="d-flex justify-content-start book_section rounded-4">
+                                    <div className="d-flex align-items-center px-3">
+                                        <img
+                                            // src={book.image === null || book.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.image + '?d=' + new Date()}
+                                            src={dummy}
+                                            width={120} height={170}
+                                        />
+
+                                    </div>
+                                </div>
+                                <div className="d-flex flex-column ms-4">
+                                    <div className="op_head mb-2 mt-1">
+                                        {/* {book.title} */}
+                                        Book Name
+                                    </div>
+                                    <div className="op_auth">Author: <span>
+                                        Author Name
+                                        {/* {book.authors} */}
+                                    </span></div>
+                                    <div className="op_auth mb-5">Publisher: <span>
+                                        {book.publisher}
+                                        {/* Publisher Name */}
+                                    </span></div>
+                                    <div className="op_price">Price: <span className="ms-2">₹
+                                        300
+                                        {/* {book.price} */}
+                                    </span></div>
                                 </div>
                             </div>
-                            <div className="d-flex flex-column ms-4">
-                                <div className="op_head mb-2 mt-1">{book.title}</div>
-                                <div className="op_auth">Author: <span>{book.authors}</span></div>
-                                <div className="op_auth mb-5">Publisher: <span>{book.publisher}</span></div>
-                                <div className="op_price">Price: <span className="ms-2">₹{book.price}</span></div>
+                            <div className="d-flex order_actions">
+                                <div className="op_ono">Order No: <span>
+                                    {/* {book.orderno} */}
+                                    ORD/24-25/00000003
+                                </span></div>
+                                <div className="op_pay_div">
+                                    <div className="op_paystat me-4">Payment Status: <span>Complete</span></div>
+                                    <div><button className="btn btn-outline-primary rounded-pill op_btn"
+                                    // onClick={() => { getInvoice(book.invoiceid) }}
+                                    >Download Invoice</button></div>
+                                </div>
                             </div>
+
+
                         </div>
-                        <div className="d-flex order_actions">
-                            <div className="op_ono">Order No: <span>{book.orderno}</span></div>
-                            <div className="op_pay_div">
-                                <div className="op_paystat me-4">Payment Status: <span>Complete</span></div>
-                                <div><button className="btn btn-outline-primary rounded-pill op_btn" onClick={() => { getInvoice(book.invoiceid) }}>Download Invoice</button></div>
-                            </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-secondary mb-3" type="button">Cancel</button>
                         </div>
+
+
                     </div>
-                )
 
-                )}
+                ))}
 
-            </div> */}
-            <div className="order_main_bg pt-3"><p>Work in Progress</p></div>
+
+            </div>
+            {/* <div className="order_main_bg pt-3"><p>Work in Progress</p></div> */}
             <FooterSouthsore />
         </div>
     );
