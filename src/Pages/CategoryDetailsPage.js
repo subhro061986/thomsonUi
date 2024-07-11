@@ -476,12 +476,14 @@ const CategoryDetailsPage = () => {
             setFilterPublisherIds(tempPub)
         }
         else {
-
+            console.log("cat tempcatt", tempCat)
             if (e.target.checked === true) {
-                let chkind = tempPub.findIndex((item, i) => {
+                let chkind_cat = tempPub.findIndex((item, i) => {
+                    console.log("cat item", item)
                     return item === values.id
                 });
-                if (chkind < 0) {
+                console.log("cat chkind", chkind_cat)
+                if (chkind_cat < 0) {
                     tempCat.push(values.id)
                 }
                 else {
