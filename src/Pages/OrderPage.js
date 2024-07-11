@@ -236,7 +236,7 @@ const OrderPage = () => {
                         key={index}
                     >
                         <div className=" d-flex justify-content-between order_card light_border_top py-4"
-                            // key={index}
+                        // key={index}
                         >
                             <div className="d-flex justify-content-start">
                                 <div className="d-flex justify-content-start book_section rounded-4">
@@ -279,13 +279,27 @@ const OrderPage = () => {
                                     // onClick={() => { getInvoice(book.invoiceid) }}
                                     >Download Invoice</button></div>
                                 </div>
+                                <div className="d-flex align-item-center" style={{ marginTop: '8%' }}>
+                                    {book.awbno !== "" ? (
+                                        <div className="op_paystat me-4">AWB No.: <span>123456df</span></div>) : (
+
+                                        <div><button className="btn btn-outline-secondary rounded-pill op_btn"
+                                        // onClick={() => { getInvoice(book.invoiceid) }}
+                                        >Cancel Order</button></div>
+                                    )}
+                                    {book.status === "DELIVERED" &&
+                                        <div><button className="btn btn-outline-info rounded-pill op_btn ms-2"
+                                        // onClick={() => { getInvoice(book.invoiceid) }}
+                                        >Return</button></div>
+                                    }
+                                </div>
                             </div>
 
 
                         </div>
-                        <div class="d-grid gap-2">
+                        {/* <div class="d-grid gap-2">
                             <button class="btn btn-outline-secondary mb-3" type="button">Cancel</button>
-                        </div>
+                        </div> */}
 
 
                     </div>

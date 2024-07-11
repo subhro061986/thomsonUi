@@ -106,7 +106,7 @@ const ApproveOrRejectBook = () => {
     <>
       <SideMenu />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header title="Approval / Reject" />
+        <Header title="Book Details" />
         {
           bookResponse.status === "Pending" && 
           <div className="bg-white p-3 m-3 rounded-2 d-flex justify-content-start align-items-center box_1">
