@@ -38,7 +38,7 @@
     "GET_PUB_DETAILS" : "publisher/",
     "RAZORPAY_CREATE_ORDER": "order/razorpay/order",
     "RAZORPAY_PROCESS_PAYMENT": "order/razorpay/process-payment",
-    "INVOICE_DETAILS": "user/customer-invoice-details",
+    "INVOICE_DETAILS": "order/invoice",
     "NEWSLETTER": "newsletter",
     "FORGOT_PASSWORD" : "account/reset-password-mail",
 
@@ -58,6 +58,7 @@
     "GET_BILLING_ADDRESS":"billingaddress",
     "EDIT_BILLING_ADDRESS":"billingaddress/edit",
 
-    "ORDER_CREATE":"order/create"
+    "ORDER_CREATE":"order/create",
+    "CANCEL_ORDER":"order/cancel"
 }
   

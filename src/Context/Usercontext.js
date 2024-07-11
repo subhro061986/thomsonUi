@@ -63,7 +63,7 @@ const UserProvider = ({ children }) => {
       addShippingAddress();
       getSippingAddressById();
       delShippingAddress();
-      myorders();
+      myorders(1,10);
 
       // localstorage_price_items_signin()
       // get_wish_books_id()
@@ -1239,6 +1239,27 @@ const UserProvider = ({ children }) => {
       console.log("place_order_error : ", error)
     }
   }
+  const cancelOrder = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.CANCEL_ORDER , args,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("place_order_error : ", error)
+    }
+  }
 
   const selectShippingAddress = async (id) => {
     setSelectedShippingAddress(id)
@@ -1304,7 +1325,8 @@ const UserProvider = ({ children }) => {
         editBillingAddress,
         createAppOrder,
         selectShippingAddress,
-        selectedShippingAddress
+        selectedShippingAddress,
+        cancelOrder
 
 
       }}

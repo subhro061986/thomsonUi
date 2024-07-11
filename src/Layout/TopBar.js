@@ -54,7 +54,7 @@ const TopBar = () => {
   }
   const goToProfile = () => {
     if (wishlistshow === true) {
-      navigate('/mybookshelf', { state: { fromHome: false } })
+      navigate('/orderpage', { state: { fromHome: false } })
     }
     else {
       navigate('/login')
