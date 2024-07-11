@@ -1,7 +1,7 @@
 {
-    "API_URL" : "https://www.bookscentral.in/api/",
+    "API_URL_LOCAL" : "https://www.bookscentral.in/api/",
 
-    "API_URL_LOCAL" : "http://localhost:5000/",
+    "API_URL" : "http://localhost:5000/",
     "ALL_BOOK_CATEGORY" : "category/all",
     "GET_CATEGORY_BY_ID" : "category",
     "ADD_CATEGORY" : "category/add",
@@ -12,7 +12,7 @@
     "SIGN_IN_API" : "account/signup",
     "LOGIN_API" : "account/login",
     "BOOK_LIST_API" : "book",
-    "MANAGE_ORDER_API" : "user/order?",
+    "MANAGE_ORDER_API" : "order",
     "GET_PUBLISHER_ORDER" : "user/order?",
     "ADD_PUBLISHER_API_ADMIN" : "publisher/add",
     "ADD_PUBLISHER_USER" : "publisher/add-publisher-user",

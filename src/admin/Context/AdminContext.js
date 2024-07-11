@@ -45,7 +45,7 @@ const AdminProvider = ({ children }) => {
         getAllPublishers();
         get_all_countries();
         //   // getAllCustomers_admin();
-        //   // getManageOrder();
+          getManageOrder();
         getAllLanguage();
         getAllCurrency();
 
@@ -246,14 +246,14 @@ const AdminProvider = ({ children }) => {
 
   const getManageOrder = async (currentPage, recordPerPage) => {
     try {
-      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API + "currentPage=" + currentPage + "&recordPerPage=" + recordPerPage,
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API + "?currentPage=" + currentPage + "&recordPerPage=" + recordPerPage,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
-      // console.log("GET MANAGE ORDER: ", response.data);
+      console.log("GET MANAGE ORDER: ", response);
       setManageOrder(response.data);
       return response;
     }

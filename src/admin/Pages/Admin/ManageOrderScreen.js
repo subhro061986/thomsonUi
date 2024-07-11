@@ -13,7 +13,7 @@ import { useAuth } from "../../Context/AuthContext";
 
 const ManageOrderScreen = () => {
 
-    const {getManageOrder}= AdminProfile();
+    const { getManageOrder } = AdminProfile();
     const navigate = useNavigate();
 
     const [orderDescriptionModal, setOrderDescriptionModal] = useState(false)
@@ -21,35 +21,35 @@ const ManageOrderScreen = () => {
 
     useEffect(() => {
         all_order()
-    },[])
+    }, [])
 
     const all_order = async () => {
         let currPage = 1
-        let recPerPage =10
-        const resp = await getManageOrder(currPage,recPerPage)
+        let recPerPage = 10
+        const resp = await getManageOrder(currPage, recPerPage)
         // console.log("all_order_resp_in_if ",resp)
-       
-        if (resp === undefined || resp === null ){
-          setAllOrders([])
-        }
-        else{
-         
-          console.log("all_order_resp ", resp)
-          if (resp.data.statuscode === "0" && resp.data.output?.length > 0){
-            setAllOrders(resp.data.output)
-            console.log("all_order_resp_obtained ", resp.data.output)
-          }
-          else{
-            console.log("book array is empty")
-            setAllOrders([])
-          }
-        }
-    
-      }
 
-    const openOrderDescriptionModal = () => {
+        if (resp === undefined || resp === null) {
+            setAllOrders([])
+        }
+        else {
+
+            console.log("all_order_resp ", resp)
+            if (resp.data.statuscode === "0" && resp.data.output.orders?.length > 0) {
+                setAllOrders(resp.data.output.orders)
+                console.log("all_order_resp_obtained ", resp.data.output.orders)
+            }
+            else {
+                console.log("book array is empty")
+                setAllOrders([])
+            }
+        }
+
+    }
+
+    const openOrderDescriptionModal = (id) => {
         // setOrderDescriptionModal(true)
-        navigate("/vieworderdetails");
+        navigate("/admin/vieworderdetails", { state: { orderid: id } });
     }
 
     const closeOrderDescriptionModal = () => {
@@ -61,7 +61,7 @@ const ManageOrderScreen = () => {
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <Header title="Manage Orders" />
-                <div className="bg-white p-3 m-3 rounded-2">
+                {/* <div className="bg-white p-3 m-3 rounded-2">
                     <select name="order-filter" id="order-filter" className="form-select order-filter" aria-label="Filter orders by">
                         <option selected>Filter orders by</option>
                         <option value="All">All Orders</option>
@@ -69,7 +69,7 @@ const ManageOrderScreen = () => {
                         <option value="Failed">Failed Orders</option>
                         <option value="Publisher">Publisher</option>
                     </select>
-                </div>
+                </div> */}
                 <div className="m-3">
                     <div className="bg-white p-3 rounded-2">
                         {
@@ -84,29 +84,29 @@ const ManageOrderScreen = () => {
                                             <th>Customer</th>
                                             {/* <th>Publisher</th> */}
                                             <th>Amount</th>
-                                            
+
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-center">
-                                         
+
                                         {allOrders.map((data, index) => (
                                             <tr key={index} className="custom-table-row">
-                                                <td className="all_col">1</td>
-                                                <td className="all_col">1 Nov 2023</td>
-                                                <td className="all_col">John Doe</td>
+                                                <td className="all_col">{data.orderno}</td>
+                                                <td className="all_col">{data.orderdate}</td>
+                                                <td className="all_col">{data.customer}</td>
                                                 {/* <td className="all_col">Modern Publishing</td> */}
-                                                <td className="all_col">653</td>
-                                                
+                                                <td className="all_col">{data.totalamount}</td>
+
                                                 <td className="inact_col">
-                                                    Failed
+                                                    {data.status}
                                                 </td>
                                                 <td>
                                                     <SVG src={eye}
                                                         // style={{ fill: '#000', marginRight: 10 }}
                                                         height={20} width={20}
-                                                        onClick={openOrderDescriptionModal}
+                                                        onClick={()=>openOrderDescriptionModal(data.id)}
                                                     />
                                                 </td>
                                             </tr>

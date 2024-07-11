@@ -70,6 +70,8 @@ const CategoryDetailsPage = () => {
     const [minRange, setMinRange] = useState(0);
     const [maxRange, setMaxRange] = useState(500);
     const [range, setRange] = useState([0, 0]);
+    const [filterPublisherIds, setFilterPublisherIds] = useState([])
+    const [filterCategoryIds, setFilterCategoryIds] = useState([])
 
 
 
@@ -128,8 +130,33 @@ const CategoryDetailsPage = () => {
         console.log("hello location.state", location.state)
         console.log("hello books", location.state.category_id)
         console.log("hello books pub", location.state.publisher_id)
+        let pubidarr = filterPublisherIds
+        console.log("pubidarr in useeffect", pubidarr)
+        if (location.state.publisher_id === undefined) {
+            pubidarr = []
+        }
+        else {
+            if (pubidarr.length === 0) {
+                pubidarr.push(parseInt(location.state.publisher_id))
+            }
+        }
+        console.log("GET PUB ID ARRAY", pubidarr)
+        setFilterPublisherIds(pubidarr)
+
+        let catidarr = filterCategoryIds
+        console.log("catidarr in useeffect", catidarr)
+        if (location.state.category_id === undefined) {
+            catidarr = []
+        }
+        else {
+            if (catidarr.length === 0) {
+                catidarr.push(parseInt(location.state.category_id))
+            }
+        }
+        console.log("GET cat ID ARRAY", catidarr)
+        setFilterCategoryIds(catidarr)
         // book_category()
-        books_by_category(location.state.category_id, location.state.publisher_id)
+        books_by_category(pubidarr, catidarr)
         // ** For direct navigation to category details page using url
 
         //book_category_by_publisher(1)
@@ -367,14 +394,18 @@ const CategoryDetailsPage = () => {
         navigate('/productdetails', { state: { BOOK_ID: book_id } })
     }
 
-    const books_by_category = async (cat_id, pub_id) => {
+    const books_by_category = async (pub_id, cat_id) => {
         console.log("GET Category Id BY CATEGORY", cat_id)
         console.log("GET publisher Id BY publisher", pub_id)
-        // let 
+
         let json = {
-            categoryid: cat_id,
-            publisherid: pub_id
+            "filterCriteria": {
+
+                "categoryids": cat_id,
+                "publisherids": pub_id
+            }
         }
+
         console.log("GET json", json)
         let current_page_no = 1
         let records_per_page = 6
@@ -388,8 +419,9 @@ const CategoryDetailsPage = () => {
             setRawbooksdata([])
         }
         else {
+            setTempBooks(resp?.output?.books)
             if (resp?.output?.books?.length > 0) {
-                setTempBooks(resp?.output?.books)
+                
                 setBooks(resp?.output?.books)
                 setAllBooks(resp?.output?.books)
                 setRawbooksdata(resp?.output?.books)
@@ -405,6 +437,8 @@ const CategoryDetailsPage = () => {
             }
         }
 
+
+
         // const prices = tempBooks.map(data => parseFloat(data.price.replace('$ ', '')));
         // const min = Math.min(...prices);
         // const max = Math.max(...prices);
@@ -413,6 +447,61 @@ const CategoryDetailsPage = () => {
         // setMaxPrice(max);
         // setRange([min, max]);
         // }
+    }
+
+    const selectFilter = async (e, values, index, type) => {
+        let tempPub = filterPublisherIds
+        let tempCat = filterCategoryIds
+        if (type === "publisher") {
+
+            if (e.target.checked === true) {
+                let chkind = tempPub.findIndex((item, i) => {
+                    return item === values.id
+                });
+                if (chkind < 0) {
+                    tempPub.push(values.id)
+                }
+                else {
+                    console.log("pub id already exist")
+                }
+            }
+            else {
+                let ind = tempPub.findIndex((item, i) => {
+                    return item === values.id
+                });
+                // console.log("ind",ind)
+                tempPub.splice(ind, 1)
+            }
+            // console.log("temppub",tempPub)
+            setFilterPublisherIds(tempPub)
+        }
+        else {
+            console.log("cat tempcatt", tempCat)
+            if (e.target.checked === true) {
+                let chkind_cat = tempPub.findIndex((item, i) => {
+                    console.log("cat item", item)
+                    return item === values.id
+                });
+                console.log("cat chkind", chkind_cat)
+                if (chkind_cat < 0) {
+                    tempCat.push(values.id)
+                }
+                else {
+                    console.log("cat id already exist")
+                }
+            }
+            else {
+                let ind = tempCat.findIndex((item, i) => {
+                    return item === values.id
+                });
+                // console.log("ind",ind)
+                tempCat.splice(ind, 1)
+            }
+            console.log("tempCat", tempCat)
+            setFilterCategoryIds(tempCat)
+
+        }
+        books_by_category(tempPub, tempCat)
     }
 
     const rangefunction = (e) => {
@@ -691,7 +780,9 @@ const CategoryDetailsPage = () => {
                                             allActivePublisher.map((data, index) => (
                                                 data.isactive === 1 && (
                                                     <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
-                                                        <input type="checkbox" className="me-2" value={data.id} />
+                                                        <input type="checkbox" className="me-2" value={data.id}
+                                                            onClick={(e) => selectFilter(e, data, index, 'publisher')}
+                                                        />
                                                         <label>{data.name}</label>
                                                     </li>
 
@@ -706,7 +797,9 @@ const CategoryDetailsPage = () => {
                                             allCategoryList.map((data, index) => (
                                                 data.isactive === 1 && (
                                                     <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
-                                                        <input type="checkbox" className="me-2" value={data.id} />
+                                                        <input type="checkbox" className="me-2" value={data.id}
+                                                            onClick={(e) => selectFilter(e, data, index, 'category')}
+                                                        />
                                                         <label>{data.name}</label>
                                                     </li>
                                                 )
@@ -743,12 +836,12 @@ const CategoryDetailsPage = () => {
                                     // value={[0,500]}
                                     onInput={(e) => rangefunction(e)}
                                     // className="range-slider-yellow"
-                                    style={{accentColor: '#000'}}
+                                    style={{ accentColor: '#000' }}
                                 />
                                 <div className="mt-4 d-flex justify-content-between align-items-center">
-                                    <input type="text" value={minRange} className="form-control" readOnly={true}/>
-                                     <span className="px-2">to</span> 
-                                     <input type="text" value={maxRange} className="form-control" readOnly={true}/>
+                                    <input type="text" value={minRange} className="form-control" readOnly={true} />
+                                    <span className="px-2">to</span>
+                                    <input type="text" value={maxRange} className="form-control" readOnly={true} />
                                 </div>
                                 {/* <p className="mt-4">{minRange} to {maxRange}</p> */}
 
@@ -790,7 +883,7 @@ const CategoryDetailsPage = () => {
 
                                             </div>
                                             <div className="category_head_search_results">
-                                                {noofbooks} Results found
+                                                {tempBooks.length} Results found
                                             </div>
                                         </div>
                                         <div className="filter pos_rel d-flex align-items-center margin_tp">
@@ -846,7 +939,7 @@ const CategoryDetailsPage = () => {
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{width:'30%',border:'1px solid #AFB7BD',marginBottom:'10px', borderRadius:'20px'}} onClick={() => { gotoDetails(data.id) }}>
+                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{ width: '30%', border: '1px solid #AFB7BD', marginBottom: '10px', borderRadius: '20px' }} onClick={() => { gotoDetails(data.id) }}>
                                                 <div className="d-flex flex-column">
                                                     <div className="d-flex justify-content-end mt-1 me-1" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
@@ -862,7 +955,7 @@ const CategoryDetailsPage = () => {
                                                         {/* <img src={data.image !== null ? data.image : dummy}
                                                         width={120} height={170} /> */}
                                                         <img src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
-                                                       
+
                                                             width={120} height={170}
                                                             loading="lazy"
                                                         />
@@ -881,12 +974,12 @@ const CategoryDetailsPage = () => {
                                                     </div>
                                                     <div className="d-flex justify-content-center mb-3">
 
-                                                    <button type="button" style={{ width: '70%' }}
-                                                        className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
+                                                        <button type="button" style={{ width: '70%' }}
+                                                            className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
                                                         // onClick={() => add_to_cart(bookdetail.id, false)}
                                                         >
-                                                        Add to Cart
-                                                    </button>
+                                                            Add to Cart
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
