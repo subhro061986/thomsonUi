@@ -37,7 +37,7 @@ const CategoryDetailsPage = () => {
 
 
     const { getBook_by_category, allCategoryList, allActivePublisher, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
-    const { wishlistshow } = useAuth()
+    const { wishlistshow,add_book_to_storage,authData,uuid } = useAuth()
 
     const navigate = useNavigate();
     const location = useLocation()
@@ -612,6 +612,48 @@ const CategoryDetailsPage = () => {
 
     }
 
+    const add_to_cart = async (bookdetail, toCheckout) => {
+        console.log('bookDetails', bookdetail)
+        let json_data = {
+            title: bookdetail.title,
+            authors: bookdetail.authors,
+            price: bookdetail.price,
+            publisher: bookdetail.publisher,
+            items_no: 1,
+            img: bookdetail.img,
+            category: bookdetail.category,
+            publisherid: bookdetail.publisherid,
+            bookid: bookdetail.id,
+            deviceid: uuid,
+            quantity: 1
+        }
+
+        // before login
+
+        if (authData === '' || authData === null || authData === undefined) {
+
+            json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
+            json_data["amount"] = json_data["price"]
+            console.log("json data= ", json_data)
+            const resp = await add_book_to_storage(json_data)
+            // for buy now
+            if (toCheckout) {
+                alert("Please Login to Buy this book!")
+            }
+            // for add to cart
+            else {
+                alert(resp.message);
+            }
+        }
+
+        // after login
+        else {
+
+            const resp = await add_book_to_storage(json_data)
+            alert(resp.message)
+        }
+    }
+
 
     return (
         <>
@@ -909,8 +951,8 @@ const CategoryDetailsPage = () => {
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{ width: '30%', border: '1px solid #AFB7BD', marginBottom: '10px', borderRadius: '20px' }} onClick={() => { gotoDetails(data.id) }}>
-                                                <div className="d-flex flex-column">
+                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{ width: '30%', border: '1px solid #AFB7BD', marginBottom: '10px', borderRadius: '20px' }} >
+                                                <div className="d-flex flex-column" onClick={() => { gotoDetails(data.id) }}>
                                                     <div className="d-flex justify-content-end mt-1 me-1" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
                                                             data.isFavourite === 1 ? (<img src={wishlistedicon} width={27} height={27} />)
@@ -939,19 +981,20 @@ const CategoryDetailsPage = () => {
                                                     </div>
                                                     <div className="d-flex align-items-center justify-content-center mb-3">
 
-                                                        <div className="  d-flex  price_style ">{data.price} &nbsp;</div>
+                                                        <div className="  d-flex  price_style ">{data.currency+ ' ' + data.price} &nbsp;</div>
                                                         {/* <div className="  d-flex  price-cutText ">&#8377;298</div> */}
                                                     </div>
+                                                </div>
                                                     <div className="d-flex justify-content-center mb-3">
 
                                                         <button type="button" style={{ width: '70%' }}
                                                             className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
-                                                        // onClick={() => add_to_cart(bookdetail.id, false)}
+                                                        onClick={() => add_to_cart(data, false)}
+
                                                         >
                                                             Add to Cart
                                                         </button>
                                                     </div>
-                                                </div>
                                             </div>
 
                                             // )

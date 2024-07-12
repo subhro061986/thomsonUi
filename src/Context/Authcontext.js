@@ -322,7 +322,7 @@ const AuthProvider = ({ children }) => {
 
           })
 
-        // console.log("get_cart_items : ", response.data);
+        
 
         let cd = response.data.output
         cd.map((item, index) => {

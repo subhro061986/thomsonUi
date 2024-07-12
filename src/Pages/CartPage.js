@@ -272,7 +272,9 @@ const CartPage = () => {
             <div className="container">
                 <TopBar />
                 <NavBarSouthsore />
+                {authData !== "" &&
                 <ProfileTab />
+                }
                 {/* {authData === null || authData === undefined || authData === "" ?(
                     <NavBarSouthsore />
                 ) : (<ProfileTab/>)} */}
@@ -298,7 +300,7 @@ const CartPage = () => {
 
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button"
-                                        className="btn btn-secondary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={() => { navigate('/') }}
                                         style={{ width: '20%' }}
                                     >
