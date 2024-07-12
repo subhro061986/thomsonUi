@@ -152,16 +152,7 @@ const ProductDetailsPage = () => {
     }
 
     const default_img = async (pub_obj) => {
-        // let default_image = img_arr?.filter((val) => {
-        //     return (val.isdefault === true)
 
-        // })
-        // setDefaultimg(default_image)
-
-        // let non_default_image = img_arr?.filter((val) => {
-        //     return (val.isdefault !== true)
-        // })
-        // setNondefaultimg(non_default_image)
         let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.img + '?d=' + new Date();
         let backCover = image_path + pub_obj.publisherid + '/' + pub_obj.back_cover + '?d=' + new Date();
         console.log("PUB OBJ FC IMAGE : ", frontCover);
@@ -177,170 +168,7 @@ const ProductDetailsPage = () => {
         console.log("img_data :", img_data);
         // console.log("path_img_data :", path_img_data);
         setDefaultimg(img_data)
-
-        // if(book === front_cover){
-        //     setDefaultimg(img_data)
-        // }
-        // else{
-        //     setDefaultimg(front_cover)
-        // }
     }
-
-    // let basket = []
-
-    // const add_to_cart = async (bookid, toCheckout) => {
-
-    //     console.log("Product_det_wishlistshow_bool ", wishlistshow)
-
-    //     if (wishlistshow === false) {
-    //         console.log("added to cart")
-
-
-    //         addto_cart(bookdetail)
-    //         if (toCheckout) {
-    //             navigate("/login")
-    //         }
-    //         else {
-
-    //             toast.success("Item Added to Cart", {
-    //                 position: "bottom-center",
-    //                 autoClose: 2000,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //                 draggable: true,
-    //                 closeButton: false,
-    //                 theme: "dark",
-    //             });
-    //         }
-    //         // navigation("/cartpage")
-
-
-    //     }
-    //     else {
-    //         const get_json =
-    //         {
-    //             deviceid: uuid
-    //             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" 
-    //         }
-
-    //         const resp = await cart_items(get_json)
-
-    //         console.log("get_json ", get_json)
-
-    //         let book_exist_arr = resp.output.filter((val) => {
-    //             return (
-    //                 val.id === bookid
-    //             )
-    //         })
-
-
-
-    //         if (book_exist_arr.length === 0) {
-
-    //             add_single(bookid)
-
-    //             toast.success("Item Added to Cart", {
-    //                 position: "bottom-center",
-    //                 autoClose: 2000,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //                 draggable: true,
-    //                 closeButton: false,
-    //                 theme: "dark",
-    //             });
-
-    //         }
-    //         else {
-
-    //             if (toCheckout) {
-
-    //                 // remove book from cart
-    //                 Remove_Cart_Item(bookid)
-
-    //                 // add book again to the cart such that it is the last item added
-    //                 add_single(bookid)
-
-    //             }
-    //             else {
-
-    //                 console.log("The Book already exists in the cart")
-    //                 toast.info("Book Already Added", {
-    //                     position: "top-center",
-    //                     autoClose: 3000,
-    //                     hideProgressBar: true,
-    //                     closeOnClick: true,
-    //                     pauseOnHover: true,
-    //                     draggable: true,
-    //                     closeButton: false,
-    //                     // theme: "light",
-    //                     style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
-    //                 });
-    //             }
-    //         }
-
-    //         if (toCheckout) {
-    //             navigate("/billingaddress", { state: { buynow: 1 } })
-    //         }
-
-    //     }
-
-    // }
-
-    // const add_single = async (bookid) => {
-    //     const json = {
-    //         "deviceid": uuid,
-    //         // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" , 
-    //         "bookid": bookid
-    //     }
-    //     const resp = await add_single_item(json)
-    //     console.log("single_item_added ", resp.message)
-    // }
-
-    // const Remove_Cart_Item = async (book_id) => {
-    //     console.log("remove", book_id)
-
-    //     if (wishlistshow === true) {
-    //         let remove_json = {
-    //             deviceid: uuid,
-    //             // "9E7C1A59-7473-405F-81A7-11E25C70F0AC",
-    //             bookid: book_id
-    //         }
-
-    //         console.log("Remove_json ", remove_json)
-
-    //         const resp = await remove_item(remove_json)
-
-    //     }
-    //     else {
-    //         let cartItems=JSON.parse(localStorage.getItem("cart_data")) || []
-
-    //         let is_book_exists = cartItems.find((val) => val.my_book_id === book_id)
-    //         if (is_book_exists !== undefined) {
-
-
-
-    //             let localstorage_array = [...cartItems]
-    //             let arr_index = cartItems.indexOf(is_book_exists)
-    //             // console.log("index", arr_index)
-
-    //             localstorage_array.splice(arr_index, 1)
-    //             localStorage.setItem("cart_data", JSON.stringify(localstorage_array))
-    //             // console.log("localarray_after_remove :", JSON.parse(localStorage.getItem("cart_data")))
-    //             setDependencyvar(!dependencyvar)
-    //             get_items()
-    //         }
-    //     }
-
-
-    // }
-
-    // const remove_item = async (remove_json) => {
-    //     const resp = await remove_cart_item(remove_json)
-    //     console.log("Remove_cart :", resp) 
-    // }
-
     const add_to_cart = async (bookid, toCheckout) => {
         console.log('bookDetails', bookdetail)
         console.log("default image=", defaultimg)
@@ -350,7 +178,8 @@ const ProductDetailsPage = () => {
             price: bookdetail.price,
             publisher: bookdetail.publisher,
             items_no: 1,
-            image: defaultimg,
+            // image: defaultimg,
+            img: bookdetail.img,
             category: bookdetail.category,
             publisherid: bookdetail.publisherid,
             bookid: bookdetail.id,
