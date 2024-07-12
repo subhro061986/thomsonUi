@@ -1,9 +1,11 @@
 import React, { useEffect, useState, } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import menu from '../Assets/Images/menu.png';
+import { useAuth } from "../Context/Authcontext";
 
 const ProfileTab = () => {
     const navigate = useNavigate();
+    const {authData} = useAuth()
     const [order, SetOrder] = useState(false)
     const [bookshelf, SetBookshelf] = useState(false)
     const [profiledet, SetProfiledet] = useState(false)
@@ -15,7 +17,7 @@ const ProfileTab = () => {
 
     useEffect(() =>{
         SetBookshelf(true)
-    },[])
+    },[authData])
 
     const openDrawer = () => {
         setDrawerStat(!drawerStat)
@@ -137,24 +139,32 @@ const ProfileTab = () => {
                             {/* <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf {bookshelf}</Link>
                             </div> */}
+                            
                             <div className={"profile-item " + (order === true ? "active" : '')} onClick={()=>mybookshelf("myorder")}>
                                 <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders {order}</Link>
                             </div>
+                            
+                            
                             <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={()=>mybookshelf("wishlist")}>
                                 <Link to="/wishlist" className="nav-link" role="button" aria-expanded="false">My Wishlist</Link>
                             </div>
+                           
                             <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={()=>mybookshelf("cartpage")}>
                                 <Link to="/cartpage" className="nav-link" role="button" aria-expanded="false">My Cart</Link>
                             </div>
+                            
                             <div className={"profile-item " + (myProfile === true ? "active" : '')} onClick={()=>mybookshelf("myprofile")}>
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
                             </div>
+                            
                             <div className={"profile-item " + (myAddresses === true ? "active" : '')} onClick={()=>mybookshelf("myAddresses")}>
                                 <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">Shipping Addresses</Link>
                             </div>
+                            
                             <div className={"profile-item " + (changePassword === true ? "active" : '')} onClick={()=>mybookshelf("changePassword")}>
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>
                             </div>
+                            
                         </div>
                     </div>
                 )
