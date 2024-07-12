@@ -55,7 +55,7 @@ const SouthsoreScreen = () => {
 
   useEffect(() => {
     const urlContainsToken = window.location.href.includes('token');
-    console.log("urlContainsToken : ", urlContainsToken);
+    
     if (urlContainsToken) {
       setModal(true);
       const queryString = window.location.search;
@@ -92,15 +92,12 @@ const SouthsoreScreen = () => {
   }
 
   const decode_token = async (token) => {
-    console.log("Token_to_decode :", token)
     let My_token = token
 
     if (My_token !== "") {
       const { email, role, exp } = jwtDecode(My_token)
-      console.log("decoded role= ", role)
       setUserEmail(email)
       setUserRole(role)
-      console.log("decoded token= ", email)
       // Refreshing the token a minute early to avoid latency issues
       const expirationTime = (exp * 1000) - 60000
 

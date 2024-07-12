@@ -311,19 +311,32 @@ const OrderPage = () => {
                                     {book.orderno}
                                     {/* ORD/24-25/00000003 */}
                                 </span></div>
+                                
                                 <div className="op_pay_div">
                                     <div className="op_paystat me-4">Payment Status: <span>{book.status}</span></div>
-                                    <div><button className="btn btn-outline-primary rounded-pill op_btn"
-                                    onClick={() => { getInvoice(book.invoiceid) }}
-                                    >Download Invoice</button></div>
+                                    {book.status === "DELIVERED" &&
+                                    book.status === "RETURN REQUEST" &&
+                                    book.status === "RETURN ACCEPTED" &&
+                                    book.status === "REFUND" &&
+                                    <div>
+                                        <button className="btn btn-outline-primary rounded-pill op_btn"
+                                        onClick={() => { getInvoice(book.invoiceid) }}
+                                        >Download Invoice</button>
+                                    </div>
+                                    }
                                 </div>
+                                
                                 <div className="d-flex align-item-center" style={{ marginTop: '8%' }}>
-                                    {book.awbno !== "" ? (
-                                        <div className="op_paystat me-4">AWB No.: <span>123456df</span></div>) : (
-
-                                        <div><button className="btn btn-outline-secondary rounded-pill op_btn"
+                                    {book.awbno === "" ? (
+                                        <div>
+                                        <button className="btn btn-outline-secondary rounded-pill op_btn"
                                         onClick={()=>orderCancel(book)}
-                                        >Cancel Order</button></div>
+                                        >Cancel Order</button>
+                                        </div>
+                                        
+                                    ) : (
+                                        <div className="op_paystat me-4">AWB No.: <span>{book.awbno}</span></div>
+                                        
                                     )}
                                     {book.status === "DELIVERED" &&
                                         <div><button className="btn btn-outline-info rounded-pill op_btn ms-2"

@@ -551,37 +551,14 @@ const ProductDetailsPage = () => {
                                 <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol + bookdetail.price}</span></div>
 
                                 {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
-                                <div style={{ display: 'flex', alignItems: 'center'}}>
-                                    <button
-                                        // onClick={() => decrement(data)}
-                                        className="buttonStyle"
-                                    >-</button>
-                                    <input
-                                        type="text"
-                                        // value={data["quantity"]}
-                                        readOnly
-                                        // style={{ width: '50px', textAlign: 'center' }}
-                                        className="inc_dec_input"
-                                    />
-                                    <button
-                                        // onClick={() => increment(data)}
-                                        className="buttonStyle"
-                                    >+</button>
-                                </div>
+                                
                             </div>
 
-                            {isBookPresent ?
+                            
 
-                                <div className="d-flex flex-row justify-content-start mt-5">
-                                    <button type="button"
-                                        className="btn btn-outline-secondary rounded-pill fw500 txt_color_64646F me-4 "
-                                        onClick={() => go_to_bookshelf()}>
-                                        Go To Your Bookshelf
-                                    </button>
+                                
 
-                                </div>
-
-                                :
+                                
 
                                 <div className="d-flex flex-row justify-content-start mt-5 button_width">
                                     <button type="button" style={{ width: '70%' }}
@@ -591,7 +568,7 @@ const ProductDetailsPage = () => {
                                     </button>
                                     {/* <button type="button" className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center details_btn txt_color_FFFFFF fw500" onClick={() => add_to_cart(bookdetail.id, true)}>Buy Now</button> */}
                                 </div>
-                            }
+                            
 
                         </div>
 
@@ -683,8 +660,7 @@ const ProductDetailsPage = () => {
 
 
 
-            <Guideline />
-            <Playstore />
+            
             <Footer />
 
             <ToastContainer />

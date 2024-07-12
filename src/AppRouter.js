@@ -23,7 +23,6 @@ import ChangePassword from './Pages/ChangePassword';
 import BillingAddressPage from './Pages/BillingAddressPage';
 import OrderConfirmation from './Pages/OrderConfirmationPage';
 import SouthsoreScreen from './Pages/SouthsoreScreen';
-import LoginPageSouthsore from './Pages/LoginPageSouthsore';
 import PrivacyPolicyScreen from './Pages/PrivacyPolicyScreen';
 import FaqScreen from './Pages/FaqScreen';
 import FaqPubScreen from './Pages/FaqPubScreen';
@@ -55,7 +54,7 @@ const AfterLogin=()=> {
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
             <Route exact path="/login" Component={LoginPage}/>
-            <Route exact path="/loginsouthsore" Component={LoginPageSouthsore}/>
+            
             <Route exact path="/registration" Component={Registration}/>
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>
@@ -93,7 +92,7 @@ const BeforeLogin=()=> {
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
             <Route exact path="/login" Component={LoginPage}/>
-            <Route exact path="/loginsouthsore" Component={LoginPageSouthsore}/>
+            
             <Route exact path="/registration" Component={Registration}/>
             <Route exact path="/registrationsouthshore" Component={RegistrationSouthshore}/>
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
@@ -121,7 +120,7 @@ const BeforeLogin=()=> {
 const Navigation=()=> {
   const {authData,isexpired} = useAuth()
   useEffect(() => {
-    console.log('authdata from router', authData);
+    
   }, [authData])
 
   if(authData==='' || authData=== null || authData===undefined && isexpired === true )

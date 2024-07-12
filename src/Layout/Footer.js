@@ -19,7 +19,7 @@ const Footer = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [modal, setModal] = useState(false);
-    const { category_by_publisher, items, getPublishersById, publisherId, sendEmail } = UserProfile()
+    const { category_by_publisher, items, getPublishersById, publisherId, sendEmail,allCategoryList } = UserProfile()
     const [publisherDetails, setPublisherDetails] = useState('')
     const [categoryList, setCategoryList] = useState([])
     const [contactUsName, setContactUsName] = useState('')
@@ -32,7 +32,6 @@ const Footer = () => {
     const [phoneError, setPhoneError] = useState(false);
     useEffect(() => {
         getPubById();
-        getCategoriesByPublisher();
         window.scrollTo(0, 0)
     }, [])
 
@@ -88,27 +87,11 @@ const Footer = () => {
             pubid = location.state.publisher_id
         }
         const result = await getPublishersById(pubid);
-        console.log("FOOTER PUB BY ID DETS : ", result);
         setPublisherDetails(result?.data?.output)
 
     }
 
-    const getCategoriesByPublisher = async () => {
-        // console.log("LOCATION", location);
-        let pubid = 0;
-
-        if (location.state === null || location.state === 'null') {
-            // console.log("RESULT===>123");
-            pubid = publisherId
-        }
-        else {
-            // console.log("RESULT===>345");
-            pubid = location.state.publisher_id
-        }
-        const result = await category_by_publisher(pubid);
-        // console.log("FOOTER category BY publisher ID DETS : ", result);
-        setCategoryList(result.output);
-    }
+    
 
     const imgNavHome = () => {
         // Check if the current location is the homepage
@@ -364,8 +347,10 @@ const Footer = () => {
                                         </li>
                                     ))} */}
                                     {
-                                        categoryList.map((data, index) => (
+                                        allCategoryList.map((data, index) => (
+                                            data.isactive === 1 && (
                                             <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index} onClick={() => cat_dropdown_nav(data.id)}> {data.name} </li>
+                                            )
                                         ))
                                     }
 

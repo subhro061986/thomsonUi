@@ -19,6 +19,7 @@ import google from "../Assets/Images/google.png"
 import { useNavigate } from 'react-router-dom';
 import { UserProfile } from "../Context/Usercontext";
 import Whatsapp from "../Layout/Whatsapp";
+import FooterSouthsore from "../Layout/FooterSouthsore";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -39,7 +40,6 @@ const Login = () => {
     }, [items])
 
     useEffect(() => {
-        console.log("Hello cart=", items)
     }, [authData])
 
     const emailHandler = (e) => {
@@ -251,7 +251,7 @@ const Login = () => {
                         </button>
                     </Modal.Footer>
                 </Modal>
-                <Footer />
+                <FooterSouthsore/>
 
                 <ToastContainer />
 

@@ -60,7 +60,6 @@ const UserProvider = ({ children }) => {
       // })
       get_wishlist_books(1, 5)
       getAllShippingAddress();
-      addShippingAddress();
       getSippingAddressById();
       delShippingAddress();
       myorders(1,10);
@@ -92,7 +91,6 @@ const UserProvider = ({ children }) => {
           },
 
         })
-      console.log("response of all category", response)
       setAllCategoryList(response.data.output)
       return response.data
 
@@ -107,7 +105,7 @@ const UserProvider = ({ children }) => {
   const getNewArrivals = async (record_no) => {
 
 
-    console.log("NEW ARRIVAL URL===>", Config.API_URL + Config.NEW_ARRIVAL + "?recordPerPage=" + record_no)
+    
     try {
       const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "?recordPerPage=" + 5,
         {
@@ -128,7 +126,7 @@ const UserProvider = ({ children }) => {
           setallNewArrival([])
         }
       }
-      console.log("new arr resp",response)
+      
 
       return response.data
 
@@ -209,77 +207,8 @@ const UserProvider = ({ children }) => {
   }
 
 
-  const category_by_publisher = async (publisher_id) => {
-    let pub_id = 0;
-    if (publisher_id === undefined || publisher_id === 0 || publisher_id === '0') {
-      if (publisherId === 0 || publisherId === '0') {
-        pub_id = localStorage.getItem('publisher_id')
-      }
-      else {
-        pub_id = publisherId
-
-      }
-
-    }
-    else {
-      pub_id = publisher_id
-    }
-
-    try {
-      const response = await axios.get(Config.API_URL + "publisher/" + pub_id + "/category",
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-        })
-      if (response.data.output.length > 0) {
-        setCategoryByPublisherList(response.data.output)
-        console.log("cat pub list :", response.data.output)
-      }
-      else {
-        setCategoryByPublisherList([])
-      }
-
-
-      return response.data
-
-    }
-    catch (error) {
-      console.log("Book_cat_by_publisher_error : ", error)
-    }
-  }
-
-  // const category_all = async () => {
-  //   console.log("cat all list route:",Config.API_URL + Config.ALL_Cateory)
-  //   try {
-  //     const response = await axios.post(Config.API_URL + Config.ALL_Cateory,
-
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           // 'Authorization': 'Bearer ' + authData
-  //         },
-
-  //       })
-  //       // if(response.data.output.length > 0){
-  //         // setCategoryByPublisherList(response.data.output)
-  //         console.log("cat all list :",response)
-  //         // setCategoryList(response.data.output)
-  //       // }
-  //       // else{
-  //       //   setCategoryByPublisherList([])
-  //       // }
-
-
-  //     return response
-
-  //   }
-  //   catch (error) {
-  //     console.log("Book_cat_by_publisher_error : ", error)
-  //   }
-  // }
+  
+  
 
 
   const get_book_details = async (book_id) => {
@@ -337,7 +266,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      console.log("myorders_resp : ", response);
+      
 
       return response.data
 
@@ -465,7 +394,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
-      console.log("wishlist_respfromcontext: ", response.data)
+      
       setWishlistItems(response.data.output)
 
       return response.data
@@ -885,7 +814,7 @@ const UserProvider = ({ children }) => {
           },
         })
       setAllActivePublisher(response.data.output)
-      console.log("PUBLISHER resp from context: ", response.data.output);
+      
 
       return response;
     }
@@ -920,7 +849,6 @@ const UserProvider = ({ children }) => {
           },
         })
       // setAllActivePublisher(response.data.output)
-      //console.log("GET BOOKSHELF RESPONSE : ", response);
       return response.data;
     }
     catch (error) {
@@ -938,8 +866,6 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-
-      //console.log("razor pay create order  : ", response);
       return response.data;
     }
     catch (error) {
@@ -993,11 +919,9 @@ const UserProvider = ({ children }) => {
       setPublisherData(response?.data?.output)
       setPublisherId(response?.data?.output?.id)
       localStorage.setItem('publisher_id', response?.data?.output?.id)
-      category_by_publisher(response?.data?.output?.id)
       getNewArrivals(4, response?.data?.output?.id)
       best_selling_books(4, response?.data?.output?.id)
       setActive(false)
-      console.log("GET ALL PUBLISHERS BY ID : ", response);
       return response;
     }
     catch (error) {
@@ -1092,7 +1016,7 @@ const UserProvider = ({ children }) => {
         })
       // }
       getAllShippingAddress();
-      console.log("Add shipping Response : ", response);
+      
       return response;
 
     }
@@ -1111,7 +1035,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET ALL shipping address : ", response);
+      
       setShippingList(response.data.output)
 
       return response;
@@ -1130,7 +1054,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET SHIPPING ADDRESS BY ID: ", response);
+      
       return response;
     }
     catch (error) {
@@ -1139,8 +1063,7 @@ const UserProvider = ({ children }) => {
   }
 
   const editShippingAddress = async (args, id) => {
-    console.log("Args in edit ship context :", args);
-    console.log("Id in edit ship context:", id);
+    
     try {
       const response = await axios.post(Config.API_URL + Config.EDIT_SHIPPING_ADDRESS + "/" + id, args,
         {
@@ -1150,7 +1073,7 @@ const UserProvider = ({ children }) => {
           },
         })
       getAllShippingAddress();
-      console.log("EDIT SHIPPING RESPONSE : ", response);
+      
       return response;
     }
     catch (error) {
@@ -1159,8 +1082,6 @@ const UserProvider = ({ children }) => {
   }
 
   const delShippingAddress = async (id) => {
-    console.log("Id :", id);
-    console.log("delShippingAddress token :", authData);
     try {
       const response = await axios.get(Config.API_URL + Config.DELETE_SHIPPING_ADDRESS + "/" + id,
 
@@ -1172,7 +1093,7 @@ const UserProvider = ({ children }) => {
         })
       // setShippingList();
       getAllShippingAddress();
-      console.log("DELETE SHIPPING RESPONSE : ", response);
+      
       return response;
     }
     catch (error) {
@@ -1189,7 +1110,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET billing address : ", response.data);
+      
 
 
       return response.data;
@@ -1208,7 +1129,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("edit billing address : ", response.data);
+      
 
 
       return response.data;
@@ -1269,7 +1190,6 @@ const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         getAllCategory,
-        category_by_publisher,
         //category_all,
         getNewArrivals,
         allNewArrival,

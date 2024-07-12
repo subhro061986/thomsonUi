@@ -23,8 +23,6 @@ const NavBarSouthsore = () => {
 
 
     useEffect(() => {
-        console.log("Hello Wish list", wishlistshow)
-        console.log("allActivePublisher", allActivePublisher)
     }, [wishlistshow])
 
     // const gotoWishlist = () => {
@@ -204,8 +202,9 @@ const NavBarSouthsore = () => {
                                     style={{width:'121px'}}
                                     name="cars" id="cars"
                                     onChange={(e) => { cat_dropdown_nav(e) }}
+                                    defaultValue={0}
                                 >
-                                    <option defaultValue={"0"} disabled selected={true}>Practice Area</option>
+                                    <option value={"0"} disabled >Practice Area</option>
 
                                     {allCategoryList.map((data, index) => (
                                         data.isactive === 1 && (

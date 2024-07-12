@@ -47,7 +47,7 @@ const TopBar = () => {
       pubid = location.state.publisher_id
     }
     const result = await getPublishersById(pubid)
-    console.log("Publisher RESULT===>", result?.data);
+    
     setPublisherDetails(result?.data?.output)
 
 

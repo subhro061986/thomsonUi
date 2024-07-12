@@ -32,11 +32,7 @@ const AuthProvider = ({ children }) => {
 
   const getDataFromStorage = async () => {
     var userToken = localStorage.getItem("userid");
-    console.log("userToken : ", userToken);
     if (authData === '') {
-
-      console.log("Authdata_is_null")
-
       if (userToken === undefined || userToken === null || userToken === '') {
         console.log("No token available please login");
       }
@@ -44,11 +40,9 @@ const AuthProvider = ({ children }) => {
         setAuthData(userToken)
         decode_token(userToken)
         detect_unique_id()
-        console.log("Token available")
       }
     }
     else {
-      console.log("Authdata_is_not_null")
       setIsexpired(false)
       decode_token(userToken)
       detect_unique_id()
@@ -60,7 +54,7 @@ const AuthProvider = ({ children }) => {
 
 
   const decode_token = async (token) => {
-    console.log("Token_to_decode :", token)
+    
     let My_token = token
 
     if (My_token !== "") {
@@ -100,14 +94,13 @@ const AuthProvider = ({ children }) => {
 
 
       let system_uuid = uuidv4()
-      console.log("in If ", system_uuid)
       localStorage.setItem('unique_id', system_uuid)
       SetUuid(system_uuid)
 
 
     }
     else {
-      console.log("in else ", my_unique_id)
+      
       SetUuid(my_unique_id)
 
     }
@@ -298,7 +291,6 @@ const AuthProvider = ({ children }) => {
     let sendUUid = {
       deviceid: tempuuid
     }
-    console.log("SEND UUID", sendUUid)
     let tok = ''
     if (authData === '' || authData === null || authData === undefined) {
       tok = token

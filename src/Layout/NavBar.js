@@ -13,7 +13,7 @@ import close from "../Assets/Images/close-circle.png"
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const { category_by_publisher, items, categoryByPublisherList, allCategoryList } = UserProfile()
+    const {items, categoryByPublisherList, allCategoryList } = UserProfile()
     const { wishlistshow,cartCount } = useAuth()
     const [pubcat, setPubcat] = useState([])
     const [cartno, setCartno] = useState()
@@ -48,7 +48,6 @@ const NavBar = () => {
     // },[])
 
     useEffect(() => {
-        console.log("Hello Category", categoryByPublisherList)
     }, [wishlistshow])
 
     
@@ -82,33 +81,14 @@ const NavBar = () => {
     }
 
     useEffect(() => {
-        console.log("HELLO")
-        book_category_by_publisher()
+       
     }, [items])
 
 
 
-    const book_category_by_publisher = async () => {
-        const resp = await category_by_publisher()
-        console.log("resp from nav",resp)
-        if (resp === undefined || resp === null) {
-            setPubcat([])
-        }
-        else {
-            if (resp.statuscode === "0" && resp.output.length > 0) {
-                setPubcat(resp.output)
-            }
-            else {
-                setPubcat([])
-            }
-        }
+    
 
-    }
-
-    // const reDirectToHome = () => {
-    //     setModal(!modal);
-    //     navigate('/');
-    // }
+    
 
 
     return (
