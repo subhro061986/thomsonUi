@@ -77,13 +77,13 @@ const NavBarSouthsore = () => {
     }
 
     const gotoCert = () => {
-        console.log('About South shore');
+        // console.log('About South shore');
         // window.scrollTo(0, 2850)
     }
 
     const cat_dropdown_nav = (e) => {
         let cat_id = e.target.value
-        console.log('cat_id from nav select', cat_id)
+        // console.log('cat_id from nav select', cat_id)
         navigate('/category',
             { state: { category_id: cat_id } }
         )
@@ -152,7 +152,9 @@ const NavBarSouthsore = () => {
                             </Accordion>
                         </li>
 
-                        <li className="nav-item" onClick={gotoCert}>
+                        <li className="nav-item" 
+                        // onClick={gotoCert}
+                        >
                             <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
                         </li>
 
@@ -217,7 +219,9 @@ const NavBarSouthsore = () => {
                                 </select>
                             </li>
 
-                            <li className="nav-item" onClick={gotoCert}>
+                            <li className="nav-item" 
+                            // onClick={gotoCert}
+                            >
                                 <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
                                 {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     About Southshore

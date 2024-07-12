@@ -61,7 +61,7 @@ const CustomerSales = () => {
     reader.readAsDataURL(img)
 
     reader.onload = () => {
-      console.log('called: ', reader)
+      // console.log('called: ', reader)
       setBase64Img(reader.result)
     }
   }
@@ -72,7 +72,7 @@ const CustomerSales = () => {
       month: parseInt(selectedMonth)
     }
     let resp = await get_customer_invoices(data)
-    console.log("Resp status code", resp.statuscode)
+    // console.log("Resp status code", resp.statuscode)
     if (resp.statuscode === "0" && resp.output != null) {
       setCustomerInvoices(resp.output)
     }
@@ -95,9 +95,9 @@ const CustomerSales = () => {
       month: parseInt(selectedMonth)
     }
     let resp = await get_customer_invoices(data)
-    console.log("Resp status code", resp.statuscode)
+    // console.log("Resp status code", resp.statuscode)
     if (resp.statuscode === "0" && resp.output != null) {
-      console.log("invoices= ", typeof resp.output)
+      // console.log("invoices= ", typeof resp.output)
       setCustomerInvoices(resp.output)
     }
     else {
@@ -252,7 +252,7 @@ const CustomerSales = () => {
   }
 
   const getInvoice = async (invoice) => {
-    console.log("order no=", invoice)
+    // console.log("order no=", invoice)
     const pdf = new jsPDF('p', 'pt', 'a4');
     const width = pdf.internal.pageSize.getWidth();
 
@@ -268,7 +268,7 @@ const CustomerSales = () => {
       // html2canvas: { scale: 0.57 },
     })
       .then(() => {
-        console.log("order no=", invoice)
+        // console.log("order no=", invoice)
         
         pdf.addImage(img, 'PNG', 10, 750, 150, 50);
         pdf.save('invoice_' + invoice.invoiceno + '.pdf');

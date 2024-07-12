@@ -7,15 +7,9 @@ import Accordion from 'react-bootstrap/Accordion';
 import TopBar from "../Layout/TopBar";
 import NavBar from "../Layout/NavBar";
 import Footer from "../Layout/Footer";
-import Playstore from "../Layout/Playstore";
-import Guideline from "../Layout/Guideline";
+
 import wishlight from "../Assets/Images/wishlight.png";
-import lion_king from "../Assets/Images/lion_king.png";
-import cat_details_pic_2 from "../Assets/Images/cat_details_pic_2.png";
-import cat_details_pic_3 from "../Assets/Images/cat_details_pic_3.png";
-import cat_details_pic_4 from "../Assets/Images/cat_details_pic_4.png";
-import cat_details_pic_5 from "../Assets/Images/cat_details_pic_5.png";
-import cat_details_pic_6 from "../Assets/Images/cat_details_pic_6.png";
+
 import { useAuth } from '../Context/Authcontext';
 import Config from "../Config/Config.json"
 import dummy from "../Assets/Images/dummy.png";
@@ -31,7 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import element3 from "../Assets/Images/element-3.svg";
 import rowVertical from "../Assets/Images/row-vertical.svg";
 
-import arrow_circle_right from "../Assets/Images/arrow-circle-right.png"
+
 
 import SVG from "react-inlinesvg";
 import Whatsapp from "../Layout/Whatsapp";
@@ -104,18 +98,18 @@ const CategoryDetailsPage = () => {
 
     useEffect(() => {
         let handler = (e) => {
-            console.log("event", e.target.className)
+            // console.log("event", e.target.className)
             if (e.target.className !== 'li_hover' && e.target.className !== 'text_select') {
-                console.log('Not li hover class')
+                // console.log('Not li hover class')
                 setDropbool(false)
             }
 
         };
 
-        console.log('bool state', dropbool)
+        
 
         if (dropbool) {
-            console.log('bool is true')
+            // console.log('bool is true')
             document.addEventListener('mousedown', handler)
         }
 
@@ -127,11 +121,11 @@ const CategoryDetailsPage = () => {
     }, [dropbool])
 
     useEffect(() => {
-        console.log("hello location.state", location.state)
-        console.log("hello books", location.state.category_id)
-        console.log("hello books pub", location.state.publisher_id)
+        // console.log("hello location.state", location)
+        // console.log("hello books", location.state.category_id)
+        // console.log("hello books pub", location.state.publisher_id)
         let pubidarr = filterPublisherIds
-        console.log("pubidarr in useeffect", pubidarr)
+        // console.log("pubidarr in useeffect", pubidarr)
         if (location.state.publisher_id === undefined) {
             pubidarr = []
         }
@@ -140,11 +134,11 @@ const CategoryDetailsPage = () => {
                 pubidarr.push(parseInt(location.state.publisher_id))
             }
         }
-        console.log("GET PUB ID ARRAY", pubidarr)
+        // console.log("GET PUB ID ARRAY", pubidarr)
         setFilterPublisherIds(pubidarr)
 
         let catidarr = filterCategoryIds
-        console.log("catidarr in useeffect", catidarr)
+        // console.log("catidarr in useeffect", catidarr)
         if (location.state.category_id === undefined) {
             catidarr = []
         }
@@ -153,7 +147,7 @@ const CategoryDetailsPage = () => {
                 catidarr.push(parseInt(location.state.category_id))
             }
         }
-        console.log("GET cat ID ARRAY", catidarr)
+        // console.log("GET cat ID ARRAY", catidarr)
         setFilterCategoryIds(catidarr)
         // book_category()
         books_by_category(pubidarr, catidarr)
@@ -177,7 +171,7 @@ const CategoryDetailsPage = () => {
 
     const setLowToHigh = () => {
         const sortedProducts = books.sort((a, b) => a.price - b.price);
-        console.log("sortedproducts", sortedProducts)
+        // console.log("sortedproducts", sortedProducts)
         setBooks([...sortedProducts]);
     };
 
@@ -188,13 +182,13 @@ const CategoryDetailsPage = () => {
 
     const AtoZ = () => {
         const sortedProducts = books.sort((a, b) => a.title > b.title ? 1 : -1)
-        console.log("A-Z", sortedProducts)
+        // console.log("A-Z", sortedProducts)
         setBooks([...sortedProducts]);
     }
 
     const ZtoA = () => {
         const sortedProducts = books.sort((a, b) => a.title > b.title ? -1 : 1)
-        console.log("Z-A", sortedProducts)
+        // console.log("Z-A", sortedProducts)
         setBooks([...sortedProducts]);
     }
 
@@ -263,7 +257,7 @@ const CategoryDetailsPage = () => {
             setPricerangefilters(price_filters_arr.splice(0, price_filters_arr.length / 2))
         }
         else {
-            console.log('array2000', price_filters_arr.length)
+            // console.log('array2000', price_filters_arr.length)
             setPricerangefilters(price_filters_arr)
         }
 
@@ -292,7 +286,7 @@ const CategoryDetailsPage = () => {
             })
 
             setBooks(book_arr);
-            console.log(book_arr)
+            // console.log(book_arr)
         }
         else {
 
@@ -300,8 +294,8 @@ const CategoryDetailsPage = () => {
             let price_lower_lim = Number(range_pr[0].split('₹')[1].trim())
             let price_higher_lim = Number(range_pr[1].split('₹')[1].trim())
 
-            console.log('l', price_lower_lim)
-            console.log('h', price_higher_lim)
+            // console.log('l', price_lower_lim)
+            // console.log('h', price_higher_lim)
 
 
 
@@ -322,7 +316,7 @@ const CategoryDetailsPage = () => {
 
 
             setBooks(books_in_range);
-            console.log("books", books)
+            // console.log("books", books)
         }
 
 
@@ -336,19 +330,19 @@ const CategoryDetailsPage = () => {
         // console.log(e.target.value)
         let sort_val = e.target.value
         if (sort_val === 'high-low') {
-            console.log('high-low')
+            // console.log('high-low')
             setHightoLow()
         }
         else if (sort_val === 'low-high') {
-            console.log('low-high')
+            // console.log('low-high')
             setLowToHigh()
         }
         else if (sort_val === 'A-Z') {
-            console.log('A-Z')
+            // console.log('A-Z')
             AtoZ()
         }
         else {
-            console.log('Z-A')
+            // console.log('Z-A')
             ZtoA()
         }
     }
@@ -366,22 +360,22 @@ const CategoryDetailsPage = () => {
 
         let sort_val = val
         if (sort_val === 'high-low') {
-            console.log('high-low')
+            // console.log('high-low')
             setHightoLow()
             setDropbool(!dropbool)
         }
         else if (sort_val === 'low-high') {
-            console.log('low-high')
+            // console.log('low-high')
             setLowToHigh()
             setDropbool(!dropbool)
         }
         else if (sort_val === 'A-Z') {
-            console.log('A-Z')
+            // console.log('A-Z')
             AtoZ()
             setDropbool(!dropbool)
         }
         else {
-            console.log('Z-A')
+            // console.log('Z-A')
             ZtoA()
             setDropbool(!dropbool)
         }
@@ -395,8 +389,8 @@ const CategoryDetailsPage = () => {
     }
 
     const books_by_category = async (pub_id, cat_id) => {
-        console.log("GET Category Id BY CATEGORY", cat_id)
-        console.log("GET publisher Id BY publisher", pub_id)
+        // console.log("GET Category Id BY CATEGORY", cat_id)
+        // console.log("GET publisher Id BY publisher", pub_id)
 
         let json = {
             "filterCriteria": {
@@ -406,13 +400,13 @@ const CategoryDetailsPage = () => {
             }
         }
 
-        console.log("GET json", json)
+        // console.log("GET json", json)
         let current_page_no = 1
         let records_per_page = 6
 
-        // if ((cat_id !== 0 && pub_id === 0) || (cat_id === 0 && pub_id !== 0)) {
+        
         const resp = await getBook_by_category(current_page_no, records_per_page, json)
-        console.log("GET BOOK BY CATEGORY", resp)
+        
         if (resp === undefined || resp === null) {
             setTempBooks([])
             setBooks([])
@@ -476,18 +470,18 @@ const CategoryDetailsPage = () => {
             setFilterPublisherIds(tempPub)
         }
         else {
-            console.log("cat tempcatt", tempCat)
+            // console.log("cat tempcatt", tempCat)
             if (e.target.checked === true) {
                 let chkind_cat = tempPub.findIndex((item, i) => {
-                    console.log("cat item", item)
+                    // console.log("cat item", item)
                     return item === values.id
                 });
-                console.log("cat chkind", chkind_cat)
+                // console.log("cat chkind", chkind_cat)
                 if (chkind_cat < 0) {
                     tempCat.push(values.id)
                 }
                 else {
-                    console.log("cat id already exist")
+                    // console.log("cat id already exist")
                 }
             }
             else {
@@ -497,7 +491,7 @@ const CategoryDetailsPage = () => {
                 // console.log("ind",ind)
                 tempCat.splice(ind, 1)
             }
-            console.log("tempCat", tempCat)
+            // console.log("tempCat", tempCat)
             setFilterCategoryIds(tempCat)
 
         }
@@ -505,7 +499,7 @@ const CategoryDetailsPage = () => {
     }
 
     const rangefunction = (e) => {
-        console.log("range function", e)
+        // console.log("range function", e)
         setMaxRange(e[1])
         setMinRange(e[0])
     }
@@ -528,40 +522,16 @@ const CategoryDetailsPage = () => {
     // const [range, setRange] = useState([minPrice, maxPrice]);
 
 
-    // const book_category_by_publisher = async (publisher_id) => {
-    //     const resp = await category_by_publisher(publisher_id)
-    //     console.log("pub_cat_resp", resp)
-    //     if (resp === undefined || resp === null) {
-    //         setPubcat([])
-    //     }
-    //     else {
-    //         if (resp.statuscode === "0" && resp?.output?.length > 0) {
-    //             setPubcat(resp.output)
-    //         }
-    //         else {
-    //             setPubcat([])
-    //         }
-    //     }
-
-    // }
+    
 
 
 
-    // const book_category = async () => {
-    //     const resp = await getAllCategory()
-    //     //  console.log("resp",resp)
-    //     if (resp?.output?.length > 0) {
-    //         setCategory(resp.output)
-    //     }
-    //     else {
-    //         setCategory([])
-    //     }
-    // }
+    
 
 
 
     const Wishlist = (event, book_id, index) => {
-        console.log('wish e', event)
+        // console.log('wish e', event)
 
         event.stopPropagation()
         if (wishlistshow === true) {
@@ -577,9 +547,9 @@ const CategoryDetailsPage = () => {
 
     const Add_To_Wishlist = async (book_id, index) => {
 
-        console.log('book_index', index)
+        // console.log('book_index', index)
 
-        console.log("wishlist items : ", wishlistitems)
+        // console.log("wishlist items : ", wishlistitems)
 
         let json = {
 
@@ -594,7 +564,7 @@ const CategoryDetailsPage = () => {
         const resp = await add_delete_to_wishlist(json)
 
         // books_by_category(location.state ? location.state.category_id : 1)
-        console.log("Wishlist_resp ", resp)
+        
 
         // if (books[index].isFavourite === 0) {
         //     books[index].isFavourite = 1
@@ -616,11 +586,11 @@ const CategoryDetailsPage = () => {
         }
 
 
-        console.log('index_book', tempBooks)
+        // console.log('index_book', tempBooks)
 
         setTempBooks([...tempBooks])
 
-        console.log('index_book_1', tempBooks)
+        // console.log('index_book_1', tempBooks)
 
 
 
@@ -998,7 +968,7 @@ const CategoryDetailsPage = () => {
 
                     </div>
                 </div>
-                <FooterSouthsore />
+                <Footer />
 
 
 

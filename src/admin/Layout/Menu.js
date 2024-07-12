@@ -17,7 +17,7 @@ const Menu = () => {
   const { authUsername } = useAuth();
 
   useEffect(() => {
-    console.log("username : ", authUsername);
+    // console.log("username : ", authUsername);
   }, [authUsername])
 
   // console.log("username : ", username);

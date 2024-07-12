@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
     let token = localStorage.getItem("token");
 
     if (authData === '') {
-      console.log("AUthdata is Null")
+      // console.log("AUthdata is Null")
       if (token === null || token === '' || token === undefined) {
         console.log("No token available please login");
       }
@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
   
 
   const logIn = async (arg) => {
-    console.log("Arguments passed to login : ", arg)
+    // console.log("Arguments passed to login : ", arg)
     try {
       // const response = await axios.post('https://ebooksjunction.com/api/account/login', arg,
       const response = await axios.post(Config.API_URL + Config.LOGIN_API, arg,
@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json'
           },
         })
-      console.log("ForgotPassword_resp: ", response.data.message);
+      // console.log("ForgotPassword_resp: ", response.data.message);
       return response.data.message;
     }
     catch (error) {

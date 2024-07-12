@@ -41,14 +41,14 @@ const PublisherSouthsore = () => {
   const navigate = useNavigate();
 
   const goToCatagory = (val) => {
-    console.log("pub val : ",val);
+    // console.log("pub val : ",val);
     navigate('/category', { state: { publisher_id: val.id } })
   }
 
-  const { getAllCategory, category_by_publisher, allActivePublisher } = UserProfile()
+  const { allActivePublisher } = UserProfile()
 
-  const [allcategory, setAllcategory] = useState([])
-  const [pubcat, setPubcat] = useState([])
+  // const [allcategory, setAllcategory] = useState([])
+  // const [pubcat, setPubcat] = useState([])
 
   // ** Note : Here publisher id will be optained from the previous page. 
   // ** Note : callback fn in Useeffect will be fired immediately on receiving the publisher id from previous page

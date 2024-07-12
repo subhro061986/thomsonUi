@@ -18,7 +18,7 @@ const BookList = () => {
   const [recordPerPage, setRecordPerPage] = useState(2)
 
   useEffect(() => {
-    console.log("all book list : ", allBookList)
+    // console.log("all book list : ", allBookList)
     // if(allBookList===undefined || allBookList==='')
     // {
     //   setBookListData([])

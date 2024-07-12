@@ -31,7 +31,6 @@ const Footer = () => {
     const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
     const [phoneError, setPhoneError] = useState(false);
     useEffect(() => {
-        getPubById();
         window.scrollTo(0, 0)
     }, [])
 
@@ -74,22 +73,7 @@ const Footer = () => {
     const handleMessage = (e) => {
         setContactUsMessage(e.target.value)
     }
-    const getPubById = async () => {
-        // console.log("LOCATION", location);
-        let pubid = 0;
-
-        if (location.state === null || location.state === 'null') {
-            // console.log("RESULT===>123");
-            pubid = publisherId
-        }
-        else {
-            // console.log("RESULT===>345");
-            pubid = location.state.publisher_id
-        }
-        const result = await getPublishersById(pubid);
-        setPublisherDetails(result?.data?.output)
-
-    }
+    
 
     
 
@@ -154,166 +138,7 @@ const Footer = () => {
     return (
         <div className="mt-5">
 
-            {/* <div className="container my-2">
-                <div className="row footer_margin">
-                    <div className="col-md-3 card_bottom guideline_padding_left logo_dimensions">
-                        <img src={publisherDetails === undefined || publisherDetails?.logo === null ? noImg : `${Config.API_URL + Config.PUB_IMAGES + publisherDetails.id + '/' + publisherDetails.logo}`} alt="publisher logo" className='img_dimensions' onClick={imgNavHome} style={{ cursor: 'pointer' }} />
-                    </div>
-
-                    <div className="div_block div_padding footer_margin_cat">
-                        <div className="col-md-2">
-                            <ul className="remove-dots" >
-                                <h6 className="custom-footer-Header"><b>Categories</b></h6>
-
-                                
-
-                                {
-                                    categoryList.map((data, index) => (
-                                        <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index} onClick={() => cat_dropdown_nav(data.id)}> {data.name} </li>
-                                    ))
-                                }
-
-
-                            </ul>
-                        </div>
-                        <div className="col-md-2 pol_mr">
-                            <ul className="remove-dots">
-                                <div className="custom-footer-Header"><b>Policies</b></div>
-
-
-
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/privacypolicy">
-                                        Privacy Policy
-                                    </Link>
-                                </li>
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/terms">
-                                        Terms Of Use
-                                    </Link>
-                                </li>
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/disclaimer">
-                                        Disclaimer
-                                    </Link>  </li>
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/copyright">
-                                        Copyright Policy
-                                    </Link>
-
-                                </li>
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/faqs">
-                                        FAQ Customer
-                                    </Link>
-
-                                </li>
-                                <li className="custom-footer-li">
-                                    <Link className="nav-link" to="/faqpub">
-                                        FAQ Publisher
-                                    </Link>
-
-                                </li>
-
-                            </ul>
-                        </div>
-
-
-                        <div className="col-md-3 footer_container_block">
-                            <ul className="remove-dots">
-
-                                <div className="div_block_1">
-                                    <div>
-                                        <h6 > <b>Connect with Us</b></h6>
-                                        <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={toggleModal}>Contact us</Button>
-                                    </div>
-
-                                    <div className="div_top">
-                                        <h6> <b>Social Media</b></h6>
-                                        <div className='div_top_1'>
-                                            <div className="d-inline p-2">
-                                                <img src={facebook_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={youtube_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={linkedin_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={instagram_logo} />
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </ul>
-
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div className='pub_container_1'>
-                        <div className="col-md-3 div_padding">
-                            <ul className="remove-dots">
-                                <h6 className="mb-3"><b>{publisherDetails?.name}</b></h6>
-
-                                <li className="custom-footer-li">
-                                    <p className="adress">Powered By Southshore Innovations Private Limited .</p>
-                                    <p className="adress"> Plot 13, Vijayendra Colony, Telephone Nagar, Perungudi, Chennai - 600096. </p>
-                                </li>
-                                <li className="custom-footer-li">
-                                    <p><b>Phone No </b>: +91{publisherDetails?.contactno}</p>
-                                    <p style={{ cursor: 'pointer' }} onClick={() => openMailto(publisherDetails?.contactemail)}><b>Mail Us </b>: {publisherDetails?.contactemail}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-md-3">
-                            <ul className="remove-dots">
-
-                                <div className="div_block">
-                                    <div>
-                                        <h6 > <b>Want to Connect</b></h6>
-                                        <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={toggleModal}>Contact us</Button>
-                                    </div>
-
-                                    <div className="div_top">
-                                        <h6> <b>Social Media</b></h6>
-                                        <div className='div_top_1'>
-                                            <div className="d-inline p-2">
-                                                <img src={facebook_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={youtube_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={linkedin_logo} />
-                                            </div>
-                                            <div className="d-inline p-2">
-                                                <img src={instagram_logo} />
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </ul>
-
-                        </div>
-                    </div>
-
-
-
-
-
-                </div>
-            </div> */}
+            
             <div className="container my-2">
                 <div className="row">
                     <div className="col-md-3 s_f_logo_col">
@@ -337,15 +162,7 @@ const Footer = () => {
                             <div className="">
                                 <ul className="remove-dots" >
                                     <div className="custom-footer-Header">Categories</div>
-                                    {/* {allActivePublisher.map((data, index) => (
-                                        <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index}
-                                            hidden={data.isactive === 1 ? false : true}
-                                            onClick={(e) => { get_publisher_data(data.id) }}
-                                        >
-                                            
-                                            {data.name}
-                                        </li>
-                                    ))} */}
+                                    
                                     {
                                         allCategoryList.map((data, index) => (
                                             data.isactive === 1 && (

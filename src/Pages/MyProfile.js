@@ -37,7 +37,6 @@ const MyProfile = () => {
         try {
             const resp = await get_state_list(countyId)
             setStateList(resp.output)
-            console.log("getStateList= ", resp.output)
         } catch (err) {
             console.error(err);
         }
@@ -46,7 +45,6 @@ const MyProfile = () => {
         try {
             const resp = await get_country_list()
             setCountryList(resp.output)
-            console.log("getCountryList= ", resp.output)
         } catch (err) {
             console.error(err);
         }
@@ -99,7 +97,6 @@ const MyProfile = () => {
 
                 setStateList(resp.output)
 
-                console.log("getStateList= ", resp.output)
             } catch (err) {
                 console.error(err);
             }
@@ -117,7 +114,6 @@ const MyProfile = () => {
         setPin(e.target.value)
     }
     const profilePicHandler = (e) => {
-        console.log(e.target.files[0]);
         if (e.target.files.length !== 0) {
             setProfileImage(e.target.files[0])
         }
@@ -125,7 +121,6 @@ const MyProfile = () => {
 
     const saveData = async () => {
 
-        console.log("profileimg=", profileImage)
 
         const userDetails = new FormData();
         userDetails.append('profileimage', profileImage);
@@ -148,13 +143,13 @@ const MyProfile = () => {
 
 
         const personalDetailsPesponse = await change_personal_details(userDetails)
-        console.log("personal details=", personalDetailsPesponse)
+        // console.log("personal details=", personalDetailsPesponse)
 
         const contactDetailsPesponse = await change_contact_details(changecontactDetails)
-        console.log("contact details=", contactDetailsPesponse)
+        // console.log("contact details=", contactDetailsPesponse)
 
         const billingDetailsPesponse = await change_billing_address(changebillingDetails)
-        console.log("billing details=", billingDetailsPesponse)
+        // console.log("billing details=", billingDetailsPesponse)
     }
     return (
 

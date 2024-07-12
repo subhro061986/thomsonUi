@@ -185,7 +185,6 @@ const UserProvider = ({ children }) => {
 
 
   const getBook_by_category = async (currentpageno, record_no, args) => {
-    console.log(" args from get book by category:", args)
     try {
       const response = await axios.post(Config.API_URL + Config.BOOK_BY_GENRE +
         "?currentPage=" + currentpageno + "&recordPerPage=" + record_no, args,
@@ -410,7 +409,6 @@ const UserProvider = ({ children }) => {
 
 
   const add_delete_to_wishlist = async (args) => {
-    console.log("add_del_wish_args", args);
     try {
       const response = await axios.post(Config.API_URL + Config.ADD_DELETE_IN_WISHLIST, args,
 
@@ -422,8 +420,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      console.log("add_del_wish_resp", response);
-      //  setWishlistItems(response.data)
+      // console.log("add_del_wish_resp", response);
 
       return response.data
 
@@ -839,22 +836,22 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const getBookShelf = async () => {
-    try {
-      const response = await axios.get(Config.API_URL + Config.BOOK_SHELF + "?currentPage=" + 1 + "&recordPerPage=" + 10,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authData
-          },
-        })
-      // setAllActivePublisher(response.data.output)
-      return response.data;
-    }
-    catch (error) {
-      console.log("BOOKSHELF CONTEXT ERROR: ", error);
-    }
-  }
+  // const getBookShelf = async () => {
+  //   try {
+  //     const response = await axios.get(Config.API_URL + Config.BOOK_SHELF + "?currentPage=" + 1 + "&recordPerPage=" + 10,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + authData
+  //         },
+  //       })
+  //     // setAllActivePublisher(response.data.output)
+  //     return response.data;
+  //   }
+  //   catch (error) {
+  //     console.log("BOOKSHELF CONTEXT ERROR: ", error);
+  //   }
+  // }
 
   /* Razor Pay */
   const createRazorpayOrder = async (data) => {
@@ -869,7 +866,7 @@ const UserProvider = ({ children }) => {
       return response.data;
     }
     catch (error) {
-      console.log("BOOKSHELF CONTEXT ERROR: ", error);
+      console.log("Razor CONTEXT ERROR: ", error);
     }
   }
   const processPayment = async (data) => {
@@ -886,7 +883,7 @@ const UserProvider = ({ children }) => {
       return response.data;
     }
     catch (error) {
-      console.log("BOOKSHELF CONTEXT ERROR: ", error);
+      console.log("process payment CONTEXT ERROR: ", error);
     }
   }
 
@@ -943,7 +940,7 @@ const UserProvider = ({ children }) => {
       return response.data;
     }
     catch (error) {
-      console.log("BOOKSHELF CONTEXT ERROR: ", error);
+      console.log("invoice CONTEXT ERROR: ", error);
     }
   }
 
@@ -961,7 +958,7 @@ const UserProvider = ({ children }) => {
       return response.data;
     }
     catch (error) {
-      console.log("BOOKSHELF CONTEXT ERROR: ", error);
+      console.log("coupon CONTEXT ERROR: ", error);
     }
   }
 
@@ -1228,7 +1225,6 @@ const UserProvider = ({ children }) => {
         publisherId,
         categoryByPublisherList,
         allCategoryList,
-        getBookShelf,
         createRazorpayOrder,
         processPayment,
         getInvoiceById,

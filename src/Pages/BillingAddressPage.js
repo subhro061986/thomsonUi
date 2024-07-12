@@ -135,10 +135,10 @@ const BillingAddressPage = () => {
     }
     const renderStateList = async (countyId) => {
         try {
-            console.log("inside statelist")
+            // console.log("inside statelist")
             const resp = await get_state_list(countyId)
             setStateList(resp.output)
-            console.log("getStateList= ", resp.output)
+            // console.log("getStateList= ", resp.output)
         } catch (err) {
             console.error(err);
         }
@@ -147,7 +147,7 @@ const BillingAddressPage = () => {
         try {
             const resp = await get_country_list()
             setCountryList(resp.output)
-            console.log("getCountryList= ", resp.output)
+            // console.log("getCountryList= ", resp.output)
         } catch (err) {
             console.error(err);
         }
@@ -187,7 +187,7 @@ const BillingAddressPage = () => {
         }
 
         var respPaymentConfirmed = await processPayment(newData)
-        console.log("resp confirmed= ", respPaymentConfirmed)
+        // console.log("resp confirmed= ", respPaymentConfirmed)
         if (respPaymentConfirmed['statuscode'] === "0") {
 
             navigate('/orderconfirmation')
@@ -217,14 +217,14 @@ const BillingAddressPage = () => {
     }
     const placeOrder = async () => {
 
-        console.log("selected shipping address=",selectedShippingAddress)
+        // console.log("selected shipping address=",selectedShippingAddress)
         if(selectedShippingAddress > 0){
 
             let placeorderJson = {
                 billingaddressid: billingAddressId,
                 shippingaddressid: selectedShippingAddress
             }
-            console.log("placeorder Json=", placeorderJson)
+            // console.log("placeorder Json=", placeorderJson)
             const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
     
             setPlaceOrderResponse(respPlaceOrder)
@@ -257,10 +257,10 @@ const BillingAddressPage = () => {
         }
 
         const contactDetailsPesponse = await change_contact_details(changecontactDetails)
-        console.log("contact details=", contactDetailsPesponse)
+        // console.log("contact details=", contactDetailsPesponse)
 
         const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
-        console.log("billing details=", billingDetailsPesponse)
+        // console.log("billing details=", billingDetailsPesponse)
 
         if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
             // console.log("check,",formWizardRef.current)
@@ -274,7 +274,7 @@ const BillingAddressPage = () => {
         // console.log("amt= ", amount)
         const amount = parseInt(orderTotal * 100)
 
-        console.log("amt= ", amount)
+        // console.log("amt= ", amount)
 
         // var placeOrderResp= await placeOrder()
 
@@ -286,7 +286,7 @@ const BillingAddressPage = () => {
 
         }
         const order = await createRazorpayOrder(order_params); //  Create order on your backend
-        console.log("order response= ", order)
+        // console.log("order response= ", order)
 
         if (order !== undefined) {
 
@@ -303,7 +303,7 @@ const BillingAddressPage = () => {
                     // alert(response.razorpay_payment_id);
                     // alert(response.razorpay_order_id);
                     // alert(response.razorpay_signature);
-                    console.log("payment successfull response= ", response)
+                    // console.log("payment successfull response= ", response)
                     const succeeded = true;
                     // const succeeded = crypto.HmacSHA256(`${order.order_id}|${response.razorpay_payment_id}`, Config.RAZORPAY_LIVE_KEY_SECRET).toString() === response.razorpay_signature;
                     // console.log("success?= ", succeeded)
@@ -357,7 +357,7 @@ const BillingAddressPage = () => {
                 })
             });
             rzp1.on("payment.captured", function (response) {
-                console.log("payment successfulb response= ", response)
+                // console.log("payment successfulb response= ", response)
                 placeOrder()
             });
 
@@ -374,7 +374,7 @@ const BillingAddressPage = () => {
         navigate('/')
     }
     const tabChanged = async (index) => {
-        console.log('index=',index)
+        // console.log('index=',index)
         if (index === 0) {
             saveBillingDetails()
         }

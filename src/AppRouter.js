@@ -14,9 +14,9 @@ import Registration from './Pages/Registration';
 import ConfirmOrder from './Pages/ConfirmOrder';
 import CartPage from './Pages/CartPage';
 import OrderPage from './Pages/OrderPage';
-import MyBookShelf from './Pages/MyBookShelf';
-import EpubreaderScreen from './Pages/EpubreaderScreen';
-import PdfreaderScreen from './Pages/PdfreaderScreen';
+// import MyBookShelf from './Pages/MyBookShelf';
+// import EpubreaderScreen from './Pages/EpubreaderScreen';
+// import PdfreaderScreen from './Pages/PdfreaderScreen';
 import { useAuth } from './Context/Authcontext';
 import MyProfile from './Pages/MyProfile';
 import ChangePassword from './Pages/ChangePassword';
@@ -59,9 +59,9 @@ const AfterLogin=()=> {
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>
             <Route exact path="/orderpage" Component={OrderPage}/>
-            <Route exact path="/mybookshelf" Component={MyBookShelf}/>
-            <Route exact path="/epubreader" Component={EpubreaderScreen}/>
-            <Route exact path="/pdfreader" Component={PdfreaderScreen}/>
+            {/* <Route exact path="/mybookshelf" Component={MyBookShelf}/> */}
+            {/* <Route exact path="/epubreader" Component={EpubreaderScreen}/> */}
+            {/* <Route exact path="/pdfreader" Component={PdfreaderScreen}/> */}
             <Route exact path="/myprofile" Component={MyProfile}/>
             <Route exact path="/shipping" Component={ShippingAddress}/>
             <Route exact path="/changePassword" Component={ChangePassword}/>

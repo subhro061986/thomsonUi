@@ -157,13 +157,13 @@ const CartPage = () => {
         // check before login
         if (authData === '' || authData === null || authData === undefined) {
 
-            console.log("item to be removed= ", item)
+            // console.log("item to be removed= ", item)
             removeBookFromState(item.bookid)
         }
         // after login
         else {
             const response = await remove_cart_item(item, 0)
-            console.log("response after removal= ", response)
+            // console.log("response after removal= ", response)
         }
 
     }
@@ -208,7 +208,7 @@ const CartPage = () => {
                 quantity: item["quantity"] + 1
             }
             const response = await incrementQuantity(json)
-            console.log("response after increment= ", response)
+            // console.log("response after increment= ", response)
         }
         
         let qty=tempArr[index]["quantity"]+1
@@ -242,7 +242,7 @@ const CartPage = () => {
             }
             if (item["quantity"] > 1) {
                 const response = await decrementQuantity(json)
-                console.log("response after decrement= ", response)
+                // console.log("response after decrement= ", response)
 
             }
             else {

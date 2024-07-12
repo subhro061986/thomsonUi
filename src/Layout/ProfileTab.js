@@ -32,11 +32,11 @@ const ProfileTab = () => {
             SetMyCart(false)
             SetMyAddresses(false)
             
-            console.log("type",type)
+            // console.log("type",type)
            
         }
         else if (type === "myorder") {
-            console.log("type",type)
+            // console.log("type",type)
             SetOrder(true)
             SetBookshelf(false)
             SetProfiledet(false)
@@ -47,7 +47,7 @@ const ProfileTab = () => {
             
         }
         else if (type === "myprofile") {
-            console.log("myprofile")
+            // console.log("myprofile")
             SetOrder(false)
             SetBookshelf(false)
             SetProfiledet(false)
@@ -57,7 +57,7 @@ const ProfileTab = () => {
             SetMyAddresses(false)
         }
         else if (type === "changePassword") {
-            console.log("changePassword")
+            // console.log("changePassword")
             SetOrder(false)
             SetBookshelf(false)
             SetProfiledet(false)

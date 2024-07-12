@@ -34,7 +34,7 @@ const ApproveOrRejectBook = () => {
   // };
 
   useEffect(() => {
-    console.log("book id : ", location.state.bookid);
+    // console.log("book id : ", location.state.bookid);
     setBookID(location.state.bookid);
 
     getBookDetails(location.state.bookid);
@@ -42,7 +42,7 @@ const ApproveOrRejectBook = () => {
 
   const getBookDetails = async(id) => {
     let resp = await getBookById(id);
-    console.log("Book details : ", resp.data.output);
+    // console.log("Book details : ", resp.data.output);
     setBookResponse(resp.data.output);
     setImageUrl(Config.API_URL + Config.PUB_IMAGES + resp.data.output.publisherid + "/" + resp.data.output.front_cover + '?d=' + new Date())
   }
@@ -61,7 +61,7 @@ const ApproveOrRejectBook = () => {
   const page_navigation = () => {
 
     const timer = setTimeout(() => {
-      console.log('setTimeout called!');
+      // console.log('setTimeout called!');
       navigate("/bookapprovals");
     }, 4000);
     return () => clearTimeout(timer);
@@ -71,7 +71,7 @@ const ApproveOrRejectBook = () => {
     if(action === 1){
       // setDisplayRejectionReason(false);
       const response = await approveBook(bookID);
-      console.log('Approval response: ' , response)
+      // console.log('Approval response: ' , response)
       toast.success(response, {
         position: "top-center",
         autoClose: 2000,
@@ -85,7 +85,7 @@ const ApproveOrRejectBook = () => {
       // console.log("Response : ", response);
     }
     else{
-      console.log("Rejection reason : ", rejectionReason);
+      // console.log("Rejection reason : ", rejectionReason);
       const response = await rejectBook(bookID,rejectionReason);
       toast.success(response, {
         position: "top-center",
