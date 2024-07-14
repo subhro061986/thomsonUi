@@ -41,11 +41,11 @@ const ShippingAddress = () => {
     }
 
     const openAddAddressModal = async(id) => {
-        console.log("edit shipping id ", id)
+        // console.log("edit shipping id ", id)
         setAddAddressModal(true)
         
         const response = await getSippingAddressById(id)
-        console.log("response of ship by id", response)
+        // console.log("response of ship by id", response)
         if (id === 0) {
             setmodaltitle('Add Address')
             setStreetAddress('')
@@ -80,13 +80,13 @@ const ShippingAddress = () => {
 
     const getShipLists = async() =>{
         const resp = await getAllShippingAddress()
-        console.log("ship list ", resp)
+        // console.log("ship list ", resp)
         setShipList(resp.data.output)
     }
 
     const get_countries = async () => {
         const resp = await get_country_list()
-        console.log("countries ", resp.output)
+        // console.log("countries ", resp.output)
 
         if (resp !== undefined) {
             setCountries(resp.output)
@@ -103,7 +103,7 @@ const ShippingAddress = () => {
 
 
         if (resp !== undefined) {
-            console.log("states ", resp.output)
+            // console.log("states ", resp.output)
             setStateList(resp.output)
         }
 
@@ -115,7 +115,6 @@ const ShippingAddress = () => {
 
     const select_country = async (e) => {
         // alert(e.target.value)
-        console.log("country_id", e.target.value)
         setCountryId(e.target.value)
         let country_id = e.target.value
         await get_states(country_id)
@@ -124,27 +123,13 @@ const ShippingAddress = () => {
     const select_states = async (e) => {
         // alert(e.target.value)
         setStateId(e.target.value);
-        console.log("state_id", e.target.value);
 
     }
 
-    // const addShippingData = async () => {
-    //     setShippingAddId(0)
-    //     const formData = new FormData();
-    //     formData.append('streetAddress', streetAddress)
-    //     formData.append('countryid', countryId)
-    //     formData.append('stateid', stateId)
-    //     formData.append('city', city)
-    //     formData.append('pincode', pin)
-
-    //     const resp = await addShippingAddress(formData)
-    //     console.log(" add shipping address resp ", resp)
-
-    //     return resp
-    // }
+    
 
     const saveShipping = async () => {
-        console.log("shipping id in save fnc ", shippingAddId)
+        // console.log("shipping id in save fnc ", shippingAddId)
         if (shippingAddId === 0) {
             let addShippingData = {
                 streetAddress: streetAddress,
@@ -154,7 +139,7 @@ const ShippingAddress = () => {
                 pincode: pin
             }
             let response = await addShippingAddress(addShippingData)
-            console.log(" add shipping response ", response)
+            // console.log(" add shipping response ", response)
             getShipLists()
             closeAddAddressModal()
         }
@@ -168,7 +153,7 @@ const ShippingAddress = () => {
                 pincode: pin
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
-            console.log(" add shipping response ", response)
+            // console.log(" add shipping response ", response)
             getShipLists()
             closeAddAddressModal()
         }
@@ -178,7 +163,7 @@ const ShippingAddress = () => {
 
     const deleteAddress = async (id) => {
         const resp = await delShippingAddress(id)
-        console.log("delete resp ", resp)
+        // console.log("delete resp ", resp)
         await getShipLists()
     }
 

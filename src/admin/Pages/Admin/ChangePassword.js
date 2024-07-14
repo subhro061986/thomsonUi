@@ -107,7 +107,7 @@ const ChangePassword=()=> {
         style: {fontWeight: 'bold',backgroundColor:"rgb(255, 237, 246)"}
         });
       // NotificationManager.error('Confirm password and new password not matched','ERROR!', 5000);
-      console.log("Passwords has not matched")
+      // console.log("Passwords has not matched")
     }
     else{
       let senddata = {

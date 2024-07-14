@@ -52,13 +52,11 @@ const WishList = () => {
         let current_pg = 1
         let records_per_pg = 5
         const resp = await get_wishlist_books(current_pg, records_per_pg)
-        console.log("wish_resp : ", resp)
 
         if (resp === undefined || resp === null) {
             setWishbooks([])
         }
         else {
-            console.log("else")
             if (resp.statuscode === "0" && resp.output?.length > 0) {
                 setWishbooks(resp.output)
                 // get_wish_books_id()
@@ -101,10 +99,10 @@ const WishList = () => {
                     closeButton: false,
                     theme: "dark",
                 });
-                // console.log("added")
+                
             }
             else {
-                console.log("The Book already exists in the cart")
+                
                 toast.info("Book Already Added", {
                     position: "top-center",
                     autoClose: 3000,
@@ -128,7 +126,7 @@ const WishList = () => {
             "bookid": bookid
         }
         const resp = await add_single_item(json)
-        console.log("single_item_added ", resp.message)
+        // console.log("single_item_added ", resp.message)
     }
 
 
@@ -142,13 +140,12 @@ const WishList = () => {
             recordPerPage: 5
         }
 
-        console.log("json_edit", json)
-        // console.log("Remove_wishbooksid ", wishlistitems.length )
+        // console.log("json_edit", json)
         const resp = await add_delete_to_wishlist(json)
 
         Wishlisted_books()
-        console.log("DElete_wish ", resp)
-        console.log("book_id", book_id)
+        // console.log("DElete_wish ", resp)
+        // console.log("book_id", book_id)
     }
 
 

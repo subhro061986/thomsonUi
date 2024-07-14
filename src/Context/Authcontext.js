@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
       const expirationTime = (exp * 1000) - 60000
 
       if (Date.now() >= expirationTime) {
-        console.log("Token Expired")
+        // console.log("Token Expired")
         setIsexpired(true)
         // localStorage.removeItem("userid")
         localStorage.setItem("userid", '');
@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
 
 
     else {
-      console.log("Token Not Expired")
+      // console.log("Token Not Expired")
       setIsexpired(false)
     }
 
@@ -135,7 +135,7 @@ const AuthProvider = ({ children }) => {
 
 
   const logIn = async (arg) => {
-    console.log(arg)
+    
     try {
       const response = await axios.post(Config.API_URL + Config.LOGIN_API, arg,
         {
@@ -144,9 +144,9 @@ const AuthProvider = ({ children }) => {
           },
 
         })
-      console.log("token", response)
+      
       let decode_resp = jwtDecode(response.data.token)
-      console.log("decoded_resp : ", decode_resp)
+      
       if (response.status === 200) {
         setAuthData(response.data.token)
         setAuthRole(decode_resp.role)
@@ -186,7 +186,7 @@ const AuthProvider = ({ children }) => {
     // setAuthUsername('')
     localStorage.setItem("userid", '');
     // localStorage.setItem("username", '');
-    console.log("log out from authcontext");
+    
     // getCartData('')
     setCartCount(0)
     setCartItems([])
@@ -206,7 +206,7 @@ const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json'
           },
         })
-      console.log("ForgotPassword_resp: ", response);
+      // console.log("ForgotPassword_resp: ", response);
       return response.data.message;
     }
     catch (error) {
@@ -349,11 +349,11 @@ const AuthProvider = ({ children }) => {
 
     let tempCartArray = []
     let isPresent = false
-    console.log("inside add book to storage")
+    // console.log("inside add book to storage")
     // -------- Before Login ----------//
     if (authData === '' || authData === null || authData === undefined) {
       const cd = localStorage.getItem('cartData');
-      console.log("existing cart Data= ", cd)
+      
 
       // nothing present in async storage i.e first entry
       if (cd === null || cd === '' || cd === undefined) {
@@ -384,7 +384,7 @@ const AuthProvider = ({ children }) => {
         // book already present in cart and do nothing 
         else {
           isPresent = true
-          console.log("Book already present in cart")
+          
         }
 
       }
@@ -413,7 +413,7 @@ const AuthProvider = ({ children }) => {
 
             })
 
-          console.log('add Single item resp=', response)
+          
 
           // get new updated cart items
           getCartData(authData)
@@ -455,7 +455,7 @@ const AuthProvider = ({ children }) => {
       }
       // if it gets called from another place like cart page then we can call the getCardData api to fix it
       else {
-        console.log("inside if of get cart adter removal")
+        // console.log("inside if of get cart adter removal")
         getCartData(authData)
 
       }
@@ -488,7 +488,7 @@ const AuthProvider = ({ children }) => {
       return item.bookid === bookid
     });
     let tempArr = cartItems
-    console.log("tempArr index= ",tempArr[index])
+    // console.log("tempArr index= ",tempArr[index])
     tempArr[index]["quantity"] += 1
     tempArr[index]["amount"]= tempArr[index]["price"] * tempArr[index]["quantity"]
     setCartItems(tempArr)
@@ -505,7 +505,7 @@ const AuthProvider = ({ children }) => {
       return item.bookid === bookid
     });
     let tempArr = cartItems
-    console.log("tempArr index= ",tempArr[index])
+    // console.log("tempArr index= ",tempArr[index])
     if (tempArr[index]["quantity"] > 1) {  
       setCartCount(cartCount - 1)
       tempArr[index]["quantity"] -= 1
@@ -577,7 +577,7 @@ const AuthProvider = ({ children }) => {
                 subtotal = subtotal + data.amount
         })
 
-        console.log("subtotal function=", subtotal)
+        // console.log("subtotal function=", subtotal)
         setSubTotal(subtotal)
 
     } else {

@@ -200,7 +200,7 @@ const OrderPage = () => {
     }
     const getInvoice = async (id) => {
         const resp = await getInvoiceById(id)
-        console.log("Resp= ", resp)
+        // console.log("Resp= ", resp)
         const pdf = new jsPDF('p', 'pt', 'a4');
         var img = new Image()
         img.src = Logo
@@ -224,18 +224,18 @@ const OrderPage = () => {
 
     const getMyOrders = async () => {
         let myOrdersResponse = await myorders(1, 10)
-        console.log("resp from order page", myOrdersResponse)
+        // console.log("resp from order page", myOrdersResponse)
         if (myOrdersResponse.statuscode === "0") {
             let tempArray = myOrdersResponse.output.orders
-            console.log("tempArray from order= ", tempArray)
+            // console.log("tempArray from order= ", tempArray)
             SetOrders(tempArray)
 
         }
-        console.log("myOrderDetails= ", myOrdersResponse)
+        // console.log("myOrderDetails= ", myOrdersResponse)
     }
 
     const orderCancel= async (book) =>{
-        console.log("cancelOrder amt=", parseFloat(book.totalamount))
+        // console.log("cancelOrder amt=", parseFloat(book.totalamount))
 
 
         let cancelOrderJson= {
@@ -247,7 +247,7 @@ const OrderPage = () => {
         const cancelOrderResponse= await cancelOrder(cancelOrderJson)
 
         if(cancelOrderResponse.statuscode === "0"){
-            console.log("Order canceled successfully")
+            // console.log("Order canceled successfully")
             alert("Order canceled successfully")
             getMyOrders(currentPage,recordPerPage)
         }

@@ -105,7 +105,7 @@ const LoginScreen = () => {
             }
 
             const resp = await logIn(sendLoginData)
-            console.log("login response", resp)
+            // console.log("login response", resp)
 
             if (resp === undefined || resp === null) {
                 // navigate('/');
@@ -119,13 +119,13 @@ const LoginScreen = () => {
                     closeButton: false,
                     style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
                 });
-                console.log("Login Unsuccessful")
+                // console.log("Login Unsuccessful")
 
             }
             else {
-                console.log("Login Successful");
-                console.log("Login data received : ", resp);
-                console.log("Auth details received : ", authDeatils);
+                // console.log("Login Successful");
+                // console.log("Login data received : ", resp);
+                // console.log("Auth details received : ", authDeatils);
                 const result = jwtDecode(resp.token)
                 if (result.role === "Admin") {
                     navigate('/admin/managecategories');
@@ -213,7 +213,7 @@ const LoginScreen = () => {
                     <div className='d-flex justify-content-end forget_pass' onClick={openModal}>Forgot Password?</div>
                     <div className='d-flex justify-content-center mt-5'>
                         <button type="button" 
-                        class="btn btn_login" 
+                        className="btn btn_login" 
                         onClick={doLogin}
                         >Login</button>
                     </div>

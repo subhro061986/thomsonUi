@@ -88,8 +88,8 @@ const Login = () => {
     }
 
     const doLogin = async () => {
-        console.log('Email : ', email);
-        console.log('pass : ', password);
+        // console.log('Email : ', email);
+        // console.log('pass : ', password);
         if (email === '' && password === '') {
             setEmailError('Please enter email')
             setPasswordError('Please enter password')
@@ -110,13 +110,13 @@ const Login = () => {
             }
 
             const resp = await logIn(sendLoginData)
-            console.log("login response", resp)
+            // console.log("login response", resp)
 
             if (resp?.status === 200) {
                 if (items > 0) { navigate('/cartpage') }
                 else { navigate('/') };
                 // NotificationManager.success(resp.message, 'Success !', 5000,);
-                console.log("Logged in ")
+                // console.log("Logged in ")
                 // toast.success("Logged in Successfully", {
                 //     position: "top-right",
                 //     autoClose: 2000,

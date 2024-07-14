@@ -18,8 +18,8 @@ const FooterSouthsore = () => {
 
     const get_publisher_data = (pub_id) => {
         // let pub_id = e.target.value
-        console.log('pub_id afteer navigation', pub_id)
-        navigate('/home',
+        // console.log('pub_id afteer navigation', pub_id)
+        navigate('/category',
             { state: { publisher_id: pub_id } }
         )
 
