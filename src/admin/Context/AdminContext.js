@@ -29,6 +29,7 @@ const AdminProvider = ({ children }) => {
   const [prevMonthlySale, setMonthlyPrevSale] = useState({});
   const [distributorList, setDistributorList] = useState({});
   const [shipperInfoList, setShipperInfoList] = useState({});
+  const [orderInfo,setOrderInfo]= useState(null);
 
   useEffect(() => {
 
@@ -38,7 +39,7 @@ const AdminProvider = ({ children }) => {
     }
     else {
       console.log("authDetails:", authDeatils)
-      if (authDeatils.role === "Admin") {
+      // if (authDeatils.role === "Admin") {
         getAllCategory();
         getAllBookList();
         get_pub_details();
@@ -52,7 +53,7 @@ const AdminProvider = ({ children }) => {
         getAllDistributor();
         getAllShipper();
         // getAllCoupons();
-      }
+      // }
       // else if(authDeatils.role === "South Shore Admin" ){
       // getAllCategory();
       // getAllBookList();
@@ -1437,6 +1438,38 @@ const AdminProvider = ({ children }) => {
       console.log("DELETE shipper error : ", error);
     }
   }
+  const get_single_order = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+ '/' + id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        setOrderInfo(response.data.output)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const changeOrderStatus = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.CHANGE_ORDER_STATUS,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        await get_single_order(args.id)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
 
 
 
@@ -1519,7 +1552,10 @@ const AdminProvider = ({ children }) => {
         getShipperById,
         editShipper,
         restore_shipper,
-        delete_shipper
+        delete_shipper,
+        get_single_order,
+        orderInfo,
+        changeOrderStatus
 
       }}
     >

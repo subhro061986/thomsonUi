@@ -14,6 +14,7 @@ import { useAuth } from "../../Context/AuthContext";
 const ManageOrderScreen = () => {
 
     const { getManageOrder } = AdminProfile();
+    const { authData}=useAuth()
     const navigate = useNavigate();
 
     const [orderDescriptionModal, setOrderDescriptionModal] = useState(false)
@@ -21,7 +22,7 @@ const ManageOrderScreen = () => {
 
     useEffect(() => {
         all_order()
-    }, [])
+    }, [authData])
 
     const all_order = async () => {
         let currPage = 1

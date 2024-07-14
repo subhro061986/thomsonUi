@@ -62,6 +62,6 @@
     "ADD_SHIPPER" : "shipper/add",
     "EDIT_SHIPPER" : "shipper/edit",
     "RESTORE_SHIPPER" : "shipper/restore/",
-    "DELETE_SHIPPER" : "shipper/delete/"
-
+    "DELETE_SHIPPER" : "shipper/delete/",
+    "CHANGE_ORDER_STATUS":"/change-status"
 }
