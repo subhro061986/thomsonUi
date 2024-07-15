@@ -273,11 +273,11 @@ const OrderPage = () => {
                     <div
                         key={index}
                     >
-                        <div className=" d-flex justify-content-between order_card light_border_top py-4"
+                        <div className=" d-flex  order_card light_border_top py-4"
                         // key={index}
                         >
-                            <div className="d-flex justify-content-start">
-                                <div className="d-flex justify-content-start book_section rounded-4">
+                            <div className="d-flex justify-content-start" style={{width:'70%'}}>
+                                <div className="d-flex justify-content-start book_section rounded-4" style={{width:'30%'}}>
                                     <div className="d-flex align-items-center px-3">
                                         <img
                                             // src={book.image === null || book.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.image + '?d=' + new Date()}
@@ -306,32 +306,36 @@ const OrderPage = () => {
                                     </span></div>
                                 </div>
                             </div>
-                            <div className="d-flex order_actions">
-                                <div className="op_ono">Order No: <span>
-                                    {book.orderno}
-                                    {/* ORD/24-25/00000003 */}
-                                </span></div>
+                            <div className="d-flex flex-column ">
+                                <p className="fs-13 fw-medium "><b>Order No: </b>{book.orderno} </p>
+                               
                                 
-                                <div className="op_pay_div">
-                                    <div className="op_paystat me-4">Payment Status: <span>{book.status}</span></div>
-                                    {book.status === "DELIVERED" &&
-                                    book.status === "RETURN REQUEST" &&
-                                    book.status === "RETURN ACCEPTED" &&
+                                <div className="d-flex justify-content-between align-items-center flex-row mt-2">
+                                    {/* <p className=" badge bg-success fs-13 fw-medium ">{book.status} </p> */}
+                                    <div class="px-3 py-1 mb-2 bg-warning-subtle text-warning-emphasis rounded-pill ">{book.status}</div>
+                                    {/* <div className="op_paystat me-4">Payment Status: <span>{book.status}</span></div> */}
+                                    {book.status === "DELIVERED" ||
+                                    book.status === "RETURN REQUEST" ||
+                                    book.status === "RETURN ACCEPTED" ||
                                     book.status === "REFUND" &&
-                                    <div>
-                                        <button className="btn btn-outline-primary rounded-pill op_btn"
+                                    
+                                        <button className="btn btn-outline-primary rounded-pill op_btn mb-2"
                                         onClick={() => { getInvoice(book.invoiceid) }}
                                         >Download Invoice</button>
-                                    </div>
+                                   
                                     }
                                 </div>
                                 
                                 <div className="d-flex align-item-center" style={{ marginTop: '8%' }}>
                                     {book.awbno === "" ? (
                                         <div>
-                                        <button className="btn btn-outline-secondary rounded-pill op_btn"
-                                        onClick={()=>orderCancel(book)}
-                                        >Cancel Order</button>
+                                          {
+                                            book.status === "PENDING" && 
+                                              <button className="btn btn-outline-secondary rounded-pill op_btn"
+                                              onClick={()=>orderCancel(book)}
+                                              >Cancel Order</button>
+
+                                          }  
                                         </div>
                                         
                                     ) : (
@@ -339,9 +343,14 @@ const OrderPage = () => {
                                         
                                     )}
                                     {book.status === "DELIVERED" &&
-                                        <div><button className="btn btn-outline-info rounded-pill op_btn ms-2"
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <button className="btn btn-outline-info rounded-pill op_btn ms-2"
                                         // onClick={() => { getInvoice(book.invoiceid) }}
-                                        >Return</button></div>
+                                        >Return</button>
+                                         <button className="btn btn-outline-primary rounded-pill op_btn ms-2"
+                                        onClick={() => { getInvoice(book.invoiceid) }}
+                                        >Download Invoice</button>
+                                        </div>
                                     }
                                 </div>
                             </div>

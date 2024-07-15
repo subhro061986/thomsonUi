@@ -73,19 +73,29 @@ const ViewOrderDetails = () => {
 
         const json = {
             "awbNo": awbNo,
-            "shipperId": shipper,
-            "orderid": location.state.orderid
+            "shipperid": shipper,
+            "orderid": location.state.orderid,
+            "statusid":5,
+            "id": location.state.orderid,
         }
-        // let response = await updateChange(location.state.orderid, shipper)
-        // console.log("update response ", response)
-        // get_order(location.state.orderid)
+        // console.log(json)
+        const response = await changeOrderStatus(json)
+        if (response.statuscode === "0") {
+            alert("Status changed successfully")
+            setStatusInfoModal(false)
+            setShipperInfoModal(false)
+        } else {
+            alert("Failed to change status")
+        }
     }
 
     const orderStatusChange = async (e) => {
         // e.preventDefault()
         const json = {
             "id": location.state.orderid,
-            "statusid": statusCode
+            "statusid": statusCode,
+            "awbNo": awbNo,
+            "shipperid": shipper,
         }
 
         const response = await changeOrderStatus(json)
@@ -119,16 +129,25 @@ const ViewOrderDetails = () => {
 
                         </div>
 
+                        {orderInfo?.awbno!== "" && orderInfo?.shippername !== "" &&
+                        
+                            <div className="d-flex" >
+                                <p className=" badge bg-light" style={{ color: 'black', fontSize: '1rem' }}>AWB No : {orderInfo?.awbno}</p>
+                                <p className=" badge bg-light mx-3" style={{ color: 'black', fontSize: '1rem' }}> Shipper Name: {orderInfo?.shippername} </p>
+
+                            </div>
+                        }
+
                     </div>
 
                     <div className="col-md-4">
-                        <div className="d-flex mt-3">
-                            <button className="btn btn-primary" onClick={openStatus}>Change Status</button>
-                            <button className="btn btn-success ms-4" onClick={openShipper}>Create Shipping</button>
+                        <div className="d-flex mt-3 justify-content-center">
+                            <button className="btn btn-success" onClick={openStatus}>Change Status</button>
+                            {/* <button className="btn btn-success ms-4" onClick={openShipper}>Create Shipping</button> */}
                         </div>
 
                         {shipperInfoModal ? <>
-                            <form >
+                           
                                 <div className="form-group" style={{ width: '100%' }}>
                                     <select id='adminOptions' className="form-select mb-3"
                                         value={shipper}
@@ -147,7 +166,7 @@ const ViewOrderDetails = () => {
 
                                 </div>
 
-                            </form>
+                            
 
                         </> : <></>}
                         {statusInfoModal ? <>
@@ -165,8 +184,27 @@ const ViewOrderDetails = () => {
                                             ))}
 
                                     </select>
+
+                                    {statusCode == 5 && 
+                                    <div>
                                     
+                                    <select id='adminOptions' className="form-select mb-3"
+                                        value={shipper}
+                                        onChange={handleShipper}
+                                    >
+                                        <option disabled selected>Please select</option>
+                                        {
+                                            shipperInfoList.map((data, index) => (
+                                                data.isactive === 1 &&
+                                                <option key={index} value={data.id}>{data.name}</option>
+                                            ))}
+
+                                    </select>
+                                    <input type="text" className="form-control mb-3" placeholder="Enter Awb Number" value={awbNo} onChange={handleAwbNo} />
+                                    </div>
+                                    }
                                     <button className="btn btn-outline-primary" onClick={orderStatusChange}>Save</button>
+                                    
 
                                 </div>
 

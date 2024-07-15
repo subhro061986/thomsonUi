@@ -1955,7 +1955,6 @@ button-solid:focus {
   text-align: left;
   margin-bottom: 3rem;
   display: flex;
-  justify-content: end;
 }
 
 .op_ono>span {
