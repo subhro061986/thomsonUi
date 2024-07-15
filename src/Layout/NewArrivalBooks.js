@@ -105,7 +105,7 @@ const NewArrivalBooks = () => {
 
 
     return (
-        <div className="p-5">
+        <div className="px-5">
             <div className="pub_name">
                 {/* Modern <span className="pub_span">Publishing House</span> */}
                 {/* {publisherData?.name} */}

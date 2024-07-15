@@ -286,7 +286,7 @@ input:focus {
 }
 
 .banner_thomson {
-  background-image: url("../Assets/Images/Banner_new.png");
+  background-image: url("../Assets/Images/Banner_bg_new.png");
   background-repeat: no-repeat;
   height: 537px;
   background-size: contain;
@@ -3106,7 +3106,15 @@ body.active-modal {
   border-radius: 10px;
 }
 
+.footer_pub_section {
+  justify-content: flex-end;
+}
+
 @media screen and (max-width: 376px)and (min-width: 280px) {
+
+  .footer_pub_section {
+    justify-content: flex-start;
+  }
 
   .whBtn {
     position: fixed;
@@ -3142,7 +3150,7 @@ body.active-modal {
   }
 
   .admin_logo_pos {
-    margin-left: 10%;
+    margin-left: 0%;
   }
 
   .admin_logo_size {
@@ -3328,7 +3336,7 @@ body.active-modal {
   }
 
   .s_f_logo_col {
-    margin-left: 9%;
+    margin-left: 8%;
     margin-bottom: 10%;
   }
 
@@ -3959,6 +3967,10 @@ body.active-modal {
 
 @media screen and (max-width: 436px)and (min-width: 377px) {
 
+  .footer_pub_section {
+    justify-content: flex-start;
+  }
+
   .whBtn {
     position: fixed;
     top: 50%;
@@ -4003,7 +4015,7 @@ body.active-modal {
   }
 
   .admin_logo_pos {
-    margin-left: 10%;
+    margin-left: 0%;
   }
 
   .admin_logo_size {
@@ -4208,7 +4220,7 @@ body.active-modal {
   }
 
   .s_f_logo_col {
-    margin-left: 9%;
+    margin-left: 7%;
     margin-bottom: 10%;
   }
 
@@ -4288,15 +4300,19 @@ body.active-modal {
   }
 
   .banner_southsore_text {
-    padding: 0px 30px 20px 30px !important;
+    padding: 20px 30px 20px 55px !important;
   }
 
   .banner_southsore_text>.welcome_text {
-    font-size: 24px;
+    font-size: 26px;
+    line-height: 32px;
   }
 
   .banner_southsore_text>.heading {
     font-size: 72px;
+    padding-right: 2% !important;
+    margin-top: 3%;
+    line-height: 26px !important;
   }
 
   .banner_southsore_text>.text_2,
@@ -4607,7 +4623,7 @@ body.active-modal {
   }
 
   .nav-link {
-    padding-left: 20px !important;
+    padding-left: 0px !important;
   }
 
   .accordion-button {
@@ -4834,3 +4850,10 @@ body.active-modal {
 .elMPtT .wrapper {
   z-index: 9 !important;
 }
+
+.banner_southsore_text{
+  padding-left: 10%;
+}
+/* .container {
+  max-width: 1600px;
+} */
