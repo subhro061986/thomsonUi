@@ -27,7 +27,7 @@ import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import FooterSouthsore from "../Layout/FooterSouthsore";
 import Whatsapp from "../Layout/Whatsapp";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
-
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -37,6 +37,8 @@ const WishList = () => {
     const { wishlistshow, uuid } = useAuth();
 
     const [wishbooks, setWishbooks] = useState([])
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -186,7 +188,7 @@ const WishList = () => {
 
 
                                 <div key={index} className="col-md-3 wishlisht_mobile_container">
-                                    <Card className="card-des mb-3 pb-3">
+                                    <Card className="card-des mb-4 pb-3">
                                         <div className="d-flex flex-row-reverse p-2 me-3 mt-3" onClick={() => remove_item(data.id)}>
 
                                             <SVG src={closeIcon}></SVG>
@@ -214,7 +216,7 @@ const WishList = () => {
                                                     // className="footerText" 
                                                     onClick={() => add_to_cart(data.id)}
                                                     // style={{cursor:"pointer"}}
-                                                    type="button" style={{ width: '62%', fontWeight: '600' }}
+                                                    type="button" style={{ width: '70%', fontWeight: '600' }}
                                                     className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2 ms-5"
                                                 >
                                                     Move to Cart
@@ -229,7 +231,9 @@ const WishList = () => {
 
                     </div>
                     <div className="d-flex justify-content-center mt-5 mb-5">
-                        <Button variant="outline-dark" className="rounded-pill  py-3 px-4" style={{color:'#061927', fontWeight:'500'}}>Continue Shopping</Button>
+                        <Button variant="outline-dark" className="rounded-pill  py-3 px-4" style={{color:'#061927', fontWeight:'500'}}
+                        onClick={() => { navigate('/') }}
+                        >Continue Shopping</Button>
                     </div>
 
                 </div>

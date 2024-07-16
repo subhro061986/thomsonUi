@@ -300,9 +300,9 @@ const CartPage = () => {
 
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button"
-                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 continue_tn_empty_cart"
                                         onClick={() => { navigate('/') }}
-                                        style={{ width: '20%' }}
+                                        // style={{ width: '20%' }}
                                     >
                                         Continue Shopping
                                     </button>
@@ -387,8 +387,7 @@ const CartPage = () => {
                                                                 readOnly
                                                                 // style={{ width: '50px', textAlign: 'center' }}
                                                                 //className="inc_dec_input"
-                                                                style={{width:'7%'}}
-                                                                className="form-control mx-3"
+                                                                className="form-control text-center mx-3 quantity_inp_cart"
                                                             />
                                                             <button
                                                                 onClick={() => increment(data)}
@@ -434,7 +433,7 @@ const CartPage = () => {
                                     </button>
 
                                 </div>
-                                <div className="d-flex justify-content-center mt-2">
+                                <div className="d-flex justify-content-center mt-3">
                                     <button type="button"
                                         className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                         onClick={() => { navigate('/home') }}

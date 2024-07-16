@@ -33,6 +33,7 @@ import dummy from "../Assets/Images/dummy.png";
 import { useAuth } from "../Context/Authcontext";
 import Config from "../Config/Config.json";
 import Whatsapp from "../Layout/Whatsapp";
+import FooterSouthsore from "../Layout/FooterSouthsore";
 
 
 const responsive = {
@@ -455,7 +456,7 @@ const ProductDetailsPage = () => {
 
 
             
-            <Footer />
+            <FooterSouthsore />
 
             <ToastContainer />
 

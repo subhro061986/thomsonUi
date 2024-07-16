@@ -134,7 +134,7 @@ const ProfileTab = () => {
             }
             {
                 drawerStat == false && (
-                    <div className="profile-tab-nav profile_tab_bar_menu">
+                    <div className="profile-tab-nav profile_tab_bar_menu" style={{width:'74.5%', marginBottom: '1%'}}>
                         <div className="container d-flex justify-content-start align-items-center">
                             {/* <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf {bookshelf}</Link>
@@ -161,7 +161,7 @@ const ProfileTab = () => {
                                 <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">Shipping Addresses</Link>
                             </div>
                             
-                            <div className={"profile-item " + (changePassword === true ? "active" : '')} onClick={()=>mybookshelf("changePassword")}>
+                            <div className={"profile-item " + (changePassword === true ? "active" : '')}  style={{borderRight: '0px'}} onClick={()=>mybookshelf("changePassword")}>
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>
                             </div>
                             
