@@ -32,7 +32,7 @@ const BookApproval = () => {
   const [recordPerPage, setRecordPerPage] = useState(2);
 
   useEffect(() => {
-    console.log("all book list : ", allBookList)
+    // console.log("all book list : ", allBookList)
   }, [authData])
 
   const navigate = useNavigate();
@@ -50,13 +50,13 @@ const BookApproval = () => {
   const delete_book = async (bookid) => {
     const resp = await deletebook(bookid)
 
-    console.log('Delete_book', resp)
+    // console.log('Delete_book', resp)
   }
 
   const restore_book = async (bookid) => {
     const resp = await restorebook(bookid)
 
-    console.log('Restore_book', resp)
+    // console.log('Restore_book', resp)
   }
 
   const rest_del_book = (activeVal, bookid) => {

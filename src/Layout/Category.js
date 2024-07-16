@@ -48,7 +48,9 @@ const Category = () => {
     navigate('/category', { state: { category_id: cat_id } })
   }
 
-  const { getAllCategory, category_by_publisher, categoryByPublisherList, categoryList } = UserProfile()
+  const { getAllCategory, category_by_publisher, categoryByPublisherList, 
+    // categoryList 
+  } = UserProfile()
 
   const [allcategory, setAllcategory] = useState([])
   const [pubcat, setPubcat] = useState([])
@@ -153,26 +155,26 @@ const Category = () => {
           itemClass="carousel-item-padding-40-px-publisher"
         >
 
-          {
-            categoryList.map((data, index) => (
+          {/* {
+            categoryList.map((data, index) => ( */}
 
 
           <div
-            key={index}
+            // key={index}
             className="col-md border card_border_light book_card h380 m-3"
             style={{ cursor: 'pointer' }}
-          onClick={() => goToCatagory(data.id)}
+          // onClick={() => goToCatagory(data.id)}
           >
             <div className="d-flex flex-column py-3 px-4">
               <div className="d-flex my-3">
                 <img
                   // src={data.image === null || data.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()}
-                  src={art3}
+                  // src={art3}
                   width={100} height={100} alt={"Product Image Not Found"}
                 />
               </div>
               <div className="d-flex cat_title">
-                {data.name}
+                {/* {data.name} */}
                 {/* {data.name.length > 12 ? data.name.substring(0, 12) + ".." : data.name} */}
                 {/* Legal */}
               </div>
@@ -191,7 +193,7 @@ const Category = () => {
 
           
 
-          ))}
+          {/* ))} */}
 
         </Carousel>
 

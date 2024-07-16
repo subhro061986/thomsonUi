@@ -66,7 +66,6 @@ const ProductDetailsPage = () => {
         add_single_item,
         cart_items,
         add_delete_to_wishlist,
-        getBookShelf,
         get_items } = UserProfile()
 
     const [bookdetail, setBookdetail] = useState({})
@@ -90,33 +89,18 @@ const ProductDetailsPage = () => {
     }, [])
 
     useEffect(() => {
-        console.log("p_detail : ", location?.state ? location?.state?.BOOK_ID : 2)
+        // console.log("p_detail : ", location?.state ? location?.state?.BOOK_ID : 2)
         book_detail(location?.state?.BOOK_ID)
 
-        console.log("bookid= ", location.state?.BOOK_ID)
-        getbookshelfData(location.state?.BOOK_ID)
+        // console.log("bookid= ", location.state?.BOOK_ID)
+        
     }, [location.state?.BOOK_ID])
 
 
-    const getbookshelfData = async (bookid) => {
-
-        const booklistResp = await getBookShelf()
-
-        if (booklistResp?.output?.books != null) {
-            let booklist_arr = booklistResp?.output?.books?.filter((val) => {
-                return (val.id === bookid)
-            })
-            console.log("booklistarr=", booklist_arr)
-
-            if (booklist_arr.length > 0) {
-                setIsBookPresent(true)
-            }
-
-        }
-    }
+    
     const book_detail = async (book_id) => {
         const resp = await get_book_details(book_id)
-        console.log(" book details resp", resp)
+        // console.log(" book details resp", resp)
         if (resp === undefined || resp === null) {
             setBookdetail({})
             setImages([])
@@ -124,7 +108,7 @@ const ProductDetailsPage = () => {
             setBackCover('')
         }
         else {
-            console.log("det_resp", resp)
+            // console.log("det_resp", resp)
             if (resp.statuscode === "0" && JSON.stringify(resp.output) !== "{}" && resp.output !== null && resp.output !== undefined) {
                 setBookdetail(resp.output)
                 // setImages(resp.output.images?.length > 0 ? resp.output.images : dummy);
@@ -155,8 +139,7 @@ const ProductDetailsPage = () => {
 
         let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.img + '?d=' + new Date();
         let backCover = image_path + pub_obj.publisherid + '/' + pub_obj.back_cover + '?d=' + new Date();
-        console.log("PUB OBJ FC IMAGE : ", frontCover);
-        console.log("PUB OBJ BC IMAGE : ", backCover);
+        
         setDefaultimg(frontCover);
         setNondefaultimg(backCover);
 
@@ -304,25 +287,7 @@ const ProductDetailsPage = () => {
                         </div>
 
 
-                        {/* {
-                            nondefaultimg?.length > 0 ? nondefaultimg.map((data, index) => (
-                                <div key={index} className="d-flex flex-row justify-content-between product_title_margin"
-                                    // onClick={() => img_alter(data.image !== null || data.image !== undefined ? data.image : dummy)}
-                                    onClick={() => img_alter(data)}
-                                >
-                                    <div className='product_3_images'> <img src={data?.length > 0 ? data.image : dummy} width={112} height={111} /></div>
-                                </div>
-                            )) : (
-                                <div className="d-flex flex-row justify-content-between mt-3">
-                                    <div > <img className='product_3_images' src={dummy} /></div>
-                                    <div > <img className='product_3_images' src={dummy} /></div>
-                                    <div > <img className='product_3_images' src={dummy} /></div>
-                                </div>
-                            )
-                        } */}
-                        {/* <div className="d-flex flex-row justify-content-between mt-3">
-                            <div onClick={() => img_alter(nondefaultimg)}> <img className='product_3_images' src={ nondefaultimg ? nondefaultimg : dummy} /></div>
-                        </div> */}
+                        
 
 
 

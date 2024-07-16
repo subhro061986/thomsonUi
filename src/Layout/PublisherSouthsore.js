@@ -15,6 +15,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import { useNavigate } from 'react-router-dom';
+import { all } from "axios";
 
 
 const responsive = {
@@ -41,14 +42,14 @@ const PublisherSouthsore = () => {
   const navigate = useNavigate();
 
   const goToCatagory = (val) => {
-    console.log("pub val : ",val);
+    // console.log("pub val : ",val);
     navigate('/category', { state: { publisher_id: val.id } })
   }
 
-  const { getAllCategory, category_by_publisher, allActivePublisher } = UserProfile()
+  const { allActivePublisher } = UserProfile()
 
-  const [allcategory, setAllcategory] = useState([])
-  const [pubcat, setPubcat] = useState([])
+  // const [allcategory, setAllcategory] = useState([])
+  // const [pubcat, setPubcat] = useState([])
 
   // ** Note : Here publisher id will be optained from the previous page. 
   // ** Note : callback fn in Useeffect will be fired immediately on receiving the publisher id from previous page
@@ -57,6 +58,7 @@ const PublisherSouthsore = () => {
     // book_category()
     //book_category_by_publisher(1)
     // allActivePublisher()
+    // console.log('All active publishers', allActivePublisher.length);
   }, [])
 
 
@@ -85,47 +87,81 @@ const PublisherSouthsore = () => {
         <div className="d-flex justify-content-center align-items-center section_head fw700">Listed Publishers</div>
 
         <div className="row mx-0">
-          <Carousel
-            responsive={responsive}
-            //autoPlay={true}
-            //autoPlaySpeed={2000}
-            showDots={true}
-            dotListClass="custom-dot-list-style-publisher"
-            infinite={true}
-            containerClass="carousel-container-publisher"
-            itemClass="carousel-item-padding-40-px-publisher"
-          >
-            {allActivePublisher.map((data, index) => (
-
-              data.isactive === 1 && (
-            <div
-              key={index}
-              className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
-              onClick={() => goToCatagory(data)}
-              style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
-            >
-              <div
-                className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
-                data-bs-toggle="tooltip" 
-                data-bs-placement="top"
-              title={data.name}
-              >
-                {/* <img src={art} alt={"Category Image Not Found"} /> */}
-                <img src={data.logo === null || data.logo === "" ? ThomsonLogo : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
-                {/* <img src={ThomsonLogo} alt="publisher logo" width={140}/> */}
-              </div>
-              <div className="text-center cat_txt fw500 mb-4">
-                {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
-                {data.name.replace("Thompson Reuters ", "").trim()}
-                {/* UK */}
-              </div>
-            </div>
-
-            )
-
-            ))}
+          {allActivePublisher.length < 5 ? (
             
-          </Carousel>
+              allActivePublisher.map((data, index) => (
+
+                data.isactive === 1 && (
+                  <div
+                    key={index}
+                    className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+                    onClick={() => goToCatagory(data)}
+                    style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+                  >
+                    <div
+                      className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title={data.name}
+                    >
+                      {/* <img src={art} alt={"Category Image Not Found"} /> */}
+                      <img src={data.logo === null || data.logo === "" ? ThomsonLogo : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
+                      {/* <img src={ThomsonLogo} alt="publisher logo" width={140}/> */}
+                    </div>
+                    <div className="text-center cat_txt fw500 mb-4">
+                      {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                      {data.name.replace("Thompson Reuters ", "").trim()}
+                      {/* UK */}
+                    </div>
+                  </div>
+
+                )
+
+              ))
+            
+          ) : (
+            <Carousel
+              responsive={responsive}
+              //autoPlay={true}
+              //autoPlaySpeed={2000}
+              showDots={true}
+              dotListClass="custom-dot-list-style-publisher"
+              infinite={true}
+              containerClass="carousel-container-publisher"
+              itemClass="carousel-item-padding-40-px-publisher"
+            >
+              {allActivePublisher.map((data, index) => (
+
+                data.isactive === 1 && (
+                  <div
+                    key={index}
+                    className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+                    onClick={() => goToCatagory(data)}
+                    style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
+                  >
+                    <div
+                      className=" bg-transparent d-flex justify-content-center align-items-center pub_list_div"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title={data.name}
+                    >
+                      {/* <img src={art} alt={"Category Image Not Found"} /> */}
+                      <img src={data.logo === null || data.logo === "" ? ThomsonLogo : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
+                      {/* <img src={ThomsonLogo} alt="publisher logo" width={140}/> */}
+                    </div>
+                    <div className="text-center cat_txt fw500 mb-4">
+                      {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                      {data.name.replace("Thompson Reuters ", "").trim()}
+                      {/* UK */}
+                    </div>
+                  </div>
+
+                )
+
+              ))}
+
+            </Carousel>
+          )}
         </div>
 
       </div>

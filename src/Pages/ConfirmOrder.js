@@ -105,7 +105,7 @@ const ConfirmOrder = () => {
                     </div>
                     <div className="border border-1 border_line mb-4 mt-2"></div>
                     <div className="d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-primary rounded-pill continue_btn py-3 px-4">Continue shopping</button>
+                        <button type="button" className="btn btn-outline-primary rounded-pill continue_btn py-3 px-4">Continue shopping</button>
                     </div>
                 </div>
             </div>

@@ -104,7 +104,7 @@ const ShippingComp = () => {
 
     useEffect(() => {
         getShipLists()
-        console.log('selectedShippingAddress',selectedShippingAddress)
+        // console.log('selectedShippingAddress',selectedShippingAddress)
     }, [selectedShippingAddress]);
 
     const getShipLists = async () => {
@@ -118,13 +118,13 @@ const ShippingComp = () => {
         }
 
        }
-       console.log("temp shipping arr= ",tempArr)
+    //    console.log("temp shipping arr= ",tempArr)
        setTempShippingArr([...tempArr]);
     }
 
     const get_countries = async () => {
         const resp = await get_country_list()
-        console.log("countries ", resp.output)
+        // console.log("countries ", resp.output)
 
         if (resp !== undefined) {
             setCountries(resp.output)
@@ -141,7 +141,7 @@ const ShippingComp = () => {
 
 
         if (resp !== undefined) {
-            console.log("states ", resp.output)
+            // console.log("states ", resp.output)
             setStateList(resp.output)
         }
 
@@ -153,7 +153,7 @@ const ShippingComp = () => {
 
     const select_country = async (e) => {
         // alert(e.target.value)
-        console.log("country_id", e.target.value)
+        // console.log("country_id", e.target.value)
         setCountryId(e.target.value)
         let country_id = e.target.value
         await get_states(country_id)
@@ -162,24 +162,10 @@ const ShippingComp = () => {
     const select_states = async (e) => {
         // alert(e.target.value)
         setStateId(e.target.value);
-        console.log("state_id", e.target.value);
+        // console.log("state_id", e.target.value);
 
     }
 
-    // const addShippingData = async () => {
-    //     setShippingAddId(0)
-    //     const formData = new FormData();
-    //     formData.append('streetAddress', streetAddress)
-    //     formData.append('countryid', countryId)
-    //     formData.append('stateid', stateId)
-    //     formData.append('city', city)
-    //     formData.append('pincode', pin)
-
-    //     const resp = await addShippingAddress(formData)
-    //     console.log(" add shipping address resp ", resp)
-
-    //     return resp
-    // }
 
     const saveShipping = async () => {
         console.log("shipping id in save fnc ", shippingAddId)
@@ -192,7 +178,7 @@ const ShippingComp = () => {
                 pincode: pin
             }
             let response = await addShippingAddress(addShippingData)
-            console.log(" add shipping response ", response)
+            // console.log(" add shipping response ", response)
             getShipLists()
             closeAddAddressModal()
         }
@@ -206,7 +192,7 @@ const ShippingComp = () => {
                 pincode: pin
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
-            console.log(" add shipping response ", response)
+            // console.log(" add shipping response ", response)
             getShipLists()
             closeAddAddressModal()
         }
@@ -216,7 +202,7 @@ const ShippingComp = () => {
 
     const deleteAddress = async (id) => {
         const resp = await delShippingAddress(id)
-        console.log("delete resp ", resp)
+        // console.log("delete resp ", resp)
         await getShipLists()
     }
 
@@ -228,22 +214,14 @@ const ShippingComp = () => {
 
     return (
         <>
-            {/* <div className="main-container"> */}
-            {/* <div className="container">
-                    <TopBarSouthsore />
-                    <NavBarSouthsore />
-                    <ProfileTab />
-                </div> */}
-
-            {/* <Whatsapp /> */}
-            {/* <div className="container"> */}
+            
             <div className="d-flex ms-2">
             <button className="btn rounded-pill d-flex justify-content-center align-items-center mt-2 px-4 py-2"  style={{background:'#058EFA',color:"white"}} onClick={() => openAddAddressModal(0)}>Add Address</button>
                 </div>
             <div className="row my-4 mx-1">
                 {tempShippingArr.map((data, index) => (
                     <div className="col-md-3 text-start border border-secondary  mx-2 mt-3 py-3 px-3" style={{borderRadius:15}} key={index}>
-                        <input class="form-check-input" type="radio" checked={data.checked}
+                        <input className="form-check-input" type="radio" checked={data.checked}
                             onChange={() => handleCheckboxChange(data.id)} value={data.id} />
                         <div className="">
                             <div>{data.streetaddress}</div>
@@ -253,7 +231,7 @@ const ShippingComp = () => {
                             <div>{data.countryname}</div>
                             <div className="d-flex">
                             <button className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center mt-2 px-4"  onClick={() => openAddAddressModal(data.id)}>Edit</button>
-                                {/* <Button onClick={() => deleteAddress(data.id)}>Delete</Button> */}
+                                
                             </div>
                         </div>
 
@@ -261,8 +239,7 @@ const ShippingComp = () => {
                 ))}
             </div>
 
-            {/* </div> */}
-            {/* </div> */}
+            
 
             {/* Add Address Modal */}
 

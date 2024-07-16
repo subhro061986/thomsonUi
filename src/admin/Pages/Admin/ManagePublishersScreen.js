@@ -108,7 +108,7 @@ const ManagePublishersScreen = () => {
   }
 
   useEffect(() => {
-    console.log("My_login_details ", authDeatils)
+    // console.log("My_login_details ", authDeatils)
     get_countries()
     get_states_by_country()
     get_states()
@@ -116,12 +116,12 @@ const ManagePublishersScreen = () => {
 
   const get_state_inf = async (st_id) => {
 
-    console.log('state_id ', st_id)
+    // console.log('state_id ', st_id)
     const resp = await get_state_by_id(st_id)
     setStateList([resp.data.output])
 
 
-    console.log("get_state_inf ", resp)
+    // console.log("get_state_inf ", resp)
   }
 
 
@@ -132,7 +132,7 @@ const ManagePublishersScreen = () => {
     if (resp !== undefined) {
 
       if (resp.data.statuscode === '0') {
-        console.log("states ", resp.data.output)
+        // console.log("states ", resp.data.output)
         setStateList(resp.data.output)
       }
     }
@@ -147,7 +147,7 @@ const ManagePublishersScreen = () => {
     const resp = await get_all_countries()
     if (resp !== undefined) {
       if (resp.data.statuscode === '0') {
-        console.log("countries ", resp.data.output)
+        // console.log("countries ", resp.data.output)
         setCountries(resp.data.output)
       }
     }
@@ -173,13 +173,13 @@ const ManagePublishersScreen = () => {
 
   const getPublisherList = async () => {
     const response = await getAllPublishers();
-    console.log("Publishers : ", response?.data?.output);
+    // console.log("Publishers : ", response?.data?.output);
     setPublisherList(response?.data?.output);
   }
 
   const addPub_admin = async () => {
     setExistingId('')
-    console.log("Inside add pub admin. Exiting Id : ", existingId)
+    // console.log("Inside add pub admin. Exiting Id : ", existingId)
 
     const formData = new FormData();
 
@@ -205,7 +205,7 @@ const ManagePublishersScreen = () => {
 
 
     const response = await addPublisher_admin(formData);
-    console.log("Add_Publishers_resp : ", response);
+    // console.log("Add_Publishers_resp : ", response);
     getPublisherList()
     closeAdddPublisher()
 
@@ -236,12 +236,12 @@ const ManagePublishersScreen = () => {
     // formData.append('special_commission_2', spcom2)
     // formData.append('about', about);
     formData.append('logo', imageHandler)
-    console.log("logo", imageHandler);
+    // console.log("logo", imageHandler);
     // formData.append('banner', bannerimageHandler)
     // console.log("banner", bannerimageHandler);
 
     const response = await updatePublisher_admin(existingId, formData);
-    console.log("Update_Publishers_resp : ", response);
+    // console.log("Update_Publishers_resp : ", response);
 
 
     getPublisherList()
@@ -252,17 +252,17 @@ const ManagePublishersScreen = () => {
 
   const image = (e) => {
     setImageHandler(e.target.files[0])
-    console.log("image : ", e.target.files[0]);
+    // console.log("image : ", e.target.files[0]);
   }
 
   const banner_image = (e) => {
     setBannerImageHandler(e.target.files[0])
-    console.log("banner_image : ", e.target.files[0]);
+    // console.log("banner_image : ", e.target.files[0]);
   }
 
   const select_country = async (e) => {
     // alert(e.target.value)
-    console.log("country_id", e.target.value)
+    // console.log("country_id", e.target.value)
     setCountryId(e.target.value)
     let country_id = e.target.value
     await get_states(country_id)
@@ -272,13 +272,13 @@ const ManagePublishersScreen = () => {
   const select_states = async (e) => {
     // alert(e.target.value)
     setStateId(e.target.value);
-    console.log("state_id", e.target.value);
+    // console.log("state_id", e.target.value);
 
   }
 
 
   const savePub = async () => {
-    console.log("publisher_id", existingId)
+    // console.log("publisher_id", existingId)
 
     // let isValid = true;
     // else {
@@ -329,7 +329,7 @@ const ManagePublishersScreen = () => {
 
 
       let resp = await addPub_admin();
-      console.log("add_resp ", resp)
+      // console.log("add_resp ", resp)
 
       if (resp !== undefined) {
 
@@ -361,7 +361,7 @@ const ManagePublishersScreen = () => {
           style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
         });
       }
-      console.log("admin_add_pub_called ", resp)
+      // console.log("admin_add_pub_called ", resp)
 
 
 
@@ -374,7 +374,7 @@ const ManagePublishersScreen = () => {
     else {
       let resp = await updatePub_admin();
 
-      console.log("edit_resp ", resp)
+      // console.log("edit_resp ", resp)
 
       if (resp !== undefined) {
 
@@ -442,7 +442,7 @@ const ManagePublishersScreen = () => {
   }
 
   const editPubMoadl = (id) => {
-    console.log("edit_id :", id)
+    // console.log("edit_id :", id)
     setAddPublisherModal(true);
     pub_det(id)
   }
@@ -515,7 +515,7 @@ const ManagePublishersScreen = () => {
 
   const pub_det = async (id) => {
     const response = await getPublisherDetails(id);
-    console.log("Publisher Details : ", response.data.output);
+    // console.log("Publisher Details : ", response.data.output);
     // console.log("Publisher keys : ", response.data.output.keys());
 
     setExistingId(response.data.output.id);

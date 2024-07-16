@@ -18,8 +18,8 @@ const FooterSouthsore = () => {
 
     const get_publisher_data = (pub_id) => {
         // let pub_id = e.target.value
-        console.log('pub_id afteer navigation', pub_id)
-        navigate('/home',
+        // console.log('pub_id afteer navigation', pub_id)
+        navigate('/category',
             { state: { publisher_id: pub_id } }
         )
 
@@ -45,12 +45,12 @@ const FooterSouthsore = () => {
 
             <div className="container my-2">
                 <div className="row">
-                    <div className="col-md-3 s_f_logo_col">
+                    <div className="col-md-5 s_f_logo_col">
                         <img src={admin_logo} width={100} onClick={imgNavHome} style={{ cursor: 'pointer' }} />
                         <ul className="remove-dots" style={{ paddingLeft: 0 }}>
                             {/* <div className="custom-footer-Header">ebooksjunction.com</div> */}
 
-                            <li className="custom-footer-li">
+                            <li className="custom-footer-li pe-5">
                                 Books central office locations
                                 Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
                                 {/* <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p> */}
@@ -62,7 +62,7 @@ const FooterSouthsore = () => {
                         </ul>
                     </div>
                     <div className="col-md-3 s_f_mar_bot">
-                        <div className="d-flex flex-row" style={{ justifyContent: 'flex-end' }}>
+                        <div className="d-flex flex-row">
                             <div className="">
                                 <ul className="remove-dots" >
                                     <div className="custom-footer-Header">Publishers</div>
@@ -86,14 +86,14 @@ const FooterSouthsore = () => {
 
 
                     <div className="col-md-3 s_f_mar_bot">
-                        <div className="d-flex flex-row" style={{ justifyContent: 'flex-end' }}>
+                        <div className="d-flex flex-row footer_pub_section">
                             <div className="">
                                 <ul className="remove-dots">
                                     <div className="custom-footer-Header">Policies</div>
 
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/privacypolicy">
-                                            Privacy Policy
+                                            Privacy Policies
                                         </Link>
                                     </li>
                                     <li className="custom-footer-li">
@@ -103,7 +103,7 @@ const FooterSouthsore = () => {
                                     </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/disclaimer">
-                                            Disclaimer
+                                            IP Infringement Policy
                                         </Link>  </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/copyright">
@@ -113,16 +113,16 @@ const FooterSouthsore = () => {
                                     </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/faqs">
-                                            FAQ Customer
+                                        Cancellation And Returns Policy
                                         </Link>
 
                                     </li>
-                                    <li className="custom-footer-li">
+                                    {/* <li className="custom-footer-li">
                                         <Link className="nav-link" to="/faqpub">
                                             FAQ Publisher
                                         </Link>
 
-                                    </li>
+                                    </li> */}
 
                                 </ul>
                             </div>
@@ -132,49 +132,14 @@ const FooterSouthsore = () => {
                     </div>
 
 
-                    {/* <div className="col-md-3 s_f_mar_bot">
+                    
+
+                    <div className="col-md-1 s_f_mar_bot">
                         <ul className="remove-dots">
-                            <div className="custom-footer-Header">ebooksjunction.com</div>
-
-                            <li className="custom-footer-li">
-                                A division of Southshore Innovations Private Limited, Plot 13, Vijayendra Colony,
-                                Telephone Nagar, Perungudi, Chennai - 600096.
-                                <p className="mt-2" style={{cursor:'pointer'}} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p>
-                            </li>
-                            <li className="custom-footer-li">
-                                <div className="south_val"><span className="south_key">CIN No:</span> U22219TN2022PTC151260</div>
-                                <div className="south_val"><span className="south_key">GSTIN:</span> 33ABICS2457D1ZI</div>
-                            </li>
-                        </ul>
-                    </div> */}
-
-                    <div className="col-md-3 s_f_mar_bot">
-                        <ul className="remove-dots">
-                            {/* <div className="custom-footer-Header"> Subscribe to Newsleter</div> */}
-                            {/* <Button className="mt-2 rounded-pill px-4" variant="outline-primary">Contact us</Button>
-                            <div className="mt-4">
-                                <h6>Social Media</h6>
-                                <div className="d-inline p-2">
-                                    <img src={facebook_logo} />
-                                </div>
-                                <div className="d-inline p-2">
-                                    <img src={youtube_logo} />
-                                </div>
-                                <div className="d-inline p-2">
-                                    <img src={linkedin_logo} />
-                                </div>
-                                <div className="d-inline p-2">
-                                    <img src={instagram_logo} />
-                                </div>
-
-                            </div> */}
-                            {/* <div className="pos_rel">
-                                <input type="text" className="newsletter_email" placeholder="Enter Email" />
-                                <img src={arrow_right} className="arrow_pos" />
-                            </div> */}
-                            <div className="d-flex flex-row justify-content-end">
+                            
+                            <div className="d-flex flex-row footer_pub_section ps-1">
                                 <div className="">
-                                    <ul className="remove-dots">
+                                    <ul className="remove-dots ps-0">
                                         <div className="custom-footer-Header">Support</div>
                                         <li className="custom-footer-li">
                                             <Link className="nav-link" to="/faqs">
@@ -197,9 +162,7 @@ const FooterSouthsore = () => {
             </div>
             <div className="container-fluid d-flex align-items-center justify-content-center footer-note py-2">
                 <span className="text-center"> &#169; Copyright Southshore Innovations Private Limited</span>
-                {/* <div className="" >
-                    
-                </div> */}
+                
             </div>
         </div>
 

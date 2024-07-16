@@ -64,28 +64,7 @@ const NewArrivalBooks = () => {
     }
 
 
-    // const New_arrival = async () => {
-    //     let records_no = 4
-    //     const resp = await getNewArrivals(records_no,pubid)
-    //     console.log("CALL CHECK",resp)
-    //     if (resp === undefined || resp === null) {
-    //         setNewarrival([])
-    //     }
-    //     else {
-    //         if (resp.statuscode === "0" && resp.output.length > 0) {
-    //             setNewarrival(resp.output)
-    //         }
-    //         else {
-    //             setNewarrival([])
-    //         }
-    //     }
-
-
-    // }
-
-    // const publisherName = async(id) => {
-    //     const resp = await getPublishersById(id);
-    // }
+    
 
     const Wishlist = (event, book_id) => {
         event.stopPropagation()
@@ -126,7 +105,7 @@ const NewArrivalBooks = () => {
 
 
     return (
-        <div className="p-5">
+        <div className="px-5">
             <div className="pub_name">
                 {/* Modern <span className="pub_span">Publishing House</span> */}
                 {/* {publisherData?.name} */}

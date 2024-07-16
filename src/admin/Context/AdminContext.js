@@ -29,6 +29,7 @@ const AdminProvider = ({ children }) => {
   const [prevMonthlySale, setMonthlyPrevSale] = useState({});
   const [distributorList, setDistributorList] = useState({});
   const [shipperInfoList, setShipperInfoList] = useState({});
+  const [orderInfo,setOrderInfo]= useState(null);
 
   useEffect(() => {
 
@@ -38,7 +39,7 @@ const AdminProvider = ({ children }) => {
     }
     else {
       console.log("authDetails:", authDeatils)
-      if (authDeatils.role === "Admin") {
+      // if (authDeatils.role === "Admin") {
         getAllCategory();
         getAllBookList();
         get_pub_details();
@@ -52,7 +53,7 @@ const AdminProvider = ({ children }) => {
         getAllDistributor();
         getAllShipper();
         // getAllCoupons();
-      }
+      // }
       // else if(authDeatils.role === "South Shore Admin" ){
       // getAllCategory();
       // getAllBookList();
@@ -83,7 +84,7 @@ const AdminProvider = ({ children }) => {
 
   const getAllCategory = async () => {
     try {
-      console.log("test cat api :", Config.API_URL + Config.ALL_BOOK_CATEGORY)
+      // console.log("test cat api :", Config.API_URL + Config.ALL_BOOK_CATEGORY)
       const response = await axios.get(Config.API_URL + Config.ALL_BOOK_CATEGORY,
         {
           headers: {
@@ -91,7 +92,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       setCategoryList(response.data.output.length === 0 ? [] : response.data.output)
-      console.log("GET ALL BOOK CATEGORY : ", response);
+      // console.log("GET ALL BOOK CATEGORY : ", response);
       return response;
     }
     catch (error) {
@@ -125,7 +126,7 @@ const AdminProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-      console.log("GET CATEGORY BY ID: ", response);
+      // console.log("GET CATEGORY BY ID: ", response);
       return response;
     }
     catch (error) {
@@ -153,7 +154,7 @@ const AdminProvider = ({ children }) => {
   const getAllBookList = async () => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
     try {
-      console.log("auth data= ", authData)
+      // console.log("auth data= ", authData)
       const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 50, {},
         {
           headers: {
@@ -162,7 +163,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       // }
-      console.log("GET ALL BOOK LIST : ", response);
+      // console.log("GET ALL BOOK LIST : ", response);
       setAllBookList(response.data.output.books);
       return response;
 
@@ -253,7 +254,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET MANAGE ORDER: ", response);
+      // console.log("GET MANAGE ORDER: ", response);
       setManageOrder(response.data);
       return response;
     }
@@ -312,7 +313,7 @@ const AdminProvider = ({ children }) => {
             'Content-Type': 'application/json'
           },
         })
-      console.log("GET Language DETAILS: ", response.data);
+      // console.log("GET Language DETAILS: ", response.data);
       setLanguages(response.data.output)
       return response;
     }
@@ -331,7 +332,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET Currency DETAILS: ", response.data);
+      // console.log("GET Currency DETAILS: ", response.data);
       setCurrencies(response.data.output)
       return response;
     }
@@ -371,7 +372,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       getAllCategory();
-      console.log("EDIT CATEGORY RESPONSE : ", response);
+      // console.log("EDIT CATEGORY RESPONSE : ", response);
       return response;
     }
     catch (error) {
@@ -391,7 +392,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       getAllCategory();
-      console.log("DELETE CATEGORY RESPONSE : ", response);
+      // console.log("DELETE CATEGORY RESPONSE : ", response);
       return response;
     }
     catch (error) {
@@ -774,7 +775,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log(" get_all_countries resp : ", response.data);
+      // console.log(" get_all_countries resp : ", response.data);
       // setManageOrder(response.data);
       // get_myprofile()
       return response;
@@ -818,7 +819,7 @@ const AdminProvider = ({ children }) => {
           },
         })
 
-      console.log(" get_states_by_country resp : ", response.data);
+      // console.log(" get_states_by_country resp : ", response.data);
       // setManageOrder(response.data);
       // get_myprofile()
       return response;
@@ -863,7 +864,7 @@ const AdminProvider = ({ children }) => {
 
         })
 
-      console.log("Book_details_resp : ", response);
+      // console.log("Book_details_resp : ", response);
 
       return response.data.output
 
@@ -1008,7 +1009,7 @@ const AdminProvider = ({ children }) => {
 
         })
 
-      console.log("Get_all_coupons_resp : ", response);
+      // console.log("Get_all_coupons_resp : ", response);
       setAllCoupons(response.data.output);
       return response.data.output
 
@@ -1028,7 +1029,7 @@ const AdminProvider = ({ children }) => {
           },
         })
 
-      console.log("Get_a_coupon_resp : ", response);
+      // console.log("Get_a_coupon_resp : ", response);
       return response.data.output
 
     }
@@ -1077,7 +1078,7 @@ const AdminProvider = ({ children }) => {
 
   // Dashboard
   const get_dashboard = async () => {
-    console.log("token 1029 : ", authData);
+    // console.log("token 1029 : ", authData);
     try {
       const response = await axios.get(Config.API_URL + "dashboard",
         {
@@ -1086,7 +1087,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("Dashboard_resp : ", response);
+      // console.log("Dashboard_resp : ", response);
       setSSadminDashboard(response.data.output);
       return response.data.output;
     }
@@ -1096,7 +1097,7 @@ const AdminProvider = ({ children }) => {
   }
 
   const get_admin_monthlysales = async (args) => {
-    console.log("ARGS FRM CONTEXT", args)
+    // console.log("ARGS FRM CONTEXT", args)
     try {
       const response = await axios.post(Config.API_URL + "dashboard/monthly", args,
         {
@@ -1105,7 +1106,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("Dashboard_resp : ", response);
+      // console.log("Dashboard_resp : ", response);
       let sortedArray = response.data.output.monthlySale.sort((a, b) => a.index - b.index);
       setSalesVal(sortedArray)
 
@@ -1117,7 +1118,7 @@ const AdminProvider = ({ children }) => {
         monthlySeriesTwo.name = sortedArray[i].currentseries;
         monthlySeriesTwo.data.push(sortedArray[i].current);
       }
-      console.log("MONTHLY SERIES", monthlySeriesTwo)
+      // console.log("MONTHLY SERIES", monthlySeriesTwo)
       setMonthlyCurrSale(monthlySeriesTwo);
       setMonthlyPrevSale(monthlySeriesOne);
       //   let diamVal=['name'];
@@ -1150,7 +1151,7 @@ const AdminProvider = ({ children }) => {
 
   const get_customer_invoices = async (args) => {
     try {
-      console.log('auth data= ', args)
+      // console.log('auth data= ', args)
       const response = await axios.post(Config.API_URL + Config.GET_ALL_CUSTOMER_INVOICES, args,
         {
           headers: {
@@ -1158,7 +1159,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("Customer Invoice_resp: ", response);
+      // console.log("Customer Invoice_resp: ", response);
       return response.data;
     }
     catch (error) {
@@ -1176,7 +1177,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("Publisher Invoice_resp: ", response);
+      // console.log("Publisher Invoice_resp: ", response);
       return response.data;
     }
     catch (error) {
@@ -1194,7 +1195,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("Publisher Invoice_resp: ", response);
+      // console.log("Publisher Invoice_resp: ", response);
       return response.data;
     }
     catch (error) {
@@ -1217,7 +1218,7 @@ const AdminProvider = ({ children }) => {
         })
       // }
       getAllDistributor();
-      console.log("Add distributor Response : ", response);
+      // console.log("Add distributor Response : ", response);
       return response;
 
     }
@@ -1236,7 +1237,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET ALL distributor address : ", response);
+      // console.log("GET ALL distributor address : ", response);
       setDistributorList(response.data.output)
 
       return response;
@@ -1302,7 +1303,7 @@ const AdminProvider = ({ children }) => {
   }
 
   const delete_distributor = async (id) => {
-    console.log(" DELETE token USERS : ", authData);
+    // console.log(" DELETE token USERS : ", authData);
     try {
       const response = await axios.get(Config.API_URL + Config.DELETE_DISTRIBUTOR + id,
         {
@@ -1331,7 +1332,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET ALL shipper info : ", response);
+      // console.log("GET ALL shipper info : ", response);
       setShipperInfoList(response.data.output)
 
       return response;
@@ -1354,7 +1355,7 @@ const AdminProvider = ({ children }) => {
         })
       // }
       getAllShipper();
-      console.log("Add shipper Response : ", response);
+      // console.log("Add shipper Response : ", response);
       return response;
 
     }
@@ -1373,7 +1374,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET shipper BY ID: ", response);
+      // console.log("GET shipper BY ID: ", response);
       return response;
     }
     catch (error) {
@@ -1393,7 +1394,7 @@ const AdminProvider = ({ children }) => {
           },
         })
         getAllShipper();
-      console.log("EDIT shipper RESPONSE : ", response);
+      // console.log("EDIT shipper RESPONSE : ", response);
       return response;
     }
     catch (error) {
@@ -1420,7 +1421,7 @@ const AdminProvider = ({ children }) => {
   }
 
   const delete_shipper = async (id) => {
-    console.log(" DELETE token in shipper : ", authData);
+    // console.log(" DELETE token in shipper : ", authData);
     try {
       const response = await axios.post(Config.API_URL + Config.DELETE_SHIPPER + id, {},
         {
@@ -1435,6 +1436,38 @@ const AdminProvider = ({ children }) => {
     }
     catch (error) {
       console.log("DELETE shipper error : ", error);
+    }
+  }
+  const get_single_order = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+ '/' + id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        setOrderInfo(response.data.output)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const changeOrderStatus = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.CHANGE_ORDER_STATUS,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        await get_single_order(args.id)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
     }
   }
 
@@ -1519,7 +1552,10 @@ const AdminProvider = ({ children }) => {
         getShipperById,
         editShipper,
         restore_shipper,
-        delete_shipper
+        delete_shipper,
+        get_single_order,
+        orderInfo,
+        changeOrderStatus
 
       }}
     >

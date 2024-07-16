@@ -68,7 +68,7 @@ const NavBar = () => {
 
     const cat_dropdown_nav = (e) => {
         let cat_id = e.target.value
-        console.log('cat_id from nav select', cat_id)
+        // console.log('cat_id from nav select', cat_id)
         navigate('/category',
             { state: { category_id: cat_id } }
         )

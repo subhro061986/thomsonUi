@@ -21,7 +21,7 @@ const TopBarSouthsore = () => {
   const [hideSignInBtn, setHideSignInBtn] = useState(true);
 
   useEffect(() => {
-    console.log('authdata in useeffect', authData);
+    // console.log('authdata in useeffect', authData);
     if (authData === null || authData === undefined || authData === "") {
       setHideSignInBtn(false);
     }
