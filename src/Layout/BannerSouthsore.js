@@ -21,8 +21,11 @@ const BannerSouthsore = () => {
                     >content</p>
 
                     <p className="heading"
-                        style={{ lineHeight: '24px', paddingRight: '29%', fontSize: '16px' }}
-                    >Shop the print and ProView titles you need to support your business and respond to current issues </p>
+                        // style={{ lineHeight: '6px'}}
+                    >Shop the print and ProView titles you need to support</p>
+                    <p className="heading"
+                        // style={{ lineHeight: '0px'}}
+                    > your business and respond to current issues </p>
                     {/* <p className="text_4"
                     >Shop, <span style={{color: '#6A7984'}}>Read</span>, <span style={{color: '#404D57'}}>Repeat!</span></p> */}
                     {/* <div className="mt-5">

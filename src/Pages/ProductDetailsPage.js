@@ -80,6 +80,24 @@ const ProductDetailsPage = () => {
     const [isBookPresent, setIsBookPresent] = useState(false)
     const [dependencyvar, setDependencyvar] = useState(false)
 
+    const [containerClass, setContainerClass] = useState('container');
+
+    const updateContainerClass = () => {
+      if (window.innerWidth === 1366) {
+        setContainerClass(''); // Set to empty string or a different class if needed
+      } else if (window.innerWidth === 1920) {
+        setContainerClass('container');
+      } else {
+        setContainerClass(''); // Default class or another class
+      }
+    };
+  
+    useEffect(() => {
+      updateContainerClass(); // Set initial class based on initial window size
+      window.addEventListener('resize', updateContainerClass);
+      return () => window.removeEventListener('resize', updateContainerClass);
+    }, []);
+
     const image_path = Config.API_URL + Config.PUB_IMAGES;
     // const [cart , setCart] = useState([])
 
@@ -264,6 +282,7 @@ const ProductDetailsPage = () => {
             {/* -----------Book Details----------- */}
 
             <Whatsapp />
+            <div className={containerClass}>
             <div className="category_bg details_main pb-5">
                 <div className="details_path"><span className="fw700">Home</span><span className="fw600"> &gt; {bookdetail.category} &gt;</span><span className="fw400"> {bookdetail.title}</span></div>
                 <div className="row mt-5">
@@ -370,90 +389,7 @@ const ProductDetailsPage = () => {
                     </div>
                 </div>
             </div>
-
-            {/* -----------Book Details End----------- */}
-
-            {/* --------Similar Products--------- */}
-
-            {/* <div className="p-5">
-                <div className="section_head mb-5 fw500"><span className="fw600">Similar</span> Books</div>
-                <div className="row mx-3 mb-5">
-
-                    <Carousel
-                        responsive={responsive}
-                        infinite={true}
-                    >
-
-                        <div className="col-md border card_border_light rounded-4 book_card h380 m-3">
-                            <div className="d-flex flex-column">
-                                <div className="d-flex justify-content-end mt-2 me-2">
-                                    <img src={wishlight} width={27} height={27} />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <img src={book1} width={120} height={170} />
-                                </div>
-                                <div className="d-flex justify-content-center book_name mx-2 mt-3">Attitude Is Everything</div>
-                                <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">Spring & River</span></div>
-                                <div className="d-flex justify-content-center author_name">Author: Jeff Keller</div>
-                                <div className="d-flex justify-content-center price_style mt-3">&#8377;112</div>
-                            </div>
-                        </div>
-                        <div className="col-md border card_border_light rounded-4 book_card h380 m-3">
-                            <div className="d-flex flex-column">
-                                <div className="d-flex justify-content-end mt-2 me-2">
-                                    <img src={wishlight} width={27} height={27} />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <img src={book2} width={120} height={170} />
-                                </div>
-                                <div className="d-flex justify-content-center book_name mx-2 mt-3">Pride & Prejudice</div>
-                                <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">Spring & River</span></div>
-                                <div className="d-flex justify-content-center author_name">Author: Jeff Keller</div>
-                                <div className="d-flex justify-content-center price_style mt-3">&#8377;125</div>
-                            </div>
-                        </div>
-                        <div className="col-md border card_border_light rounded-4 book_card h380 m-3 pos_rel">
-                            <div className="disc_tag rounded-circle">
-                                <div className="dis_per_txt fw600 mt-3">40%</div>
-                                <div className="dis_txt fw600">Discount</div>
-                            </div>
-                            <div className="d-flex flex-column">
-                                <div className="d-flex justify-content-end mt-2 me-2">
-                                    <img src={wishlistedicon} width={27} height={27} />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <img src={book3} width={120} height={170} />
-                                </div>
-                                <div className="d-flex justify-content-center book_name mx-2 mt-3">Three Thousand Stitches</div>
-                                <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">Spring & River</span></div>
-                                <div className="d-flex justify-content-center author_name">Author: Sudha Murty</div>
-                                <div className="d-flex justify-content-center price_style mt-3">&#8377;98</div>
-                            </div>
-                        </div>
-                        <div className="col-md border card_border_light rounded-4 book_card h380 m-3">
-                            <div className="d-flex flex-column">
-                                <div className="d-flex justify-content-end mt-2 me-2">
-                                    <img src={wishlight} width={27} height={27} />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <img src={book4} width={120} height={170} />
-                                </div>
-                                <div className="d-flex justify-content-center book_name mx-2 mt-3">How to Talk to Anyone</div>
-                                <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">Spring & River</span></div>
-                                <div className="d-flex justify-content-center author_name">Author: Harper Collins </div>
-                                <div className="d-flex justify-content-center price_style mt-3">&#8377;256</div>
-                            </div>
-                        </div>
-
-                    </Carousel>
-
-
-                </div>
-            </div> */}
-
-            {/* ---------------Similar Products End---------------- */}
-
-
+            </div>
 
             
             <FooterSouthsore />

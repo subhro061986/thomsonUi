@@ -26,7 +26,7 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5
+    items: 4
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -88,7 +88,7 @@ const PublisherSouthsore = () => {
 
         <div className="row mx-0">
           {allActivePublisher.length < 5 ? (
-            
+            // <div className="d-flex justify-content-center align-items-center">
               allActivePublisher.map((data, index) => (
 
                 data.isactive === 1 && (
@@ -118,6 +118,7 @@ const PublisherSouthsore = () => {
                 )
 
               ))
+              // </div>
             
           ) : (
             <Carousel

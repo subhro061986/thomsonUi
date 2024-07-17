@@ -22,8 +22,13 @@ const responsive = {
         breakpoint: { max: 4000, min: 3000 },
         items: 5
     },
+    LargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 3000, min: 1920 },
+        items: 4
+    },
     desktop: {
-        breakpoint: { max: 3000, min: 1024 },
+        breakpoint: { max: 1919, min: 1024 },
         items: 4
     },
     tablet: {
@@ -47,6 +52,24 @@ const NewArrivalBooks = () => {
     const { wishlistshow } = useAuth()
 
     const [newarrival, setNewarrival] = useState([])
+
+    const [containerClass, setContainerClass] = useState('container');
+
+    const updateContainerClass = () => {
+      if (window.innerWidth === 1366) {
+        setContainerClass(''); // Set to empty string or a different class if needed
+      } else if (window.innerWidth === 1920) {
+        setContainerClass('container');
+      } else {
+        setContainerClass(''); // Default class or another class
+      }
+    };
+  
+    useEffect(() => {
+      updateContainerClass(); // Set initial class based on initial window size
+      window.addEventListener('resize', updateContainerClass);
+      return () => window.removeEventListener('resize', updateContainerClass);
+    }, []);
 
 
     // useEffect(() => {
@@ -105,6 +128,7 @@ const NewArrivalBooks = () => {
 
 
     return (
+        <div className={containerClass}>
         <div className="px-5">
             <div className="pub_name">
                 {/* Modern <span className="pub_span">Publishing House</span> */}
@@ -181,6 +205,7 @@ const NewArrivalBooks = () => {
                 </Carousel>
 
             </div>
+        </div>
         </div>
     );
 }

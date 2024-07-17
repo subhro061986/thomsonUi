@@ -63,7 +63,7 @@ const RegistrationSouthshore = () => {
                 let prof_img = resp.output['profileimage'] !== null ? resp.output['profileimage'] : profile
                 console.log("registered successfully")
                 setProfilePic(prof_img)
-                navigate("/loginsouthsore")
+                navigate("/login")
             }
 
             else {
@@ -183,7 +183,7 @@ const RegistrationSouthshore = () => {
 
                             <div className="d-flex justify-content-center mt-4"><button className="btn btn-primary rounded-pill signin_txt" onClick={do_registration}>Sign Up</button></div>
                             {/* <div className="d-flex justify-content-center mt-2"><button className="btn btn-outline-secondary rounded-pill d-flex align-items-center signin_txt d-flex justify-content-between">Sign In With<img src={google} /></button></div> */}
-                            <div className="d-flex align-items-baseline form_footer mt-5">I have already account! <Link className="fw600 fc097EDA" to="/loginsouthsore"> Log In</Link></div>
+                            <div className="d-flex align-items-baseline form_footer mt-5">I have already account! <Link className="fw600 fc097EDA" to="/login"> Log In</Link></div>
                         </div>
                     </div>
                 </div>

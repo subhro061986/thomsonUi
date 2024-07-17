@@ -1,6 +1,7 @@
 import React, { useEffect, useState, } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import menu from '../Assets/Images/menu.png';
+import filter from '../Assets/Images/filter.png';
 import { useAuth } from "../Context/Authcontext";
 
 const ProfileTab = () => {
@@ -101,7 +102,9 @@ const ProfileTab = () => {
     return (
         <>
             <div className="mobile_menu_display_pub" onClick={openDrawer}>
-                <img src={menu} alt="mobile menu button" style={{marginLeft: '10px'}} />
+                <img src={filter} alt="mobile menu button" 
+                // style={{marginLeft: '10px'}} 
+                />
             </div>
             {
                 drawerStat == true && (
@@ -134,7 +137,7 @@ const ProfileTab = () => {
             }
             {
                 drawerStat == false && (
-                    <div className="profile-tab-nav profile_tab_bar_menu" style={{width:'74.5%', marginBottom: '1%'}}>
+                    <div className="profile-tab-nav profile_tab_bar_menu" >
                         <div className="container d-flex justify-content-start align-items-center">
                             {/* <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf {bookshelf}</Link>

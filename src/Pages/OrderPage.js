@@ -31,6 +31,24 @@ const OrderPage = () => {
     const {currentPage}= useState(1)
     const {recordPerPage}= useState(10)
 
+    const [containerClass, setContainerClass] = useState('container');
+
+    const updateContainerClass = () => {
+      if (window.innerWidth === 1366) {
+        setContainerClass(''); // Set to empty string or a different class if needed
+      } else if (window.innerWidth === 1920) {
+        setContainerClass('container');
+      } else {
+        setContainerClass(''); // Default class or another class
+      }
+    };
+  
+    useEffect(() => {
+      updateContainerClass(); // Set initial class based on initial window size
+      window.addEventListener('resize', updateContainerClass);
+      return () => window.removeEventListener('resize', updateContainerClass);
+    }, []);
+
     const gotoHome = () => {
         navigate('/home')
     }
@@ -263,6 +281,7 @@ const OrderPage = () => {
             </div>
 
             <Whatsapp />
+            <div className={containerClass}>
             <div className="order_main_bg pt-3">
                 <div className="d-flex justify-content-between py-3">
                     <div className="d-flex align-items-center orderHeaderText">My Orders</div>
@@ -273,16 +292,16 @@ const OrderPage = () => {
                     <div
                         key={index}
                     >
-                        <div className=" d-flex  order_card light_border_top py-4"
+                        <div className=" d-flex order_card light_border_top py-4"
                         // key={index}
                         >
-                            <div className="d-flex justify-content-start" style={{width:'70%'}}>
-                                <div className="d-flex justify-content-start book_section rounded-4" style={{width:'30%'}}>
+                            <div className="d-flex justify-content-start order_left_part_width">
+                                <div className="d-flex justify-content-start book_section rounded-4">
                                     <div className="d-flex align-items-center px-3">
                                         <img
                                             // src={book.image === null || book.image === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.image + '?d=' + new Date()}
                                             src={dummy}
-                                            width={120} height={170}
+                                            width={120} height={150}
                                         />
 
                                     </div>
@@ -306,7 +325,7 @@ const OrderPage = () => {
                                     </span></div>
                                 </div>
                             </div>
-                            <div className="d-flex flex-column ">
+                            <div className="d-flex flex-column media_margin">
                                 <p className="fs-13 fw-medium "><b>Order No: </b>{book.orderno} </p>
                                
                                 
@@ -364,6 +383,7 @@ const OrderPage = () => {
                 ))}
 
 
+            </div>
             </div>
             {/* <div className="order_main_bg pt-3"><p>Work in Progress</p></div> */}
             <FooterSouthsore />
