@@ -96,7 +96,7 @@ const BeforeLogin=()=> {
             <Route exact path="/login" Component={LoginPage}/>
             
             <Route exact path="/registration" Component={Registration}/>
-            <Route exact path="/registrationsouthshore" Component={RegistrationSouthshore}/>
+            <Route exact path="/register" Component={RegistrationSouthshore}/>
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>
             <Route exact path="/privacypolicy" Component={PrivacyPolicyScreen}/>

@@ -20,12 +20,14 @@ import FooterSouthsore from "../Layout/FooterSouthsore";
 import BackButton from "../Layout/BackButton";
 import Whatsapp from "../Layout/Whatsapp";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
+import { useAuth } from "../Context/Authcontext";
 
 
 const OrderPage = () => {
 
     const navigate = useNavigate();
     const { myorders, getInvoiceById,cancelOrder,returnOrderRequest } = UserProfile()
+    const {authData}=useAuth();
 
     const [orders, SetOrders] = useState([])
     const {currentPage}= useState(1)
@@ -47,7 +49,7 @@ const OrderPage = () => {
       updateContainerClass(); // Set initial class based on initial window size
       window.addEventListener('resize', updateContainerClass);
       return () => window.removeEventListener('resize', updateContainerClass);
-    }, []);
+    }, [authData]);
 
     const gotoHome = () => {
         navigate('/home')

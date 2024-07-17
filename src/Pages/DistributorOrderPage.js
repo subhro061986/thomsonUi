@@ -20,13 +20,14 @@ import FooterSouthsore from "../Layout/FooterSouthsore";
 import BackButton from "../Layout/BackButton";
 import Whatsapp from "../Layout/Whatsapp";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
+import { useAuth } from "../Context/Authcontext";
 
 
 const DistributorOrderPage = () => {
 
     const navigate = useNavigate();
     const { myorders, getInvoiceById,cancelOrder } = UserProfile()
-
+    const {authData}=useAuth();
     const [orders, SetOrders] = useState([])
     const {currentPage}= useState(1)
     const {recordPerPage}= useState(10)
@@ -34,7 +35,7 @@ const DistributorOrderPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
         getMyOrders(currentPage,recordPerPage)
-    }, [])
+    }, [authData])
 
     const calculateTotalCGST = (invoices) => {
         let totalCGST = 0;
