@@ -86,7 +86,7 @@ const ChangePassword = () => {
                 <div className=" ChangePassword">
                     <div className="d-flex align-items-center justify-content-between mt-3">
                     <h3><b>Change Password</b></h3>
-                    <BackButton/>
+                
 
                     </div>
                     <hr></hr>

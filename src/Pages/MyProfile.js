@@ -191,12 +191,12 @@ const MyProfile = () => {
                             <input className="form-control p_hold" type="text"
                                 onChange={phoneHandler} value={phone} />
 
-                            <label className="form_label">Profile Picture</label>
+                            {/* <label className="form_label">Profile Picture</label>
                             <input className="form-control p_hold" type="file"
                                 accept="image/*" onChange={(e) => profilePicHandler(e)} />
                             {profileImage !== null && profileImage !== '' &&
                                 <img src={profileImage} className="img-fluid mt-4" height={100} width={100} />
-                            }
+                            } */}
                         </div>
 
                         <div className="col-md-6">

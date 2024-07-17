@@ -12,6 +12,7 @@ import cbook2 from "../Assets/Images/cbook2.png";
 import cbook3 from "../Assets/Images/cbook3.png";
 
 import { useNavigate } from 'react-router-dom';
+import FooterSouthsore from "../Layout/FooterSouthsore";
 
 const ConfirmOrder = () => {
 
@@ -41,7 +42,7 @@ const ConfirmOrder = () => {
                     <div className="confirm_head mb-3">Order Confirmed</div>
                     <div className="confirm_sub_head mb-4">Thank you for choosing <span>Books Central</span>, your order has been confirm
                         and you purchased item will be added in your bookshelf. </div>
-                    <div className="border border-1 border_line mb-4"></div>
+                    {/* <div className="border border-1 border_line mb-4"></div>
                     <div className="order_details_head mb-4">Your Order Details</div>
                     <div className="d-flex flex-column all_items">
                         <div className="row items_card mb-4">
@@ -106,11 +107,11 @@ const ConfirmOrder = () => {
                     <div className="border border-1 border_line mb-4 mt-2"></div>
                     <div className="d-flex justify-content-center">
                         <button type="button" className="btn btn-outline-primary rounded-pill continue_btn py-3 px-4" onClick={() => navigate('/')}>Continue shopping</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
-            <Footer />
+            <FooterSouthsore />
         </div>
     );
 }

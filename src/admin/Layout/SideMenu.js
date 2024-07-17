@@ -124,7 +124,7 @@ const TestMenu = () => {
                             to="/admin/manageorder"
                             >
                                 <SVG src={ordersIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Manage Customer Orders
+                                 Customer Orders
                             </Link>
                         </MenuItem>
                         <MenuItem className="nest_sidebar">
@@ -132,7 +132,7 @@ const TestMenu = () => {
                             to="/admin/manage-distributor-order"
                             >
                                 <SVG src={ordersIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Manage Distributor Orders
+                                 Distributor Orders
                             </Link>
                         </MenuItem>
                         {/* <MenuItem className="nest_sidebar">

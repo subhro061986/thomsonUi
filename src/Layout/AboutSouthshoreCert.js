@@ -27,9 +27,9 @@ const AboutSouthshoreCert = ()=>{
                         </p>
                         <p className="mt-2" style={{fontStyle: 'italic', color: '#26252C'}}>
                             Southshore operates two platforms in the publishing space.&nbsp;  
-                            <span className="link_text"><a href="https://www.bookscentral.in/">Books Central</a></span> &nbsp;
+                            <span className="link_text"><a href="#">Books Central</a></span> &nbsp;
                             which a B2B platform for books in the academic and professional genres and  &nbsp; 
-                            <span className="link_text"><a href="https://www.ebooksjunction.com"> e-booksjunction </a> </span> &nbsp; a marketplace for e-books 
+                            <span className="link_text"><a href="https://www.ebooksjunction.com" target="__blank"> e-booksjunction </a> </span> &nbsp; a marketplace for e-books 
                             across genres and languages.
                         </p>
                         <p className="mt-2">
@@ -41,7 +41,7 @@ const AboutSouthshoreCert = ()=>{
                             content in the institutional segment. The publishers we represent include Brill, 
                             Jove, De Gruyter, Taylor & Francis, Writefull, apart from others through a partnership with Accucom.
                         </p>
-                        <p className="mt-2">For more information please refer to the link <span className="website_link"> www.southshore.in</span></p>
+                        <p className="mt-2">For more information please refer to the link <a href="https://www.southshore.in/" target="__blank"> www.southshore.in </a></p>
                     </div>
                 </div>
                 <div className="col-md-4 cert_img">
