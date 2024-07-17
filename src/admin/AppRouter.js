@@ -40,6 +40,8 @@ import DashboardScreenNew from './Pages/Admin/DashboardScreenNew';
 import BookDetailsPub from './Pages/Publisher/BookDetailsPub';
 import ManageDistributorScreen from './Pages/Admin/ManageDistributorScreen';
 import ManageShipper from './Pages/Admin/ManageShipper';
+import ManageDistributorOrderScreen from './Pages/Admin/ManageDistributorOrderScreen';
+import ViewDistributorOrderDetails from './Pages/Admin/ViewDistributorOrderDetails';
 
 
 // const BeforeLogin=()=>{
@@ -94,6 +96,7 @@ const Navigation=()=> {
              {/* <Route exact path="/dashboard" Component={DashboardScreenNew}/> */}
              <Route exact path="/gallery" Component={GalleryScreen}/>
              <Route exact path='/manageorder' Component={ManageOrderScreen}/>
+             <Route exact path='/manage-distributor-order' Component={ManageDistributorOrderScreen}/>
              <Route exact path='/manageusers' Component={ManageUserScreen}/>
              <Route exact path='/managepublishers' Component={ManagePublishersScreen}/>
              <Route exact path='/managecategories' Component={ManageCategoriesScreen}/>
@@ -122,6 +125,7 @@ const Navigation=()=> {
              {/* <Route exact path='/myprofilepub' Component={MyProfilePub}/> */}
              {/* <Route exact path='/manageuserspub' Component={ManageUsersPub}/> */}
              <Route exact path='/vieworderdetails' Component={ViewOrderDetails}/>
+             <Route exact path='/view-distributor-orderdetails' Component={ViewDistributorOrderDetails}/>
              {/* <Route exact path='/faqspub' Component={FAQPub}/> */}
              {/* <Route exact path='/managecouponspub' Component={ManageCouponsScreenPub}/> */}
              {/* <Route exact path='/invoicepub' Component={Invoice}/> */}

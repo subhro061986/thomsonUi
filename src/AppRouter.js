@@ -35,6 +35,7 @@ import LoginScreen from './admin/Pages/LoginScreen';
 import DefaultScreen from './admin/DefaultScreen';
 import GalleryScreen from './admin/Pages/GalleryScreen';
 import ShippingAddress from './Pages/ShippingAddress';
+import DistributorOrderPage from './Pages/DistributorOrderPage';
 
 
 
@@ -59,6 +60,7 @@ const AfterLogin=()=> {
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>
             <Route exact path="/orderpage" Component={OrderPage}/>
+            <Route exact path="/orderpageDistributor" Component={DistributorOrderPage}/>
             {/* <Route exact path="/mybookshelf" Component={MyBookShelf}/> */}
             {/* <Route exact path="/epubreader" Component={EpubreaderScreen}/> */}
             {/* <Route exact path="/pdfreader" Component={PdfreaderScreen}/> */}

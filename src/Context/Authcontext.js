@@ -32,12 +32,14 @@ const AuthProvider = ({ children }) => {
 
   const getDataFromStorage = async () => {
     var userToken = localStorage.getItem("userid");
+    var userRole = localStorage.getItem("userRole");
     if (authData === '') {
       if (userToken === undefined || userToken === null || userToken === '') {
         console.log("No token available please login");
       }
       else {
         setAuthData(userToken)
+        setAuthRole(userRole)
         decode_token(userToken)
         detect_unique_id()
       }
@@ -153,6 +155,7 @@ const AuthProvider = ({ children }) => {
         setWishlistshow(true)
         // setAuthUsername(response.data.data[0].username)
         localStorage.setItem("userid", response.data.token);
+        localStorage.setItem("userRole", decode_resp.role);
         getCartData(response.data.token)
 
         // localStorage.setItem("username", response.data.data[0].username);
@@ -182,9 +185,11 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setAuthData('')
+    setAuthRole('')
     setWishlistshow(false)
     // setAuthUsername('')
     localStorage.setItem("userid", '');
+    localStorage.setItem("userRole", '');
     // localStorage.setItem("username", '');
     
     // getCartData('')

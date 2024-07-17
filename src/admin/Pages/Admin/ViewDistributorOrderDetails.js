@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from "react";
-import Header from "../../Layout/Header";
-import SideMenu from "../../Layout/SideMenu";
+import Header from "../../Layout/Header.js";
+import SideMenu from "../../Layout/SideMenu.js";
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -10,15 +10,15 @@ import download from '../../assets/icons/download.svg';
 import print from '../../assets/icons/print.svg';
 
 import { AdminProfile } from "../../Context/AdminContext.js";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../Context/AuthContext.js";
 import noImg from '../../assets/img/no-img.png';
 
-const ViewOrderDetails = () => {
+const ViewDistributorOrderDetails = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { authData } = useAuth();
     
-    const { get_single_order, orderInfo, shipperInfoList, changeOrderStatus, processRefund, returnOrderVerdict,cancelOrder } = AdminProfile();
+    const { get_single_distributor_order, distributorOrderInfo, shipperInfoList, changeOrderStatus } = AdminProfile();
     const [shipperInfoModal, setShipperInfoModal] = useState(false)
     const [statusInfoModal, setStatusInfoModal] = useState(false)
     const [statusCode, setStatusCode] = useState(0)
@@ -30,10 +30,7 @@ const ViewOrderDetails = () => {
         {"value":3,'label': 'AWATING SHIPMENT'},
         {"value":4,'label': 'AWATING PICKUP'},
         {"value":5,'label': 'SHIPPED'},
-        {"value":6,'label': 'DELIVERED'},
-        {"value":7,'label': 'RETURN REQUEST'},
-        {"value":8,'label': 'RETURN ACCEPTED'},
-        {"value":9,'label': 'REFUND'}
+        {"value":6,'label': 'DELIVERED'}
        ]
 
     useEffect(() => {
@@ -42,7 +39,7 @@ const ViewOrderDetails = () => {
   
     useEffect(() => {
         console.log("HEllo ", location.state.orderid)
-        console.log("world", orderInfo)
+        console.log("world", distributorOrderInfo)
     }, [authData])
 
     const handleShipper = (e) => {
@@ -55,7 +52,7 @@ const ViewOrderDetails = () => {
         setAwbNo(e.target.value)
     }
     const get_order = async (orderid) => {
-        let response = await get_single_order(orderid)
+        let response = await get_single_distributor_order(orderid)
         console.log("Order : ", response)
 
     }
@@ -69,26 +66,6 @@ const ViewOrderDetails = () => {
         setShipperInfoModal(false)
     }
 
-    const updateShippingStatusChange = async () => {
-
-        const json = {
-            "awbNo": awbNo,
-            "shipperid": shipper,
-            "orderid": location.state.orderid,
-            "statusid":5,
-            "id": location.state.orderid,
-        }
-        // console.log(json)
-        const response = await changeOrderStatus(json)
-        if (response.statuscode === "0") {
-            alert("Status changed successfully")
-            setStatusInfoModal(false)
-            setShipperInfoModal(false)
-        } else {
-            alert("Failed to change status")
-        }
-    }
-
     const orderStatusChange = async (e) => {
         // e.preventDefault()
         const json = {
@@ -96,59 +73,13 @@ const ViewOrderDetails = () => {
             "statusid": statusCode,
             "awbNo": awbNo,
             "shipperid": shipper,
-            "type":"Customer"
+            "type":"Distributor"
         }
+        console.log("shipper id:",json)
 
         const response = await changeOrderStatus(json)
         if (response.statuscode === "0") {
             alert("Status changed successfully")
-           
-
-            if(statusCode === "9") {
-                const processRefundDetails= {
-                    amount:orderInfo?.totalamount * 100,
-                    currency:orderInfo?.currencyisocode,
-                    paymentid:orderInfo?.razorpay_payment_id,
-                    id:location.state.orderid
-                }
-                const refundResponse = await processRefund(processRefundDetails)
-                if(refundResponse.statuscode === "0"){
-                    alert("Refund processed successfully")
-                }
-                else {
-                    alert("Failed to process refund")
-                }
-            }
-            else if (statusCode=== "8"){
-                const returnAcceptedjson = {
-                    "comment":'Order return accepted',
-                    "id": location.state.orderid,
-                }
-                // console.log(json)
-                const returnAcceptedResponse = await returnOrderVerdict(returnAcceptedjson)
-
-                if(returnAcceptedResponse.statuscode === "0"){
-                    alert("Return order accepted successfully")
-                }
-                else {
-                    alert("Failed to accept return order")
-                }
-            }
-            else if(statusCode === "2"){
-                const cancelOrderDetails= {
-                    amount:orderInfo?.totalamount * 100,
-                    currency:orderInfo?.currencyisocode,
-                    paymentid:orderInfo?.razorpay_payment_id,
-                    id:location.state.orderid
-                }
-                const refundResponse = await cancelOrder(cancelOrderDetails)
-                if(refundResponse.statuscode === "0"){
-                    alert("Order cancelled successfully")
-                }
-                else {
-                    alert("Failed to cancel order")
-                }
-            }
 
             setStatusInfoModal(false)
             setShipperInfoModal(false)
@@ -161,7 +92,7 @@ const ViewOrderDetails = () => {
         <>
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="View Order Details" />
+                <Header title="View Distributor Order Details" />
 
                 {/* Order Details */}
 
@@ -170,20 +101,20 @@ const ViewOrderDetails = () => {
                     <div className="col-md-8 book-details p-3" >
 
 
-                        <h5>Order No : {orderInfo?.orderno}</h5>
-                        <p><span className=" badge bg-info my-2 mb-5" style={{ fontSize: '1rem' }}>{orderInfo?.status}</span></p>
+                        <h5>Order No : {distributorOrderInfo?.orderno}</h5>
+                        <p><span className=" badge bg-info my-2 mb-5" style={{ fontSize: '1rem' }}>{distributorOrderInfo?.status}</span></p>
 
                         <div className="d-flex" >
-                            <p className=" badge bg-light" style={{ color: 'black', fontSize: '1rem' }}>Order Date : {orderInfo?.orderdate}</p>
-                            <p className=" badge bg-light mx-3" style={{ color: 'black', fontSize: '1rem' }}>{orderInfo?.currencysymbol} {orderInfo?.totalamount} </p>
+                            <p className=" badge bg-light" style={{ color: 'black', fontSize: '1rem' }}>Order Date : {distributorOrderInfo?.orderdate}</p>
+                            <p className=" badge bg-light mx-3" style={{ color: 'black', fontSize: '1rem' }}>{distributorOrderInfo?.currencysymbol} {distributorOrderInfo?.totalamount} </p>
 
                         </div>
 
-                        {orderInfo?.awbno!== "" && orderInfo?.shippername !== "" &&
+                        {distributorOrderInfo?.awbno!== "" && distributorOrderInfo?.shippername !== "" &&
                         
                             <div className="d-flex" >
-                                <p className=" badge bg-light" style={{ color: 'black', fontSize: '1rem' }}>AWB No : {orderInfo?.awbno}</p>
-                                <p className=" badge bg-light mx-3" style={{ color: 'black', fontSize: '1rem' }}> Shipper Name: {orderInfo?.shippername} </p>
+                                <p className=" badge bg-light" style={{ color: 'black', fontSize: '1rem' }}>AWB No : {distributorOrderInfo?.awbno}</p>
+                                <p className=" badge bg-light mx-3" style={{ color: 'black', fontSize: '1rem' }}> Shipper Name: {distributorOrderInfo?.shippername} </p>
 
                             </div>
                         }
@@ -193,32 +124,8 @@ const ViewOrderDetails = () => {
                     <div className="col-md-4">
                         <div className="d-flex mt-3 justify-content-center">
                             <button className="btn btn-success" onClick={openStatus}>Change Status</button>
-                            {/* <button className="btn btn-success ms-4" onClick={openShipper}>Create Shipping</button> */}
                         </div>
 
-                        {shipperInfoModal ? <>
-                           
-                                <div className="form-group" style={{ width: '100%' }}>
-                                    <select id='adminOptions' className="form-select mb-3"
-                                        value={shipper}
-                                        onChange={handleShipper}
-                                    >
-                                        <option disabled selected>Please select</option>
-                                        {
-                                            shipperInfoList.map((data, index) => (
-                                                data.isactive === 1 &&
-                                                <option key={index} value={data.id}>{data.name}</option>
-                                            ))}
-
-                                    </select>
-                                    <input type="text" className="form-control mb-3" placeholder="Enter Awb Number" value={awbNo} onChange={handleAwbNo} />
-                                    <button className="btn btn-outline-primary" onClick={updateShippingStatusChange}>Save</button>
-
-                                </div>
-
-                            
-
-                        </> : <></>}
                         {statusInfoModal ? <>
                           
                                 <div className="form-group" style={{ width: '100%' }}>
@@ -269,11 +176,11 @@ const ViewOrderDetails = () => {
                         <div className="card" style={{ minHeight: '300px' }}>
 
                             <div className="card-body">
-                                <h5 className="card-title">Customer Information</h5>
+                                <h5 className="card-title">Distributor Information</h5>
                                 <hr></hr>
-                                <p><b>Name</b> : {orderInfo?.customer?.name}</p>
-                                <p><b>Email</b> : {orderInfo?.customer?.email}</p>
-                                <p><b>Phone</b> : {orderInfo?.customer?.contactno}</p>
+                                <p><b>Name</b> : {distributorOrderInfo?.distributor?.name}</p>
+                                <p><b>Email</b> : {distributorOrderInfo?.distributor?.email}</p>
+                                <p><b>Phone</b> : {distributorOrderInfo?.distributor?.contactno}</p>
 
 
                             </div>
@@ -287,11 +194,11 @@ const ViewOrderDetails = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Shipping Address</h5>
                                 <hr></hr>
-                                <p><b>Address</b> : {orderInfo?.shippingaddress?.streetaddress} </p>
-                                <p><b>City</b> : {orderInfo?.shippingaddress?.city}  </p>
-                                <p><b>Pin code</b> : {orderInfo?.shippingaddress?.pincode} </p>
-                                <p><b>State</b> : {orderInfo?.shippingaddress?.state} </p>
-                                <p><b>Country</b> : {orderInfo?.shippingaddress?.country} </p>
+                                <p><b>Address</b> : {distributorOrderInfo?.shippingaddress?.streetaddress} </p>
+                                <p><b>City</b> : {distributorOrderInfo?.shippingaddress?.city}  </p>
+                                <p><b>Pin code</b> : {distributorOrderInfo?.shippingaddress?.pincode} </p>
+                                <p><b>State</b> : {distributorOrderInfo?.shippingaddress?.state} </p>
+                                <p><b>Country</b> : {distributorOrderInfo?.shippingaddress?.country} </p>
 
 
                             </div>
@@ -305,11 +212,11 @@ const ViewOrderDetails = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Billing Address</h5>
                                 <hr></hr>
-                                <p><b>Address</b> : {orderInfo?.billingaddress?.streetaddress} </p>
-                                <p><b>City</b> : {orderInfo?.billingaddress?.city}  </p>
-                                <p><b>Pin code</b> : {orderInfo?.billingaddress?.pincode} </p>
-                                <p><b>State</b> : {orderInfo?.billingaddress?.state} </p>
-                                <p><b>Country</b> : {orderInfo?.billingaddress?.country} </p>
+                                <p><b>Address</b> : {distributorOrderInfo?.billingaddress?.streetaddress} </p>
+                                <p><b>City</b> : {distributorOrderInfo?.billingaddress?.city}  </p>
+                                <p><b>Pin code</b> : {distributorOrderInfo?.billingaddress?.pincode} </p>
+                                <p><b>State</b> : {distributorOrderInfo?.billingaddress?.state} </p>
+                                <p><b>Country</b> : {distributorOrderInfo?.billingaddress?.country} </p>
 
 
                             </div>
@@ -342,7 +249,7 @@ const ViewOrderDetails = () => {
                             </thead>
                             <tbody className="text-center">
 
-                                {orderInfo?.orderitems?.map((data, index) => (
+                                {distributorOrderInfo?.orderitems?.map((data, index) => (
                                     <tr className="custom-table-row"
                                         key={index}
                                     >
@@ -367,4 +274,4 @@ const ViewOrderDetails = () => {
     );
 }
 
-export default ViewOrderDetails;
+export default ViewDistributorOrderDetails;

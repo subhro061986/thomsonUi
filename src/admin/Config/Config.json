@@ -63,5 +63,8 @@
     "EDIT_SHIPPER" : "shipper/edit",
     "RESTORE_SHIPPER" : "shipper/restore/",
     "DELETE_SHIPPER" : "shipper/delete/",
-    "CHANGE_ORDER_STATUS":"/change-status"
+    "CHANGE_ORDER_STATUS":"/change-status",
+    "RAZORPAY_PROCESS_REFUND": "/razorpay/process-refund",
+    "RETURN_ORDER_VERDICT": "/return-verdict",
+    "CANCEL_ORDER":"/cancel"
 }

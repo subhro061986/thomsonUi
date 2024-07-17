@@ -22,7 +22,7 @@ import verify from "../Assets/Images/verify.png";
 
 const BillingAddressPage = () => {
     const formWizardRef = useRef();
-    const { authData } = useAuth()
+    const { authData,authRole } = useAuth()
     const { place_order,
         my_profile,
         get_country_list,
@@ -190,7 +190,7 @@ const BillingAddressPage = () => {
         // console.log("resp confirmed= ", respPaymentConfirmed)
         if (respPaymentConfirmed['statuscode'] === "0") {
 
-            navigate('/orderconfirmation')
+            navigate('/confirmorder')
         }
         else {
             alert("Could not process payment correctly")
@@ -205,15 +205,8 @@ const BillingAddressPage = () => {
             success: 0
         }
 
-        var respPaymentFailed = await processPayment(newData)
-
-        // if (respPaymentConfirmed['statuscode'] === "0"){
-
-        //     navigate('/orderconfirmation')
-        // }
-        // else{
-        //     alert("Could not process payment correctly")
-        // }
+        var respPaymeontFailed = await processPayment(newData)
+        console.log("respPaymeontFailed= ", respPaymeontFailed)
     }
     const placeOrder = async () => {
 
@@ -226,7 +219,7 @@ const BillingAddressPage = () => {
             }
             // console.log("placeorder Json=", placeorderJson)
             const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
-    
+            console.log("respPlaceOrder=", respPlaceOrder)
             setPlaceOrderResponse(respPlaceOrder)
             if (respPlaceOrder.output !== null) {
                 setOrderTotal(respPlaceOrder.output.totalAmount)
@@ -272,96 +265,97 @@ const BillingAddressPage = () => {
     const handlePayment = async (params) => {
         // const amount = location.state.pageData.total_price
         // console.log("amt= ", amount)
-        const amount = parseInt(orderTotal * 100)
 
-        // console.log("amt= ", amount)
-
-        // var placeOrderResp= await placeOrder()
-
-        let order_params = {
-            amount: amount,
-            currency: placeOrderResponse.output.currencyisocode,
-            orderno: placeOrderResponse.output.orderno,
-            orderid: placeOrderResponse.output.id
-
+        if(authRole  === Config.ROLE_DISTRIBUTOR){
+         navigate('/confirmorder')   
         }
-        const order = await createRazorpayOrder(order_params); //  Create order on your backend
-        // console.log("order response= ", order)
-
-        if (order !== undefined) {
-
-            const options = {
-                // key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
-                key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
-                amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                currency: "INR",
-                name: "Thompson & Reuters",
-                description: "Test Transaction",
-                image: { admin_logo },// company logo
-                order_id: order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createRazorpayOrder().
-                handler: function (response) {
-                    // alert(response.razorpay_payment_id);
-                    // alert(response.razorpay_order_id);
-                    // alert(response.razorpay_signature);
-                    // console.log("payment successfull response= ", response)
-                    const succeeded = true;
-                    // const succeeded = crypto.HmacSHA256(`${order.order_id}|${response.razorpay_payment_id}`, Config.RAZORPAY_LIVE_KEY_SECRET).toString() === response.razorpay_signature;
-                    // console.log("success?= ", succeeded)
-                    if (succeeded) {
-                        processPaymentSuccess(placeOrderResponse, {
-                            "paymentid": response.razorpay_payment_id,
-                            "razorpay_orderid": response.razorpay_order_id,
-                            "payment_signature": response.razorpay_signature,
-                            "transactionamount": order.amount
-                            // "currency" :"INR"
-
-                        })
-                    }
-                    else {
-                        alert("Your transaction process failed! Please try again later.")
-                    }
-
-                },
-                prefill: {
-                    name: name,
-                    email: email,
-                    contact: phone,
-                },
-                notes: {
-                    address: address,
-                },
-                theme: {
-                    color: "#3399cc",
-                },
-            };
-
-            const rzp1 = new Razorpay(options);
-
-            rzp1.on("payment.failed", function (response) {
-                alert(response.error.code);
-                alert(response.error.description);
-                alert(response.error.source);
-                alert(response.error.step);
-                alert(response.error.reason);
-                alert(response.error.metadata.order_id);
-                alert(response.error.metadata.payment_id);
-
-
-                processPaymentFailed(placeOrderResponse, {
-                    "paymentid": "",
-                    "razorpay_orderid": order.order_id,
-                    "payment_signature": response.razorpay_signature,
-                    "transactionamount": order.amount,
-                    // "currency" :"INR"
-
-                })
-            });
-            rzp1.on("payment.captured", function (response) {
-                // console.log("payment successfulb response= ", response)
-                placeOrder()
-            });
-
-            rzp1.open();
+        else{
+            const amount = parseInt(orderTotal * 100)
+            let order_params = {
+                amount: amount,
+                currency: placeOrderResponse.output.currencyisocode,
+                orderno: placeOrderResponse.output.orderno,
+                orderid: placeOrderResponse.output.id
+    
+            }
+            const order = await createRazorpayOrder(order_params); //  Create order on your backend
+            // console.log("order response= ", order)
+    
+            if (order !== undefined) {
+    
+                const options = {
+                    // key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
+                    key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
+                    amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    currency: "INR",
+                    name: "Thompson & Reuters",
+                    description: "Test Transaction",
+                    image: { admin_logo },// company logo
+                    order_id: order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createRazorpayOrder().
+                    handler: function (response) {
+                        // alert(response.razorpay_payment_id);
+                        // alert(response.razorpay_order_id);
+                        // alert(response.razorpay_signature);
+                        // console.log("payment successfull response= ", response)
+                        const succeeded = true;
+                        // const succeeded = crypto.HmacSHA256(`${order.order_id}|${response.razorpay_payment_id}`, Config.RAZORPAY_LIVE_KEY_SECRET).toString() === response.razorpay_signature;
+                        // console.log("success?= ", succeeded)
+                        if (succeeded) {
+                            processPaymentSuccess(placeOrderResponse, {
+                                "paymentid": response.razorpay_payment_id,
+                                "razorpay_orderid": response.razorpay_order_id,
+                                "payment_signature": response.razorpay_signature,
+                                "transactionamount": order.amount
+                                // "currency" :"INR"
+    
+                            })
+                        }
+                        else {
+                            alert("Your transaction process failed! Please try again later.")
+                        }
+    
+                    },
+                    prefill: {
+                        name: name,
+                        email: email,
+                        contact: phone,
+                    },
+                    notes: {
+                        address: address,
+                    },
+                    theme: {
+                        color: "#3399cc",
+                    },
+                };
+    
+                const rzp1 = new Razorpay(options);
+    
+                rzp1.on("payment.failed", function (response) {
+                    alert(response.error.code);
+                    alert(response.error.description);
+                    alert(response.error.source);
+                    alert(response.error.step);
+                    alert(response.error.reason);
+                    alert(response.error.metadata.order_id);
+                    alert(response.error.metadata.payment_id);
+    
+    
+                    processPaymentFailed(placeOrderResponse, {
+                        "paymentid": "",
+                        "razorpay_orderid": order.order_id,
+                        "payment_signature": response.razorpay_signature,
+                        "transactionamount": order.amount,
+                        // "currency" :"INR"
+    
+                    })
+                });
+                rzp1.on("payment.captured", function (response) {
+                    // console.log("payment successfulb response= ", response)
+                    placeOrder()
+                });
+    
+                rzp1.open();
+            }
         }
     };
 
@@ -517,10 +511,17 @@ const BillingAddressPage = () => {
                         </FormWizard.TabContent>
                         <FormWizard.TabContent title="Process Payment" icon="ti-money">
                             <div className="card">
-                                <div className="cardd-body">
+                                <div className="card-body">
                                     <h2 className="card-title"><b>Process Payment</b></h2>
 
                                     <hr></hr>
+
+                                        <p className="card-title fs-5 fw-medium" style={{color:"gray"}}>Price Details</p>
+                                        <hr></hr>
+                                    <div className="d-flex justify-content-between align-items-start">
+                                        <h4>Price </h4>
+                                        <h4>{placeOrderResponse?.output?.currency} {placeOrderResponse?.output?.totalAmount}</h4>
+                                    </div>
                                     <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(2)}>Confirm Order</Button>
 
                                 </div>
