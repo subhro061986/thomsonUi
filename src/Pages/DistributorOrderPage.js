@@ -22,37 +22,14 @@ import Whatsapp from "../Layout/Whatsapp";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
 
 
-const OrderPage = () => {
+const DistributorOrderPage = () => {
 
     const navigate = useNavigate();
-    const { myorders, getInvoiceById,cancelOrder,returnOrderRequest } = UserProfile()
+    const { myorders, getInvoiceById,cancelOrder } = UserProfile()
 
     const [orders, SetOrders] = useState([])
     const {currentPage}= useState(1)
     const {recordPerPage}= useState(10)
-
-    const [containerClass, setContainerClass] = useState('container');
-
-    const updateContainerClass = () => {
-      if (window.innerWidth === 1366) {
-        setContainerClass(''); // Set to empty string or a different class if needed
-      } else if (window.innerWidth === 1920) {
-        setContainerClass('container');
-      } else {
-        setContainerClass(''); // Default class or another class
-      }
-    };
-  
-    useEffect(() => {
-      updateContainerClass(); // Set initial class based on initial window size
-      window.addEventListener('resize', updateContainerClass);
-      return () => window.removeEventListener('resize', updateContainerClass);
-    }, []);
-
-    const gotoHome = () => {
-        navigate('/home')
-    }
-
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -259,7 +236,7 @@ const OrderPage = () => {
         let cancelOrderJson= {
             amount: parseFloat(order.totalamount) * 100,
             id:order.id,
-            paymentid:order.razorpay_payment_id,
+            paymentid:'',
             currency:order.currencycode
         }
         const cancelOrderResponse= await cancelOrder(cancelOrderJson)
@@ -270,20 +247,7 @@ const OrderPage = () => {
             getMyOrders(currentPage,recordPerPage)
         }
     }
-    const orderReturn= async (order) =>{
-        console.log("return order =", order)
-        let returnOrderJson= {
-            id:order.id,
-            comment:''
-        }
-        const cancelOrderResponse= await returnOrderRequest(returnOrderJson)
-
-        if(cancelOrderResponse.statuscode === "0"){
-            // console.log("Order canceled successfully")
-            alert("Order return requested successfully")
-            getMyOrders(currentPage,recordPerPage)
-        }
-    }
+  
     return (
         <div className="main-container">
             <div className="container">
@@ -293,7 +257,6 @@ const OrderPage = () => {
             </div>
 
             <Whatsapp />
-            <div className={containerClass}>
             <div className="order_main_bg pt-3">
                 <div className="d-flex justify-content-between py-3">
                     <div className="d-flex align-items-center orderHeaderText">My Orders</div>
@@ -304,7 +267,7 @@ const OrderPage = () => {
                     <div
                         key={index}
                     >
-                        <div className=" d-flex order_card light_border_top py-4"
+                        <div className=" d-flex  order_card light_border_top py-4"
                         // key={index}
                         >
                             <div className="d-flex justify-content-start order_left_part_width">
@@ -375,9 +338,7 @@ const OrderPage = () => {
                                     )}
                                     {book.status === "DELIVERED" &&
                                         <div className="d-flex align-items-center justify-content-between">
-                                            <button className="btn btn-outline-info rounded-pill op_btn ms-2"
-                                        onClick={() => { orderReturn(book) }}
-                                        >Return</button>
+                                           
                                          <button className="btn btn-outline-primary rounded-pill op_btn ms-2"
                                         onClick={() => { getInvoice(book.invoiceid) }}
                                         >Download Invoice</button>
@@ -396,11 +357,10 @@ const OrderPage = () => {
 
 
             </div>
-            </div>
             {/* <div className="order_main_bg pt-3"><p>Work in Progress</p></div> */}
             <FooterSouthsore />
         </div>
     );
 }
 
-export default OrderPage;
+export default DistributorOrderPage;

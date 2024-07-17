@@ -13,7 +13,7 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
 
-  const { authData, wishlistshow, isexpired, uuid } = useAuth();
+  const { authData, wishlistshow, isexpired, uuid, authRole} = useAuth();
 
   // const [catrproducts , setCartproducts] = useState([])
   const [isActive, setActive] = useState(false)
@@ -39,6 +39,7 @@ const UserProvider = ({ children }) => {
 
 
   useEffect(() => {
+
     getAllPublishers();
     getAllActivePublishers();
     //category_all();
@@ -1179,6 +1180,28 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  const returnOrderRequest = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.RETURN_ORDER , args,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("place_order_error : ", error)
+    }
+  }
+
   const selectShippingAddress = async (id) => {
     setSelectedShippingAddress(id)
     return id
@@ -1242,7 +1265,8 @@ const UserProvider = ({ children }) => {
         createAppOrder,
         selectShippingAddress,
         selectedShippingAddress,
-        cancelOrder
+        cancelOrder,
+        returnOrderRequest
 
 
       }}

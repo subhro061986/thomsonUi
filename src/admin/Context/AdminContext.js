@@ -16,6 +16,7 @@ const AdminProvider = ({ children }) => {
   const [customerList, setCustomerList] = useState([]);
   const [allBookList, setAllBookList] = useState([]);
   const [manageOrder, setManageOrder] = useState([]);
+  const [manageDistributorOrder, setManageDistributorOrder] = useState([]);
   const [pubInfoImg, setPubInfoImg] = useState('');
   const [languages, setLanguages] = useState([]);
   const [currencies, setCurrencies] = useState([]);
@@ -30,6 +31,7 @@ const AdminProvider = ({ children }) => {
   const [distributorList, setDistributorList] = useState({});
   const [shipperInfoList, setShipperInfoList] = useState({});
   const [orderInfo,setOrderInfo]= useState(null);
+  const [distributorOrderInfo,setDistributorOrderInfo]= useState(null);
 
   useEffect(() => {
 
@@ -47,6 +49,7 @@ const AdminProvider = ({ children }) => {
         get_all_countries();
         //   // getAllCustomers_admin();
           getManageOrder();
+        getAllDistributorOrder();
         getAllLanguage();
         getAllCurrency();
 
@@ -1454,6 +1457,22 @@ const AdminProvider = ({ children }) => {
       console.log("GET SINGLE ORDER ERROR : ", error);
     }
   }
+  const get_single_distributor_order = async (id) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+ '/'+ Config.GET_ALL_Distributor+ '/' + id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        setDistributorOrderInfo(response.data.output)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
   const changeOrderStatus = async (args) => {
     try {
       const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.CHANGE_ORDER_STATUS,args,
@@ -1463,7 +1482,76 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
+        if(args.type === "Customer"){
+          await get_single_order(args.id)
+        }
+        else if (args.type === "Distributor"){
+          await get_single_distributor_order(args.id)
+        }
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const processRefund = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.RAZORPAY_PROCESS_REFUND,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
         await get_single_order(args.id)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const returnOrderVerdict = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.RETURN_ORDER_VERDICT,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        await get_single_order(args.id)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const cancelOrder = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.MANAGE_ORDER_API+ Config.CANCEL_ORDER,args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        await get_single_order(args.id)
+      return response.data;
+    }
+    catch (error) {
+      console.log("GET SINGLE ORDER ERROR : ", error);
+    }
+  }
+  const getAllDistributorOrder = async (currentPage, recordPerPage) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+'/'+ Config.GET_ALL_Distributor+ "?currentPage=" + currentPage + "&recordPerPage=" + recordPerPage,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        setManageDistributorOrder(response.data)
       return response.data;
     }
     catch (error) {
@@ -1490,7 +1578,9 @@ const AdminProvider = ({ children }) => {
         getAllCustomers_admin,
         allBookList,
         getManageOrder,
+        getAllDistributorOrder,
         manageOrder,
+        manageDistributorOrder,
         getOrderbyPub,
         getPublisherDetails,
         addPublisher_admin,
@@ -1554,8 +1644,13 @@ const AdminProvider = ({ children }) => {
         restore_shipper,
         delete_shipper,
         get_single_order,
+        get_single_distributor_order,
         orderInfo,
-        changeOrderStatus
+        distributorOrderInfo,
+        changeOrderStatus,
+        processRefund,
+        returnOrderVerdict,
+        cancelOrder
 
       }}
     >

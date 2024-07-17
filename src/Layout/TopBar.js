@@ -21,7 +21,7 @@ const TopBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const { category_by_publisher, items, getPublishersById, publisherId, getBooksBySearchText } = UserProfile()
-  const { wishlistshow, authData, logOut } = useAuth()
+  const { wishlistshow, authData, logOut,authRole } = useAuth()
   const [publisherDetails, setPublisherDetails] = useState('')
   const [searchText, setSearchText] = useState('')
   const [toggleSearch, setToggleSearch] = useState(false)
@@ -54,7 +54,12 @@ const TopBar = () => {
   }
   const goToProfile = () => {
     if (wishlistshow === true) {
-      navigate('/orderpage', { state: { fromHome: false } })
+      if (authRole === Config.ROLE_DISTRIBUTOR) {
+        navigate('/orderpageDistributor')
+      }
+      else {
+        navigate('/orderpage', { state: { fromHome: false } })
+      }
     }
     else {
       navigate('/login')

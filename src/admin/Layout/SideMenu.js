@@ -124,7 +124,15 @@ const TestMenu = () => {
                             to="/admin/manageorder"
                             >
                                 <SVG src={ordersIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Manage Orders
+                                Manage Customer Orders
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            to="/admin/manage-distributor-order"
+                            >
+                                <SVG src={ordersIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Manage Distributor Orders
                             </Link>
                         </MenuItem>
                         {/* <MenuItem className="nest_sidebar">

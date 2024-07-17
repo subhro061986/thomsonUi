@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import menu from '../Assets/Images/menu.png';
 import filter from '../Assets/Images/filter.png';
 import { useAuth } from "../Context/Authcontext";
+import Config from "../Config/Config.json";
 
 const ProfileTab = () => {
     const navigate = useNavigate();
-    const {authData} = useAuth()
+    const { authData, authRole } = useAuth()
     const [order, SetOrder] = useState(false)
     const [bookshelf, SetBookshelf] = useState(false)
     const [profiledet, SetProfiledet] = useState(false)
@@ -16,17 +17,18 @@ const ProfileTab = () => {
     const [changePassword, SetChangePassword] = useState(false)
     const [drawerStat, setDrawerStat] = useState(false)
 
-    useEffect(() =>{
+    useEffect(() => {
         SetBookshelf(true)
-    },[authData])
+        console.log('authrole', authRole)
+    }, [authData])
 
     const openDrawer = () => {
         setDrawerStat(!drawerStat)
-    }   
+    }
 
     const mybookshelf = (type) => {
         if (type === "mybookshelf") {
-            
+
             SetBookshelf(true)
             SetOrder(false)
             SetProfiledet(false)
@@ -34,9 +36,9 @@ const ProfileTab = () => {
             SetChangePassword(false)
             SetMyCart(false)
             SetMyAddresses(false)
-            
+
             // console.log("type",type)
-           
+
         }
         else if (type === "myorder") {
             // console.log("type",type)
@@ -47,7 +49,7 @@ const ProfileTab = () => {
             SetChangePassword(false)
             SetMyCart(false)
             SetMyAddresses(false)
-            
+
         }
         else if (type === "myprofile") {
             // console.log("myprofile")
@@ -69,17 +71,17 @@ const ProfileTab = () => {
             SetMyCart(true)
             SetMyAddresses(false)
         }
-        else if(type === "wishlist") {
+        else if (type === "wishlist") {
             SetProfiledet(true)
             SetBookshelf(false)
             SetOrder(false)
             SetMyProfile(false)
             SetChangePassword(false)
-            SetMyCart(false)  
+            SetMyCart(false)
             SetMyAddresses(false)
         }
-        else if(type === "cartpage") {
-            SetMyCart(true)  
+        else if (type === "cartpage") {
+            SetMyCart(true)
             SetProfiledet(false)
             SetBookshelf(false)
             SetOrder(false)
@@ -87,8 +89,8 @@ const ProfileTab = () => {
             SetChangePassword(false)
             SetMyAddresses(false)
         }
-        else if(type === "cartpage") {
-            SetMyCart(false)  
+        else if (type === "cartpage") {
+            SetMyCart(false)
             SetProfiledet(false)
             SetBookshelf(false)
             SetOrder(false)
@@ -102,19 +104,25 @@ const ProfileTab = () => {
     return (
         <>
             <div className="mobile_menu_display_pub" onClick={openDrawer}>
-                <img src={filter} alt="mobile menu button" 
+                <img src={filter} alt="mobile menu button"
                 // style={{marginLeft: '10px'}} 
                 />
             </div>
+            {/* <p>{authRole}</p> */}
             {
                 drawerStat == true && (
                     <nav className="navbar navbar-expand-lg top-nav">
+
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
                             {/* <li className="nav-item">
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf</Link>
                             </li> */}
                             <li className="nav-item">
-                                <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders</Link>
+                                {authRole === Config.ROLE_CUSTOMER ? (
+                                    <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders</Link>
+                                ) : (
+                                    <Link to="/orderpageDistributor" className="nav-link" role="button" aria-expanded="false" >My Orders</Link>
+                                )}
                             </li>
                             <li className="nav-item">
                                 <Link to="/wishlist" className="nav-link" role="button" aria-expanded="false">My Wishlist</Link>
@@ -142,32 +150,36 @@ const ProfileTab = () => {
                             {/* <div className={"profile-item " + (bookshelf === true ? "" : '')} onClick={()=>mybookshelf("mybookshelf")}>
                                 <Link to= "/mybookshelf" className="nav-link" role="button" aria-expanded="false">My Bookshelf {bookshelf}</Link>
                             </div> */}
-                            
-                            <div className={"profile-item " + (order === true ? "active" : '')} onClick={()=>mybookshelf("myorder")}>
-                                <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders {order}</Link>
+
+                            <div className={"profile-item " + (order === true ? "active" : '')} onClick={() => mybookshelf("myorder")}>
+                                {authRole === Config.ROLE_CUSTOMER ? (
+                                    <Link to="/orderpage" className="nav-link" role="button" aria-expanded="false" >My Orders {order}</Link>
+                                ) : (
+                                    <Link to="/orderpageDistributor" className="nav-link" role="button" aria-expanded="false" >My Orders</Link>
+                                )}
                             </div>
-                            
-                            
-                            <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={()=>mybookshelf("wishlist")}>
+
+
+                            <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={() => mybookshelf("wishlist")}>
                                 <Link to="/wishlist" className="nav-link" role="button" aria-expanded="false">My Wishlist</Link>
                             </div>
-                           
-                            <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={()=>mybookshelf("cartpage")}>
+
+                            <div className={"profile-item " + (profiledet === true ? "active" : '')} onClick={() => mybookshelf("cartpage")}>
                                 <Link to="/cartpage" className="nav-link" role="button" aria-expanded="false">My Cart</Link>
                             </div>
-                            
-                            <div className={"profile-item " + (myProfile === true ? "active" : '')} onClick={()=>mybookshelf("myprofile")}>
+
+                            <div className={"profile-item " + (myProfile === true ? "active" : '')} onClick={() => mybookshelf("myprofile")}>
                                 <Link to="/myprofile" className="nav-link" role="button" aria-expanded="false">My Profile</Link>
                             </div>
-                            
-                            <div className={"profile-item " + (myAddresses === true ? "active" : '')} onClick={()=>mybookshelf("myAddresses")}>
+
+                            <div className={"profile-item " + (myAddresses === true ? "active" : '')} onClick={() => mybookshelf("myAddresses")}>
                                 <Link to="/shipping" className="nav-link" role="button" aria-expanded="false">Shipping Addresses</Link>
                             </div>
-                            
-                            <div className={"profile-item " + (changePassword === true ? "active" : '')}  style={{borderRight: '0px'}} onClick={()=>mybookshelf("changePassword")}>
+
+                            <div className={"profile-item " + (changePassword === true ? "active" : '')} style={{ borderRight: '0px' }} onClick={() => mybookshelf("changePassword")}>
                                 <Link to="/changePassword" className="nav-link" role="button" aria-expanded="false">Change  Password</Link>
                             </div>
-                            
+
                         </div>
                     </div>
                 )

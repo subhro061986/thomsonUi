@@ -59,6 +59,9 @@
     "EDIT_BILLING_ADDRESS":"billingaddress/edit",
 
     "ORDER_CREATE":"order/create",
-    "CANCEL_ORDER":"order/cancel"
+    "CANCEL_ORDER":"order/cancel",
+    "RETURN_ORDER":"order/return-request",
+    "ROLE_DISTRIBUTOR":"Distributor",
+    "ROLE_CUSTOMER":"Customer"
 }
   
