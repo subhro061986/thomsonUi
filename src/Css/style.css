@@ -318,8 +318,8 @@ input:focus {
 .banner_southsore_text>.heading {
   font-size: 20px;
   font-weight: 400;
-  line-height: 50px;
-  margin-top: 25px;
+  line-height: 10px;
+  margin-top: 3%;
   /* letter-spacing: -2px; */
   color: #3F4556;
 }
@@ -719,7 +719,7 @@ input:focus {
 
 .card_border_light {
   border: 1px solid #CDD2DF;
-  border-radius: 40px;
+  border-radius: 30px;
   /* box-shadow: 0px 10px 40px 0px #C0BFEA4F; */
 }
 
@@ -1258,6 +1258,7 @@ input:focus {
   border-bottom-left-radius: 4%;
   width: 103%;
   height: 100%;
+  display: block;
 }
 
 .regis_bg {
@@ -1898,9 +1899,11 @@ button-solid:focus {
 }
 
 .book_section {
-  background-color: rgba(222, 228, 232, 0.57);
+  background-color: #FFF;
   width: 153px;
   height: 188px;
+  border: 1px solid #AFB7BD;
+  border-radius: 20px;
 }
 
 .m_l {
@@ -1942,10 +1945,10 @@ button-solid:focus {
 .op_price>span {
   font-family: Poppins;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 26px;
   text-align: left;
-  color: #2F4FA0;
+  color: #000;
 }
 
 .op_ono {
@@ -2740,6 +2743,8 @@ body.active-modal {
 
 .profile_tab_bar_menu {
   display: flex;
+  width: 74.5%;
+  margin-bottom: 1%;
 }
 
 .bar_menu {
@@ -3003,6 +3008,7 @@ body.active-modal {
 
 .search_div_height {
   height: 6vh;
+  width: 0% !important;
 }
 
 /* .mob_s_dis{
@@ -3129,6 +3135,14 @@ body.active-modal {
   width: 20%;
 }
 
+.order_left_part_width {
+  width: 70%;
+}
+
+.media_margin {
+  margin-top: 0%;
+}
+
 @media screen and (max-width: 376px)and (min-width: 280px) {
 
   .continue_tn_empty_cart {
@@ -3215,6 +3229,8 @@ body.active-modal {
 
   .search_div_height {
     height: 7vh;
+    width: 100% !important;
+    margin-top: -1% !important;
   }
 
   /* .mob_s_dis{
@@ -3331,6 +3347,7 @@ body.active-modal {
     border-bottom-left-radius: 0%;
     width: 103%;
     height: 100%;
+    display: none;
   }
 
 
@@ -3455,7 +3472,7 @@ body.active-modal {
   }
 
   .banner_southsore_text>.heading {
-    font-size: 72px;
+    font-size: 12px;
   }
 
   .banner_southsore_text>.text_2,
@@ -3995,6 +4012,14 @@ body.active-modal {
 
 @media screen and (max-width: 436px)and (min-width: 377px) {
 
+  .media_margin {
+    margin-top: 8%;
+  }
+
+  .order_left_part_width {
+    width: auto;
+  }
+
   .wishlist .card-des {
     width: 94%;
   }
@@ -4102,6 +4127,8 @@ body.active-modal {
 
   .search_div_height {
     height: 5vh;
+    width: 100% !important;
+    margin-top: -1% !important;
   }
 
   /* .mob_s_dis{
@@ -4239,6 +4266,7 @@ body.active-modal {
     border-bottom-left-radius: 0%;
     width: 103%;
     height: 100%;
+    display: none;
   }
 
   .h380 {
@@ -4358,10 +4386,10 @@ body.active-modal {
   }
 
   .banner_southsore_text>.heading {
-    font-size: 72px;
+    font-size: 12px;
     padding-right: 2% !important;
     margin-top: 3%;
-    line-height: 26px !important;
+    line-height: 10px !important;
   }
 
   .banner_southsore_text>.text_2,
@@ -4888,6 +4916,20 @@ body.active-modal {
   .about-southshore {
     padding: 0 300px !important;
   }
+
+  .profile_tab_bar_menu {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1%;
+  }
+
+  /* .container {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  } */
+  /* .new_arr_container {
+
+  } */
 }
 
 .orderHeaderText {
@@ -4904,6 +4946,10 @@ body.active-modal {
 .banner_southsore_text{
   padding-left: 10%;
 }
+
+/* .new_arr_container {
+
+} */
 /* .container {
   max-width: 1600px;
 } */

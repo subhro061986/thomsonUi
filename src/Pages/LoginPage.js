@@ -223,7 +223,7 @@ const Login = () => {
                                 <div className="d-flex justify-content-center mt-2"><button className="btn btn-primary rounded-pill signin_txt" onClick={doLogin}>Sign In</button></div>
                                 {/* <div className="d-flex justify-content-center mt-3"><button className="btn btn-primary rounded-pill signin_txt" onClick={doLogout}>Sign Out</button></div> */}
                                 {/* <div className="d-flex justify-content-center mt-2"><button className="btn btn-outline-secondary rounded-pill d-flex align-items-center signin_txt d-flex justify-content-between">Sign In With<img src={google} /></button></div> */}
-                                <div className="d-flex align-items-baseline form_footer mt-3">Don't have an account?<Link className="fw600 fc097EDA" to="/registration"> Sign Up</Link></div>
+                                <div className="d-flex align-items-baseline form_footer mt-3">Don't have an account?<Link className="fw600 fc097EDA" to="/registrationsouthshore"> Sign Up</Link></div>
                             </div>
                         </div>
                     </div>

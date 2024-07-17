@@ -270,13 +270,13 @@ const DistributorOrderPage = () => {
                         <div className=" d-flex  order_card light_border_top py-4"
                         // key={index}
                         >
-                            <div className="d-flex justify-content-start" style={{width:'70%'}}>
-                                <div className="d-flex justify-content-start book_section rounded-4" style={{width:'30%'}}>
+                            <div className="d-flex justify-content-start order_left_part_width">
+                                <div className="d-flex justify-content-start book_section rounded-4">
                                     <div className="d-flex align-items-center px-3">
                                         <img
                                             src={book.img === null || book.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.img + '?d=' + new Date()}
                                             // src={dummy}
-                                            width={215} height={180}
+                                            width={120} height={150}
                                         />
 
                                     </div>
@@ -300,7 +300,7 @@ const DistributorOrderPage = () => {
                                     </span></div>
                                 </div>
                             </div>
-                            <div className="d-flex flex-column ">
+                            <div className="d-flex flex-column media_margin">
                                 <p className="fs-13 fw-medium "><b>Order No: </b>{book.orderno} </p>
                                
                                 
