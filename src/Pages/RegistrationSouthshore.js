@@ -61,7 +61,7 @@ const RegistrationSouthshore = () => {
         else {
             if (resp.statuscode === '0') {
                 let prof_img = resp.output['profileimage'] !== null ? resp.output['profileimage'] : profile
-                console.log("registered successfully")
+                alert("Registered successfully. Please check your registered email")
                 setProfilePic(prof_img)
                 navigate("/login")
             }
@@ -112,6 +112,7 @@ const RegistrationSouthshore = () => {
         }
         else {
             user_registration()
+
         }
     }
 
