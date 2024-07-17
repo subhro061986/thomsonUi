@@ -42,7 +42,7 @@ const CartPage = () => {
 
     const { get_items, price, items, cart_items, applyCoupon } = UserProfile()
     const navigate = useNavigate();
-    const [getcartitems, setGetcartitems] = useState([])
+    const [getcartitems, setGetcartitems] = useState(cartItems)
     // const [quanity, setQuantity] = useState()
     const [dependencyvar, setDependencyvar] = useState(false)
     const [wishlistshow, setWishlistshow] = useState(false)
@@ -52,14 +52,21 @@ const CartPage = () => {
     // const [subtotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        setGetcartitems(cartItems)
+        console.log("CONT CART ITEMS",cartItems)
+        if(cartItems.length>0){
+            setGetcartitems(cartItems)
+        }
+        else{
+            setGetcartitems([])
+        }
+        
         //setTotal(subTotal)
         //findSubtotal()
         getSubTotalFrmContext()
     }, [])
 
     useEffect(() => {
-        
+        console.log("CART ITEMS",getcartitems)
     }, [authData])
 
     const getSubTotalFrmContext =async()=>{
@@ -224,6 +231,7 @@ const CartPage = () => {
     };
 
     const decrement = async (item) => {
+        if (item["quantity"] > 1) {
         let tempArr=getcartitems
         let index=-1
         if (authData === undefined || authData === "" || authData == null) {
@@ -240,17 +248,14 @@ const CartPage = () => {
                 bookid: item.id,
                 quantity: item["quantity"] - 1
             }
-            if (item["quantity"] > 1) {
+            
                 const response = await decrementQuantity(json)
                 // console.log("response after decrement= ", response)
 
             }
-            else {
-                alert("you must have atleasst one quantity")
+            
 
-            }
-
-        }
+       
         
         let qty=tempArr[index]["quantity"]-1
         let price=tempArr[index]["amount"]-tempArr[index]["price"]
@@ -262,6 +267,11 @@ const CartPage = () => {
         })
         setGetcartitems([...tempArr])
         setTotal(tot)
+        }
+        else {
+            alert("you must have atleasst one quantity")
+
+        }
     };
 
 
@@ -300,9 +310,9 @@ const CartPage = () => {
 
                                 <div className="d-flex justify-content-center mt-5">
                                     <button type="button"
-                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                        className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 continue_tn_empty_cart"
                                         onClick={() => { navigate('/') }}
-                                        style={{ width: '20%' }}
+                                        // style={{ width: '20%' }}
                                     >
                                         Continue Shopping
                                     </button>
@@ -387,8 +397,7 @@ const CartPage = () => {
                                                                 readOnly
                                                                 // style={{ width: '50px', textAlign: 'center' }}
                                                                 //className="inc_dec_input"
-                                                                style={{width:'7%'}}
-                                                                className="form-control mx-3"
+                                                                className="form-control text-center mx-3 quantity_inp_cart"
                                                             />
                                                             <button
                                                                 onClick={() => increment(data)}
@@ -434,10 +443,10 @@ const CartPage = () => {
                                     </button>
 
                                 </div>
-                                <div className="d-flex justify-content-center mt-2">
+                                <div className="d-flex justify-content-center mt-3">
                                     <button type="button"
                                         className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
-                                        onClick={() => { navigate('/home') }}
+                                        onClick={() => { navigate('/') }}
                                     >
                                         Continue Shopping
                                     </button>

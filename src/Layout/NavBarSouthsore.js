@@ -55,10 +55,10 @@ const NavBarSouthsore = () => {
         )
     }
 
-    const get_pub_data_mobile = (pub_id) => {
-        console.log('get_pub_data pu i d passed : ', pub_id)
-        navigate('/home',
-            { state: { publisher_id: pub_id } }
+    const get_pub_data_mobile = (cat_id) => {
+        console.log('get_pub_data pu i d passed : ', cat_id)
+        navigate('/category',
+            { state: { category_id: cat_id } }
         )
     }
 
@@ -115,30 +115,13 @@ const NavBarSouthsore = () => {
                         <li className="nav-item">
                             <HashLink smooth className="nav-link" to='/#head_banner' > Home </HashLink>
                         </li>
-                        {/* <li className="nav-item" onClick={gotoAbout}>
-                            <HashLink smooth className="nav-link" to='/#about_ebook' > About E-booksjunction </HashLink>
-                        </li> */}
-                        {/* <li className="nav-item" onClick={gotoFet}>
-                            <HashLink smooth className="nav-link" to='/#features' > Features </HashLink>
-                        </li> */}
 
                         <li className="nav-item dropdown" style={{ height: '52px' }}>
-                            {/* <select className="cat_dropdown mt-3 me-3"
-                                style={{ height: 'auto' }}
-                                name="cars" id="cars"
-                                onChange={(e) => { get_pub_data(e) }}
-                            >
-                                <option defaultValue={"0"} disabled selected={true}>Publisher</option>
-                                {allActivePublisher.map((data, index) => (
-                                    data.isactive === 1 &&
-                                    <option className="publisher_nav_list" key={index} value={data.id}>{data.name}</option>
-                                ))}
-                            </select> */}
                             <Accordion>
                                 <Accordion.Item eventKey="0" className="accordian_item">
-                                    <Accordion.Header>Publisher</Accordion.Header>
+                                    <Accordion.Header>Practice Area</Accordion.Header>
                                     {
-                                        allActivePublisher.map(
+                                        allCategoryList.map(
                                             (data, index) => (
                                                 data.isactive === 1 &&
                                                 <Accordion.Body key={index} value={data.id}
@@ -157,10 +140,6 @@ const NavBarSouthsore = () => {
                         >
                             <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
                         </li>
-
-                        {/* <li className="nav-item">
-                            <HashLink smooth className="nav-link" to='/#contact' > Contact Us </HashLink>
-                        </li> */}
                     </ul>
                 )
             }
@@ -174,30 +153,8 @@ const NavBarSouthsore = () => {
                                     Home
                                 </Link> */}
                             </li>
-                            {/* <li className="nav-item" onClick={gotoAbout}>
-                                <HashLink smooth className="nav-link" to='/#about_ebook' > About E-booksjunction </HashLink>
-                                
-                            </li> */}
-                            {/* <li className="nav-item" onClick={gotoFet}>
-                                <HashLink smooth className="nav-link" to='/#features' > Features </HashLink>
-                                
-                            </li> */}
 
-                            {/* <li className="nav-item dropdown">
-                                <select className="cat_dropdown mt-3 me-3"
-                                    name="cars" id="cars" 
-                                    onChange={(e) => { get_pub_data(e) }}
-                                    >
-                                    <option defaultValue={"0"} disabled selected={true}>Publisher</option>
-
-                                    {allActivePublisher.map((data, index) => (
-                                        data.isactive === 1 &&
-                                        <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
-
-                                    ))}
-
-                                </select>
-                            </li> */}
+                            
 
                             <li className="nav-item dropdown">
                                 <select className="cat_dropdown mt-3 me-3"
@@ -233,27 +190,7 @@ const NavBarSouthsore = () => {
                                 
                             </li> */}
                         </ul>
-                        {/* <ul className="navbar-nav right-nav mb-2 mb-lg-0 social-icons-menu">
-                            <div className="left">
-                                <li>
-                                    <button className="btn">
-                                        <img src={facebook} />
-                                    </button>
-                                </li>
-                                <li>
-                                    <button className="btn"><img src={instagram} /></button>
-                                </li>
-                                <li>
-                                    <button className="btn" style={{ marginLeft: '5px' }}>
-                                        <img src={youtube} />
-                                    </button>
-                                </li>
-                            </div>
-                            <div className="right">
-                                <li className="d-flex justify-content-end align-items-center"><img src={startupindia} alt="Start up India logo" /></li>
-                            </div>
-                        </ul> */}
-                        <ul className="navbar-nav right-nav mb-2 mb-lg-0 wishlist_cart_icons">
+                        <ul className="navbar-nav right-nav mt-2 mb-2 mb-lg-0 wishlist_cart_icons">
                             <li className="borders"><button className="btn btn-circle" onClick={gotoWishlist}><img src={heart} /></button></li>
                             <li className="pos_rel">
                                 <button className="btn btn-circle" onClick={goToCart}>

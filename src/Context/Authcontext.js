@@ -112,7 +112,9 @@ const AuthProvider = ({ children }) => {
   }
 
 
-
+  useEffect(() => {
+    
+  }, [cartItems])
 
 
   useEffect(() => {

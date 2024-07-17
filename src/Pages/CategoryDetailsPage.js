@@ -37,7 +37,7 @@ const CategoryDetailsPage = () => {
 
 
     const { getBook_by_category, allCategoryList, allActivePublisher, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
-    const { wishlistshow,add_book_to_storage,authData,uuid } = useAuth()
+    const { wishlistshow, add_book_to_storage, authData, uuid } = useAuth()
 
     const navigate = useNavigate();
     const location = useLocation()
@@ -54,6 +54,7 @@ const CategoryDetailsPage = () => {
     const [category, setCategory] = useState([])
     const [pubcat, setPubcat] = useState([])
     const [togglepricedropdown, setTogglepricedropdown] = useState(false)
+    const [toggleCatPubdropdown, setToggleCatPubdropdown] = useState(false)
     const [togglelanguagedropdown, setTogglelanguagedropdown] = useState(false)
     const [publicationyr, setPublicationyr] = useState(false)
     const [newarri, setNewarri] = useState(false)
@@ -106,7 +107,7 @@ const CategoryDetailsPage = () => {
 
         };
 
-        
+
 
         if (dropbool) {
             // console.log('bool is true')
@@ -404,9 +405,9 @@ const CategoryDetailsPage = () => {
         let current_page_no = 1
         let records_per_page = 6
 
-        
+
         const resp = await getBook_by_category(current_page_no, records_per_page, json)
-        
+
         if (resp === undefined || resp === null) {
             setTempBooks([])
             setBooks([])
@@ -415,7 +416,7 @@ const CategoryDetailsPage = () => {
         else {
             setTempBooks(resp?.output?.books)
             if (resp?.output?.books?.length > 0) {
-                
+
                 setBooks(resp?.output?.books)
                 setAllBooks(resp?.output?.books)
                 setRawbooksdata(resp?.output?.books)
@@ -522,11 +523,11 @@ const CategoryDetailsPage = () => {
     // const [range, setRange] = useState([minPrice, maxPrice]);
 
 
-    
 
 
 
-    
+
+
 
 
 
@@ -564,7 +565,7 @@ const CategoryDetailsPage = () => {
         const resp = await add_delete_to_wishlist(json)
 
         // books_by_category(location.state ? location.state.category_id : 1)
-        
+
 
         // if (books[index].isFavourite === 0) {
         //     books[index].isFavourite = 1
@@ -698,7 +699,7 @@ const CategoryDetailsPage = () => {
                                 <hr />
 
                                 <div className='div_container'>
-                                    <li className="li_width">Refine your Search by Price</li>
+                                    <li className="li_width">Price</li>
                                     <img src={browsecat === false ? arrow_down : arrow_up}
                                         width={15} height={15} onClick={() => { setTogglepricedropdown(!togglepricedropdown) }} />
                                 </div>
@@ -707,26 +708,72 @@ const CategoryDetailsPage = () => {
                                     togglepricedropdown === true &&
 
 
+                                    <div className="mt-4">
+                                        <RangeSlider
+                                            min={0}
+                                            max={500}
+                                            step={1}
+                                            defaultValue={[0, 500]}
+                                            // value={[0,500]}
+                                            onInput={(e) => rangefunction(e)}
+                                            // className="range-slider-yellow"
+                                            style={{ accentColor: '#000' }}
+                                        />
+                                        <div className="mt-4 d-flex justify-content-between align-items-center">
+                                            <input type="text" value={minRange} className="form-control price_range_inp" readOnly={true} />
+                                            <span className="px-2">to</span>
+                                            <input type="text" value={maxRange} className="form-control price_range_inp" readOnly={true} />
+                                        </div>
+                                    </div>
+                                }
+                                <hr />
+
+                                <div className='div_container'>
+                                    <li className="li_width">{location.state.category_id ? "Publishers" : "Categories"}</li>
+                                    <img src={browsecat === false ? arrow_down : arrow_up}
+                                        width={15} height={15} onClick={() => { setToggleCatPubdropdown(!toggleCatPubdropdown) }} />
+                                </div>
+
+                                {
+                                    toggleCatPubdropdown === true &&
 
 
-                                    pricerangefilters.map((data, index) => (
+                                    <div className="mt-4">
+                                        {location.state.category_id && (
+                                            <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                                {
+                                                    allActivePublisher.map((data, index) => (
+                                                        data.isactive === 1 && (
+                                                            <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
+                                                                <input type="checkbox" className="me-2" value={data.id}
+                                                                    onClick={(e) => selectFilter(e, data, index, 'publisher')}
+                                                                />
+                                                                <label>{data.name}</label>
+                                                            </li>
 
-                                        <ul className="price-search li_margin" key={index}>
-                                            <li style={{ cursor: "pointer" }} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data} </li>
-
-                                        </ul>
-
-
-
-                                    ))}
-
-
-
-
-
-
-
-
+                                                        )
+                                                    ))
+                                                }
+                                            </ul>
+                                        )}
+                                        {location.state.publisher_id && (
+                                            <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                                {
+                                                    allCategoryList.map((data, index) => (
+                                                        data.isactive === 1 && (
+                                                            <li key={index} className="mb-2" style={{ listStyleType: "none" }}>
+                                                                <input type="checkbox" className="me-2" value={data.id}
+                                                                    onClick={(e) => selectFilter(e, data, index, 'category')}
+                                                                />
+                                                                <label>{data.name}</label>
+                                                            </li>
+                                                        )
+                                                    ))
+                                                }
+                                            </ul>
+                                        )}
+                                    </div>
+                                }
                                 <hr />
 
                                 {/* <div className='div_container'>
@@ -825,21 +872,6 @@ const CategoryDetailsPage = () => {
 
 
                                 <p className="mb-4">Price</p>
-
-
-                                {/* {
-
-                                        pricerangefilters.map((data, index) => (
-
-                                            <ul className="price-search" key={index}>
-                                                <li style={{ cursor: "pointer" }} onClick={() => filter_by_price(pricerangefilters[index], index)}> {data}</li>
-
-                                            </ul>
-
-                                        ))
-                                    } */}
-
-                                {/* <div style={{userSelect:'none'}}>Custom Values</div> */}
                                 <RangeSlider
                                     min={0}
                                     max={500}
@@ -851,9 +883,9 @@ const CategoryDetailsPage = () => {
                                     style={{ accentColor: '#000' }}
                                 />
                                 <div className="mt-4 d-flex justify-content-between align-items-center">
-                                    <input type="text" value={minRange} className="form-control" readOnly={true} />
+                                    <input type="text" value={minRange} className="form-control price_range_inp" readOnly={true} />
                                     <span className="px-2">to</span>
-                                    <input type="text" value={maxRange} className="form-control" readOnly={true} />
+                                    <input type="text" value={maxRange} className="form-control price_range_inp" readOnly={true} />
                                 </div>
                                 {/* <p className="mt-4">{minRange} to {maxRange}</p> */}
 
@@ -951,7 +983,7 @@ const CategoryDetailsPage = () => {
                                         tempBooks.map((data, index) => (
                                             // data.status === 'Accepted' && (
 
-                                            <div key={index} className=" bg-white book_card py-3 ms-4" style={{ width: '30%', border: '1px solid #AFB7BD', marginBottom: '10px', borderRadius: '20px' }} >
+                                            <div key={index} className=" bg-white book_card py-3 ms-4 mb-4 mt-2" >
                                                 <div className="d-flex flex-column" onClick={() => { gotoDetails(data.id) }}>
                                                     <div className="d-flex justify-content-end mt-1 me-1" style={{ cursor: "pointer" }} onClick={(e) => Wishlist(e, data.id, index)}>
                                                         {
@@ -981,20 +1013,20 @@ const CategoryDetailsPage = () => {
                                                     </div>
                                                     <div className="d-flex align-items-center justify-content-center mb-3">
 
-                                                        <div className="  d-flex  price_style ">{data.currency+ ' ' + data.price} &nbsp;</div>
+                                                        <div className="  d-flex  price_style ">{data.currency + ' ' + data.price} &nbsp;</div>
                                                         {/* <div className="  d-flex  price-cutText ">&#8377;298</div> */}
                                                     </div>
                                                 </div>
-                                                    <div className="d-flex justify-content-center mb-3">
+                                                <div className="d-flex justify-content-center mb-3">
 
-                                                        <button type="button" style={{ width: '70%' }}
-                                                            className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
+                                                    <button type="button" style={{ width: '70%' }}
+                                                        className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center py-2"
                                                         onClick={() => add_to_cart(data, false)}
 
-                                                        >
-                                                            Add to Cart
-                                                        </button>
-                                                    </div>
+                                                    >
+                                                        Add to Cart
+                                                    </button>
+                                                </div>
                                             </div>
 
                                             // )
@@ -1011,7 +1043,7 @@ const CategoryDetailsPage = () => {
 
                     </div>
                 </div>
-                <Footer />
+                <FooterSouthsore />
 
 
 

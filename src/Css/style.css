@@ -308,10 +308,10 @@ input:focus {
 }
 
 .banner_southsore_text>.welcome_text {
-  font-size: 65px;
+  font-size: 54px;
   font-weight: 700;
   font-style: normal;
-  line-height: 68px;
+  line-height: 56px;
   margin-bottom: 0px;
 }
 
@@ -319,7 +319,7 @@ input:focus {
   font-size: 20px;
   font-weight: 400;
   line-height: 50px;
-  margin-top: 0px;
+  margin-top: 25px;
   /* letter-spacing: -2px; */
   color: #3F4556;
 }
@@ -781,10 +781,11 @@ input:focus {
 }
 
 .book_card {
-  /* width: 90%; */
-  width: 80%;
   cursor: pointer;
   background-color: #FFFFFF;
+  width: 30% !important;
+  border: 1px solid #AFB7BD;
+  border-radius: 20px;
   /* height: 408px; */
 }
 
@@ -916,7 +917,7 @@ input:focus {
 
 .wishlist {
   background-color: #F7F8FA;
-  min-height: 1000px;
+  min-height: 966px;
 }
 
 .wishlist .headerText {
@@ -1101,8 +1102,8 @@ input:focus {
 /* Product Details */
 .details_main {
   padding-right: 80px;
-  padding-left: 80px;
-  padding-top: 35px;
+  padding-left: 127px;
+  padding-top: 2px;
 }
 
 .details_path {
@@ -1114,7 +1115,7 @@ input:focus {
 }
 
 .book_bg {
-  background-color: rgba(230, 233, 238, 1);
+  background-color: #FFF;
   border: 1px solid #AFB7BD;
   border-radius: 40px;
   /* height: 548px;
@@ -1230,7 +1231,7 @@ input:focus {
 
 .ul_border {
   border-right: 1px solid #B9C9D3;
-  padding-right: 200px;
+  padding-right: 100px;
 }
 
 .ul_2 {
@@ -1995,11 +1996,11 @@ button-solid:focus {
 /* -----------orderpage end-------- */
 /* Profile Tab design starts */
 .profile-tab-nav {
-  background-color: rgba(46, 48, 70, 1);
+  background-color: #ECEDF1;
   font-family: Roboto;
   line-height: 24px;
   letter-spacing: 0px;
-  color: rgba(167, 180, 206, 1);
+  color: #000;
   font-weight: 400;
   font-size: 16px;
 }
@@ -2835,7 +2836,7 @@ body.active-modal {
 }
 
 .card_padding_bottom {
-  padding-bottom: 0%;
+  padding-bottom: 6%;
   padding-top: 0%;
 }
 
@@ -3110,7 +3111,33 @@ body.active-modal {
   justify-content: flex-end;
 }
 
+.nav_padding_y {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.price_range_inp {
+  width: 25% !important;
+  text-align: center !important;
+}
+
+.quantity_inp_cart {
+  width: 7% !important;
+}
+
+.continue_tn_empty_cart {
+  width: 20%;
+}
+
 @media screen and (max-width: 376px)and (min-width: 280px) {
+
+  .continue_tn_empty_cart {
+    width: 64%;
+  }
+
+  .quantity_inp_cart {
+    width: 28% !important;
+  }
 
   .footer_pub_section {
     justify-content: flex-start;
@@ -3760,6 +3787,7 @@ body.active-modal {
     text-align: left;
     color: #2F3133;
     /* height: 45px; */
+    padding-left: 0px !important;
     padding-bottom: 10px !important;
   }
 
@@ -3967,6 +3995,27 @@ body.active-modal {
 
 @media screen and (max-width: 436px)and (min-width: 377px) {
 
+  .wishlist .card-des {
+    width: 94%;
+  }
+
+  .continue_tn_empty_cart {
+    width: 64%;
+  }
+
+  .quantity_inp_cart {
+    width: 28% !important;
+  }
+
+  .section_head {
+    color: #26252C;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    line-height: 40px;
+  }
+
   .footer_pub_section {
     justify-content: flex-start;
   }
@@ -3975,7 +4024,7 @@ body.active-modal {
     position: fixed;
     top: 50%;
     z-index: 2;
-    left: 75%;
+    left: 80%;
   }
 
   .whatsapp_button {
@@ -4197,7 +4246,7 @@ body.active-modal {
   }
 
   .book_card {
-    width: 90%;
+    width: 90% !important;
     cursor: pointer;
     background-color: #FFFFFF;
     /* height: 408px; */
@@ -4304,8 +4353,8 @@ body.active-modal {
   }
 
   .banner_southsore_text>.welcome_text {
-    font-size: 26px;
-    line-height: 32px;
+    font-size: 32px;
+    line-height: 36px;
   }
 
   .banner_southsore_text>.heading {
@@ -4440,7 +4489,7 @@ body.active-modal {
   }
 
   .li_width {
-    width: 80%;
+    width: 86%;
     font-weight: 600;
     font-size: 14px;
   }
@@ -4634,6 +4683,7 @@ body.active-modal {
     text-align: left;
     color: #2F3133;
     /* height: 45px; */
+    padding-left: 0px !important;
     padding-bottom: 10px !important;
   }
 
