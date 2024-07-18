@@ -228,6 +228,32 @@ const AdminProvider = ({ children }) => {
     }
   }
 
+  const updatePriceOfSingleBook = async (id, args) => {
+    // console.log('token in single update', authData)
+    // console.log('took_update_id', id)
+    // console.log('update_api',Config.API_URL + Config.UPDATE_SINGLE_BOOK + id)
+    try {
+      const response = await axios.post(Config.API_URL + Config.UPDATE_SINGLE_BOOK_PRICE + id, args,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      // }
+      // if (response.data.statuscode === '0') {
+        getAllBookList()
+      // }
+      // console.log(" update Single Book Response : ", response);
+      return response;
+
+    }
+
+    catch (error) {
+      console.log("update_single_book_Error : ", error)
+    }
+  }
+
   const getAllCustomers_admin = async () => {
     try {
       // console.log("all_customers_admin_Authdata :", authData)
@@ -1650,7 +1676,8 @@ const AdminProvider = ({ children }) => {
         changeOrderStatus,
         processRefund,
         returnOrderVerdict,
-        cancelOrder
+        cancelOrder,
+        updatePriceOfSingleBook
 
       }}
     >

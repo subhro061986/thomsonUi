@@ -39,6 +39,7 @@
     "Currency_LIST" : "currency/",
     "UPLOAD_BOOKS_SINGLE" : "book/uploadsinglebook",
     "UPDATE_SINGLE_BOOK" : "book/updatesinglebook/",
+    "UPDATE_SINGLE_BOOK_PRICE" : "book/updatebookprice/",
     "APPROVE_BOOK" : "book/approve/",
     "REJECT_BOOK" : "book/reject/",
     "Book_COVER_IMG" : "uploads/publishers/",

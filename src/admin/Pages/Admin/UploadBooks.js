@@ -62,7 +62,7 @@ const UploadBooks = () => {
     const [file, setFile] = useState('')
 
     const { authDeatils, authData } = useAuth();
-    const { categoryList, get_pub_details, currencies, languages, uploadSingleBook, updateSingleBook, uploadBooksInBulk_admin, getAllPublishers, allPublisher, get_book_details } = AdminProfile();
+    const { categoryList, get_pub_details, currencies, languages, uploadSingleBook, updateSingleBook, updatePriceOfSingleBook, uploadBooksInBulk_admin, getAllPublishers, allPublisher, get_book_details } = AdminProfile();
 
     const location = useLocation()
     const navigate = useNavigate();
@@ -131,7 +131,7 @@ const UploadBooks = () => {
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
         formData.append('img', coverFront)
-        formData.append('price', price)
+        // formData.append('price', price)
         formData.append('noofpages', pageNo)
         formData.append('covertype', coverType)
         formData.append('currencyid', currencyId)
@@ -169,6 +169,34 @@ const UploadBooks = () => {
             });
         }
 
+        
+
+        // if (priceResp.data.statuscode === '0') {
+
+        //     toast.success(" Book price updated successfully", {
+        //         position: "top-center",
+        //         autoClose: 2000,
+        //         hideProgressBar: true,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         closeButton: false,
+        //         theme: "light"
+        //     });
+        //     page_navigation();
+        // }
+        // else {
+        //     toast.error("Book price Updation failed", {
+        //         position: "top-center",
+        //         autoClose: 2000,
+        //         hideProgressBar: true,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         closeButton: false,
+        //         style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+        //     });
+        // }
 
     }
     // }
@@ -221,12 +249,12 @@ const UploadBooks = () => {
         console.log('book_det_resp', resp)
         
         
-        identify_filetype_no(resp)
+        // identify_filetype_no(resp)
         // setPdfname(resp?.epdf_link === 'null' ? 'No File Uploaded' : resp.epdf_link)
         // setEpubname(resp?.epub_link === 'null' ? 'No File Uploaded' : resp.epub_link)
 
         setTitle(resp?.title);
-        setCoverType(resp?.covertype)
+        // setCoverType(resp?.covertype)
         setDescription(resp?.description);
         setCategoryId(resp?.categoryid);
         setPublisher(resp?.publisherid);
@@ -237,6 +265,7 @@ const UploadBooks = () => {
         setLanguageId(resp?.languageid);
         setCoverType(resp?.covertype);
         setCurrencyId(resp?.currencyid);
+        setCoverFront(resp?.img)
         // console.log('lang_id',resp?.languageId)
         // setPdfFile(resp?.epdf_link);
         // setEpubFile(resp?.epub_link);
@@ -332,6 +361,7 @@ const UploadBooks = () => {
 
     const coverFrontHandler = (e) => {
         // console.log("front image", URL.createObjectURL(e.target.files[0]))
+        console.log("cover", e)
         setCoverFront(e.target.files[0])
         // setCoverfronttext('')
         // setImageUrl(URL.createObjectURL(e.target.files[0]))
@@ -564,8 +594,8 @@ const UploadBooks = () => {
                                     
                                     <div className="mb-3">
                                         <label for="covFront" className="form-label"> Book Cover  &nbsp; &nbsp; 
-                                        {/* <span className="red" style={{ fontSize: '11px' }}> 
-                                        {coverfronttext === 'null' ? 'No File Uploaded' : coverfronttext} </span> */}
+                                        <span className="red" style={{ fontSize: '11px' }}> 
+                                        {coverFront === 'null' ? 'No File Uploaded' : coverFront} </span>
                                         </label>
                                         <input className="form-control" type="file" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverFrontHandler(e)} id="formFile" />
                                     </div>
