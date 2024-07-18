@@ -220,7 +220,7 @@ const ManageCategoriesScreen = () => {
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="d-flex justify-content-start align-items-start">
-                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}
+                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10,cursor:'pointer' }} width={15}
                         onClick={() => opencategoriesModal(data.id)}
 
                       />
@@ -235,6 +235,7 @@ const ManageCategoriesScreen = () => {
                           // checked={true}
                           id="flexSwitchCheckDefault"
                           onChange={(e) => act_inact_cat(e, data.id)}
+                          style={{cursor:'pointer'}}
                         />
                       </div>
                     </div>

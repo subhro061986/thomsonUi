@@ -42,9 +42,9 @@ const ApproveOrRejectBook = () => {
 
   const getBookDetails = async(id) => {
     let resp = await getBookById(id);
-    // console.log("Book details : ", resp.data.output);
+    console.log("Book details : ", resp.data.output);
     setBookResponse(resp.data.output);
-    setImageUrl(Config.API_URL + Config.PUB_IMAGES + resp.data.output.publisherid + "/" + resp.data.output.front_cover + '?d=' + new Date())
+    setImageUrl(Config.API_URL + Config.PUB_IMAGES + resp.data.output.publisherid + "/" + resp.data.output.img + '?d=' + new Date())
   }
 
   const bookApproval = (e)=>{
@@ -107,59 +107,14 @@ const ApproveOrRejectBook = () => {
       <SideMenu />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <Header title="Book Details" />
-        {
-          bookResponse.status === "Pending" && 
-          <div className="bg-white p-3 m-3 rounded-2 d-flex justify-content-start align-items-center box_1">
-            <div>
-              <label className="form-label" htmlFor='adminOptions'>Approve Book / Reject Book</label>
-              <div className="rejection_reason">
-                <select id='adminOptions' className="form-select" onChange={(e) => bookApproval(e)}>
-                  <option disabled selected>Please select</option>
-                  <option value={1}>Approve</option>
-                  <option value={2}>Reject</option>
-                </select>
-                <input type="text" className="form-control mx-3 select_option" placeholder="Enter rejection reason" onChange={(e) => setRejectionReason(e.target.value)} value={rejectionReason} hidden={!displayRejectionReason} />
-              </div>
-            </div>
-            {/* <div className="footer-actions d-flex justify-content-end p-3"> */}
-              <button className="btn btn-main" style={{marginTop: '30px', marginLeft: '20px', width:'10%'}} onClick={saveApprovalAction}>
-                {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15}/>  */}
-                Save
-              </button>
-            {/* </div> */}
-          </div>
-        }
-        {/* <div className="m-3 bg-white p-2">
-          <div className="d-flex justify-content-between align-tems-start">
-            <div className="book_image p-3">
-              <img src={bookResponse?.front_cover ? imageurl : noImg} style={{width:'60%'}}  alt="book cover" />
-            </div>
-            <div className="book-details p-3">
-              <h4>{bookResponse.title}</h4>
-              <p><strong>ISBN 13</strong> : {bookResponse.isbn13 === null ? "Not Available" : bookResponse.isbn13}</p>
-              <p><strong>ISBN 10</strong> : {bookResponse.isbn10 === null ? "Not Available" : bookResponse.isbn10}</p>
-              <h6><strong>Author</strong> : {bookResponse.authors}</h6>
-              <p>
-                <strong>Description</strong> : {bookResponse.description}
-              </p>
-              <p><strong>Publisher</strong> : {bookResponse.publisher === null ? "Not Available" : bookResponse.publisher}</p>
-              <p><strong>Price</strong> : {bookResponse.price === null ? "Not Available" : '₹' + bookResponse.price}</p>
-              <p><strong>EPUB Link</strong> : <span className= {bookResponse.epub_link === null || bookResponse.epub_link === "null" ? "" : "book-url"}>{bookResponse.epub_link === null || bookResponse.epub_link === "null" ? "Not Available" : bookResponse.epub_link}</span></p>
-              <p><strong>PDF Link</strong> : <span className={bookResponse.epdf_link === null || bookResponse.epdf_link === "null" ? "" : "book-url"}>{bookResponse.epdf_link === null || bookResponse.epdf_link === "null" ? "Not Available" : bookResponse.epdf_link}</span></p>
-              <p><strong>Category</strong> : {bookResponse.category === null ? "Not Available" : bookResponse.category} </p>
-              <p><strong>Edition Number</strong> : {bookResponse.editionno === null ? "Not Available" : bookResponse.editionno}</p>
-              <p><strong>Language</strong> : {bookResponse.language === null ? "Not Available" : bookResponse.language}</p>
-              <p><strong>Number of Pages</strong> : {bookResponse.noofpages === null ? "Not Available" : bookResponse.noofpages}</p>
-              <p><strong>Published Date</strong> : {bookResponse?.yearofpublishing}</p>
-            </div>
-          </div>
-        </div> */}
+        
+        
 
         <div className="m-3 bg-white p-2">
           <div className="row">
               <div className="col-md-4">
                 <div className="p-3">
-                  <img src={bookResponse?.front_cover ? imageurl : noImg} style={{width:'100%'}}  alt="book cover" />
+                  <img src={bookResponse?.img ? imageurl : noImg} style={{width:'100%'}}  alt="book cover" />
                 </div>
               </div>
 

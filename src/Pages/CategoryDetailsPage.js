@@ -171,15 +171,13 @@ const CategoryDetailsPage = () => {
 
 
     const setLowToHigh = () => {
-        const sortedProducts = tempBooks.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        const sortedProducts = tempBooks.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         setTempBooks([...sortedProducts]);
     };
 
     const setHightoLow = () => {
-        const sortedProducts = tempBooks.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        setTempBooks([...sortedProducts]);
-
-        
+        const sortedProducts = tempBooks.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        setTempBooks([...sortedProducts]); 
     };
 
     const AtoZ = () => {

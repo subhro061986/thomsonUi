@@ -584,7 +584,7 @@ const ManagePublishersScreen = () => {
                     <td>
                       <div className="d-flex justify-content-start align-items-start">
                         <SVG src={editIcon}
-                          style={{ fill: '#FF0000', marginRight: 10, marginTop: 1 }}
+                          style={{ fill: '#FF0000', marginRight: 10, marginTop: 1,cursor:'pointer' }}
                           width={15} height={15}
                           onClick={() => editPubMoadl(data.id)} />
                         {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} 
@@ -592,7 +592,10 @@ const ManagePublishersScreen = () => {
 
 
                         <div className="form-check form-switch" style={{ marginRight: 5 }} >
-                          <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                          <input checked={data.isactive === 1 ? true : false} 
+                          className="form-check-input" type="checkbox" 
+                          id="flexSwitchCheckDefault"
+                          style={{cursor:'pointer'}}
                             onChange={(e) => act_inact_pub(data.isactive, data.id)} />
                         </div>
 
@@ -600,7 +603,7 @@ const ManagePublishersScreen = () => {
                         <SVG src={eye}
                           height={20} width={20}
                           onClick={() => openOrderDescriptionModal(data.id)}
-                          style={{ fill: '#787B85' }}
+                          style={{ fill: '#787B85',cursor:'pointer' }}
                         />
                       </div>
                     </td>
