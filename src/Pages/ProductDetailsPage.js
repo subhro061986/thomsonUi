@@ -119,7 +119,7 @@ const ProductDetailsPage = () => {
     
     const book_detail = async (book_id) => {
         const resp = await get_book_details(book_id)
-        // console.log(" book details resp", resp)
+        console.log(" book details resp", resp)
         if (resp === undefined || resp === null) {
             setBookdetail({})
             setImages([])
@@ -165,15 +165,13 @@ const ProductDetailsPage = () => {
     }
 
     const img_alter = (img_data) => {
-        console.log("PRD PG Book detail : ", bookdetail);
+        
         // let path_img_data = image_path + bookdetail.publisher + "/" + img_data + '?d=' + new Date();
-        console.log("img_data :", img_data);
         // console.log("path_img_data :", path_img_data);
         setDefaultimg(img_data)
     }
     const add_to_cart = async (bookid, toCheckout) => {
-        console.log('bookDetails', bookdetail)
-        console.log("default image=", defaultimg)
+        
         let json_data = {
             title: bookdetail.title,
             authors: bookdetail.authors,
@@ -195,7 +193,7 @@ const ProductDetailsPage = () => {
 
             json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
             json_data["amount"] = json_data["price"]
-            console.log("json data= ", json_data)
+            
             const resp = await add_book_to_storage(json_data)
             // for buy now
             if (toCheckout) {
@@ -299,7 +297,7 @@ const ProductDetailsPage = () => {
                             </div>
                             <div className="d-flex justify-content-center align-items-center ">
                                 {/* <img src={defaultimg?.length > 0 ? defaultimg.image : dummy} className="d-flex justify-content-center align-items-center product_image" /> */}
-                                <img src={defaultimg ? defaultimg : dummy} width={246} height={250}
+                                <img src={bookdetail.img!=='' ? image_path + bookdetail.publisherid + '/' + bookdetail.img + '?d=' + new Date() : dummy} width={246} height={250}
                                     className="d-flex justify-content-center align-items-center product_image"
                                     loading="lazy"
                                 />

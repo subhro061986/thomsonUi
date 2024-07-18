@@ -119,7 +119,7 @@ const RegistrationSouthshore = () => {
     return (
         <div className="main-container">
             <div className="container">
-                <TopBarSouthsore />
+                <TopBar/>
                 <NavBarSouthsore />
             </div>
             <Whatsapp />

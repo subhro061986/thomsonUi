@@ -133,7 +133,7 @@ const MyProfile = () => {
 
         let changebillingDetails = {
 
-            addressline: address,
+            streetAddress: address,
             city: city,
             pincode: pin,
             stateid: selectedState,
@@ -141,15 +141,23 @@ const MyProfile = () => {
 
         }
 
-
+        
         const personalDetailsPesponse = await change_personal_details(userDetails)
-        // console.log("personal details=", personalDetailsPesponse)
-
         const contactDetailsPesponse = await change_contact_details(changecontactDetails)
-        // console.log("contact details=", contactDetailsPesponse)
-
         const billingDetailsPesponse = await change_billing_address(changebillingDetails)
-        // console.log("billing details=", billingDetailsPesponse)
+        console.log("PERSONAL DETAILS",personalDetailsPesponse)
+        console.log("PERSONAL DETAILS===>1",contactDetailsPesponse)
+        console.log("PERSONAL DETAILS===>2",billingDetailsPesponse)
+        if(billingDetailsPesponse.statuscode === "0" && 
+        contactDetailsPesponse.statuscode=== "0" && 
+        personalDetailsPesponse.statuscode === "0"){
+            alert("Information saved successfully")
+        }
+        else{
+            alert("Contact updation failed")
+        }
+
+        
     }
     return (
 
@@ -191,12 +199,12 @@ const MyProfile = () => {
                             <input className="form-control p_hold" type="text"
                                 onChange={phoneHandler} value={phone} />
 
-                            {/* <label className="form_label">Profile Picture</label>
+                            <label className="form_label">Profile Picture</label>
                             <input className="form-control p_hold" type="file"
                                 accept="image/*" onChange={(e) => profilePicHandler(e)} />
                             {profileImage !== null && profileImage !== '' &&
                                 <img src={profileImage} className="img-fluid mt-4" height={100} width={100} />
-                            } */}
+                            }
                         </div>
 
                         <div className="col-md-6">

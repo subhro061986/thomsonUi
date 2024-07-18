@@ -11,10 +11,11 @@ import BackButton from "../Layout/BackButton";
 import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import Whatsapp from "../Layout/Whatsapp";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
+import { useAuth } from "../Context/Authcontext";
 
 
 const ShippingComp = () => {
-
+    const {authData}=useAuth()
     const { getAllShippingAddress, 
         shippingList, 
         addShippingAddress, 
@@ -100,12 +101,14 @@ const ShippingComp = () => {
     useEffect(() => {
         get_countries()
         get_states()
-    }, []);
+    }, [authData]);
 
     useEffect(() => {
         getShipLists()
-        // console.log('selectedShippingAddress',selectedShippingAddress)
+        console.log('selectedShippingAddress',shippingList)
     }, [selectedShippingAddress]);
+
+    
 
     const getShipLists = async () => {
        let tempArr=tempShippingArr
@@ -168,7 +171,7 @@ const ShippingComp = () => {
 
 
     const saveShipping = async () => {
-        console.log("shipping id in save fnc ", shippingAddId)
+        
         if (shippingAddId === 0) {
             let addShippingData = {
                 streetAddress: streetAddress,
@@ -179,7 +182,6 @@ const ShippingComp = () => {
             }
             let response = await addShippingAddress(addShippingData)
             // console.log(" add shipping response ", response)
-            getShipLists()
             closeAddAddressModal()
         }
         else {
@@ -193,7 +195,6 @@ const ShippingComp = () => {
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
             // console.log(" add shipping response ", response)
-            getShipLists()
             closeAddAddressModal()
         }
 

@@ -72,6 +72,10 @@ const BillingAddressPage = () => {
         setBuyNow(location.state.buynow)
     }, [location.state.buynow])
 
+    useEffect(() => {
+        console.log("SHIPPING LIST FROM PARENT")
+    }, [shippingList])
+
 
     const countryHandler = async (e) => {
         if (selectedCountry == null && selectedCountry == '') {
@@ -189,8 +193,8 @@ const BillingAddressPage = () => {
         var respPaymentConfirmed = await processPayment(newData)
         // console.log("resp confirmed= ", respPaymentConfirmed)
         if (respPaymentConfirmed['statuscode'] === "0") {
-
             navigate('/confirmorder')
+            
         }
         else {
             alert("Could not process payment correctly")
@@ -387,7 +391,7 @@ const BillingAddressPage = () => {
         <div className="main-container">
 
             <div className="container">
-                <TopBarSouthsore />
+                <TopBar/>
                 <NavBarSouthsore />
             </div>
             <Whatsapp />
@@ -500,7 +504,7 @@ const BillingAddressPage = () => {
                                     <h2 className="card-title"><b>Shipping Address</b></h2>
 
                                     <hr></hr>
-                                    <ShippingComp />
+                                    <ShippingComp/>
 
 
                                     <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(1)}>Place Order</Button>

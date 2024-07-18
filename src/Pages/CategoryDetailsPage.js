@@ -171,26 +171,27 @@ const CategoryDetailsPage = () => {
 
 
     const setLowToHigh = () => {
-        const sortedProducts = books.sort((a, b) => a.price - b.price);
-        // console.log("sortedproducts", sortedProducts)
-        setBooks([...sortedProducts]);
+        const sortedProducts = tempBooks.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        setTempBooks([...sortedProducts]);
     };
 
     const setHightoLow = () => {
-        const sortedProducts = books.sort((a, b) => b.price - a.price);
-        setBooks([...sortedProducts]);
+        const sortedProducts = tempBooks.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        setTempBooks([...sortedProducts]);
+
+        
     };
 
     const AtoZ = () => {
-        const sortedProducts = books.sort((a, b) => a.title > b.title ? 1 : -1)
+        const sortedProducts = tempBooks.sort((a, b) => a.title > b.title ? 1 : -1)
         // console.log("A-Z", sortedProducts)
-        setBooks([...sortedProducts]);
+        setTempBooks([...sortedProducts]);
     }
 
     const ZtoA = () => {
-        const sortedProducts = books.sort((a, b) => a.title > b.title ? -1 : 1)
+        const sortedProducts = tempBooks.sort((a, b) => a.title > b.title ? -1 : 1)
         // console.log("Z-A", sortedProducts)
-        setBooks([...sortedProducts]);
+        setTempBooks([...sortedProducts]);
     }
 
 
@@ -327,8 +328,8 @@ const CategoryDetailsPage = () => {
 
     }
 
-    const Sort = (e) => {
-        // console.log(e.target.value)
+    const Sort = async(e) => {
+        console.log("EVENT===>",e.target.value)
         let sort_val = e.target.value
         if (sort_val === 'high-low') {
             // console.log('high-low')
@@ -890,25 +891,7 @@ const CategoryDetailsPage = () => {
                                 {/* <p className="mt-4">{minRange} to {maxRange}</p> */}
 
                                 <hr />
-                                {/* <li>Language</li>
-                                    <ul className="languages">
-                                        <li>English</li>
-                                        <li>Bengali</li>
-                                        <li>Hindi</li>
-                                        <li>German</li>
-                                        <li>Italian</li>
-                                        <li>Spanish</li>
-                                    </ul> 
-                                    <hr />*/}
-                                {/* <li>Publication Year</li>
-                                    <input type="range" min="2000" max="2023" className="slider" id="myRange"></input>
-                                    <hr />
-                                    <li>New Arrivals</li>
-                                    <ul className="new-arrivals">
-                                        <li>Last arrival books</li>
-                                        <li>Last 30 days</li>
-                                        <li>Last 90 days</li>
-                                    </ul> */}
+                                
 
                             </div>
                         </div>
@@ -933,7 +916,10 @@ const CategoryDetailsPage = () => {
                                         <div className="filter pos_rel d-flex align-items-center margin_tp">
                                             <span>Sort By</span>
                                             <div className='laptop_view'>
-                                                <select className="p-2 mx-2" style={{ borderRadius: '10px', width: '124px' }} onChange={(e) => { Sort(e) }}>
+                                                <select className="p-2 mx-2" 
+                                                    style={{ borderRadius: '10px', width: '124px' }} 
+                                                    onChange={(e) =>  Sort(e) }
+                                                    >
                                                     <option value="low-high"> Sort by Price(Low to High)</option>
                                                     <option value="high-low"> Sort by Price(High to Low)</option>
                                                     <option value="A-Z"> Sort Alphabetically(A-Z)</option>

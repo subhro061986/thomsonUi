@@ -695,7 +695,7 @@ const UserProvider = ({ children }) => {
   }
   const change_billing_address = async (args) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.CHANGE_BILLING_ADDRESS, args,
+      const response = await axios.post(Config.API_URL + Config.EDIT_BILLING_ADDRESS, args,
 
         {
           headers: {
@@ -1033,7 +1033,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      
+      console.log("CALL SHIPPED==>",response);
       setShippingList(response.data.output)
 
       return response;
@@ -1070,7 +1070,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      getAllShippingAddress();
+      await getAllShippingAddress();
       
       return response;
     }

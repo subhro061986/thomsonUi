@@ -73,7 +73,6 @@ const TopBar = () => {
     const resp = await logOut()
 
     if (resp === "Success") {
-      console.log('logout_response', resp)
       navigate("/login")
     }
 
