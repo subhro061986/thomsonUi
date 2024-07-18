@@ -236,7 +236,7 @@ const AdminProvider = ({ children }) => {
       const response = await axios.post(Config.API_URL + Config.UPDATE_SINGLE_BOOK_PRICE + id, args,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })

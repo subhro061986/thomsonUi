@@ -30,7 +30,7 @@ const UploadBooks = () => {
     const [volume, setVolume] = useState(0);
     const [year, setYear] = useState('');
     const [author, setAuthor] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState('');
     const [coupon, setCoupon] = useState('');
     const [editionNo, setEditionNo] = useState(0);
     const [categoryId, setCategoryId] = useState(0);
@@ -43,7 +43,7 @@ const UploadBooks = () => {
     const [pageNo, setPageNo] = useState(0);
     const [effectiveFrom, setEffectiveFrom] = useState('');
     const [coverBack, setCoverBack] = useState(null);
-    const [coverFront, setCoverFront] = useState(null);
+    const [coverFront, setCoverFront] = useState('');
 
     const [coverfronttext, setCoverfronttext] = useState('')
     const [coverbacktext, setCoverbacktext] = useState('')
@@ -360,7 +360,7 @@ const UploadBooks = () => {
     }
 
     const coverFrontHandler = (e) => {
-        // console.log("front image", URL.createObjectURL(e.target.files[0]))
+        console.log("front image", e.target.files[0])
         console.log("cover", e)
         setCoverFront(e.target.files[0])
         // setCoverfronttext('')
@@ -536,7 +536,7 @@ const UploadBooks = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label for="listPrice" className="form-label">Price<span className="red"> *</span></label>
-                                        <input type="number" className="form-control" id="exampleFormControlInput1" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
                                     </div>
                                     <div className="mb-3">
                                         <label for="genre" className="form-label">Category<span className="red"> *</span></label>
@@ -594,10 +594,10 @@ const UploadBooks = () => {
                                     
                                     <div className="mb-3">
                                         <label for="covFront" className="form-label"> Book Cover  &nbsp; &nbsp; 
-                                        <span className="red" style={{ fontSize: '11px' }}> 
-                                        {coverFront === 'null' ? 'No File Uploaded' : coverFront} </span>
+                                        {/* <span className="red" style={{ fontSize: '11px' }}> 
+                                        {coverFront === 'null' ? 'No File Uploaded' : coverFront} </span> */}
                                         </label>
-                                        <input className="form-control" type="file" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverFrontHandler(e)} id="formFile" />
+                                        <input className="form-control" type="file" accept=".jpg, .png, .jpeg, .svg" onChange={(e) => coverFrontHandler(e)}  />
                                     </div>
 
                                     

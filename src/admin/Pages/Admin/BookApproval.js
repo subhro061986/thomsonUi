@@ -35,7 +35,7 @@ const BookApproval = () => {
 
   const [categoriesModal, setcategoriesModal] = useState(false);
   const [effectiveFrom, setEffectiveFrom] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
   const [bookid, setBookid] = useState('');
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const BookApproval = () => {
   }, [authData])
 
   const opencategoriesModal = (val) => {
-    // console.log("Category Id : ", id);
+    console.log("book val : ", val);
 
     setPrice(val.price)
     setBookid(val.id)
@@ -53,11 +53,12 @@ const BookApproval = () => {
 
   const saveCategory = async () => {
 
-    
+    console.log('update_price_bookid', bookid)
     let update_price_json = {
       effectivefrom: effectiveFrom,
-      price: price
+      price: parseFloat(price)
     }
+    console.log('update_price_json', update_price_json)
     const resp = await updatePriceOfSingleBook(bookid, update_price_json)
 
     console.log('update_price_resp', resp)
