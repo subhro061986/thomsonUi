@@ -96,25 +96,39 @@ const ManageCategoriesScreen = () => {
         // parentid: categoryParent,
         shipmentduration: shipmentDuration
       }
-      let resp = await addCategory(obj);
-      // console.log("Add category response : ", resp);
+      if (categoryName !== '' && categoryDesc !== '' && shipmentDuration !== '') {
+        let resp = await addCategory(obj);
+        // console.log("Add category response : ", resp);
 
 
-      if (resp.data.statuscode === '0' && resp.data.message === 'Information saved successfully.') {
+        if (resp.data.statuscode === '0' && resp.data.message === 'Information saved successfully.') {
 
-        toast.success("Category added successfully", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          closeButton: false,
-          theme: "light"
-        });
+          toast.success("Category added successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            theme: "light"
+          });
 
+        }
+        else {
+          toast.error("Category addition failed", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+          });
+        }
       }
-      else {
+      else{
         toast.error("Category addition failed", {
           position: "top-right",
           autoClose: 2000,
@@ -137,6 +151,7 @@ const ManageCategoriesScreen = () => {
         // parentid: categoryParent,
         shipmentduration: shipmentDuration
       }
+
       let resp = await editCategory(categoryId, obj);
 
       if (resp?.data?.statuscode === '0' && resp?.data?.message === 'Information saved successfully.') {
@@ -220,7 +235,7 @@ const ManageCategoriesScreen = () => {
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="d-flex justify-content-start align-items-start">
-                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10,cursor:'pointer' }} width={15}
+                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15}
                         onClick={() => opencategoriesModal(data.id)}
 
                       />
@@ -235,7 +250,7 @@ const ManageCategoriesScreen = () => {
                           // checked={true}
                           id="flexSwitchCheckDefault"
                           onChange={(e) => act_inact_cat(e, data.id)}
-                          style={{cursor:'pointer'}}
+                          style={{ cursor: 'pointer' }}
                         />
                       </div>
                     </div>
@@ -274,13 +289,25 @@ const ManageCategoriesScreen = () => {
                     })
                   }
                 </select> */}
-                <label className="form-label">Category Name</label>
+                <label className="form-label">Category Name
+                  {categoryId === 0 &&
+                    <span className="red"> *</span>
+                  }
+                </label>
                 <input type="text" className="form-control mb-2" placeholder="Type Category Name"
                   value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
-                <label className="form-label">Description</label>
+                <label className="form-label">Description
+                  {categoryId === 0 &&
+                    <span className="red"> *</span>
+                  }
+                </label>
                 <input type="text" className="form-control mb-2" placeholder="Type a Description"
                   value={categoryDesc} onChange={(e) => setCategoryDesc(e.target.value)} />
-                <label className="form-label">Shipment Duration</label>
+                <label className="form-label">Shipment Duration
+                  {categoryId === 0 &&
+                    <span className="red"> *</span>
+                  }
+                </label>
                 <input type="number" className="form-control mb-2" placeholder="Type a Shipment Duration"
                   value={shipmentDuration} onChange={(e) => setShipmentDuration(e.target.value)} />
 
@@ -294,8 +321,10 @@ const ManageCategoriesScreen = () => {
               </div>
             </div>
           </Modal.Body>
-          <Modal.Footer>
-
+          <Modal.Footer className="d-flex justify-content-between">
+            {categoryId === 0 &&
+              <div className="text-danger">All fields are mandetory</div>
+            }
             <button className="btn btn-main" onClick={saveCategory} style={{ width: '20%' }}>
               {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} /> */}
               Save
