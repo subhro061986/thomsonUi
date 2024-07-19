@@ -116,7 +116,7 @@ const UploadBooks = () => {
     // * Notification - Left
 
     const update_single_book = async (id) => {
-        console.log('update_single_id', id);
+        console.log('update_single_id', coverFront instanceof File);
         let formData = new FormData();
 
         formData.append('title', title)
@@ -130,7 +130,7 @@ const UploadBooks = () => {
         formData.append('languageid', languageId)
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
-        formData.append('img', coverFront)
+        formData.append('img', coverFront instanceof File? coverFront : '')
         // formData.append('price', price)
         formData.append('noofpages', pageNo)
         formData.append('covertype', coverType)

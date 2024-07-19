@@ -13,7 +13,7 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
 
-  const { authData, wishlistshow, isexpired, uuid, authRole} = useAuth();
+  const { authData, wishlistshow, isexpired, uuid, authRole } = useAuth();
 
   // const [catrproducts , setCartproducts] = useState([])
   const [isActive, setActive] = useState(false)
@@ -32,7 +32,8 @@ const UserProvider = ({ children }) => {
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
   const [shippingList, setShippingList] = useState([])
-  const [selectedShippingAddress, setSelectedShippingAddress] = useState(0)
+  const [selectedShippingAddressId, setSelectedShippingAddressId] = useState(0)
+  const [userShippingAddress, setUserShippingAddress] = useState(null)
 
 
 
@@ -63,7 +64,7 @@ const UserProvider = ({ children }) => {
       getAllShippingAddress();
       getSippingAddressById();
       delShippingAddress();
-      myorders(1,10);
+      myorders(1, 10);
 
       // localstorage_price_items_signin()
       // get_wish_books_id()
@@ -106,7 +107,7 @@ const UserProvider = ({ children }) => {
   const getNewArrivals = async (record_no) => {
 
 
-    
+
     try {
       const response = await axios.get(Config.API_URL + Config.NEW_ARRIVAL + "?recordPerPage=" + 5,
         {
@@ -127,7 +128,7 @@ const UserProvider = ({ children }) => {
           setallNewArrival([])
         }
       }
-      
+
 
       return response.data
 
@@ -207,8 +208,8 @@ const UserProvider = ({ children }) => {
   }
 
 
-  
-  
+
+
 
 
   const get_book_details = async (book_id) => {
@@ -266,7 +267,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      
+
 
       return response.data
 
@@ -394,7 +395,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
-      
+
       setWishlistItems(response.data.output)
 
       return response.data
@@ -812,7 +813,7 @@ const UserProvider = ({ children }) => {
           },
         })
       setAllActivePublisher(response.data.output)
-      
+
 
       return response;
     }
@@ -1014,7 +1015,7 @@ const UserProvider = ({ children }) => {
         })
       // }
       getAllShippingAddress();
-      
+
       return response;
 
     }
@@ -1033,7 +1034,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("CALL SHIPPED==>",response);
+      console.log("CALL SHIPPED==>", response);
       setShippingList(response.data.output)
 
       return response;
@@ -1052,7 +1053,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      
+
       return response;
     }
     catch (error) {
@@ -1061,7 +1062,7 @@ const UserProvider = ({ children }) => {
   }
 
   const editShippingAddress = async (args, id) => {
-    
+
     try {
       const response = await axios.post(Config.API_URL + Config.EDIT_SHIPPING_ADDRESS + "/" + id, args,
         {
@@ -1071,7 +1072,7 @@ const UserProvider = ({ children }) => {
           },
         })
       await getAllShippingAddress();
-      
+
       return response;
     }
     catch (error) {
@@ -1091,7 +1092,7 @@ const UserProvider = ({ children }) => {
         })
       // setShippingList();
       getAllShippingAddress();
-      
+
       return response;
     }
     catch (error) {
@@ -1108,7 +1109,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      
+
 
 
       return response.data;
@@ -1127,7 +1128,7 @@ const UserProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      
+
 
 
       return response.data;
@@ -1160,7 +1161,7 @@ const UserProvider = ({ children }) => {
   }
   const cancelOrder = async (args) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.CANCEL_ORDER , args,
+      const response = await axios.post(Config.API_URL + Config.CANCEL_ORDER, args,
 
         {
           headers: {
@@ -1182,7 +1183,7 @@ const UserProvider = ({ children }) => {
 
   const returnOrderRequest = async (args) => {
     try {
-      const response = await axios.post(Config.API_URL + Config.RETURN_ORDER , args,
+      const response = await axios.post(Config.API_URL + Config.RETURN_ORDER, args,
 
         {
           headers: {
@@ -1203,7 +1204,9 @@ const UserProvider = ({ children }) => {
   }
 
   const selectShippingAddress = async (id) => {
-    setSelectedShippingAddress(id)
+    setSelectedShippingAddressId(id)
+    let shippingaddress = shippingList.find((val) => val.id === id)
+    setUserShippingAddress(shippingaddress)
     return id
   }
   return (
@@ -1264,9 +1267,10 @@ const UserProvider = ({ children }) => {
         editBillingAddress,
         createAppOrder,
         selectShippingAddress,
-        selectedShippingAddress,
+        selectedShippingAddressId,
         cancelOrder,
-        returnOrderRequest
+        returnOrderRequest,
+        userShippingAddress
 
 
       }}

@@ -25,7 +25,7 @@ const ShippingComp = () => {
         get_country_list, 
         get_state_list,
         selectShippingAddress,
-        selectedShippingAddress, } = UserProfile()
+        selectedShippingAddressId, } = UserProfile()
 
     const [addAddressModal, setAddAddressModal] = useState(false);
     const [modaltitle, setmodaltitle] = useState('');
@@ -106,14 +106,14 @@ const ShippingComp = () => {
     useEffect(() => {
         getShipLists()
         console.log('selectedShippingAddress',shippingList)
-    }, [selectedShippingAddress]);
+    }, [selectedShippingAddressId]);
 
     
 
     const getShipLists = async () => {
        let tempArr=tempShippingArr
        for(let i=0;i<tempArr.length;i++){
-        if(tempArr[i]['id'] === selectedShippingAddress){
+        if(tempArr[i]['id'] === selectedShippingAddressId){
             tempArr[i]['checked']=true;
         }
         else {

@@ -23,26 +23,27 @@ import verify from "../Assets/Images/verify.png";
 const BillingAddressPage = () => {
     const formWizardRef = useRef();
     const { authData,authRole } = useAuth()
-    const { place_order,
+    const {
         my_profile,
         get_country_list,
         get_state_list,
-        change_billing_address,
         change_contact_details,
         createRazorpayOrder,
         processPayment,
-        applyCoupon,
         shippingList,
         getBillingAddress,
         editBillingAddress,
         createAppOrder,
-        selectedShippingAddress
+        selectedShippingAddressId,
+        userShippingAddress
     } = UserProfile()
     const navigate = useNavigate();
     const location = useLocation()
     const [address, setAddress] = useState('')
     const [selectedCountry, setSelectedCountry] = useState('')
     const [selectedState, setSelectedState] = useState('')
+    const [stateName,setStateName] = useState('')
+    const [countryName,setCountryName] = useState('')
     const [city, setCity] = useState('')
     const [pin, setPin] = useState('')
     const [name, setName] = useState('')
@@ -51,14 +52,11 @@ const BillingAddressPage = () => {
     const [countryList, setCountryList] = useState([])
     const [stateList, setStateList] = useState([])
     const [placeOrderResponse, setPlaceOrderResponse] = useState({})
-    const [togglepayment, setTogglePayment] = useState(true)
-    const [showCoupon, setShowCoupon] = useState(false)
-    const [coupon, setCoupon] = useState('')
+
     const [orderTotal, setOrderTotal] = useState(0)
     const [buyNow, setBuyNow] = useState(0)
     const [billingAddressId, setBillingAddressId] = useState(0)
     const [Razorpay] = useRazorpay();
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 
     useEffect(() => {
@@ -73,8 +71,8 @@ const BillingAddressPage = () => {
     }, [location.state.buynow])
 
     useEffect(() => {
-        console.log("SHIPPING LIST FROM PARENT")
-    }, [shippingList])
+        console.log("SHIPPING LIST FROM PARENT=", userShippingAddress)
+    }, [shippingList,selectedShippingAddressId])
 
 
     const countryHandler = async (e) => {
@@ -120,23 +118,10 @@ const BillingAddressPage = () => {
         setPhone(e.target.value)
     }
 
-    const handleSetCoupon = (e) => {
-        setCoupon(e.target.value)
-    }
-
     const addressHandler = (e) => {
         setAddress(e.target.value)
     }
 
-    const generateString = (length) => {
-        let result = ' ';
-        const charactersLength = characters.length;
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-
-        return result;
-    }
     const renderStateList = async (countyId) => {
         try {
             // console.log("inside statelist")
@@ -174,13 +159,12 @@ const BillingAddressPage = () => {
         setSelectedState(resp.output.stateid)
         setCity(resp.output.city)
         setPin(resp.output.pincode)
-
+        setStateName(resp.output.statename)
+        setCountryName(resp.output.countryname)
         if (resp.output.countryid !== null && resp.output.countryid !== '') {
             renderStateList(resp.output.countryid)
         }
     }
-
-
     const processPaymentSuccess = async (placeOrder, data) => {
         const newData = {
             ...data,
@@ -215,11 +199,11 @@ const BillingAddressPage = () => {
     const placeOrder = async () => {
 
         // console.log("selected shipping address=",selectedShippingAddress)
-        if(selectedShippingAddress > 0){
+        if(selectedShippingAddressId > 0){
 
             let placeorderJson = {
                 billingaddressid: billingAddressId,
-                shippingaddressid: selectedShippingAddress
+                shippingaddressid: selectedShippingAddressId
             }
             // console.log("placeorder Json=", placeorderJson)
             const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
@@ -361,7 +345,7 @@ const BillingAddressPage = () => {
                 rzp1.open();
             }
         }
-    };
+    }; 
 
 
     const handleComplete = () => {
@@ -520,11 +504,44 @@ const BillingAddressPage = () => {
 
                                     <hr></hr>
 
-                                        <p className="card-title fs-5 fw-medium" style={{color:"gray"}}>Price Details</p>
+                                        <p className="card-title fs-5 fw-medium" style={{color:"gray"}}>Order Summary</p>
                                         <hr></hr>
                                     <div className="d-flex justify-content-between align-items-start">
-                                        <h4>Price </h4>
-                                        <h4>{placeOrderResponse?.output?.currency} {placeOrderResponse?.output?.totalAmount}</h4>
+                                        <div>
+                                                <h3>Billing address</h3>
+                                                <hr></hr>
+                                                <div className="d-flex flex-column justify-content-between align-items-start" >
+                                                    <p><strong>Address:</strong> {address}</p> 
+                                                    <p><strong>City:</strong> {city}</p>
+                                                    <p><strong>Pin Code:</strong>{pin}</p>
+                                                    <p><strong>State:</strong>{stateName}</p>
+                                                    <p><strong>Country:</strong> {countryName}</p>
+                                                </div>
+
+                                        </div>
+                                        <div>
+                                                <h3>Shipping address</h3>
+                                                <hr></hr>
+                                                <div className="d-flex flex-column justify-content-between align-items-start" >
+                                                    
+                                          
+                                                    <p><strong>Address:</strong> {userShippingAddress.streetaddress}</p> 
+                                                    <p><strong>City:</strong> {userShippingAddress.city}</p>
+                                                    <p><strong>Pin Code:</strong>{userShippingAddress.pincode}</p>
+                                                    <p><strong>State:</strong>{userShippingAddress.statename}</p>
+                                                    <p><strong>Country:</strong> {userShippingAddress.countryname}</p>
+                                                </div>
+
+                                        </div>
+                                        <div >
+                                        <h3>Total Amount</h3>
+                                        <hr></hr>
+                                        <h4>Price : {placeOrderResponse?.output?.currency} {placeOrderResponse?.output?.totalAmount} </h4>
+                              
+                                        </div>
+                                        <div>
+
+                                        </div>
                                     </div>
                                     <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(2)}>Confirm Order</Button>
 
