@@ -176,7 +176,7 @@ const BookApproval = () => {
                   <td className="all_col">{data.category.length > 0 ? data.category : "Not Available"}</td>
                   <td className="all_col">
                     {data.price === null || data.price === '' ? "Not Available" : data.price}
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15} height={32}
+                    <SVG src={editIcon} style={{ fill: '#000', marginRight: '10px', marginLeft: '6px', marginTop: '-4px' }} width={15} height={32}
                       onClick={() => opencategoriesModal(data)}
                     />
                   </td>
@@ -186,14 +186,15 @@ const BookApproval = () => {
                       onClick={() => editBook(data.id)}
                     /> */}
                     {/* <div className="d-flex justify-content-start align-items-start"> */}
-                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15} height={32}
+                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15} height={32}
                         onClick={() => editBook(data.id)}
                       />
                       
-                      <SVG src={eye} style={{ fill: '#000', marginRight: 10 }} width={18} height={32}
+                      <SVG src={eye} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={18} height={32}
                         onClick={() => openModal(data.id)} />
                         <div className="form-check form-switch switch_class" style={{ marginTop: '-24%', marginLeft: '48%' }} hidden={data.status === 'Pending' ? true : false}>
                         <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                          style={{cursor: 'pointer'}}
                           checked={data.isactive === 1 ? true : false}
                           onChange={(e) => rest_del_book(data.isactive, data.id)}
                         />

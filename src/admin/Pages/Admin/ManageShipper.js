@@ -217,7 +217,7 @@ const ManageShipper = () => {
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="d-flex justify-content-start align-items-start">
-                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15}
+                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15}
                         onClick={() => opencategoriesModal(data.id)}
 
                       />
@@ -228,6 +228,7 @@ const ManageShipper = () => {
                         <input
                           checked={data.isactive === 1 ? true : false}
                           className="form-check-input"
+                          style={{cursor: 'pointer'}}
                           type="checkbox"
                           // checked={true}
                           id="flexSwitchCheckDefault"
