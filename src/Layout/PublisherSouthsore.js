@@ -57,8 +57,7 @@ const PublisherSouthsore = () => {
   useEffect(() => {
     // book_category()
     //book_category_by_publisher(1)
-    // allActivePublisher()
-    // console.log('All active publishers', allActivePublisher.length);
+    console.log('All active publishers', allActivePublisher);
   }, [])
 
 
@@ -88,6 +87,7 @@ const PublisherSouthsore = () => {
 
         <div className="row mx-0">
           {allActivePublisher.length < 5 ? (
+            // filter(pub => pub.isactive === 1).
             // <div className="d-flex justify-content-center align-items-center">
               allActivePublisher.map((data, index) => (
 
