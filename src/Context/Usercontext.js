@@ -34,6 +34,8 @@ const UserProvider = ({ children }) => {
   const [shippingList, setShippingList] = useState([])
   const [selectedShippingAddressId, setSelectedShippingAddressId] = useState(0)
   const [userShippingAddress, setUserShippingAddress] = useState(null)
+  const [orderConfirmation, setOrderConfirmation] = useState(null)
+  
 
 
 
@@ -882,6 +884,7 @@ const UserProvider = ({ children }) => {
         })
 
       //console.log("razor pay payment confirmed  : ", response);
+       setOrderConfirmation(response.data)
       return response.data;
     }
     catch (error) {
@@ -1270,7 +1273,8 @@ const UserProvider = ({ children }) => {
         selectedShippingAddressId,
         cancelOrder,
         returnOrderRequest,
-        userShippingAddress
+        userShippingAddress,
+        orderConfirmation
 
 
       }}

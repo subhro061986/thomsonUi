@@ -536,11 +536,11 @@ const BillingAddressPage = () => {
                                                 <div className="d-flex flex-column justify-content-between align-items-start" >
                                                     
                                           
-                                                    <p><strong>Address:</strong> {userShippingAddress.streetaddress}</p> 
-                                                    <p><strong>City:</strong> {userShippingAddress.city}</p>
-                                                    <p><strong>Pin Code:</strong>{userShippingAddress.pincode}</p>
-                                                    <p><strong>State:</strong>{userShippingAddress.statename}</p>
-                                                    <p><strong>Country:</strong> {userShippingAddress.countryname}</p>
+                                                    <p><strong>Address:</strong> {userShippingAddress?.streetaddress}</p> 
+                                                    <p><strong>City:</strong> {userShippingAddress?.city}</p>
+                                                    <p><strong>Pin Code:</strong>{userShippingAddress?.pincode}</p>
+                                                    <p><strong>State:</strong>{userShippingAddress?.statename}</p>
+                                                    <p><strong>Country:</strong> {userShippingAddress?.countryname}</p>
                                                 </div>
 
                                         </div>
