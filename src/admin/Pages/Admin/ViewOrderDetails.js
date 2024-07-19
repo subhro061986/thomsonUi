@@ -349,7 +349,7 @@ const ViewOrderDetails = () => {
         <>
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="View Customer Order Details" />
+                <Header title="Customer Order Details" />
 
                 {/* Order Details */}
 
@@ -560,13 +560,13 @@ const ViewOrderDetails = () => {
                             <thead className="text-center">
                                 <tr>
                                     <th colSpan={4}>
-                                        <h4> Order History</h4>
+                                        <h4> Status History</h4>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th>Status</th>
                                     <th>Status Date</th>
-                                    <th>Comment</th>
+                                    {/* <th>Comment</th> */}
                                     
                                 </tr>
                             </thead>
@@ -578,7 +578,7 @@ const ViewOrderDetails = () => {
                                     >
                                         <td className="all_col">{data.status}</td>
                                         <td className="all_col">{data.statusdate}</td>
-                                        <td className="all_col">{data.comment}</td>
+                                        {/* <td className="all_col">{data.comment}</td> */}
                                     </tr>
 
                                 ))}

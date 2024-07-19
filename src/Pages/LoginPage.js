@@ -73,16 +73,17 @@ const Login = () => {
                 "email": regEmail
             };
             const resp = await forgot_password(args);
-            toast.success(resp, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                closeButton: false,
-                // style: {fontWeight: 'bold',backgroundColor:"rgb(255, 237, 246)"}
-            });
+            // toast.success(resp, {
+            //     position: "top-center",
+            //     autoClose: 2000,
+            //     hideProgressBar: true,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     closeButton: false,
+            //     // style: {fontWeight: 'bold',backgroundColor:"rgb(255, 237, 246)"}
+            // });
+            alert(resp)
             closeModal();
         }
     }
@@ -132,17 +133,18 @@ const Login = () => {
             }
             else {
                 // NotificationManager.error(resp.message, 'Error !', 5000,);
-                toast.error("Login Unsuccessful !", {
-                    position: "top-right",
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    closeButton: false,
-                    theme: "light",
-                    style: { color: "rgb(250, 62, 75)", fontWeight: 'bold', backgroundColor: "rgb(252, 242, 243)" }
-                });
+                // toast.error("Login Unsuccessful !", {
+                //     position: "top-right",
+                //     autoClose: 4000,
+                //     hideProgressBar: true,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     closeButton: false,
+                //     theme: "light",
+                //     style: { color: "rgb(250, 62, 75)", fontWeight: 'bold', backgroundColor: "rgb(252, 242, 243)" }
+                // });
+                alert("Invalid login")
             }
 
         }

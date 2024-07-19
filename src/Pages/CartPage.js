@@ -390,6 +390,7 @@ const CartPage = () => {
                                                                 onClick={() => decrement(data)}
                                                                 //className="buttonStyle"
                                                                 className="btn btn-outline-secondary"
+                                                                disabled={(data["quantity"]<=1)}
                                                             >-</button>
                                                             <input
                                                                 type="text"

@@ -15,6 +15,7 @@ import { useAuth } from "../Context/Authcontext";
 
 
 const ShippingComp = () => {
+    
     const {authData}=useAuth()
     const { getAllShippingAddress, 
         shippingList, 
@@ -45,6 +46,7 @@ const ShippingComp = () => {
     const [shippingAddId, setShippingAddId] = useState(0)
     const [shipList, setShipList] = useState([])
     const [tempShippingArr,setTempShippingArr]=useState(shippingList)
+    //const [tempShippingArr,setTempShippingArr]=useState(props.list)
 
     const [checkedItems, setCheckedItems] = useState(
         shippingList.reduce((acc, data) => {
@@ -52,7 +54,33 @@ const ShippingComp = () => {
           return acc;
         }, {})
       );
-    
+      useEffect(() => {
+        get_countries()
+        get_states()
+    }, [authData]);
+
+    useEffect(() => {
+        getShipLists()
+    }, [selectedShippingAddressId]);
+
+    useEffect(() => {
+        console.log("SHIPPING LIST===>",shippingList)
+        getShipLists()
+    }, [shippingList]);
+
+    const getShipLists = async () => {
+        let tempArr=shippingList
+        for(let i=0;i<tempArr.length;i++){
+         if(tempArr[i]['id'] === selectedShippingAddressId){
+             tempArr[i]['checked']=true;
+         }
+         else {
+             tempArr[i]['checked']=false;
+         }
+ 
+        }
+        setTempShippingArr([...tempArr]);
+     }
       const handleCheckboxChange = async(id) => {
         // setCheckedItems((prevState) => ({
         //   ...prevState,
@@ -95,34 +123,6 @@ const ShippingComp = () => {
 
     const closeAddAddressModal = () => {
         setAddAddressModal(false)
-    }
-
-
-    useEffect(() => {
-        get_countries()
-        get_states()
-    }, [authData]);
-
-    useEffect(() => {
-        getShipLists()
-        console.log('selectedShippingAddress',shippingList)
-    }, [selectedShippingAddressId]);
-
-    
-
-    const getShipLists = async () => {
-       let tempArr=tempShippingArr
-       for(let i=0;i<tempArr.length;i++){
-        if(tempArr[i]['id'] === selectedShippingAddressId){
-            tempArr[i]['checked']=true;
-        }
-        else {
-            tempArr[i]['checked']=false;
-        }
-
-       }
-    //    console.log("temp shipping arr= ",tempArr)
-       setTempShippingArr([...tempArr]);
     }
 
     const get_countries = async () => {

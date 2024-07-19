@@ -221,32 +221,43 @@ const BillingAddressPage = () => {
     }
 
     const saveBillingDetails = async (data) => {
-        // console.log("respPlaceOrder=",respPlaceOrder.output.orderno)
-
-        // console.log("razor pay payment status code= ",respPaymentConfirmed['statuscode'])
-        let changebillingDetails = {
-            streetAddress: address,
-            city: city,
-            pincode: pin,
-            stateid: selectedState,
-            countryid: selectedCountry,
+        if(address==='' || city==='' || 
+            selectedState==='' || selectedCountry==='' ||
+            email==='' || phone==='' || address===undefined || city===undefined || 
+            selectedState===undefined || selectedCountry===undefined ||
+            email===undefined || phone===undefined
+        )
+        {
+            console.log("IN IF")
+            alert("Please fill up all fields")
         }
-
-        let changecontactDetails = {
-            email: email,
-            contactno: phone,
+        else{
+            console.log("IN ELSE")
+            let changebillingDetails = {
+                streetAddress: address,
+                city: city,
+                pincode: pin,
+                stateid: selectedState,
+                countryid: selectedCountry,
+            }
+    
+            let changecontactDetails = {
+                email: email,
+                contactno: phone,
+            }
+    
+            const contactDetailsPesponse = await change_contact_details(changecontactDetails)
+            // console.log("contact details=", contactDetailsPesponse)
+    
+            const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
+            // console.log("billing details=", billingDetailsPesponse)
+    
+            if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
+                // console.log("check,",formWizardRef.current)
+                formWizardRef.current?.goToTab(1);
+            }
         }
-
-        const contactDetailsPesponse = await change_contact_details(changecontactDetails)
-        // console.log("contact details=", contactDetailsPesponse)
-
-        const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
-        // console.log("billing details=", billingDetailsPesponse)
-
-        if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
-            // console.log("check,",formWizardRef.current)
-            formWizardRef.current?.goToTab(1);
-        }
+        
 
     }
 

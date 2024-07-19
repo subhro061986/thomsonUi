@@ -91,31 +91,33 @@ const WishList = () => {
 
                 await add_single(bookid)
 
-                toast.success("Item Added to Cart", {
-                    position: "bottom-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    closeButton: false,
-                    theme: "dark",
-                });
+                // toast.success("Item Added to Cart", {
+                //     position: "bottom-center",
+                //     autoClose: 2000,
+                //     hideProgressBar: true,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     closeButton: false,
+                //     theme: "dark",
+                // });
+                alert("Item Added to Cart")
                 
             }
             else {
                 
-                toast.info("Book Already Added", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    closeButton: false,
-                    // theme: "light",
-                    style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
-                });
+                // toast.info("Book Already Added", {
+                //     position: "top-center",
+                //     autoClose: 3000,
+                //     hideProgressBar: true,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     closeButton: false,
+                //     // theme: "light",
+                //     style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
+                // });
+                alert("Book Already Added")
             }
         }
 

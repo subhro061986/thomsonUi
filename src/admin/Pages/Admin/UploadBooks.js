@@ -60,6 +60,7 @@ const UploadBooks = () => {
     const [accepted, setAccepted] = useState(false)
     const [approved, setApproved] = useState(false)
     const [file, setFile] = useState('')
+    const [readOnly, setReadOnly] = useState(false)
 
     const { authDeatils, authData } = useAuth();
     const { categoryList, get_pub_details, currencies, languages, uploadSingleBook, updateSingleBook, updatePriceOfSingleBook, uploadBooksInBulk_admin, getAllPublishers, allPublisher, get_book_details } = AdminProfile();
@@ -102,7 +103,7 @@ const UploadBooks = () => {
 
         const timer = setTimeout(() => {
             // console.log('setTimeout called!');
-            navigate("/admin/bookapprovals");
+            navigate("/admin/booklisting");
             // window.location.reload()
         }, 4000);
         // window.location.reload()
@@ -245,8 +246,6 @@ const UploadBooks = () => {
     const bookData = async (book_id) => {
         // console.log("book_id", book_id)
         let resp = await get_book_details(book_id, authData)
-
-        console.log('book_det_resp', resp)
         
         
         // identify_filetype_no(resp)
@@ -266,11 +265,8 @@ const UploadBooks = () => {
         setCoverType(resp?.covertype);
         setCurrencyId(resp?.currencyid);
         setCoverFront(resp?.img)
-        // console.log('lang_id',resp?.languageId)
-        // setPdfFile(resp?.epdf_link);
-        // setEpubFile(resp?.epub_link);
         setVolume(resp?.volume);
-
+        setReadOnly(true)
        
         // setCoverbacktext(resp?.back_cover)
         // setCoverfronttext(resp?.front_cover)
@@ -536,7 +532,7 @@ const UploadBooks = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label for="listPrice" className="form-label">Price<span className="red"> *</span></label>
-                                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                                        <input type="text" readOnly={readOnly} className="form-control" id="exampleFormControlInput1" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
                                     </div>
                                     <div className="mb-3">
                                         <label for="genre" className="form-label">Category<span className="red"> *</span></label>
@@ -589,7 +585,7 @@ const UploadBooks = () => {
                                     </div> */}
                                     <div className="mb-3">
                                         <label for="Year" className="form-label">Effective From the Date<span className="red"> *</span></label>
-                                        <input type="date" className="form-control" id="eff_date" value={effectiveFrom} placeholder="Enter effective date" onChange={(e) => setEffectiveFrom(e.target.value)} required />
+                                        <input type="date" readOnly={readOnly} className="form-control" id="eff_date" value={effectiveFrom} placeholder="Enter effective date" onChange={(e) => setEffectiveFrom(e.target.value)} required />
                                     </div>
                                     
                                     <div className="mb-3">
