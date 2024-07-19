@@ -67,5 +67,6 @@
     "CHANGE_ORDER_STATUS":"/change-status",
     "RAZORPAY_PROCESS_REFUND": "/razorpay/process-refund",
     "RETURN_ORDER_VERDICT": "/return-verdict",
-    "CANCEL_ORDER":"/cancel"
+    "CANCEL_ORDER":"/cancel",
+    "INVOICE_DETAILS": "order/invoice"
 }

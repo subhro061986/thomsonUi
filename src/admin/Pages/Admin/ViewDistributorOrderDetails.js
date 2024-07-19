@@ -268,6 +268,43 @@ const ViewDistributorOrderDetails = () => {
 
                     </div>
                 </div>
+                {/* Order History */}
+
+
+                <div className="m-3">
+                    <div className="bg-white p-3 rounded-2">
+
+                        <table className="table bg-white">
+                            <thead className="text-center">
+                                <tr>
+                                    <th colSpan={4}>
+                                        <h4> Order History</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Status Date</th>
+                                    <th>Comment</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody className="text-center">
+
+                                {distributorOrderInfo?.history?.map((data, index) => (
+                                    <tr className="custom-table-row"
+                                        key={index}
+                                    >
+                                        <td className="all_col">{data.status}</td>
+                                        <td className="all_col">{data.statusdate}</td>
+                                        <td className="all_col">{data.comment}</td>
+                                    </tr>
+
+                                ))}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
 
             </div>
         </>
