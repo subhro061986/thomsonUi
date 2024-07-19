@@ -1585,7 +1585,21 @@ const AdminProvider = ({ children }) => {
     }
   }
 
-
+  const getInvoiceById = async (invoiceId) => {
+    try {
+      const response = await axios.get(Config.API_URL + Config.INVOICE_DETAILS + "/" + invoiceId,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      return response.data;
+    }
+    catch (error) {
+      console.log("invoice CONTEXT ERROR: ", error);
+    }
+  }
 
   return (
     <AdminContext.Provider
@@ -1677,7 +1691,8 @@ const AdminProvider = ({ children }) => {
         processRefund,
         returnOrderVerdict,
         cancelOrder,
-        updatePriceOfSingleBook
+        updatePriceOfSingleBook,
+        getInvoiceById
 
       }}
     >

@@ -61,7 +61,7 @@ const ManageOrderScreen = () => {
         <>
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="Manage Orders" />
+                <Header title="Manage Customer Orders" />
                 {/* <div className="bg-white p-3 m-3 rounded-2">
                     <select name="order-filter" id="order-filter" className="form-select order-filter" aria-label="Filter orders by">
                         <option selected>Filter orders by</option>
