@@ -103,7 +103,7 @@ const BookApproval = () => {
   // const [bookApprovalModal, setBookApprovalModal] = useState(false);  
   const openModal = (id) => {
     // setBookApprovalModal(true);
-    navigate("/admin/approveorreject", { state: { bookid: id } });
+    navigate("/admin/bookdetails", { state: { bookid: id } });
   }
 
   const editBook = (id, isactive) => {

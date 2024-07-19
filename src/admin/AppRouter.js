@@ -104,13 +104,13 @@ const Navigation=()=> {
              <Route exact path='/managedistributor' Component={ManageDistributorScreen}/>
              <Route exact path='/uploadbooks' Component={UploadBooks}/>
              <Route exact path='/booklist' Component={BookList}/>
-             <Route exact path='/bookapprovals' Component={BookApproval}/>
+             <Route exact path='/booklisting' Component={BookApproval}/>
              <Route exact path='/rejectedbooklist' Component={RejectedBookList}/>
              <Route exact path='/customersales' Component={CustomerSales}/>
              <Route exact path='/publishersales' Component={PublisherSales}/>
 
 
-             <Route exact path='/approveorreject' Component={ApproveOrRejectBook}/>
+             <Route exact path='/bookdetails' Component={ApproveOrRejectBook}/>
              <Route exact path='/rejectedbookdetails' Component={RejectedBookDetails}/>
              <Route exact path='/changepassword' Component={ChangePassword}/>
 

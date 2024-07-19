@@ -92,7 +92,7 @@ const TestMenu = () => {
                         <SubMenu label="Manage Books" className="nest_sidebar"
                             icon={<SVG src={bookIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />}>
                             <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/admin/bookapprovals">
+                                <Link className="nav-link" to="/admin/booklisting">
                                     Book List
                                 </Link>
                             </MenuItem>
