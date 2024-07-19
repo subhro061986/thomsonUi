@@ -61,42 +61,22 @@ const CategoryDetailsPage = () => {
     const [browsecat, setBrowsecat] = useState(false)
     const [tempBooks, setTempBooks] = useState([])
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(500);
+    const [maxPrice, setMaxPrice] = useState(0);
     const [minRange, setMinRange] = useState(0);
-    const [maxRange, setMaxRange] = useState(500);
+    const [maxRange, setMaxRange] = useState(0);
     const [range, setRange] = useState([0, 0]);
     const [filterPublisherIds, setFilterPublisherIds] = useState([])
     const [filterCategoryIds, setFilterCategoryIds] = useState([])
+    const [currentPageNo, setCurrentPageNo] = useState(1)
+    const [recordsPerPage, setRecordsPerPage] = useState(6)
+    const [maxPage, setMaxPage] = useState(0)
+   
 
 
 
 
 
-
-    // const [value, setValue] = useState([30, 60]);
-
-    // let menuref = useRef()
-
-
-    // useEffect(() => {
-    //     let handler = (e) => {
-
-    //         console.log('menuref',menuref)
-    //         if (!menuref.current.contains(e)) {
-    //             // setDropbool(false)
-    //             console.log('menuref_current',menuref.current)
-    //         }
-    //     }
-
-
-    //     document.addEventListener('mousedown', handler)
-
-    //     return () => {
-    //         document.removeEventListener('mousedown', handler)
-    //     }
-
-    // })
-
+    
     useEffect(() => {
         let handler = (e) => {
             // console.log("event", e.target.className)
@@ -151,7 +131,7 @@ const CategoryDetailsPage = () => {
         // console.log("GET cat ID ARRAY", catidarr)
         setFilterCategoryIds(catidarr)
         // book_category()
-        books_by_category(pubidarr, catidarr)
+        books_by_category(pubidarr, catidarr,currentPageNo,minRange,maxRange)
         // ** For direct navigation to category details page using url
 
         //book_category_by_publisher(1)
@@ -327,13 +307,12 @@ const CategoryDetailsPage = () => {
     }
 
     const Sort = async(e) => {
-        console.log("EVENT===>",e.target.value)
         let sort_val = e.target.value
-        if (sort_val === 'high-low') {
+        if (sort_val === 'HIGH-LOW') {
             // console.log('high-low')
             setHightoLow()
         }
-        else if (sort_val === 'low-high') {
+        else if (sort_val === 'LOW-HIGH') {
             // console.log('low-high')
             setLowToHigh()
         }
@@ -388,32 +367,41 @@ const CategoryDetailsPage = () => {
         navigate('/productdetails', { state: { BOOK_ID: book_id } })
     }
 
-    const books_by_category = async (pub_id, cat_id) => {
+    const books_by_category = async (pub_id, cat_id,currpage,min,max) => {
         // console.log("GET Category Id BY CATEGORY", cat_id)
         // console.log("GET publisher Id BY publisher", pub_id)
-
+        
         let json = {
             "filterCriteria": {
 
                 "categoryids": cat_id,
-                "publisherids": pub_id
+                "publisherids": pub_id,
+                "minPrice":min,
+                "maxPrice":max
             }
         }
 
         // console.log("GET json", json)
-        let current_page_no = 1
-        let records_per_page = 6
-
-
-        const resp = await getBook_by_category(current_page_no, records_per_page, json)
+       
+        const resp = await getBook_by_category(currpage, recordsPerPage, json)
 
         if (resp === undefined || resp === null) {
             setTempBooks([])
             setBooks([])
             setRawbooksdata([])
+            setMaxPage(0)
+            setMaxRange(0)
+            setMaxPrice(0)
         }
         else {
+            console.log("RESP BOOKS",resp)
             setTempBooks(resp?.output?.books)
+            setMaxPage(resp?.output?.maxPage)
+            setMaxRange(resp?.output?.maxPrice)
+            if(maxPrice<=0){
+                setMaxPrice(resp?.output?.maxPrice)
+            }
+            
             if (resp?.output?.books?.length > 0) {
 
                 setBooks(resp?.output?.books)
@@ -495,13 +483,16 @@ const CategoryDetailsPage = () => {
             setFilterCategoryIds(tempCat)
 
         }
-        books_by_category(tempPub, tempCat)
+        books_by_category(tempPub, tempCat,currentPageNo,minRange,maxRange)
     }
 
-    const rangefunction = (e) => {
+    const rangefunction = async(e) => {
         // console.log("range function", e)
-        setMaxRange(e[1])
-        setMinRange(e[0])
+        // setMaxRange(e[1])
+        // setMinRange(e[0])
+        setMinPrice(e[0])
+        setMaxPrice(e[1])
+        await books_by_category(filterPublisherIds, filterCategoryIds,currentPageNo,e[0],e[1])
     }
 
     // const parsePrice = (price) => parseFloat(price.replace('$ ', ''));
@@ -563,20 +554,7 @@ const CategoryDetailsPage = () => {
 
         const resp = await add_delete_to_wishlist(json)
 
-        // books_by_category(location.state ? location.state.category_id : 1)
-
-
-        // if (books[index].isFavourite === 0) {
-        //     books[index].isFavourite = 1
-        // }
-        // else {
-        //     books[index].isFavourite = 0
-        // }
-
-
-        // console.log('index_book', books)
-
-        // setBooks([...books])
+        
 
         if (tempBooks[index].isFavourite === 0) {
             tempBooks[index].isFavourite = 1
@@ -654,7 +632,17 @@ const CategoryDetailsPage = () => {
         }
     }
 
+    const next_page=async()=>{
+        let tempCurr=currentPageNo
+        if(tempCurr<=maxPage){
+            setCurrentPageNo(tempCurr+1)
+            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr+1,minRange,maxRange)
+        }
+        
+    }
+    const prev_page=async()=>{
 
+    }
     return (
         <>
 
@@ -710,18 +698,18 @@ const CategoryDetailsPage = () => {
                                     <div className="mt-4">
                                         <RangeSlider
                                             min={0}
-                                            max={500}
+                                            max={maxRange}
                                             step={1}
-                                            defaultValue={[0, 500]}
-                                            // value={[0,500]}
+                                            //defaultValue={[minRange, maxRange]}
+                                            value={[minPrice,maxPrice]}
                                             onInput={(e) => rangefunction(e)}
                                             // className="range-slider-yellow"
                                             style={{ accentColor: '#000' }}
                                         />
                                         <div className="mt-4 d-flex justify-content-between align-items-center">
-                                            <input type="text" value={minRange} className="form-control price_range_inp" readOnly={true} />
+                                            <input type="text" value={minPrice} className="form-control price_range_inp" readOnly={true} />
                                             <span className="px-2">to</span>
-                                            <input type="text" value={maxRange} className="form-control price_range_inp" readOnly={true} />
+                                            <input type="text" value={maxPrice} className="form-control price_range_inp" readOnly={true} />
                                         </div>
                                     </div>
                                 }
@@ -775,55 +763,7 @@ const CategoryDetailsPage = () => {
                                 }
                                 <hr />
 
-                                {/* <div className='div_container'>
-                                    <li className="li_width">Language</li>
-                                    <img src={browsecat === false ? arrow_down : arrow_up}
-                                        width={15} height={15} onClick={() => { setTogglelanguagedropdown(!togglelanguagedropdown) }} />
-                                </div> */}
-
-                                {/* {
-                                    togglelanguagedropdown === true &&
-                                    <ul className="languages li_margin ">
-                                        <li>English</li>
-                                        <li>Bengali</li>
-                                        <li>Hindi</li>
-                                        <li>German</li>
-                                        <li>Italian</li>
-                                        <li>Spanish</li>
-                                    </ul>
-                                } 
-
-                                <hr />*/}
-                                {/* <div className='div_container'>
-                                    <li className="li_width">Publication Year</li>
-                                    <img src={browsecat === false ? arrow_down : arrow_up}
-                                        width={15} height={15} onClick={() => { setPublicationyr(!publicationyr) }} />
-                                </div>
-                                {
-                                    publicationyr === true &&
-                                    <input type="range" min="2000" max="2023" className="slider slider_style" id="myRange"></input>
-                                }
-
-
-                                <hr /> */}
-                                {/* <div className='div_container'>
-                                    <li className="li_width">New Arrivals</li>
-                                    <img src={browsecat === false ? arrow_down : arrow_up}
-                                        width={15} height={15} onClick={() => { setNewarri(!newarri) }} />
-                                </div>
-
-                                {
-                                    newarri === true &&
-
-                                    <ul className="new-arrivals li_margin">
-                                        <li>Last arrival books</li>
-                                        <li>Last 30 days</li>
-                                        <li>Last 90 days</li>
-                                    </ul>
-                                } */}
-
-
-                                {/* </ul> */}
+                                
                             </div>
                         </div>
 
@@ -873,18 +813,18 @@ const CategoryDetailsPage = () => {
                                 <p className="mb-4">Price</p>
                                 <RangeSlider
                                     min={0}
-                                    max={500}
+                                    max={maxRange}
                                     step={1}
-                                    defaultValue={[0, 500]}
-                                    // value={[0,500]}
+                                    //defaultValue={[minPrice, maxPrice]}
+                                    value={[minPrice, maxPrice]}
                                     onInput={(e) => rangefunction(e)}
                                     // className="range-slider-yellow"
                                     style={{ accentColor: '#000' }}
                                 />
                                 <div className="mt-4 d-flex justify-content-between align-items-center">
-                                    <input type="text" value={minRange} className="form-control price_range_inp" readOnly={true} />
+                                    <input type="text" value={minPrice} className="form-control price_range_inp" readOnly={true} />
                                     <span className="px-2">to</span>
-                                    <input type="text" value={maxRange} className="form-control price_range_inp" readOnly={true} />
+                                    <input type="text" value={maxPrice} className="form-control price_range_inp" readOnly={true} />
                                 </div>
                                 {/* <p className="mt-4">{minRange} to {maxRange}</p> */}
 
@@ -918,8 +858,8 @@ const CategoryDetailsPage = () => {
                                                     style={{ borderRadius: '10px', width: '124px' }} 
                                                     onChange={(e) =>  Sort(e) }
                                                     >
-                                                    <option value="low-high"> Sort by Price(Low to High)</option>
-                                                    <option value="high-low"> Sort by Price(High to Low)</option>
+                                                    <option value="LOW-HIGH"> Sort by Price(Low to High)</option>
+                                                    <option value="HIGH-LOW"> Sort by Price(High to Low)</option>
                                                     <option value="A-Z"> Sort Alphabetically(A-Z)</option>
                                                     <option value="Z-A"> Sort Alphabetically(Z-A)</option>
                                                     {/* <option value="reset"> Reset(Z-A)</option> */}
@@ -941,8 +881,8 @@ const CategoryDetailsPage = () => {
                                                 dropbool === true &&
                                                 <div className='show_hide_div' >
                                                     <ul className='ul_style'>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'low-high')}>Sort by Price(Low to High)</li>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'high-low')}>Sort by Price(High to Low)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'LOW-HIGH')}>Sort by Price(Low to High)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'HIGH-LOW')}>Sort by Price(High to Low)</li>
                                                         <li className='li_hover' onClick={(e) => Sort_mob(e, 'A-Z')}>Sort Alphabetically(A-Z)</li>
                                                         <li className='li_hover' onClick={(e) => Sort_mob(e, 'Z-A')}>Sort Alphabetically(Z-A)</li>
                                                     </ul>
@@ -1018,8 +958,31 @@ const CategoryDetailsPage = () => {
                                         ))}
 
                                 </div>
-
-
+                                {maxPage>1 &&
+                                    <div style={{
+                                        display:'flex',
+                                        alignItems:'center',
+                                        textAlign:'center',
+                                        justifyContent:'center'
+                                    }}
+                                    className="mb-2"
+                                    >
+                                        <button type="button" style={{ width: '15%' }}
+                                            className="btn btn-outline-dark rounded-pill d-flex justify-content-center align-items-center py-2"
+                                            onClick={() => prev_page()}
+                                            disabled={false}
+                                        >
+                                            Previous
+                                        </button>
+                                        <button type="button" style={{ width: '15%' }}
+                                            className="btn btn-outline-dark rounded-pill d-flex justify-content-center align-items-center py-2 mx-2"
+                                            onClick={() => next_page()}
+                                            disabled={false}
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                }
 
                             </div>
                         </div>

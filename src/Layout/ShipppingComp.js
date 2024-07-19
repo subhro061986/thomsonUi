@@ -54,7 +54,33 @@ const ShippingComp = () => {
           return acc;
         }, {})
       );
-    
+      useEffect(() => {
+        get_countries()
+        get_states()
+    }, [authData]);
+
+    useEffect(() => {
+        getShipLists()
+    }, [selectedShippingAddress]);
+
+    useEffect(() => {
+        console.log("SHIPPING LIST===>",shippingList)
+        getShipLists()
+    }, [shippingList]);
+
+    const getShipLists = async () => {
+        let tempArr=shippingList
+        for(let i=0;i<tempArr.length;i++){
+         if(tempArr[i]['id'] === selectedShippingAddress){
+             tempArr[i]['checked']=true;
+         }
+         else {
+             tempArr[i]['checked']=false;
+         }
+ 
+        }
+        setTempShippingArr([...tempArr]);
+     }
       const handleCheckboxChange = async(id) => {
         // setCheckedItems((prevState) => ({
         //   ...prevState,
@@ -100,32 +126,12 @@ const ShippingComp = () => {
     }
 
 
-    useEffect(() => {
-        get_countries()
-        get_states()
-    }, [authData]);
-
-    useEffect(() => {
-        getShipLists()
-    }, [selectedShippingAddress]);
+    
     
 
     
 
-    const getShipLists = async () => {
-       let tempArr=tempShippingArr
-       for(let i=0;i<tempArr.length;i++){
-        if(tempArr[i]['id'] === selectedShippingAddress){
-            tempArr[i]['checked']=true;
-        }
-        else {
-            tempArr[i]['checked']=false;
-        }
-
-       }
-    //    console.log("temp shipping arr= ",tempArr)
-       setTempShippingArr([...tempArr]);
-    }
+    
 
     const get_countries = async () => {
         const resp = await get_country_list()
