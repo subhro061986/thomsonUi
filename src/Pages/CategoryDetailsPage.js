@@ -641,7 +641,11 @@ const CategoryDetailsPage = () => {
         
     }
     const prev_page=async()=>{
-
+        let tempCurr=currentPageNo
+        if(tempCurr>0){
+            setCurrentPageNo(tempCurr-1)
+            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr-1,minRange,maxRange)
+        }
     }
     return (
         <>
