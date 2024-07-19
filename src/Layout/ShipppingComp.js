@@ -15,6 +15,7 @@ import { useAuth } from "../Context/Authcontext";
 
 
 const ShippingComp = () => {
+    
     const {authData}=useAuth()
     const { getAllShippingAddress, 
         shippingList, 
@@ -45,6 +46,7 @@ const ShippingComp = () => {
     const [shippingAddId, setShippingAddId] = useState(0)
     const [shipList, setShipList] = useState([])
     const [tempShippingArr,setTempShippingArr]=useState(shippingList)
+    //const [tempShippingArr,setTempShippingArr]=useState(props.list)
 
     const [checkedItems, setCheckedItems] = useState(
         shippingList.reduce((acc, data) => {
@@ -105,8 +107,8 @@ const ShippingComp = () => {
 
     useEffect(() => {
         getShipLists()
-        console.log('selectedShippingAddress',shippingList)
     }, [selectedShippingAddress]);
+    
 
     
 
