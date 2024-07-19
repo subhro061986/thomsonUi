@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import SVG from "react-inlinesvg";
-import eye from '../../assets/icons/eye.svg';
-import download from '../../assets/icons/download.svg';
-import print from '../../assets/icons/print.svg';
+import Logo from "../../../Assets/Images/book_central_logo_png.png";
+import Datetime from "../../GlobalFunctions.js/Datetime";
+import { jsPDF } from "jspdf";
+
 
 import { AdminProfile } from "../../Context/AdminContext.js";
 import { useAuth } from "../../Context/AuthContext";
@@ -18,7 +19,14 @@ const ViewOrderDetails = () => {
     const location = useLocation();
     const { authData } = useAuth();
     
-    const { get_single_order, orderInfo, shipperInfoList, changeOrderStatus, processRefund, returnOrderVerdict,cancelOrder } = AdminProfile();
+    const { get_single_order, 
+            orderInfo, 
+            shipperInfoList, 
+            changeOrderStatus, 
+            processRefund, 
+            returnOrderVerdict,
+            cancelOrder,
+            getInvoiceById } = AdminProfile();
     const [shipperInfoModal, setShipperInfoModal] = useState(false)
     const [statusInfoModal, setStatusInfoModal] = useState(false)
     const [statusCode, setStatusCode] = useState(0)
@@ -60,9 +68,189 @@ const ViewOrderDetails = () => {
 
     }
 
-    const openShipper = () => {
-        setShipperInfoModal(!shipperInfoModal)
-        setStatusInfoModal(false)
+    const calculateTotalCGST = (invoices) => {
+        let totalCGST = 0;
+        invoices?.map((invoice) => {
+            totalCGST += invoice?.cgst
+        })
+        return totalCGST
+    }
+    const calculateTotalSGST = (invoices) => {
+        let totalSGST = 0;
+        invoices?.map((invoice) => {
+            totalSGST += invoice?.sgst
+        })
+        return totalSGST
+    }
+    const calculateTotalIGST = (invoices) => {
+        let totalIGST = 0;
+        invoices?.map((invoice) => {
+            totalIGST += invoice?.igst
+        })
+        return totalIGST
+    }
+
+    const generateInvoiceHTML = (invoice) => {
+        return `
+    <html>
+        <body >
+            <table width="100%" style="border:none;font-family:verdana;font-size:9px;">
+                <tr>
+                    <td colspan="2" style="text-align:center;" width="33%">
+                        <div style="border:0;border-bottom:1px solid #333;">
+
+                            <h6 style="margin:8px 5px;">TAX INVOICE</h6>
+                        </div>
+                    </td>
+                    <td colspan="2" style="text-align:center;" width="33%">
+                        <div style="padding: 3px 5px 5px 5px;text-align:left;border:0;border-bottom:1px solid #333;">
+                            Order #: <strong> ${invoice?.orderno}</strong>
+                            <br/>
+                            Order Date: <strong>${Datetime(invoice?.orderdate?.split(" ")[0])} </strong>
+                        </div>
+                    </td>
+                    <td colspan="2" style="text-align:center;" width="33%">
+                        <div style="padding: 3px 5px 5px 5px;text-align:left;border:0;border-bottom:1px solid #333;">
+                        Invoice #: <strong>${invoice?.invoiceno}</strong>
+                        <br/>
+                        Invoice Date: <strong>${Datetime(invoice?.invoicedate?.split(" ")[0])}</strong>
+                        </div>
+                    </td>
+                </tr>
+
+               
+                
+                <tr>
+                    <td colspan="3" width="50%">
+                        <div style="text-align:left;padding:5px;border:0;">
+                            <h4 style="margin:5px 0;border-bottom:1px solid #333;">Sold By</h4>
+                            <address>
+                                ${invoice?.billingFrom?.publishername}<br/>
+                                ${invoice?.billingFrom?.addressline} <br/>
+                                ${invoice?.billingFrom?.city} , ${invoice?.billingFrom?.pincode}<br/>
+                                ${invoice?.billingFrom?.statename} , ${invoice?.billingFrom?.countryname}<br/>
+                                GSTIN: <strong> ${invoice?.billingFrom?.gstin}</strong>
+                            </address>
+                        </div>
+                        
+                    </td>
+                    <td colspan="3" width="50%" style="vertical-align:top;">
+                        <div style="text-align:right;padding:5px 20px 5px 5px;border:0;">
+                            <h4 style="margin:5px 0;border-bottom:1px solid #333;">Billing Address</h4>
+                            <address>
+                                ${invoice?.billingTo?.customername}<br/>
+                                ${invoice?.billingTo?.addressline}<br/>
+                                ${invoice?.billingTo?.city} , ${invoice?.billingTo?.pincode} <br/>
+                                ${invoice?.billingTo?.statename} , ${invoice?.billingTo?.countryname} <br/>
+                                ${invoice?.billingTo?.gstin !== "" && invoice?.billingTo?.gstin!== null  ? `GSTIN: <strong>${invoice?.billingTo?.gstin}</strong>` : ''}
+                               
+                            </address>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                     <td colspan="3" width="50%" style="vertical-align:top;">
+                        <div style="text-align:right;padding:5px 20px 5px 5px;border:0;">
+                            <h4 style="margin:5px 0;border-bottom:1px solid #333;">Shipping Address</h4>
+                            <address
+                                ${invoice?.shippingInfo?.addressline}<br/>
+                                ${invoice?.shippingInfo?.city} , ${invoice?.shippingInfo?.pincode} <br/>
+                                ${invoice?.shippingInfo?.statename} , ${invoice?.shippingInfo?.countryname} <br/>
+                                ${ invoice?.shippingInfo?.pincode}
+                               
+                            </address>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <hr style="border:0;border-bottom:1px solid #333;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <table width="100%" style="border-collapse: collapse;font-family:verdana;font-size:9px;">
+                            <thead>
+                            <tr style="border-bottom:1px solid #333;">
+                                <th style="text-align:left;">Particular</th>
+                                <th style="text-align:left;">Publisher</th>
+                                <th style="text-align:left;">Qty</th>
+                                <th style="text-align:left;">Base Amount</th>
+                                <th style="text-align:left;">Discount</th>
+                                ${invoice?.billingTo?.stateid == invoice?.billingFrom?.stateid  ?
+                `<th style="text-align:left;">CGST</th>
+                                     <th style="text-align:left;">SGST</th>` :
+                `<th style="text-align:left;">IGST</th>`
+            }
+                                <th style="text-align:left;">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            ${invoice?.invoicelines.map((invoiceItem, index) => (
+                `<tr key=${index} style="border-bottom:1px solid #333;">
+                                        <td style="text-align:left;">
+                                        ${invoiceItem.booktitle}<br/>
+                                            <small>${invoiceItem.isbn13}</small>
+                                        </td>
+                                        <td style="text-align:left;">${invoiceItem.publisher}</td>
+                                        <td style="text-align:left;">${invoiceItem.quantity}</td>
+                                        <td style="text-align:left;"> ${invoiceItem.price}</td>
+                                        <td style="text-align:left;"> ${invoiceItem.discount!=null? invoiceItem.discount:''}</td>
+                                        ${invoice?.billingTo?.stateid == invoice?.billingFrom?.stateid ?
+                    `<td style="text-align:left;">${invoiceItem.cgst}</td>
+                                            <td style="text-align:left;">${invoiceItem.sgst}</td>` :
+                    `<td style="text-align:left;">${invoiceItem.igst}</td>`
+                }
+                                        <td style="text-align:left;">${invoiceItem.linetotal}</td>
+                                    </tr>`
+            ))}
+                            </tbody>
+                            <tfoot style="border-top:1px solid #333;">
+                                <tr style="border-bottom:1px solid #333;">
+                               
+                                    ${invoice?.billingTo?.stateid == invoice?.billingFrom?.stateid  ?
+                `
+                                      <td colspan="5" style="text-align:left;font-weight:bold;">Total</td>
+                                      <td style="text-align:left;">${calculateTotalCGST(invoice?.invoicelines)}</td>
+                                       <td style="text-align:left;">${calculateTotalSGST(invoice?.invoicelines)}</td>` :
+                `<td colspan="5" style="text-align:left;font-weight:bold;">Total</td>
+                                      <td style="text-align:left;">${calculateTotalIGST(invoice?.invoicelines)}</td>`
+            }
+                                    <td style="text-align:left; font-weight:bold;"> ${invoice?.total}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+    </html>`
+    }
+
+    const downloadInvoice = async (invoiceid) => {
+       const response = await getInvoiceById(invoiceid)
+       console.log("Invoice : ", response);
+        if(response.statuscode === "0"){
+            const pdf = new jsPDF('p', 'pt', 'a4');
+            var img = new Image()
+            img.src = Logo
+    
+            const width = pdf.internal.pageSize.getWidth();
+            pdf.html(generateInvoiceHTML(response.output), {
+                width: width,
+                windowWidth: 794,
+                // margin: 'auto',
+                margin: [10, 10, 10, 10],
+                // html2canvas: { scale: 0.57 },
+            })
+                .then(() => {
+                    pdf.addImage(img, 'PNG', 10, 750, 150, 50);
+                    pdf.save('invoice_' + response.output.invoiceno + '.pdf');
+                });
+        }
+        else{
+            console.log("Error getting invoice: ", response);
+        }
     }
     const openStatus = () => {
         setStatusInfoModal(!statusInfoModal)
@@ -161,7 +349,7 @@ const ViewOrderDetails = () => {
         <>
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="View Order Details" />
+                <Header title="View Customer Order Details" />
 
                 {/* Order Details */}
 
@@ -193,7 +381,7 @@ const ViewOrderDetails = () => {
                     <div className="col-md-4">
                         <div className="d-flex mt-3 justify-content-center">
                             <button className="btn btn-success" onClick={openStatus}>Change Status</button>
-                            {/* <button className="btn btn-success ms-4" onClick={openShipper}>Create Shipping</button> */}
+                            <button className="btn btn-info ms-4" onClick={() => downloadInvoice(orderInfo?.invoiceid)}>Download Invoice</button>
                         </div>
 
                         {shipperInfoModal ? <>
@@ -361,7 +549,44 @@ const ViewOrderDetails = () => {
 
                     </div>
                 </div>
+                
+                   {/* Order History */}
 
+
+                   <div className="m-3">
+                    <div className="bg-white p-3 rounded-2">
+
+                        <table className="table bg-white">
+                            <thead className="text-center">
+                                <tr>
+                                    <th colSpan={4}>
+                                        <h4> Order History</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Status Date</th>
+                                    <th>Comment</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody className="text-center">
+
+                                {orderInfo?.history?.map((data, index) => (
+                                    <tr className="custom-table-row"
+                                        key={index}
+                                    >
+                                        <td className="all_col">{data.status}</td>
+                                        <td className="all_col">{data.statusdate}</td>
+                                        <td className="all_col">{data.comment}</td>
+                                    </tr>
+
+                                ))}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
         </>
     );
