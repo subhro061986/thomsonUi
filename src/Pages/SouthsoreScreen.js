@@ -11,19 +11,12 @@ import TopBanner from "../Layout/Banner";
 import About from "../Layout/About";
 import Footer from "../Layout/Footer";
 import Playstore from "../Layout/Playstore";
-import Guideline from "../Layout/Guideline";
 import Testimonials from "../Layout/Testimonials";
 
 
 import NewArrivalBooks from "../Layout/NewArrivalBooks";
 import Category from "../Layout/Category";
-import BestSellingBooks from "../Layout/BestSellingBooks";
-import ReccomendedBooks from "../Layout/ReccomendedBooks";
-import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
-import AboutSouthshore from "../Layout/AboutSouthshore";
-import HowtoSouthsore from "../Layout/HowtoSouthsore";
-import GuidelineSouthsore from "../Layout/GuidelineSouthsore";
 import PublisherSouthsore from "../Layout/PublisherSouthsore";
 import AboutSouthshoreCert from "../Layout/AboutSouthshoreCert";
 import FooterSouthsore from "../Layout/FooterSouthsore";
@@ -168,18 +161,11 @@ const SouthsoreScreen = () => {
         <BannerSouthsore />
       </div>
       <div id="about_ebook">
-        {/* <AboutSouthshore /> */}
       </div>
       <PublisherSouthsore />
       <div id="features">
-        {/* <HowtoSouthsore /> */}
       </div>
       <NewArrivalBooks />
-      {/* <BestSellingBooks />
-      <Testimonials/>
-      <ReccomendedBooks/> */}
-
-      {/* <GuidelineSouthsore /> */}
 
       {/* <Playstore /> */}
       <div id="about_ss">

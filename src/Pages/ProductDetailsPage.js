@@ -10,7 +10,6 @@ import TopBar from "../Layout/TopBar";
 import NavBar from "../Layout/NavBar";
 import Footer from "../Layout/Footer";
 import Playstore from "../Layout/Playstore";
-import Guideline from "../Layout/Guideline";
 import Datetime from "../GlobalFunctions.js/Datetime";
 
 import wishlight from "../Assets/Images/wishlight.png";
@@ -118,6 +117,7 @@ const ProductDetailsPage = () => {
 
     
     const book_detail = async (book_id) => {
+        console.log(" book id", book_id)
         const resp = await get_book_details(book_id)
         console.log(" book details resp", resp)
         if (resp === undefined || resp === null) {

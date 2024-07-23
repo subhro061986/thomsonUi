@@ -154,11 +154,7 @@ const TestMenu = () => {
                                     Customer Invoices
                                 </Link>
                             </MenuItem>
-                            <MenuItem className="nest_sidebar">
-                                <Link className="nav-link" to="/admin/publishersales">
-                                    Distributer Invoices
-                                </Link>
-                            </MenuItem>
+                            
                         </SubMenu> */}
                         <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/changepassword">

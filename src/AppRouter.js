@@ -5,12 +5,12 @@ import React, {
 useState,
 useEffect
 } from "react";
-import HomePage from './Pages/HomePage';
+// import HomePage from './Pages/HomePage';
 import WishList from './Pages/WishList';
 import CategoryDetailsPage from './Pages/CategoryDetailsPage';
 import ProductDetailsPage from './Pages/ProductDetailsPage';
 import LoginPage from './Pages/LoginPage';
-import Registration from './Pages/Registration';
+// import Registration from './Pages/Registration';
 import ConfirmOrder from './Pages/ConfirmOrder';
 import CartPage from './Pages/CartPage';
 import OrderPage from './Pages/OrderPage';
@@ -50,13 +50,13 @@ const AfterLogin=()=> {
         <Routes>
             {/* <Route exact path="/" Component={SouthsoreScreen}/> */}
             <Route exact path="/" Component={SouthsoreScreen}/>
-            <Route exact path="/home" Component={HomePage}/>
+            {/* <Route exact path="/home" Component={HomePage}/> */}
             <Route exact path="/wishlist" Component={WishList}/>
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
             <Route exact path="/login" Component={LoginPage}/>
             
-            <Route exact path="/registration" Component={Registration}/>
+            {/* <Route exact path="/registration" Component={Registration}/> */}
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>
             <Route exact path="/orderpage" Component={OrderPage}/>
@@ -90,12 +90,12 @@ const BeforeLogin=()=> {
     <Router>
         <Routes>
             <Route exact path="/" Component={SouthsoreScreen}/>
-            <Route exact path="/home" Component={HomePage}/>
+            {/* <Route exact path="/home" Component={HomePage}/> */}
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
             <Route exact path="/login" Component={LoginPage}/>
             
-            <Route exact path="/registration" Component={Registration}/>
+            {/* <Route exact path="/registration" Component={Registration}/> */}
             <Route exact path="/register" Component={RegistrationSouthshore}/>
             <Route exact path="/confirmorder" Component={ConfirmOrder}/>
             <Route exact path="/cartpage" Component={CartPage}/>

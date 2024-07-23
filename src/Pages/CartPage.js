@@ -67,6 +67,7 @@ const CartPage = () => {
 
     useEffect(() => {
         console.log("CART ITEMS",getcartitems)
+        console.log("CART ITEMS authdata",authData)
     }, [authData])
 
     const getSubTotalFrmContext =async()=>{
@@ -144,6 +145,7 @@ const CartPage = () => {
 
 
     const gotoDetails = (book_id) => {
+        console.log("book id from cart",book_id)
         navigate('/productdetails', { state: { BOOK_ID: book_id } })
     }
 
@@ -356,7 +358,7 @@ const CartPage = () => {
                                                 <div key={index} className="book-card cart-page-border-bottom py-3">
 
                                                     <div className="book-img"
-                                                        onClick={() => gotoDetails(wishlistshow === true ? data.id : data.my_book_id)}
+                                                        onClick={() => gotoDetails(authData === '' ? data.bookid : data.id)}
                                                     >
 
 

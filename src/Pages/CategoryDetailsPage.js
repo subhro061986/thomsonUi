@@ -531,7 +531,7 @@ const CategoryDetailsPage = () => {
             Add_To_Wishlist(book_id, index)
         }
         else {
-            navigate('/loginsouthsore')
+            navigate('/login')
         }
     }
 
