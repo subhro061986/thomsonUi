@@ -9,7 +9,6 @@ import { UserProfile } from "../Context/Usercontext"
 import TopBar from "../Layout/TopBar";
 import NavBar from "../Layout/NavBar";
 import Footer from "../Layout/Footer";
-import Playstore from "../Layout/Playstore";
 import Datetime from "../GlobalFunctions.js/Datetime";
 
 import wishlight from "../Assets/Images/wishlight.png";

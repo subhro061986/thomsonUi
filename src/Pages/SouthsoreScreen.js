@@ -10,7 +10,6 @@ import NavBar from "../Layout/NavBar";
 import TopBanner from "../Layout/Banner";
 import About from "../Layout/About";
 import Footer from "../Layout/Footer";
-import Playstore from "../Layout/Playstore";
 import Testimonials from "../Layout/Testimonials";
 
 
@@ -167,7 +166,6 @@ const SouthsoreScreen = () => {
       </div>
       <NewArrivalBooks />
 
-      {/* <Playstore /> */}
       <div id="about_ss">
         <AboutSouthshoreCert />
       </div>
