@@ -53,6 +53,7 @@ const MyProfile = () => {
     const myProfileApi = async () => {
 
         const resp = await my_profile()
+        console.log("prof resp", resp);
 
         setName(resp.output.name)
         setEmail(resp.output.email)
@@ -114,6 +115,7 @@ const MyProfile = () => {
         setPin(e.target.value)
     }
     const profilePicHandler = (e) => {
+        console.log(e.target.files)
         if (e.target.files.length !== 0) {
             setProfileImage(e.target.files[0])
         }

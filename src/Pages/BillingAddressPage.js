@@ -420,23 +420,23 @@ const BillingAddressPage = () => {
                                         <div className="col-md-6">
                                             <label className="form_label">Address</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={addressHandler} value={address} />
+                                                onChange={addressHandler} value={address} autocomplete="new-password"/>
 
                                             <label className="form_label mt-2">City</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={cityHandler} value={city} />
+                                                onChange={cityHandler} value={city} autocomplete="new-password"/>
 
                                             <label className="form_label mt-2">Name</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={nameHandler} value={name} />
+                                                onChange={nameHandler} value={name} autocomplete="new-password"/>
 
                                             <label className="form_label mt-2">Email</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={emailHandler} value={email} />
+                                                onChange={emailHandler} value={email} autocomplete="new-password"/>
 
                                             <label className="form_label mt-2">Phone</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={phoneHandler} value={phone} />
+                                                onChange={phoneHandler} value={phone} autocomplete="new-password"/>
                                         </div>
 
                                         <div className="col-md-6">
@@ -452,7 +452,7 @@ const BillingAddressPage = () => {
                                                             key={country.id}
                                                             value={country.id}
                                                             selected={selectedCountry === country.id ? true : false}
-
+                                                            autocomplete="new-password"
                                                         >
                                                             {country.name}
                                                         </option>
@@ -471,7 +471,7 @@ const BillingAddressPage = () => {
                                                 {
                                                     stateList.map((state, index) => (
 
-                                                        <option key={state.id} value={state.id} selected={selectedState === state.id ? true : false}> {state.name} </option>
+                                                        <option key={state.id} value={state.id} selected={selectedState === state.id ? true : false} autocomplete="new-password"> {state.name} </option>
 
                                                     ))
                                                 }
@@ -480,7 +480,7 @@ const BillingAddressPage = () => {
 
                                             <label className="form_label mt-2">PIN</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={pinHandler} value={pin} />
+                                                onChange={pinHandler} value={pin} autocomplete="new-password"/>
                                         </div>
 
                                     </div>

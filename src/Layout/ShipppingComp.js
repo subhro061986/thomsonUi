@@ -260,11 +260,13 @@ const ShippingComp = () => {
                             <input type="text" className="form-control mb-2" placeholder="Type Building Number, Street Address"
                                 value={streetAddress}
                                 onChange={(e) => setStreetAddress(e.target.value)}
+                                autocomplete="new-password"
                             />
                             <label className="form-label">City / Village</label>
                             <input type="text" className="form-control mb-2" placeholder="Type City / Village"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
+                                autocomplete="new-password"
                             />
                             <label className="form-label" htmlFor='cat_prod'>Country</label>
                             <select id='cat_prod' className="form-select mb-2"
@@ -275,6 +277,7 @@ const ShippingComp = () => {
                                     countries && countries.map((data) => (
                                         <option key={data.id} value={data.id}
                                             selected={countryId === data.id ? true : false}
+                                            autocomplete="new-password"
                                         >{data.name}</option>
                                     ))
                                 }
@@ -290,6 +293,7 @@ const ShippingComp = () => {
                                     stateList && stateList.map((data) => (
                                         <option key={data.id} value={data.id}
                                             selected={stateId === data.id ? true : false}
+                                            autocomplete="new-password"
                                         >{data.name}</option>
                                     ))
                                 }
@@ -298,6 +302,7 @@ const ShippingComp = () => {
                             <input type="text" className="form-control mb-2" placeholder="Type Pin"
                                 value={pin}
                                 onChange={(e) => setPin(e.target.value)}
+                                autocomplete="new-password"
                             />
                         </div>
                     </div>
