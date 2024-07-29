@@ -36,6 +36,7 @@ const UserProvider = ({ children }) => {
   const [userShippingAddress, setUserShippingAddress] = useState(null)
   const [orderConfirmation, setOrderConfirmation] = useState(null)
   
+  
 
 
 
@@ -754,7 +755,7 @@ const UserProvider = ({ children }) => {
 
         })
 
-      //console.log("my_profile : ", response.data);
+      console.log("my_profile : ", response.data);
 
       return response.data
 

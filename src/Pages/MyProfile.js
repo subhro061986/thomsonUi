@@ -23,13 +23,13 @@ const MyProfile = () => {
     const [selectedState, setSelectedState] = useState('')
     const [city, setCity] = useState('')
     const [pin, setPin] = useState('')
-    const [profileImage, setProfileImage] = useState('')
+    const [profileImage, setProfileImage] = useState(null)
 
     const [countryList, setCountryList] = useState([])
     const [stateList, setStateList] = useState([])
-    
+
     const navigate = useNavigate();
-    const goToHome = () =>{
+    const goToHome = () => {
         navigate("/home")
     }
 
@@ -63,8 +63,8 @@ const MyProfile = () => {
         setSelectedState(resp.output.stateid)
         setCity(resp.output.city)
         setPin(resp.output.pincode)
-
-        setProfileImage(Config.API_URL + Config.UPLOAD_URL + resp.output.profileimage + '?d=' + new Date())
+        console.log("prof resp img", Config.API_URL + Config.UPLOAD_URL + resp.output.profileimg + '?d=' + new Date());
+        setProfileImage(Config.API_URL + Config.UPLOAD_URL + resp.output.profileimg + '?d=' + new Date())
 
         if (resp.output.countryid !== null && resp.output.countryid !== '') {
             renderStateList(resp.output.countryid)
@@ -116,8 +116,16 @@ const MyProfile = () => {
     }
     const profilePicHandler = (e) => {
         console.log(e.target.files)
-        if (e.target.files.length !== 0) {
-            setProfileImage(e.target.files[0])
+        // if (e.target.files.length !== 0) {
+        //     setProfileImage(e.target.files[0])
+        // }
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setProfileImage(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
     }
 
@@ -143,34 +151,35 @@ const MyProfile = () => {
 
         }
 
-        
+
         const personalDetailsPesponse = await change_personal_details(userDetails)
         const contactDetailsPesponse = await change_contact_details(changecontactDetails)
         const billingDetailsPesponse = await change_billing_address(changebillingDetails)
-        console.log("PERSONAL DETAILS",personalDetailsPesponse)
-        console.log("PERSONAL DETAILS===>1",contactDetailsPesponse)
-        console.log("PERSONAL DETAILS===>2",billingDetailsPesponse)
-        if(billingDetailsPesponse.statuscode === "0" && 
-        contactDetailsPesponse.statuscode=== "0" && 
-        personalDetailsPesponse.statuscode === "0"){
+        console.log("PERSONAL DETAILS", personalDetailsPesponse)
+        console.log("PERSONAL DETAILS===>1", contactDetailsPesponse)
+        console.log("PERSONAL DETAILS===>2", billingDetailsPesponse)
+        myProfileApi()
+        if (billingDetailsPesponse.statuscode === "0" &&
+            contactDetailsPesponse.statuscode === "0" &&
+            personalDetailsPesponse.statuscode === "0") {
             alert("Information saved successfully")
         }
-        else{
+        else {
             alert("Contact updation failed")
         }
 
-        
+        // myProfileApi()
     }
     return (
 
         <div className="main-container">
             <div className="container">
                 <TopBar />
-                <NavBarSouthsore/>
+                <NavBarSouthsore />
                 <ProfileTab />
             </div>
-            
-            <Whatsapp/>
+
+            <Whatsapp />
             <div className="container">
                 <div className="myProfile">
 
@@ -184,7 +193,7 @@ const MyProfile = () => {
                         {/* <div className="right" onClick={goToHome}>
                             <span className="back-to-home cursor-pointer"><img src={arrow_left} /> Back to home</span>
                         </div> */}
-                         {/* <BackButton/> */}
+                        {/* <BackButton/> */}
                     </div>
                     {/* <form> */}
                     <div className="row mb-5">
@@ -203,7 +212,8 @@ const MyProfile = () => {
 
                             <label className="form_label">Profile Picture</label>
                             <input className="form-control p_hold" type="file"
-                                accept="image/*" onChange={(e) => profilePicHandler(e)} />
+                                accept="image/*"
+                                onChange={(e) => profilePicHandler(e)} />
                             {profileImage !== null && profileImage !== '' &&
                                 <img src={profileImage} className="img-fluid mt-4" height={100} width={100} />
                             }
