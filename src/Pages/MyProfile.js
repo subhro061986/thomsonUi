@@ -90,8 +90,8 @@ const MyProfile = () => {
         setAddress(e.target.value)
     }
     const countryHandler = async (e) => {
-
-        if (selectedCountry == null || selectedCountry == '') {
+        setSelectedCountry(e.target.value)
+        // if (selectedCountry == null || selectedCountry == '') {
             try {
                 const resp = await get_state_list(e.target.value)
 
@@ -102,8 +102,8 @@ const MyProfile = () => {
                 console.error(err);
             }
 
-        }
-        setSelectedCountry(e.target.value)
+        // }
+        
     }
     const stateHandler = (e) => {
         setSelectedState(e.target.value)
