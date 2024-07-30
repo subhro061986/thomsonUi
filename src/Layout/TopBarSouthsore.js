@@ -15,7 +15,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 const TopBarSouthsore = () => {
   const navigate = useNavigate();
   const { wishlistshow, authData, logOut } = useAuth()
-  const { allActivePublisher, allActivePublisher1 } = UserProfile()
+  const { allActivePublisher, allActivePublisher1, profileImage } = UserProfile()
 
   const [toggleSearch, setToggleSearch] = useState(false)
   const [hideSignInBtn, setHideSignInBtn] = useState(true);
@@ -28,7 +28,7 @@ const TopBarSouthsore = () => {
     else {
       setHideSignInBtn(true);
     }
-    
+    console.log('profileimg in useeffect', profileImage);
   }, [authData])
 
   const handleToggleSearch = () => {

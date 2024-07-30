@@ -23,8 +23,8 @@ const MyProfile = () => {
     const [selectedState, setSelectedState] = useState('')
     const [city, setCity] = useState('')
     const [pin, setPin] = useState('')
-    const [profileImage, setProfileImage] = useState(null)
-
+    const [profileImage, setProfileImage] = useState('')
+    const [sendProfImage, setSendProfImage] = useState('')
     const [countryList, setCountryList] = useState([])
     const [stateList, setStateList] = useState([])
 
@@ -115,26 +115,29 @@ const MyProfile = () => {
         setPin(e.target.value)
     }
     const profilePicHandler = (e) => {
-        console.log(e.target.files)
-        // if (e.target.files.length !== 0) {
-        //     setProfileImage(e.target.files[0])
-        // }
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setProfileImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+        console.log(URL.createObjectURL(e.target.files[0]))
+        if (e.target.files.length !== 0) {
+            setProfileImage(URL.createObjectURL(e.target.files[0]))
+            setSendProfImage(e.target.files[0])
         }
+        // const file = e.target.files[0];
+        // if (file) {
+        //     const reader = new FileReader();
+        //     reader.onload = () => {
+        //         setProfileImage(reader.result);
+        //     };
+        //     reader.readAsDataURL(file);
+        // }
     }
 
     const saveData = async () => {
 
 
         const userDetails = new FormData();
-        userDetails.append('profileimage', profileImage);
+        userDetails.append('profileimage', sendProfImage);
         userDetails.append('name', name)
+
+        console.log("prof img", profileImage)
 
         let changecontactDetails = {
             email: email,
@@ -214,9 +217,13 @@ const MyProfile = () => {
                             <input className="form-control p_hold" type="file"
                                 accept="image/*"
                                 onChange={(e) => profilePicHandler(e)} />
-                            {profileImage !== null && profileImage !== '' &&
+                            {profileImage === null || profileImage === '' ? (
+                                <p></p>
+                            ) : (
                                 <img src={profileImage} className="img-fluid mt-4" height={100} width={100} />
+                            )
                             }
+                            {/* <p>{profileImage}</p> */}
                         </div>
 
                         <div className="col-md-6">

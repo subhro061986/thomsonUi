@@ -35,6 +35,7 @@ const UserProvider = ({ children }) => {
   const [selectedShippingAddressId, setSelectedShippingAddressId] = useState(0)
   const [userShippingAddress, setUserShippingAddress] = useState(null)
   const [orderConfirmation, setOrderConfirmation] = useState(null)
+  const [profileImage, setProfileImage] = useState('')
   
   
 
@@ -68,6 +69,7 @@ const UserProvider = ({ children }) => {
       getSippingAddressById();
       delShippingAddress();
       myorders(1, 10);
+      my_profile();
 
       // localstorage_price_items_signin()
       // get_wish_books_id()
@@ -756,6 +758,7 @@ const UserProvider = ({ children }) => {
         })
 
       console.log("my_profile : ", response.data);
+      setProfileImage(response.data.output.profileimg)
 
       return response.data
 
@@ -1275,7 +1278,8 @@ const UserProvider = ({ children }) => {
         cancelOrder,
         returnOrderRequest,
         userShippingAddress,
-        orderConfirmation
+        orderConfirmation,
+        profileImage
 
 
       }}

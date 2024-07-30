@@ -20,7 +20,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 const TopBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
-  const { category_by_publisher, items, getPublishersById, publisherId, getBooksBySearchText } = UserProfile()
+  const { category_by_publisher, items, getPublishersById, publisherId, getBooksBySearchText, profileImage } = UserProfile()
   const { wishlistshow, authData, logOut,authRole } = useAuth()
   const [publisherDetails, setPublisherDetails] = useState('')
   const [searchText, setSearchText] = useState('')
@@ -30,6 +30,7 @@ const TopBar = () => {
   useEffect(() => {
     getPubById();
     window.scrollTo(0, 0)
+    console.log("profileimg", profileImage)
   }, [authData])
 
   const handleToggleSearch = () => {
@@ -195,7 +196,7 @@ const TopBar = () => {
           <Button className="rounded-pill" variant="outline-primary" onClick={gotoLogin}> Signin</Button>
         ) : (
           <div className="d-flex align-items-center">
-            <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profile} onClick={goToProfile} width={40} height={40} /></button>
+            <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profileImage === '' ? profile : (Config.API_URL + Config.UPLOAD_URL + profileImage + '?d=' + new Date())} onClick={goToProfile} width={40} height={40} className="rounded-circle"/></button>
             {/* <Button className="rounded-pill" variant="outline-primary" onClick={doLogout}>Sign Out</Button> */}
             <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} />
           </div>
