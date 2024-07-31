@@ -323,7 +323,7 @@ const ManageCategoriesScreen = () => {
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-between">
             {categoryId === 0 &&
-              <div className="text-danger">All fields are mandetory</div>
+              <div className="text-danger">All fields are mandatory</div>
             }
             <button className="btn btn-main" onClick={saveCategory} style={{ width: '20%' }}>
               {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} /> */}
