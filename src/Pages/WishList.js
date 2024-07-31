@@ -34,7 +34,7 @@ import { useNavigate, Link } from 'react-router-dom';
 const WishList = () => {
 
     const { get_wishlist_books, add_delete_to_wishlist, wishlistitems, cart_items, add_single_item } = UserProfile()
-    const { wishlistshow, uuid } = useAuth();
+    const { wishlistshow, uuid,add_book_to_storage } = useAuth();
 
     const [wishbooks, setWishbooks] = useState([])
 
@@ -70,66 +70,15 @@ const WishList = () => {
         }
     }
 
+   
     const add_to_cart = async (bookid) => {
-
-        if (wishlistshow === true) {
-            const get_json =
-            {
-                deviceid: uuid
-                // "9E7C1A59-7473-405F-81A7-11E25C70F0AC"
-            }
-
-            const resp = await cart_items(get_json)
-
-            let book_exist_arr = resp.output.filter((val) => {
-                return (
-                    val.id === bookid
-                )
-            })
-
-            if (book_exist_arr.length === 0) {
-
-                await add_single(bookid)
-
-                // toast.success("Item Added to Cart", {
-                //     position: "bottom-center",
-                //     autoClose: 2000,
-                //     hideProgressBar: true,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     closeButton: false,
-                //     theme: "dark",
-                // });
-                alert("Item Added to Cart")
-                
-            }
-            else {
-                
-                // toast.info("Book Already Added", {
-                //     position: "top-center",
-                //     autoClose: 3000,
-                //     hideProgressBar: true,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     closeButton: false,
-                //     // theme: "light",
-                //     style: { fontWeight: 'bold', backgroundColor: "rgb(220, 249, 252)" }
-                // });
-                alert("Book Already Added")
-            }
-        }
-
-    }
-
-    const add_single = async (bookid) => {
         const json = {
             "deviceid": uuid,
-            // "9E7C1A59-7473-405F-81A7-11E25C70F0AC" , 
+            "quantity": 1,
             "bookid": bookid
         }
-        const resp = await add_single_item(json)
+        const resp = await add_book_to_storage(json)
+        alert(resp.message)
         // console.log("single_item_added ", resp.message)
     }
 
