@@ -72,6 +72,12 @@ const ChangePassword = () => {
 
         const response = await change_password(data)
         console.log(response)
+        if(response.message === "Password changed successfully."){
+            alert("Password changed successfully.")
+            setPassword("")
+            setOldPassword("")
+            setConfirmPassword("")
+        }
     }
     return (
         <div className="main-container">
@@ -96,12 +102,14 @@ const ChangePassword = () => {
                             <label className="form_label mt-1">Old Password</label>
                            
                             <input className="form-control p_hold" type="password"
+                                value={oldPassword}
                                 onChange={oldPasswordHandler} />
 
                             <label className="form_label  mt-1">New Password</label>
                             <div className="d-flex align-items-sm-center">
 
                                 <input className="form-control p_hold" type="password"
+                                    value={password}
                                     onChange={passwordHandler} />
                                 {/* {passwordVerified? (<img src={verify} width={30} height={30} className="ms-2"/>) : (<span className="newPasswordErrorMessage">{passwordErrorMessage}</span>) } */}
 
@@ -110,6 +118,7 @@ const ChangePassword = () => {
                             <label className="form_label mt-1">Confirm New Password</label>
                             <span>{confirmPasswordErrorMessage}</span>
                             <input className="form-control p_hold" type="password"
+                            value={confirmPassword}
                                 onChange={confirmPasswordHandler} />
                         </div>
                         <div className="col-md-6 mt-2">
