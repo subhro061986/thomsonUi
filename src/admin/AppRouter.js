@@ -24,6 +24,7 @@ import ManageDistributorScreen from './Pages/Admin/ManageDistributorScreen';
 import ManageShipper from './Pages/Admin/ManageShipper';
 import ManageDistributorOrderScreen from './Pages/Admin/ManageDistributorOrderScreen';
 import ViewDistributorOrderDetails from './Pages/Admin/ViewDistributorOrderDetails';
+import Dashboard from './Pages/Admin/Dashboard';
 
 
 
@@ -48,6 +49,7 @@ const Navigation=()=> {
     
          < Routes>
              <Route exact path="/" Component={LoginScreen}/>
+             <Route exact path='/dashboard' Component={Dashboard}/>
              <Route exact path="/gallery" Component={GalleryScreen}/>
              <Route exact path='/manageorder' Component={ManageOrderScreen}/>
              <Route exact path='/manage-distributor-order' Component={ManageDistributorOrderScreen}/>

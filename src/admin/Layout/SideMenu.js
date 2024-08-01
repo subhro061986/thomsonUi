@@ -78,6 +78,14 @@ const TestMenu = () => {
                             </Link>
                         </MenuItem> */}
                         <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            to="/admin/dashboard"
+                            >
+                                <SVG src={dashboardIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Dashboard
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/managecategories">
                                 <SVG src={categoryIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Categories
