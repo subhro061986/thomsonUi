@@ -37,74 +37,107 @@ const Dashboard = () => {
                     </div>
                 </div> */}
                 <div className="row d-flex justify-content-between m-3  p-2">
-                <div className="col-md-4">
-                        <div className="card-body p-3 border bg-white rounded">
-                            <h5 className="card-title">
-                                <select classNameName="form-select mb-3"
-                                    style={{ width: "100%" }}
-                                >
-                                    <option disabled value={0}>Please select</option>
-                                    <option
-                                    >cart title</option>
+                    <div className="col-md-4">
+                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                            <div className="card-body p-3">
+                                <h5 className="card-title">
+                                    <select className="form-select mb-3"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <option disabled value={0}>Please select</option>
+                                        <option
+                                        >Options</option>
 
-                                </select>
-                            </h5>
-                            <div className="row mt-2  " style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                    </select>
+                                </h5>
+                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
 
-                                <div className="col-md-6 border-end border-secondary h100 "  >
+                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
 
-                                    <h5>Title</h5>
-                                </div>
-                                <div className="col-md-6  h100" >
-                                    <h5>Title</h5>
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopRightRadius: 0}}
+                                        >Title</h5>
+                                        {/* <div >
+                                            body
+                                        </div> */}
+                                    </div>
+                                    <div className="col-md-6  h100 px-0" >
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopLeftRadius: 0}}
+                                        >Title</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card-body p-3 border bg-white rounded">
-                            <h5 className="card-title">
-                                <select classNameName="form-select mb-3"
-                                    style={{ width: "100%" }}
-                                >
-                                    <option disabled value={0}>Please select</option>
-                                    <option
-                                    >cart title</option>
+                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                            <div className="card-body p-3">
+                                <h5 className="card-title">
+                                    <select className="form-select mb-3"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <option disabled value={0}>Please select</option>
+                                        <option
+                                        >Options</option>
 
-                                </select>
-                            </h5>
-                            <div className="row mt-2  " style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                    </select>
+                                </h5>
+                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
 
-                                <div className="col-md-6 border-end border-secondary h100 "  >
+                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
 
-                                    <h5>Title</h5>
-                                </div>
-                                <div className="col-md-6  h100" >
-                                    <h5>Title</h5>
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopRightRadius: 0}}
+                                        >Title</h5>
+                                        {/* <div >
+                                            body
+                                        </div> */}
+                                    </div>
+                                    <div className="col-md-6  h100 px-0" >
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopLeftRadius: 0}}
+                                        >Title</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card-body p-3 border bg-white rounded">
-                            <h5 className="card-title">
-                                <select classNameName="form-select mb-3"
-                                    style={{ width: "100%" }}
-                                >
-                                    <option disabled value={0}>Please select</option>
-                                    <option
-                                    >cart title</option>
+                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                            <div className="card-body p-3">
+                                <h5 className="card-title">
+                                    <select className="form-select mb-3"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <option disabled value={0}>Please select</option>
+                                        <option
+                                        >Options</option>
 
-                                </select>
-                            </h5>
-                            <div className="row mt-2  " style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                    </select>
+                                </h5>
+                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
 
-                                <div className="col-md-6 border-end border-secondary h100 "  >
+                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
 
-                                    <h5>Title</h5>
-                                </div>
-                                <div className="col-md-6  h100" >
-                                    <h5>Title</h5>
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopRightRadius: 0}}
+                                        >Title</h5>
+                                        {/* <div >
+                                            body
+                                        </div> */}
+                                    </div>
+                                    <div className="col-md-6  h100 px-0" >
+                                        <h5
+                                            className="card-header"
+                                            style={{borderTopLeftRadius: 0}}
+                                        >Title</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
