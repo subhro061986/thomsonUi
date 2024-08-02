@@ -18,7 +18,32 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
+    const {  allPublisher, getManageOrder,distributorList } = AdminProfile();
+    const [allOrders, setAllOrders] = useState([])
+    useEffect(()=>{
+        all_order()
+    },[])
 
+    const all_order = async () => {
+        let currPage = 1
+        let recPerPage = 10
+        const resp = await getManageOrder(currPage, recPerPage)
+        // console.log("all_order_resp_in_if ",resp)
+
+        if (resp === undefined || resp === null) {
+            setAllOrders([])
+        }
+        else {
+
+            console.log("all_order_resp ", resp)
+            if (resp.data.statuscode === "0" && resp.data.output.orders?.length > 0) {
+                setAllOrders(resp.data.output.orders)
+               // console.log("all_order_resp_obtained ", resp.data.output.orders)
+            }
+            
+        }
+
+    }
 
 
     return (
@@ -46,9 +71,14 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
-                                        <option disabled value={0}>Please select</option>
-                                        <option
-                                        >Options</option>
+                                        <option disabled selected>Please select</option>
+                                        {
+                                                allPublisher.map((data, index) => (
+
+                                                    <option value={data.id} key={index}>{data.name}</option>
+
+                                                ))
+                                            }
 
                                     </select>
                                 <div className="row my-4" >
@@ -84,9 +114,14 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
-                                        <option disabled value={0}>Please select</option>
-                                        <option
-                                        >Options</option>
+                                        <option disabled selected>Please select</option>
+                                        {
+                                                allOrders.map((data, index) => (
+
+                                                    <option value={data.id} key={index}>{data.customer}</option>
+
+                                                ))
+                                            }
 
                                     </select>
                                 <div className="row my-4" >
@@ -122,9 +157,15 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
-                                        <option disabled value={0}>Please select</option>
-                                        <option
-                                        >Options</option>
+                                        
+                                        <option disabled selected>Please select</option>
+                                        {
+                                                distributorList.map((data, index) => (
+
+                                                    <option value={data.id} key={index}>{data.name}</option>
+
+                                                ))
+                                            }
 
                                     </select>
                                 <div className="row my-4" >
