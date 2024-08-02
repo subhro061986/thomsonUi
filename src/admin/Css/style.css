@@ -16853,7 +16853,7 @@ tr {
   opacity: 30%;
 }
 
-.dashboard_numbers_bar .number {
+ .number {
   color: #26252C;
   font-family: 'Poppins';
   font-size: 24px;
@@ -16880,7 +16880,7 @@ color: #fff; */
 
 }
 
-.dashboard_numbers_bar .title {
+.title {
   color: #8C98A0;
   font-family: 'Roboto';
   font-size: 15px;

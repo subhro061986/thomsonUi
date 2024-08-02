@@ -41,7 +41,9 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    <select className="form-select mb-3"
+                                    Publisher Wise Sales
+                                </h5>
+                                <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
                                         <option disabled value={0}>Please select</option>
@@ -49,24 +51,25 @@ const Dashboard = () => {
                                         >Options</option>
 
                                     </select>
-                                </h5>
-                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                <div className="row my-4" >
 
-                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
+                                    <div className="col-md-6 border-end border-secondary "  >
 
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopRightRadius: 0}}
-                                        >Title</h5>
-                                        {/* <div >
-                                            body
-                                        </div> */}
+                                        
+                                          <div className="title">
+                                            Last Month Sales
+                                          </div>
+                                          <div className="number">
+                                            20
+                                          </div>
                                     </div>
-                                    <div className="col-md-6  h100 px-0" >
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopLeftRadius: 0}}
-                                        >Title</h5>
+                                    <div className="col-md-6  " >
+                                    <div className="title">
+                                            Last Year Sales
+                                          </div>
+                                          <div className="number">
+                                            50
+                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +79,9 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    <select className="form-select mb-3"
+                                    Customer Wise Sales
+                                </h5>
+                                <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
                                         <option disabled value={0}>Please select</option>
@@ -84,24 +89,25 @@ const Dashboard = () => {
                                         >Options</option>
 
                                     </select>
-                                </h5>
-                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                <div className="row my-4" >
 
-                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
+                                    <div className="col-md-6 border-end border-secondary "  >
 
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopRightRadius: 0}}
-                                        >Title</h5>
-                                        {/* <div >
-                                            body
-                                        </div> */}
+                                        
+                                          <div className="title">
+                                            Last Month Sales
+                                          </div>
+                                          <div className="number">
+                                            20
+                                          </div>
                                     </div>
-                                    <div className="col-md-6  h100 px-0" >
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopLeftRadius: 0}}
-                                        >Title</h5>
+                                    <div className="col-md-6  " >
+                                    <div className="title">
+                                            Last Year Sales
+                                          </div>
+                                          <div className="number">
+                                            50
+                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +117,9 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    <select className="form-select mb-3"
+                                    Distributor Wise Sales
+                                </h5>
+                                <select className="form-select my-3"
                                         style={{ width: "100%" }}
                                     >
                                         <option disabled value={0}>Please select</option>
@@ -119,24 +127,25 @@ const Dashboard = () => {
                                         >Options</option>
 
                                     </select>
-                                </h5>
-                                <div className="row mt-2" style={{ marginLeft: "1px", marginRight: "1px" }} >
+                                <div className="row my-4" >
 
-                                    <div className="col-md-6 border-end border-secondary h100 px-0"  >
+                                    <div className="col-md-6 border-end border-secondary "  >
 
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopRightRadius: 0}}
-                                        >Title</h5>
-                                        {/* <div >
-                                            body
-                                        </div> */}
+                                        
+                                          <div className="title">
+                                            Last Month Sales
+                                          </div>
+                                          <div className="number">
+                                            20
+                                          </div>
                                     </div>
-                                    <div className="col-md-6  h100 px-0" >
-                                        <h5
-                                            className="card-header"
-                                            style={{borderTopLeftRadius: 0}}
-                                        >Title</h5>
+                                    <div className="col-md-6  " >
+                                    <div className="title">
+                                            Last Year Sales
+                                          </div>
+                                          <div className="number">
+                                            50
+                                          </div>
                                     </div>
                                 </div>
                             </div>
