@@ -666,7 +666,7 @@ const CategoryDetailsPage = () => {
                             <div className="col-md-3" style={{ marginBottom: '32px' }}>
 
                                 {/* <div className='div_container'>
-                                    <h5>Browse Categories</h5>
+                                    <h5>Browse Practice Area</h5>
                                     <img src={browsecat === false ? arrow_down : arrow_up} className='img_margin'
                                         width={15} height={15} onClick={() => { setBrowsecat(!browsecat) }} />
                                 </div> */}
@@ -720,7 +720,7 @@ const CategoryDetailsPage = () => {
                                 <hr />
 
                                 <div className='div_container'>
-                                    <li className="li_width">{location.state.category_id ? "Publishers" : "Categories"}</li>
+                                    <li className="li_width">{location.state.category_id ? "Imprints" : "Practice Area"}</li>
                                     <img src={browsecat === false ? arrow_down : arrow_up}
                                         width={15} height={15} onClick={() => { setToggleCatPubdropdown(!toggleCatPubdropdown) }} />
                                 </div>
@@ -774,7 +774,7 @@ const CategoryDetailsPage = () => {
 
                         <div className="col-md-3">
                             <div className="web_filter">
-                                <h4>{location.state.category_id ? "Publishers" : "Categories"}</h4>
+                                <h4>{location.state.category_id ? "Imprints" : "Practice Area"}</h4>
 
                                 {location.state.category_id && (
                                     <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
@@ -859,20 +859,20 @@ const CategoryDetailsPage = () => {
                                             <span>Sort By</span>
                                             <div className='laptop_view'>
                                                 <select className="p-2 mx-2" 
-                                                    style={{ borderRadius: '10px', width: '124px' }} 
+                                                    style={{ borderRadius: '10px' }} 
                                                     onChange={(e) =>  Sort(e) }
                                                     >
-                                                    <option value="LOW-HIGH"> Sort by Price(Low to High)</option>
-                                                    <option value="HIGH-LOW"> Sort by Price(High to Low)</option>
-                                                    <option value="A-Z"> Sort Alphabetically(A-Z)</option>
-                                                    <option value="Z-A"> Sort Alphabetically(Z-A)</option>
+                                                    <option value="LOW-HIGH"> Price : Low to High</option>
+                                                    <option value="HIGH-LOW"> Price : High to Low</option>
+                                                    <option value="A-Z"> Alphabetically : A-Z</option>
+                                                    <option value="Z-A"> Alphabetically : Z-A</option>
                                                     {/* <option value="reset"> Reset(Z-A)</option> */}
                                                 </select>
                                             </div>
 
                                             <div className='sort_class' onClick={() => setDropbool(!dropbool)}>
                                                 <div className='text_select'>
-                                                    {droptext === '' ? 'Sort Alphabetically(A-Z)' : droptext}
+                                                    {droptext === '' ? 'Sort' : droptext}
                                                 </div>
 
 
@@ -885,10 +885,10 @@ const CategoryDetailsPage = () => {
                                                 dropbool === true &&
                                                 <div className='show_hide_div' >
                                                     <ul className='ul_style'>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'LOW-HIGH')}>Sort by Price(Low to High)</li>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'HIGH-LOW')}>Sort by Price(High to Low)</li>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'A-Z')}>Sort Alphabetically(A-Z)</li>
-                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'Z-A')}>Sort Alphabetically(Z-A)</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'LOW-HIGH')}>Price : Low to High</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'HIGH-LOW')}>Price : High to Low</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'A-Z')}>Alphabetically : A-Z</li>
+                                                        <li className='li_hover' onClick={(e) => Sort_mob(e, 'Z-A')}>Alphabetically : Z-A</li>
                                                     </ul>
                                                 </div>
                                             }
