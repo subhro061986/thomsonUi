@@ -9,7 +9,7 @@ import ManageUserScreen from './Pages/Admin/ManageUsersScreen';
 import ManagePublishersScreen from './Pages/Admin/ManagePublishersScreen';
 import ManageCategoriesScreen from './Pages/Admin/ManageCategoriesScreen';
 import UploadBooks from './Pages/Admin/UploadBooks';
-
+import ManageAdmin from './Pages/Admin/ManageAdmin';
 
 
 import { useAuth } from './Context/AuthContext';
@@ -62,7 +62,7 @@ const Navigation=()=> {
              <Route exact path='/booklist' Component={BookList}/>
              <Route exact path='/booklisting' Component={BookApproval}/>
              <Route exact path='/customersales' Component={CustomerSales}/>
-
+             <Route exact path='/manageadmin' Component={ManageAdmin}/>
 
              <Route exact path='/bookdetails' Component={ApproveOrRejectBook}/>
              <Route exact path='/changepassword' Component={ChangePassword}/>

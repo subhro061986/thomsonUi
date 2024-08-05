@@ -285,7 +285,7 @@ const UploadBooks = () => {
 
     const openModal = () => {
         setUploadBooksModal(true);
-        setUpdate(false)
+       // setUpdate(false)
     }
     const closeModal = () => {
         setUploadBooksModal(false);
@@ -466,9 +466,9 @@ const UploadBooks = () => {
             <SideMenu />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <Header title="Upload Books" />
-                {/* <div className="bg-white p-3 m-3 rounded-2">
+                <div className="bg-white p-3 m-3 rounded-2">
                     <button type="button" className="btn btn-main" onClick={openModal}>Upload Books In Bulk</button>
-                </div> */}
+                </div> 
                 <div className="m-3">
                     <div className="bg-white p-3 rounded-2">
                         <form>
@@ -638,7 +638,7 @@ const UploadBooks = () => {
                         </form>
                     </div>
                     {/* =========Upload Books Modal========= */}
-                    {/* <Modal show={uploadBooksModal} onHide={closeModal} centered
+                     <Modal show={uploadBooksModal} onHide={closeModal} centered
                         backdrop="static"
                         dialogClassName="upload-books-modal"
                     >
@@ -654,12 +654,14 @@ const UploadBooks = () => {
                                         
                                         <input type="file" accept=".xlsx, .csv"
                                             className="form-control" id="fileUpload"
-                                            onChange={csvFile}
+                                           // onChange={csvFile}
                                         />
                                     </div>
                                     <div className="input-group my-2 d-flex justify-content-between align-items-center">
                                         
-                                        <a href={Format} download="CSV-Format-Document" target="_blank" rel="noopener noreferrer">Download Format</a>
+                                        <a
+                                        // href={Format}
+                                         download="CSV-Format-Document" target="_blank" rel="noopener noreferrer">Download Format</a>
                                     </div>
                                 </div>
 
@@ -669,12 +671,14 @@ const UploadBooks = () => {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className="btn btn-main" onClick={uploadBooksBulk} style={{width:'10%'}}>
+                            <button className="btn btn-main" 
+                            //onClick={uploadBooksBulk} 
+                            style={{width:'10%'}}>
                                 
                                 Save
                             </button>
                         </Modal.Footer>
-                    </Modal> */}
+                    </Modal> 
                 </div>
 
                 <ToastContainer />
