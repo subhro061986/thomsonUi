@@ -22,8 +22,7 @@ const ManageAdmin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [modaltitle, setmodaltitle] = useState('');
-  const [categoryParent, setCategoryParent] = useState(0);
-  const [confirmPassword, setConfirmPassword] = useState(0);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [categoryId, setCategoryId] = useState(0);
   const [categoriesModal, setcategoriesModal] = useState(false);
   const [deleteconfirmation, setdeleteconfirmation] = useState(false);
@@ -70,138 +69,15 @@ const ManageAdmin = () => {
     setdeleteconfirmation(false);
   }
 
-  const getCategoriesById = async (id) => {
-    const response = await getCategoryById(id);
-    let category = response.data.output;
-    // console.log("Categories by id : ", category);
-    setCategoryId(category.id);
-    setEmail(category.name);
-    setPassword(category.description);
-    setCategoryParent(category.parentid);
-    setConfirmPassword(category.shipmentduration);
-  }
+  
 
-  const selectParentId = (e) => {
-    setCategoryParent(e.target.value);
-  }
+  
 
 
 
-  const saveCategory = async () => {
-    if (categoryId === 0) {
-      // Add the category
-      let obj = {
-        name: email,
-        description: password,
-        // parentid: categoryParent,
-        shipmentduration: confirmPassword
-      }
-      if (email !== '' && password !== '' && confirmPassword !== '') {
-        let resp = await addCategory(obj);
-        // console.log("Add category response : ", resp);
+  
 
-
-        if (resp.data.statuscode === '0' && resp.data.message === 'Information saved successfully.') {
-
-          toast.success("Category added successfully", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            closeButton: false,
-            theme: "light"
-          });
-
-        }
-        else {
-          toast.error("Category addition failed", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            closeButton: false,
-            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
-          });
-        }
-      }
-      else{
-        toast.error("Category addition failed", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          closeButton: false,
-          style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
-        });
-      }
-
-      closecategoriesModal();
-    }
-    else {
-      // Edit the category
-      let obj = {
-        name: email,
-        description: password,
-        // parentid: categoryParent,
-        shipmentduration: confirmPassword
-      }
-
-      let resp = await editCategory(categoryId, obj);
-
-      if (resp?.data?.statuscode === '0' && resp?.data?.message === 'Information saved successfully.') {
-
-        toast.success("Category updated successfully", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          closeButton: false,
-          theme: "light"
-        });
-        // console.log("Edit category response : ", resp);
-      }
-      else {
-        toast.error("Category updation failed", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          closeButton: false,
-          style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
-        });
-      }
-
-      // console.log("Edit category response : ", resp);
-      closecategoriesModal();
-    }
-  }
-
-  const act_inact_cat = async (evt, id) => {
-    if (evt.target.checked === true) {
-      //call restore
-      let resp = await restore_category(id);
-    }
-    else {
-      //call delete
-      if (window.confirm("Do you want to deactivate the category?") == true) {
-        // console.log("You pressed OK!");
-        let resp = await delCategory(id);
-      } else {
-        // console.log("You pressed cancel!");
-      }
-
-    }
-  }
+  
 
   return (
     <>
