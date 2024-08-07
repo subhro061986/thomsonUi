@@ -12,11 +12,11 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(''); // token
   const [authDeatils, setAuthDeatils] = useState('');
-  const [adminList, setAdminList] = useState([]);
+  
   // const [authUsername, setAuthUsername] = useState('');
   useEffect(() => {
     getDataFromStorage();
-    getAll_admins()
+    
   }, [authData])
   useEffect(() => {
   }, [authDeatils])
@@ -122,26 +122,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  const getAll_admins = async () => {
-    try {
-      // console.log("all_customers_admin_Authdata :", authData)
-      const response = await axios.get(Config.API_URL + Config.All_ADMINS,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authData
-          },
-        })
-      console.log("GET ALL ADMINS : ", response);
-      setAdminList(response.data.output);
-      // const cust = response.data.output.length > 0 ? response.data.output : [];
-      // setCustomerList(cust === null || cust === undefined ? [] : cust);
-      // return cust === null || cust === undefined ? [] : cust;
-    }
-    catch (error) {
-      console.log(" ALL ADMINS ERROR : ", error)
-    }
-  }
+  
 
   return (
     <AuthContext.Provider
@@ -150,9 +131,8 @@ const AuthProvider = ({ children }) => {
         logOut,
         forgot_password,
         authData,
-        authDeatils,
-        getAll_admins,
-        adminList
+        authDeatils
+        
       }}
     >
       {children}

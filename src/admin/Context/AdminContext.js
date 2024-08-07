@@ -32,6 +32,8 @@ const AdminProvider = ({ children }) => {
   const [shipperInfoList, setShipperInfoList] = useState({});
   const [orderInfo,setOrderInfo]= useState(null);
   const [distributorOrderInfo,setDistributorOrderInfo]= useState(null);
+  const [adminList, setAdminList] = useState([]);
+  const [customer, setCustomer] = useState([]);
 
   useEffect(() => {
 
@@ -55,6 +57,11 @@ const AdminProvider = ({ children }) => {
 
         getAllDistributor();
         getAllShipper();
+        getAll_admins();
+        publisherDashboard();
+        customerDashboard();
+        distributorDashboard();
+        getAll_customer();
         // getAllCoupons();
       // }
       // else if(authDeatils.role === "South Shore Admin" ){
@@ -1601,6 +1608,130 @@ const AdminProvider = ({ children }) => {
     }
   }
 
+  //Create Admin
+
+  const getAll_admins = async () => {
+    try {
+      // console.log("all_customers_admin_Authdata :", authData)
+      const response = await axios.get(Config.API_URL + Config.All_ADMINS,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL ADMINS : ", response);
+      setAdminList(response.data.output);
+      // const cust = response.data.output.length > 0 ? response.data.output : [];
+      // setCustomerList(cust === null || cust === undefined ? [] : cust);
+      // return cust === null || cust === undefined ? [] : cust;
+    }
+    catch (error) {
+      console.log(" ALL ADMINS ERROR : ", error)
+    }
+  }
+
+  const addAdmin = async (args) => {
+    // console.log("Args :", args);
+    try {
+      const response = await axios.post(Config.API_URL + Config.ADD_ADMINS, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        getAll_admins();
+      console.log("ADD ADMIN RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("ADD_ADMIN_Error : ", error)
+    }
+  }
+
+  //Dashboard
+
+  const publisherDashboard = async (body) => {
+    console.log("authData :", authData);
+    console.log("body :", body);
+    try {
+      const response = await axios.post(Config.API_URL + Config.PUBLISHER_DASHBOARD, body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("PUBLISHER DASHBOARD RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("PUBLISHER_DASHBOARD_Error : ", error)
+    }
+  }
+
+  const customerDashboard = async (body) => {
+    console.log("authData :", authData);
+    console.log("body :", body);
+    try {
+      const response = await axios.post(Config.API_URL + Config.CUSTOMER_DASHBOARD, body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("CUSTOMER DASHBOARD RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("CUSTOMER_DASHBOARD_Error : ", error)
+    }
+  }
+
+  const distributorDashboard = async (body) => {
+    console.log("authData :", authData);
+    console.log("body :", body);
+    try {
+      const response = await axios.post(Config.API_URL + Config.DISTRIBUTOR_DASHBOARD, body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("DISTRIBUTOR DASHBOARD RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("DISTRIBUTOR_DASHBOARD_Error : ", error)
+    }
+  }
+
+  //Get All Customer
+
+  const getAll_customer = async () => {
+    try {
+      // console.log("all_customers_admin_Authdata :", authData)
+      const response = await axios.get(Config.API_URL + Config.GET_ALL_CUSTOMER,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL CUSTOMER : ", response);
+      setCustomer(response.data.output);
+      // const cust = response.data.output.length > 0 ? response.data.output : [];
+      // setCustomerList(cust === null || cust === undefined ? [] : cust);
+      // return cust === null || cust === undefined ? [] : cust;
+    }
+    catch (error) {
+      console.log(" ALL CUSTOMER ERROR : ", error)
+    }
+  }
+
   return (
     <AdminContext.Provider
       value={{
@@ -1692,7 +1823,15 @@ const AdminProvider = ({ children }) => {
         returnOrderVerdict,
         cancelOrder,
         updatePriceOfSingleBook,
-        getInvoiceById
+        getInvoiceById,
+        getAll_admins,
+        adminList,
+        addAdmin,
+        publisherDashboard,
+        customerDashboard,
+        distributorDashboard,
+        getAll_customer,
+        customer
 
       }}
     >

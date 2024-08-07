@@ -69,5 +69,10 @@
     "RETURN_ORDER_VERDICT": "/return-verdict",
     "CANCEL_ORDER":"/cancel",
     "INVOICE_DETAILS": "order/invoice",
-    "All_ADMINS": "account/get-admins"
+    "All_ADMINS": "account/get-admins",
+    "ADD_ADMINS": "account/create-admin",
+    "PUBLISHER_DASHBOARD": "dashboard/publisher",
+    "CUSTOMER_DASHBOARD": "dashboard/customer",
+    "DISTRIBUTOR_DASHBOARD": "dashboard/distributor",
+    "GET_ALL_CUSTOMER": "customer"
 }

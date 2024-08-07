@@ -346,8 +346,19 @@ const ManagePublishersScreen = () => {
             theme: "light"
           });
         }
+        else if (resp.data.message === 'Invalid GSTIN number.') {
+          toast.error("Invalid GSTIN Number.", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+          });
+        }
       }
-
 
       else {
         toast.error("Publisher addition failed", {
@@ -584,7 +595,7 @@ const ManagePublishersScreen = () => {
                     <td>
                       <div className="d-flex justify-content-start align-items-start">
                         <SVG src={editIcon}
-                          style={{ fill: '#FF0000', marginRight: 10, marginTop: 1,cursor:'pointer' }}
+                          style={{ fill: '#FF0000', marginRight: 10, marginTop: 1, cursor: 'pointer' }}
                           width={15} height={15}
                           onClick={() => editPubMoadl(data.id)} />
                         {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} 
@@ -592,10 +603,10 @@ const ManagePublishersScreen = () => {
 
 
                         <div className="form-check form-switch" style={{ marginRight: 5 }} >
-                          <input checked={data.isactive === 1 ? true : false} 
-                          className="form-check-input" type="checkbox" 
-                          id="flexSwitchCheckDefault"
-                          style={{cursor:'pointer'}}
+                          <input checked={data.isactive === 1 ? true : false}
+                            className="form-check-input" type="checkbox"
+                            id="flexSwitchCheckDefault"
+                            style={{ cursor: 'pointer' }}
                             onChange={(e) => act_inact_pub(data.isactive, data.id)} />
                         </div>
 
@@ -603,7 +614,7 @@ const ManagePublishersScreen = () => {
                         <SVG src={eye}
                           height={20} width={20}
                           onClick={() => openOrderDescriptionModal(data.id)}
-                          style={{ fill: '#787B85',cursor:'pointer' }}
+                          style={{ fill: '#787B85', cursor: 'pointer' }}
                         />
                       </div>
                     </td>
@@ -644,35 +655,25 @@ const ManagePublishersScreen = () => {
                     <input type="text" className="form-control mb-2" placeholder="Type Publisher Name"
                       onChange={(e) => setName(e.target.value)} value={name} required />
                     <p style={{ color: 'red' }}>{nameError}</p>
-                    {/* <label className="form-label"> Contact Person <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter Contact Person"
-                    onChange={(e) => setContactPerson(e.target.value)} value={contactperson} required />
-                  <p style={{ color: 'red' }}>{contactpersonError}</p> */}
-                    <label className="form-label"> Contact Phone <span className="red"> *</span></label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter phone number"
-                      onChange={(e) => setContactno(e.target.value)} value={contactno} required />
-                    <p style={{ color: 'red' }}>{contactnoError}</p>
-                    {/* <label className="form-label">About Publisher <span className="red"> *</span></label> */}
-                    {/* <div className="input-group">
-                    <textarea className="form-control" placeholder="Enter about text for the publisher" aria-label="Enter about text for the publisher" onChange={(e) => setAbout(e.target.value)} value={about}></textarea>
-                  </div> */}
+                    <label className="form-label">Email <span className="red"> *</span></label>
+                    <input type="email" className="form-control mb-2" placeholder="Enter email"
+                      onChange={(e) => setContactemail(e.target.value)} value={contactemail} required />
+                    <p style={{ color: 'red' }}>{contactemailError}</p>
+                    <label className="form-label"> Alternative Contact Phone <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
+                      onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
 
-
-
-
-                    {/* <ReactQuill placeholder="Enter Description here..."
-                    theme="snow"
-                    value={about}
-                    onChange={setAbout} required />
-                  <p style={{ color: 'red' }}>{aboutError}</p> */}
-
-                    <label className="form-label" style={{ paddingTop: '4%' }}>Zip Code <span className="red"> *</span></label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter pin code"
-                      onChange={(e) => setPin(e.target.value)} value={pin} required />
-                    <p style={{ color: 'red' }}>{pinError}</p>
+                    <label className="form-label">Country</label>
+                    <select className="form-select publisher-profile-select" aria-label="Select country"
+                      onChange={(e) => select_country(e)} required>
+                      <option value='0'>--Select--</option>
+                      {
+                        countries && countries.map((data) => (
+                          <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
+                        ))}
+                    </select>
+                    <p style={{ color: 'red' }}>{countryError}</p>
                     <label className="form-label">State</label>
-                    {/* <input type="text" className="form-control mb-2" placeholder="Enter state"
-                    onChange={(e) => setState(e.target.value)} value={state} /> */}
                     <select className="form-select publisher-profile-select" aria-label="Select state"
                       // value={selectedstate}  
                       onChange={select_states} required>
@@ -689,14 +690,6 @@ const ManagePublishersScreen = () => {
                     <input type="text" className="form-control mb-2" placeholder="Enter GSTIN"
                       onChange={(e) => setGst(e.target.value)} value={gst} required />
                     <p style={{ color: 'red' }}>{gstError}</p>
-                    {/* <label className="form-label">Revenue Share % <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter commission"
-                    onChange={(e) => setCommission(e.target.value)} value={commission} required />
-                  <p style={{ color: 'red' }}>{commissionError}</p>
-                  <label className="form-label">Special Commission 2 <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter sp comm 2"
-                    onChange={(e) => setSpcom2(e.target.value)} value={spcom2} required />
-                  <p style={{ color: 'red' }}>{spcom2Error}</p> */}
                   </div>
                   <div className="col-md-6">
                     <label className="form-label">Upload Logo</label>
@@ -705,13 +698,11 @@ const ManagePublishersScreen = () => {
                         onChange={image} required />
                       <p style={{ color: 'red' }}>{logoError}</p>
                     </div>
-                    <label className="form-label">Email <span className="red"> *</span></label>
-                    <input type="email" className="form-control mb-2" placeholder="Enter email"
-                      onChange={(e) => setContactemail(e.target.value)} value={contactemail} required />
-                    <p style={{ color: 'red' }}>{contactemailError}</p>
-                    <label className="form-label"> Alternative Contact Phone <span className="red"> *</span></label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
-                      onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
+                    <label className="form-label"> Contact Phone <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter phone number"
+                      onChange={(e) => setContactno(e.target.value)} value={contactno} required />
+                    <p style={{ color: 'red' }}>{contactnoError}</p>
+
                     <label className="form-label">Address <span className="red"> *</span></label>
                     <div className="input-group">
                       <textarea className="form-control" placeholder="Enter the publisher's address" aria-label="Enter the publisher's address" onChange={(e) => setAdressline(e.target.value)} value={adressline} required></textarea>
@@ -721,113 +712,12 @@ const ManagePublishersScreen = () => {
                     <input type="text" className="form-control mb-2" placeholder="Enter city"
                       onChange={(e) => setCity(e.target.value)} value={city} required />
                     <p style={{ color: 'red' }}>{cityError}</p>
-                    <label className="form-label">Country</label>
-                    {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
-                    onChange={(e) => setCountry(e.target.value)} value={country} /> */}
-                    {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
-                      onChange={(e) => setCountry(e.target.value)} value={country} /> */}
-                    <select className="form-select publisher-profile-select" aria-label="Select country"
-                      onChange={(e) => select_country(e)} required>
-                      <option value='0'>--Select--</option>
-                      {
-                        countries && countries.map((data) => (
-                          <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
-                        ))}
-                    </select>
-                    <p style={{ color: 'red' }}>{countryError}</p>
-                    {/* <label className="form-label">Max Discount Permissible <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter max discount"
-                    onChange={(e) => setMaxdiscount(e.target.value)} value={maxdiscount} required />
-                  <p style={{ color: 'red' }}>{maxdiscountError}</p>
-                  <label className="form-label">Special Commission 1 <span className="red"> *</span></label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter sp comm 1"
-                    onChange={(e) => setSpcom1(e.target.value)} value={spcom1} required />
-                  <p style={{ color: 'red' }}>{spcom1Error}</p> */}
-
-
-                    {/* <label className="form-label">Banner Upload</label>
-                  <div className="input-group mb-2">
-                    <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
-                      onChange={banner_image} required />
-                  </div>
-                  <p style={{ color: 'red' }}>{bannerError}</p> */}
-
-                    {/* <label className="form-label">Banner Text</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter state"
-                    onChange={(e) => setBannertext(e.target.value)} value={bannertext} /> */}
+                    <label className="form-label" style={{ paddingTop: '4%' }}>Zip Code <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter pin code"
+                      onChange={(e) => setPin(e.target.value)} value={pin} required />
+                    <p style={{ color: 'red' }}>{pinError}</p>
                   </div>
                 </div>
-
-
-                {/* <div className="d-flex justify-content-between align-items-center"> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-                {/* <label className="form-label"> Contact Phone</label>
-              <input type="text" className="form-control mb-2" placeholder="Enter phone number"
-                onChange={(e) => setContactno(e.target.value)} value={contactno} /> */}
-
-
-
-
-                {/* </div> */}
-
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-
-                {/* <label className="form-label">Pan No</label>
-              <input type="text" className="form-control mb-2" placeholder="Enter pan no" 
-              onChange={(e) => setPan(e.target.value)} value={pan} /> */}
-
-
-
-
-
-
-
-                {/* </div> */}
-                {/* </div> */}
-
-                {/* <div className="d-flex justify-content-between align-items-center"> */}
-
-                {/* <div className="d-flex justify-content-between align-items-center">
-                <div className="form-group">
-                  <label className="form-label">Facebook</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter Facebook url" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">LinkedIn</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter LinkedIn url" />
-                </div>
-              </div> */}
-                {/* <div className="d-flex justify-content-between align-items-center">
-                <div className="form-group">
-                  <label className="form-label">YouTube</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter YouTube url" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Instagram</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter Instagram url" />
-                </div>
-              </div> */}
-                {/* <div className="d-flex justify-content-start align-items-center is-active">
-                <label>Is Active ?</label>
-                <input className="form-check-input mt-0" type="checkbox" />
-              </div> */}
-                {/* </div> */}
               </div>
             ) : (
               <div className="mb-1">
@@ -837,34 +727,24 @@ const ManagePublishersScreen = () => {
                     <label className="form-label">Publisher Name <span className="red"> *</span></label>
                     <input type="text" className="form-control mb-2" placeholder="Type Publisher Name"
                       onChange={(e) => setName(e.target.value)} value={name} />
-                    {/* <label className="form-label"> Contact Person </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter Contact Person"
-                      onChange={(e) => setContactPerson(e.target.value)} value={contactperson} /> */}
-                    <label className="form-label"> Contact Phone </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter phone number"
-                      onChange={(e) => setContactno(e.target.value)} value={contactno} />
-                    {/* <label className="form-label">About Publisher </label> */}
-                    {/* <div className="input-group" contentEditable="true"> */}
-                    {/* <p className="form-control" 
-                      placeholder="Enter about text for the publisher" 
-                      aria-label="Enter about text for the publisher" 
-                      onChange={(e) => setAbout(e.target.value)} 
-                      dangerouslySetInnerHTML={{ __html: about }}
-                      value={about}
-                      ></p> */}
-                    {/* <ReactQuill placeholder="Enter Description here..."
-                      theme="snow"
-                      value={about}
-                      onChange={setAbout} /> */}
-                    {/* </div> */}
-                    <label className="form-label mt-2">Zip Code </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter pin code"
-                      onChange={(e) => setPin(e.target.value)} value={pin} />
+                    <label className="form-label">Email </label>
+                    <input type="email" className="form-control mb-2" placeholder="Enter email"
+                      onChange={(e) => setContactemail(e.target.value)} value={contactemail} />
+                    <label className="form-label"> Alternative Contact Phone </label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
+                      onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
+                    <label className="form-label">Country <span className="red"> *</span></label>
+                    <select className="form-select publisher-profile-select" aria-label="Select country" onChange={(e) => select_country(e)}>
+                      <option value='0'>--Select--</option>
+                      {
+                        countries && countries.map((data) => (
+                          <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
+                        ))}
+                    </select>
+
+
                     <label className="form-label">State <span className="red"> *</span></label>
-                    {/* <input type="text" className="form-control mb-2" placeholder="Enter state"
-                    onChange={(e) => setState(e.target.value)} value={state} /> */}
                     <select className="form-select publisher-profile-select" aria-label="Select state"
-                      // value={selectedstate}  
                       onChange={(e) => select_states(e)}>
                       <option value='0'>--Select--</option>
                       {
@@ -876,12 +756,6 @@ const ManagePublishersScreen = () => {
                     <label className="form-label">GSTIN </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter GSTIN"
                       onChange={(e) => setGst(e.target.value)} value={gst} />
-                    {/* <label className="form-label">Revenue Share % </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter commission"
-                      onChange={(e) => setCommission(e.target.value)} value={commission} />
-                    <label className="form-label">Special Commission 2 </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter sp comm 2"
-                      onChange={(e) => setSpcom2(e.target.value)} value={spcom2} disabled /> */}
                   </div>
                   <div className="col-md-6">
                     <label className="form-label">Upload Logo</label>
@@ -889,12 +763,10 @@ const ManagePublishersScreen = () => {
                       <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
                         onChange={image} />
                     </div>
-                    <label className="form-label">Email </label>
-                    <input type="email" className="form-control mb-2" placeholder="Enter email"
-                      onChange={(e) => setContactemail(e.target.value)} value={contactemail} />
-                    <label className="form-label"> Alternative Contact Phone </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
-                      onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
+                    <label className="form-label"> Contact Phone </label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter phone number"
+                      onChange={(e) => setContactno(e.target.value)} value={contactno} />
+
                     <label className="form-label">Address</label>
                     <div className="input-group">
                       <textarea className="form-control" placeholder="Enter the publisher's address" aria-label="Enter the publisher's address" onChange={(e) => setAdressline(e.target.value)} value={adressline}></textarea>
@@ -902,92 +774,11 @@ const ManagePublishersScreen = () => {
                     <label className="form-label">City </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter city"
                       onChange={(e) => setCity(e.target.value)} value={city} />
-                    <label className="form-label">Country <span className="red"> *</span></label>
-                    {/* <input type="text" className="form-control mb-2" placeholder="Enter country"
-                      onChange={(e) => setCountry(e.target.value)} value={country} /> */}
-                    <select className="form-select publisher-profile-select" aria-label="Select country" onChange={(e) => select_country(e)}>
-                      <option value='0'>--Select--</option>
-                      {
-                        countries && countries.map((data) => (
-                          <option key={data.id} value={data.id} selected={countryId === data.id ? true : false}>{data.name}</option>
-                        ))}
-                    </select>
-                    {/* <label className="form-label">Max Discount Permissible </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter max discount"
-                      onChange={(e) => setMaxdiscount(e.target.value)} value={maxdiscount} />
-                    <label className="form-label">Special Commission 1 </label>
-                    <input type="text" className="form-control mb-2" placeholder="Enter sp comm 1"
-                      onChange={(e) => setSpcom1(e.target.value)} value={spcom1} disabled /> */}
-                    {/* <label className="form-label">Banner Upload</label>
-                    <div className="input-group mb-2">
-                      <input type="file" accept=".jpg, .png, .jpeg, .svg" className="form-control" id="logoUpload"
-                        onChange={banner_image} />
-                    </div> */}
+                    <label className="form-label mt-2">Zip Code </label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter pin code"
+                      onChange={(e) => setPin(e.target.value)} value={pin} />
                   </div>
                 </div>
-
-
-                {/* <div className="d-flex justify-content-between align-items-center"> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-                {/* <label className="form-label"> Contact Phone</label>
-              <input type="text" className="form-control mb-2" placeholder="Enter phone number"
-                onChange={(e) => setContactno(e.target.value)} value={contactno} /> */}
-
-
-
-
-                {/* </div> */}
-
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-                {/* <label className="form-label">Pan No</label>
-              <input type="text" className="form-control mb-2" placeholder="Enter pan no" 
-              onChange={(e) => setPan(e.target.value)} value={pan} /> */}
-
-                {/* </div> */}
-                {/* </div> */}
-
-                {/* <div className="d-flex justify-content-between align-items-center"> */}
-
-                {/* <div className="d-flex justify-content-between align-items-center">
-                <div className="form-group">
-                  <label className="form-label">Facebook</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter Facebook url" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">LinkedIn</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter LinkedIn url" />
-                </div>
-              </div> */}
-                {/* <div className="d-flex justify-content-between align-items-center">
-                <div className="form-group">
-                  <label className="form-label">YouTube</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter YouTube url" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Instagram</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter Instagram url" />
-                </div>
-              </div> */}
-                {/* <div className="d-flex justify-content-start align-items-center is-active">
-                <label>Is Active ?</label>
-                <input className="form-check-input mt-0" type="checkbox" />
-              </div> */}
-                {/* </div> */}
               </div>
             )
             }
@@ -995,7 +786,7 @@ const ManagePublishersScreen = () => {
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-end">
             {/* {existingId === '' &&
-              <div className="text-danger">Contact Phone No. is the Default Password for Login</div>
+              <div className="text-danger">All fields are mandatory</div>
             } */}
             <button className="btn btn-main" onClick={() => savePub()} style={{ width: '12%' }}>
               {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} />  */}

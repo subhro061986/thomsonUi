@@ -18,31 +18,82 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-    const {  allPublisher, getManageOrder,distributorList } = AdminProfile();
+    const {  allPublisher, customer , distributorList, publisherDashboard, customerDashboard, distributorDashboard } = AdminProfile();
     const [allOrders, setAllOrders] = useState([])
+    const [selectedPubId, setselectedPubId] = useState(0)
+    const [selectedCustId, setselectedCustId] = useState(0)
+    const [selectedDistId, setselectedDistId] = useState(0)
+    const [publisherMonthlySales, setpublisherMonthlySales] = useState(0)
+    const [publisherYearlySales, setpublisherYearlySales] = useState(0)
+    const [customerMonthlySales, setcustomerMonthlySales] = useState(0)
+    const [customerYearlySales, setcustomerYearlySales] = useState(0)
+    const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
+    const [distributorYearlySales, setdistributorYearlySales] = useState(0)
+    
     useEffect(()=>{
-        all_order()
-    },[])
+        pubDashboard()
+    },[selectedPubId])
+    useEffect(()=>{
+        custDashboard()
+    },[selectedCustId])
+    useEffect(()=>{
+        distDashboard()
+    },[selectedDistId])
 
-    const all_order = async () => {
-        let currPage = 1
-        let recPerPage = 10
-        const resp = await getManageOrder(currPage, recPerPage)
-        // console.log("all_order_resp_in_if ",resp)
+    
 
-        if (resp === undefined || resp === null) {
-            setAllOrders([])
+    const pub_select = (e) => {
+        let pub_id = e.target.value
+        console.log('pub_id from nav select', pub_id)
+        setselectedPubId(pub_id)
+        
+    }
+
+    const pubDashboard = async (id) => {
+        console.log('pub_id', id)
+        let pub_dash_json ={
+            id : selectedPubId
         }
-        else {
+        let pubResponse = await publisherDashboard(pub_dash_json)
+        console.log("pub_dashboard_resp= ", pubResponse)
+        setpublisherMonthlySales(pubResponse.data.output.monthlySale)
+        setpublisherYearlySales(pubResponse.data.output.yearlySale)
+    }
 
-            console.log("all_order_resp ", resp)
-            if (resp.data.statuscode === "0" && resp.data.output.orders?.length > 0) {
-                setAllOrders(resp.data.output.orders)
-               // console.log("all_order_resp_obtained ", resp.data.output.orders)
-            }
-            
+    const cust_select = (e) => {
+        let cust_id = e.target.value
+        console.log('pub_id from nav select', cust_id)
+        setselectedCustId(cust_id)
+        
+    }
+
+    const custDashboard = async (id) => {
+        console.log('cust_id', id)
+        let cust_dash_json ={
+            id : selectedCustId
         }
+        let custResponse = await customerDashboard(cust_dash_json)
+        console.log("pub_dashboard_resp= ", custResponse)
+        setcustomerMonthlySales(custResponse.data.output.monthlySale)
+        setcustomerYearlySales(custResponse.data.output.yearlySale)
+    }
 
+    const dist_select = (e) => {
+        let dist_id = e.target.value
+        console.log('pub_id from nav select', dist_id)
+        setselectedDistId(dist_id)
+        
+    }
+
+    const distDashboard = async (id) => {
+        console.log('dist_id', id)
+        let dist_dash_json ={
+            id : selectedDistId
+        }
+        let distResponse = await distributorDashboard(dist_dash_json)
+        console.log("pub_dashboard_resp= ", distResponse)
+        setdistributorMonthlySales(distResponse.data.output.monthlySale)
+        setdistributorYearlySales(distResponse.data.output.yearlySale)
     }
 
 
@@ -70,6 +121,7 @@ const Dashboard = () => {
                                 </h5>
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
+                                        onChange={(e) => { pub_select(e) }}
                                     >
                                         <option disabled selected>Please select</option>
                                         {
@@ -90,7 +142,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                           </div>
                                           <div className="number">
-                                            20
+                                            {publisherMonthlySales}
                                           </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -98,7 +150,7 @@ const Dashboard = () => {
                                             Last Year Sales
                                           </div>
                                           <div className="number">
-                                            50
+                                            {publisherYearlySales}
                                           </div>
                                     </div>
                                 </div>
@@ -113,12 +165,13 @@ const Dashboard = () => {
                                 </h5>
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
+                                        onChange={(e) => { cust_select(e) }}
                                     >
                                         <option disabled selected>Please select</option>
                                         {
-                                                allOrders.map((data, index) => (
+                                                customer.map((data, index) => (
 
-                                                    <option value={data.id} key={index}>{data.customer}</option>
+                                                    <option value={data.id} key={index}>{data.name}</option>
 
                                                 ))
                                             }
@@ -133,7 +186,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                           </div>
                                           <div className="number">
-                                            20
+                                            {customerMonthlySales}
                                           </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -141,7 +194,7 @@ const Dashboard = () => {
                                             Last Year Sales
                                           </div>
                                           <div className="number">
-                                            50
+                                            {customerYearlySales}
                                           </div>
                                     </div>
                                 </div>
@@ -156,6 +209,7 @@ const Dashboard = () => {
                                 </h5>
                                 <select className="form-select my-3"
                                         style={{ width: "100%" }}
+                                        onChange={(e) => { dist_select(e) }}
                                     >
                                         
                                         <option disabled selected>Please select</option>
@@ -177,7 +231,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                           </div>
                                           <div className="number">
-                                            20
+                                            {distributorMonthlySales}
                                           </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -185,7 +239,7 @@ const Dashboard = () => {
                                             Last Year Sales
                                           </div>
                                           <div className="number">
-                                            50
+                                            {distributorYearlySales}
                                           </div>
                                     </div>
                                 </div>
