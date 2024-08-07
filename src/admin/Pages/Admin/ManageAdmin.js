@@ -30,7 +30,7 @@ const ManageAdmin = () => {
 
 
   const { getAllCategory, categoryList, getCategoryById, addCategory, editCategory, delCategory, restore_category } = AdminProfile();
-  const { authData } = useAuth();
+  const { authData, adminList } = useAuth();
 
   useEffect(() => {
     //getCategory();
@@ -102,18 +102,19 @@ const ManageAdmin = () => {
             </thead>
             <tbody className="text-center">
                  
-             {/* {categoryList.map((data, index) => ( */}
+            {
+              adminList.map((data, index) => (
                 <tr className="custom-table-row" 
                 //key={index}
                 >
                   {/* <td className="all_col">{data.id}</td> */}
-                  <td className="all_col text-start">abcd@gmail.com</td>
+                  <td className="all_col text-start">{data.email}</td>
                   {/* <td className="all_col text-start">{data.parent}</td> */}
                   {/* <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
                   <td className="all_col text-start">{data.shipmentduration}  Day(s)</td> */}
                   <td 
-                 // className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}
-                  >active</td>
+                 className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}
+                  >{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="d-flex justify-content-start align-items-start">
                       <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15}
@@ -137,8 +138,8 @@ const ManageAdmin = () => {
                     </div>
                   </td>
                 </tr>
-               {/* ))
-            } */}
+               ))
+              }
             </tbody>
           </table>
         </div>

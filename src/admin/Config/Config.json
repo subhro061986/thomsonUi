@@ -1,7 +1,7 @@
 {
-    "API_URL" : "https://www.bookscentral.in/api/",
+    "API_URL_LOCAL" : "https://www.bookscentral.in/api/",
 
-    "API_URL_LOCAL" : "http://localhost:5000/",
+    "API_URL" : "http://localhost:5000/",
     "ALL_BOOK_CATEGORY" : "category/all",
     "GET_CATEGORY_BY_ID" : "category",
     "ADD_CATEGORY" : "category/add",
@@ -68,5 +68,6 @@
     "RAZORPAY_PROCESS_REFUND": "/razorpay/process-refund",
     "RETURN_ORDER_VERDICT": "/return-verdict",
     "CANCEL_ORDER":"/cancel",
-    "INVOICE_DETAILS": "order/invoice"
+    "INVOICE_DETAILS": "order/invoice",
+    "All_ADMINS": "account/get-admins"
 }
