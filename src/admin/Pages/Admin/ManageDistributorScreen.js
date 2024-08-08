@@ -45,6 +45,10 @@ const ManageDistributorScreen = () => {
     //     navigate("/home")
     // }
 
+    useEffect(() => {
+        console.log("Distrbutor List ", distributorList)
+      }, [authData])
+
     const openAddAddressModal = async (
         // id
     ) => {
@@ -58,12 +62,12 @@ const ManageDistributorScreen = () => {
         setName('')
         setEmail('')
         setPhone('')
-        setStreetAddress('')
-        setCountryId(0)
-        setStateId(0)
-        setCity('')
-        setPin('')
-        setAltPhone('')
+        // setStreetAddress('')
+        // setCountryId(0)
+        // setStateId(0)
+        // setCity('')
+        // setPin('')
+        // setAltPhone('')
         setGstIn('')
         setDistributorAddId(0)
         // }
@@ -168,20 +172,21 @@ const ManageDistributorScreen = () => {
             name: name,
             email: email,
             contactno: phone,
-            altcontactno: altPhone,
-            addressline: streetAddress,
-            countryid: countryId,
-            stateid: stateId,
-            city: city,
-            pincode: pin,
+            // altcontactno: altPhone,
+            // addressline: streetAddress,
+            // countryid: countryId,
+            // stateid: stateId,
+            // city: city,
+            // pincode: pin,
             gstin: gstIn
         }
-        let response = await addDistributor(addDistributorData)
-        console.log(" add distributor response ", response)
-        // getShipLists()
-        closeAddAddressModal()
+        if (name !== '' || email !== '' || phone !== '') {
+            let response = await addDistributor(addDistributorData)
+            console.log(" add distributor response ", response)
+            // getShipLists()
 
-        if (response !== undefined) {
+
+            // if (response !== undefined) {
 
             if (response.data.statuscode === '0' && response.data.message === 'Information saved successfully.') {
 
@@ -196,9 +201,25 @@ const ManageDistributorScreen = () => {
                     theme: "light"
                 });
             }
+            // }
+
+
+
+
+            else {
+                toast.error(`${response.data.message}`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    closeButton: false,
+                    // theme : "light"
+                    style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+                });
+            }
         }
-
-
         else {
             toast.error("Distributor addition failed", {
                 position: "top-right",
@@ -212,6 +233,7 @@ const ManageDistributorScreen = () => {
                 style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
             });
         }
+        closeAddAddressModal()
         getAllDistributor()
 
     }
@@ -219,32 +241,32 @@ const ManageDistributorScreen = () => {
     const delete_Dist = async (id) => {
         const response = await delete_distributor(id);
         getAllDistributor()
-    
-      }
-    
-    
-      const restore_Dist = async (id) => {
+
+    }
+
+
+    const restore_Dist = async (id) => {
         const response = await restore_distributor(id);
         getAllDistributor()
-    
-      }
 
-      const act_inact_dist = (activeVal, id) => {
+    }
+
+    const act_inact_dist = (activeVal, id) => {
         // console.log("event :  ", e.target.value);
         if (activeVal === 1) {
-    
-          if (window.confirm("Do you want to deactivate the distributor?") == true) {
-            console.log("You pressed OK!");
-            delete_Dist(id);
-          } else {
-            console.log("You pressed cancel!");
-          }
-    
+
+            if (window.confirm("Do you want to deactivate the distributor?") == true) {
+                console.log("You pressed OK!");
+                delete_Dist(id);
+            } else {
+                console.log("You pressed cancel!");
+            }
+
         }
         else {
             restore_Dist(id);
         }
-      }
+    }
 
 
 
@@ -278,19 +300,19 @@ const ManageDistributorScreen = () => {
                             {
                                 distributorList.map((data, index) => (
                                     <tr className="custom-table-row" key={index}>
-                                        
+
                                         <td className="all_col text-start" data-bs-toggle="tooltip" data-bs-placement="top" title={data.name} style={{ cursor: "pointer" }}>{data.name === null ? 'Not Available' : data.name.length > 18 ? data.name.substring(0, 18) + '...' : data.name}</td>
-                                        
+
                                         <td className="all_col text-start">{data.email === null || data?.email?.length === 0 ? 'Not Available' : data.email}</td>
                                         <td className="all_col text-start">{data.contactno === null || data?.contactno?.length === 0 ? 'Not Available' : data.contactno}</td>
                                         <td className="all_col text-start">{data.gstin === null || data?.gstin?.length === 0 ? 'Not Available' : data.gstin}</td>
                                         <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                                         <td>
-                                            
+
                                             <div className="form-check form-switch" style={{ marginRight: 5 }} >
                                                 <input checked={data.isactive === 1 ? true : false} className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                                                    onChange={(e) => act_inact_dist(data.isactive, data.id)} 
-                                                    />
+                                                    onChange={(e) => act_inact_dist(data.isactive, data.id)}
+                                                />
                                             </div>
                                         </td>
                                     </tr>
@@ -314,13 +336,13 @@ const ManageDistributorScreen = () => {
                         <div className="row">
                             <div className="col-lg-12 mb-3">
 
-                                <label className="form-label">Name</label>
+                                <label className="form-label">Name <span className="red"> *</span></label>
                                 <input type="text" className="form-control mb-2" placeholder="Type Distributor Name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
 
-                                <label className="form-label">Email</label>
+                                <label className="form-label">Email <span className="red"> *</span></label>
                                 <input type="text" className="form-control mb-2" placeholder="Type email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -332,7 +354,7 @@ const ManageDistributorScreen = () => {
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
 
-                                <label className="form-label">Alternative Contact No.</label>
+                                {/*<label className="form-label">Alternative Contact No.</label>
                                 <input type="text" className="form-control mb-2" placeholder="Type alternative contact no"
                                     value={altPhone}
                                     onChange={(e) => setAltPhone(e.target.value)}
@@ -380,7 +402,7 @@ const ManageDistributorScreen = () => {
                                 <input type="text" className="form-control mb-2" placeholder="Type Pin"
                                     value={pin}
                                     onChange={(e) => setPin(e.target.value)}
-                                />
+                                />*/}
 
                                 <label className="form-label">GST No.</label>
                                 <input type="text" className="form-control mb-2" placeholder="Type gst no"
@@ -390,8 +412,8 @@ const ManageDistributorScreen = () => {
                             </div>
                         </div>
                     </Modal.Body>
-                    <Modal.Footer>
-
+                    <Modal.Footer className="d-flex justify-content-between">
+                    <div className="text-danger">Star marked fields are mandatory</div>
                         <button className="btn btn-main"
                             onClick={saveShipping}
                             style={{ width: '20%' }}>
