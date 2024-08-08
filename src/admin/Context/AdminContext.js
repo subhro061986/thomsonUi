@@ -28,7 +28,7 @@ const AdminProvider = ({ children }) => {
   const [legendVal, setlegendVal] = useState([]);
   const [currMonthlySale, setMonthlyCurrSale] = useState({});
   const [prevMonthlySale, setMonthlyPrevSale] = useState({});
-  const [distributorList, setDistributorList] = useState({});
+  const [distributorList, setDistributorList] = useState([]);
   const [shipperInfoList, setShipperInfoList] = useState({});
   const [orderInfo,setOrderInfo]= useState(null);
   const [distributorOrderInfo,setDistributorOrderInfo]= useState(null);

@@ -85,14 +85,7 @@ const TestMenu = () => {
                                 Dashboard
                             </Link>
                         </MenuItem>
-                        <MenuItem className="nest_sidebar">
-                            <Link className="nav-link" 
-                            to="/admin/manageadmin"
-                            >
-                                <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
-                                Manage Admin  
-                            </Link>
-                        </MenuItem>
+                        
                         <MenuItem className="nest_sidebar">
                             <Link className="nav-link" to="/admin/managecategories">
                                 <SVG src={categoryIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
@@ -133,6 +126,14 @@ const TestMenu = () => {
                             >
                                 <SVG src={shippingIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
                                 Manage Shipper
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className="nest_sidebar">
+                            <Link className="nav-link" 
+                            to="/admin/manageadmin"
+                            >
+                                <SVG src={userIcon} style={{ fill: '#fff', marginRight: 10 }} width={20} />
+                                Manage Admin  
                             </Link>
                         </MenuItem>
                         <MenuItem className="nest_sidebar">

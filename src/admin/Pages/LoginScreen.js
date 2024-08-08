@@ -128,7 +128,7 @@ const LoginScreen = () => {
                 // console.log("Auth details received : ", authDeatils);
                 const result = jwtDecode(resp.token)
                 if (result.role === "Admin") {
-                    navigate('/admin/managecategories');
+                    navigate('/admin/dashboard');
                 }
                 // else if (result.role === "Publisher Admin" || result.role === "Publisher User") {
                 //     navigate('/admin/booklistpub');

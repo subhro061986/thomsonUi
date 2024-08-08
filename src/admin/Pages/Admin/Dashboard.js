@@ -18,7 +18,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-    const {  allPublisher, customer , distributorList, publisherDashboard, customerDashboard, distributorDashboard } = AdminProfile();
+    const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard } = AdminProfile();
     const [allOrders, setAllOrders] = useState([])
     const [selectedPubId, setselectedPubId] = useState(0)
     const [selectedCustId, setselectedCustId] = useState(0)
@@ -29,30 +29,34 @@ const Dashboard = () => {
     const [customerYearlySales, setcustomerYearlySales] = useState(0)
     const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
     const [distributorYearlySales, setdistributorYearlySales] = useState(0)
-    
-    useEffect(()=>{
+    useEffect(() => {
+        console.log('customer list', customer)
+        console.log('distributor list', allPublisher)
+        console.log('publisher list', distributorList)
+    }, [])
+    useEffect(() => {
         pubDashboard()
-    },[selectedPubId])
-    useEffect(()=>{
+    }, [selectedPubId])
+    useEffect(() => {
         custDashboard()
-    },[selectedCustId])
-    useEffect(()=>{
+    }, [selectedCustId])
+    useEffect(() => {
         distDashboard()
-    },[selectedDistId])
+    }, [selectedDistId])
 
-    
+
 
     const pub_select = (e) => {
         let pub_id = e.target.value
         console.log('pub_id from nav select', pub_id)
         setselectedPubId(pub_id)
-        
+
     }
 
     const pubDashboard = async (id) => {
         console.log('pub_id', id)
-        let pub_dash_json ={
-            id : selectedPubId
+        let pub_dash_json = {
+            id: selectedPubId
         }
         let pubResponse = await publisherDashboard(pub_dash_json)
         console.log("pub_dashboard_resp= ", pubResponse)
@@ -64,13 +68,13 @@ const Dashboard = () => {
         let cust_id = e.target.value
         console.log('pub_id from nav select', cust_id)
         setselectedCustId(cust_id)
-        
+
     }
 
     const custDashboard = async (id) => {
         console.log('cust_id', id)
-        let cust_dash_json ={
-            id : selectedCustId
+        let cust_dash_json = {
+            id: selectedCustId
         }
         let custResponse = await customerDashboard(cust_dash_json)
         console.log("pub_dashboard_resp= ", custResponse)
@@ -82,13 +86,13 @@ const Dashboard = () => {
         let dist_id = e.target.value
         console.log('pub_id from nav select', dist_id)
         setselectedDistId(dist_id)
-        
+
     }
 
     const distDashboard = async (id) => {
         console.log('dist_id', id)
-        let dist_dash_json ={
-            id : selectedDistId
+        let dist_dash_json = {
+            id: selectedDistId
         }
         let distResponse = await distributorDashboard(dist_dash_json)
         console.log("pub_dashboard_resp= ", distResponse)
@@ -120,38 +124,38 @@ const Dashboard = () => {
                                     Publisher Wise Sales
                                 </h5>
                                 <select className="form-select my-3"
-                                        style={{ width: "100%" }}
-                                        onChange={(e) => { pub_select(e) }}
-                                    >
-                                        <option disabled selected>Please select</option>
-                                        {
-                                                allPublisher.map((data, index) => (
+                                    style={{ width: "100%" }}
+                                    onChange={(e) => { pub_select(e) }}
+                                >
+                                    <option disabled selected>Please select</option>
+                                    {
+                                        allPublisher.map((data, index) => (
+                                            data.isactive === 1 && (
+                                                <option value={data.id} key={index}>{data.name}</option>
+                                            )
+                                        ))
+                                    }
 
-                                                    <option value={data.id} key={index}>{data.name}</option>
-
-                                                ))
-                                            }
-
-                                    </select>
+                                </select>
                                 <div className="row my-4" >
 
                                     <div className="col-md-6 border-end border-secondary "  >
 
-                                        
-                                          <div className="title">
+
+                                        <div className="title">
                                             Last Month Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {publisherMonthlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                     <div className="col-md-6  " >
-                                    <div className="title">
+                                        <div className="title">
                                             Last Year Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {publisherYearlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -164,38 +168,38 @@ const Dashboard = () => {
                                     Customer Wise Sales
                                 </h5>
                                 <select className="form-select my-3"
-                                        style={{ width: "100%" }}
-                                        onChange={(e) => { cust_select(e) }}
-                                    >
-                                        <option disabled selected>Please select</option>
-                                        {
-                                                customer.map((data, index) => (
+                                    style={{ width: "100%" }}
+                                    onChange={(e) => { cust_select(e) }}
+                                >
+                                    <option disabled selected>Please select</option>
+                                    {
+                                        customer.map((data, index) => (
+                                            data.isactive === 1 && (
+                                                <option value={data.id} key={index}>{data.name}</option>
+                                            )
+                                        ))
+                                    }
 
-                                                    <option value={data.id} key={index}>{data.name}</option>
-
-                                                ))
-                                            }
-
-                                    </select>
+                                </select>
                                 <div className="row my-4" >
 
                                     <div className="col-md-6 border-end border-secondary "  >
 
-                                        
-                                          <div className="title">
+
+                                        <div className="title">
                                             Last Month Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {customerMonthlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                     <div className="col-md-6  " >
-                                    <div className="title">
+                                        <div className="title">
                                             Last Year Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {customerYearlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -208,39 +212,39 @@ const Dashboard = () => {
                                     Distributor Wise Sales
                                 </h5>
                                 <select className="form-select my-3"
-                                        style={{ width: "100%" }}
-                                        onChange={(e) => { dist_select(e) }}
-                                    >
-                                        
-                                        <option disabled selected>Please select</option>
-                                        {
-                                                distributorList.map((data, index) => (
+                                    style={{ width: "100%" }}
+                                    onChange={(e) => { dist_select(e) }}
+                                >
 
-                                                    <option value={data.id} key={index}>{data.name}</option>
+                                    <option disabled selected>Please select</option>
+                                    {
+                                        distributorList.map((data, index) => (
+                                            data.isactive === 1 && (
+                                                <option value={data.id} key={index}>{data.name}</option>
+                                            )
+                                        ))
+                                    }
 
-                                                ))
-                                            }
-
-                                    </select>
+                                </select>
                                 <div className="row my-4" >
 
                                     <div className="col-md-6 border-end border-secondary "  >
 
-                                        
-                                          <div className="title">
+
+                                        <div className="title">
                                             Last Month Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {distributorMonthlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                     <div className="col-md-6  " >
-                                    <div className="title">
+                                        <div className="title">
                                             Last Year Sales
-                                          </div>
-                                          <div className="number">
+                                        </div>
+                                        <div className="number">
                                             {distributorYearlySales}
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
