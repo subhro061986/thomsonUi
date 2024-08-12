@@ -46,7 +46,7 @@ const ManageCategoriesScreen = () => {
       setmodaltitle('Add Category');
       setCategoryName('');
       setCategoryDesc('');
-      setShipmentDuration(0);
+      // setShipmentDuration(0);
       setCategoryParent(0);
       setCategoryId(0);
     }
@@ -54,7 +54,7 @@ const ManageCategoriesScreen = () => {
       setmodaltitle('Edit Category');
       getCategoriesById(id);
       setCategoryId(id);
-      setShipmentDuration(0);
+      // setShipmentDuration(0);
     }
   }
 
@@ -78,7 +78,7 @@ const ManageCategoriesScreen = () => {
     setCategoryName(category.name);
     setCategoryDesc(category.description);
     setCategoryParent(category.parentid);
-    setShipmentDuration(category.shipmentduration);
+    // setShipmentDuration(category.shipmentduration);
   }
 
   const selectParentId = (e) => {
@@ -94,9 +94,9 @@ const ManageCategoriesScreen = () => {
         name: categoryName,
         description: categoryDesc,
         // parentid: categoryParent,
-        shipmentduration: shipmentDuration
+        // shipmentduration: shipmentDuration
       }
-      if (categoryName !== '' && categoryDesc !== '' && shipmentDuration !== '') {
+      if (categoryName !== '' && categoryDesc !== '') {
         let resp = await addCategory(obj);
         // console.log("Add category response : ", resp);
 
@@ -149,7 +149,7 @@ const ManageCategoriesScreen = () => {
         name: categoryName,
         description: categoryDesc,
         // parentid: categoryParent,
-        shipmentduration: shipmentDuration
+        // shipmentduration: shipmentDuration
       }
 
       let resp = await editCategory(categoryId, obj);
@@ -219,7 +219,7 @@ const ManageCategoriesScreen = () => {
                 <th className="text-start">Name</th>
                 {/* <th className="text-start">Parent</th> */}
                 <th className="text-start">Description</th>
-                <th className="text-start">Shipment Duration</th>
+                {/* <th className="text-start">Shipment Duration</th> */}
                 <th className="text-start">Status</th>
                 <th className="text-start">Actions</th>
               </tr>
@@ -231,7 +231,7 @@ const ManageCategoriesScreen = () => {
                   <td className="all_col text-start">{data.name}</td>
                   {/* <td className="all_col text-start">{data.parent}</td> */}
                   <td className="all_col text-start" dangerouslySetInnerHTML={{ __html: data.description === null || data?.description?.length === 0 ? 'Not Available' : data.description }}></td>
-                  <td className="all_col text-start">{data.shipmentduration}  Day(s)</td>
+                  {/* <td className="all_col text-start">{data.shipmentduration}  Day(s)</td> */}
                   <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="d-flex justify-content-start align-items-start">
@@ -303,13 +303,13 @@ const ManageCategoriesScreen = () => {
                 </label>
                 <input type="text" className="form-control mb-2" placeholder="Type a Description"
                   value={categoryDesc} onChange={(e) => setCategoryDesc(e.target.value)} />
-                <label className="form-label">Shipment Duration
+                {/* <label className="form-label">Shipment Duration
                   {categoryId === 0 &&
                     <span className="red"> *</span>
                   }
                 </label>
                 <input type="number" className="form-control mb-2" placeholder="Type a Shipment Duration"
-                  value={shipmentDuration} onChange={(e) => setShipmentDuration(e.target.value)} />
+                  value={shipmentDuration} onChange={(e) => setShipmentDuration(e.target.value)} /> */}
 
                 {/* <ReactQuill placeholder="Enter Description here..."
                   theme="snow"

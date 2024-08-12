@@ -80,6 +80,8 @@ const ManagePublishersScreen = () => {
   const [bannerimageHandler, setBannerImageHandler] = useState(null)
   const [bannerError, setBannerError] = useState('')
   const [existingId, setExistingId] = useState('')
+  const [shipmentDuration, setShipmentDuration] = useState(0)
+  const [shipmentDurationError, setShipmentDurationError] = useState('')
 
   const [bannertext, setBannertext] = useState('')
 
@@ -195,7 +197,7 @@ const ManagePublishersScreen = () => {
     formData.append('pincode', pin)
     formData.append('stateid', stateId)
     formData.append('countryid', countryId)
-    // formData.append('maxdiscount', maxdiscount)
+    formData.append('shipmentduration', shipmentDuration)
     // formData.append('commission', commission)
     // formData.append('special_commission_1', spcom1)
     // formData.append('special_commission_2', spcom2)
@@ -205,7 +207,7 @@ const ManagePublishersScreen = () => {
 
 
     const response = await addPublisher_admin(formData);
-    // console.log("Add_Publishers_resp : ", response);
+    console.log("Add_Publishers_resp : ", response);
     getPublisherList()
     closeAdddPublisher()
 
@@ -230,7 +232,7 @@ const ManagePublishersScreen = () => {
     formData.append('pincode', pin)
     formData.append('stateid', stateId)
     formData.append('countryid', countryId)
-    // formData.append('maxdiscount', maxdiscount)
+    formData.append('shipmentduration', shipmentDuration)
     // formData.append('commission', commission)
     // formData.append('special_commission_1', spcom1)
     // formData.append('special_commission_2', spcom2)
@@ -358,6 +360,42 @@ const ManagePublishersScreen = () => {
             style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
           });
         }
+        else if (resp.data.message === 'Email already exists.') {
+          toast.error("Email already exists.", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+          });
+        }
+        else if (resp.data.message === 'Please enter Shipment Duration.') {
+          toast.error("Please enter Shipment Duration.", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+          });
+        }
+        else if (resp.data.message === 'Please select your state.') {
+          toast.error("Please select your state.", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+          });
+        }
       }
 
       else {
@@ -442,6 +480,7 @@ const ManagePublishersScreen = () => {
     // setMaxdiscount('');
     setAltcontactno('');
     setContactemail('');
+    setShipmentDuration('');
     // setContactPerson('');
     // setSpcom1('');
     // setSpcom2('');
@@ -486,6 +525,7 @@ const ManagePublishersScreen = () => {
     // setMaxdiscount('');
     setAltcontactno('');
     setContactemail('');
+    setShipmentDuration('');
     // setContactPerson('');
     // setSpcom1('');
     // setSpcom2('');
@@ -526,7 +566,7 @@ const ManagePublishersScreen = () => {
 
   const pub_det = async (id) => {
     const response = await getPublisherDetails(id);
-    // console.log("Publisher Details : ", response.data.output);
+    console.log("Publisher Details : ", response.data.output);
     // console.log("Publisher keys : ", response.data.output.keys());
 
     setExistingId(response.data.output.id);
@@ -552,6 +592,7 @@ const ManagePublishersScreen = () => {
     // setMaxdiscount(response.data.output.maxdiscount);
     setAltcontactno(response.data.output.altcontactno);
     setContactemail(response.data.output.email);
+    setShipmentDuration(response.data.output.shipmentduration)
     // setContactPerson(response.data.output.contactperson);
     // setSpcom1(response.data.output.special_commission_1);
     // setSpcom2(response.data.output.special_commission_2);
@@ -574,7 +615,7 @@ const ManagePublishersScreen = () => {
                 {/* <th className="text-start">Contact Person</th> */}
                 <th className="text-start">Contact Email</th>
                 <th className="text-start">Contact Phone</th>
-
+                <th className="text-start">Shipment Duration</th>
 
                 <th className="text-start">Status</th>
                 <th className="text-start">Actions</th>
@@ -589,7 +630,7 @@ const ManagePublishersScreen = () => {
                     {/* <td className="all_col text-start">{data.contactperson === null || data?.contactperson?.length === 0 ? 'Not Available' : data.contactperson}</td> */}
                     <td className="all_col text-start">{data.email === null || data?.email?.length === 0 ? 'Not Available' : data.email}</td>
                     <td className="all_col text-start">{data.contactno === null || data?.contactno?.length === 0 ? 'Not Available' : data.contactno}</td>
-
+                    <td className="all_col text-start">{data.shipmentduration === null || data?.shipmentduration?.length === 0 ? 'Not Available' : data.shipmentduration + " day(s)"}</td>
 
                     <td className={data?.isactive === 1 ? 'act_col text-start' : 'inact_col text-start'}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                     <td>
@@ -621,19 +662,6 @@ const ManagePublishersScreen = () => {
                   </tr>
                 ))
               }
-              {/* <tr className="custom-table-row">
-                  <td><img src={jurisPressLogo} alt="publisher logo" /></td>
-                  <td className="all_col">Juris Press</td>
-                  <td className="all_col">9553456780</td>
-                  <td className="all_col">info@jurispress.com</td>
-                  <td className="act_col">Active</td>
-                  <td className="all_col">12/A MG Road, Mum...</td>
-                  <td className="all_col">Lorem ipsum, dolor...</td>
-                  <td>
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10 }} width={15} />
-                    <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15} />
-                  </td>
-                </tr> */}
             </tbody>
           </table>
         </div>
@@ -659,11 +687,11 @@ const ManagePublishersScreen = () => {
                     <input type="email" className="form-control mb-2" placeholder="Enter email"
                       onChange={(e) => setContactemail(e.target.value)} value={contactemail} required />
                     <p style={{ color: 'red' }}>{contactemailError}</p>
-                    <label className="form-label"> Alternative Contact Phone <span className="red"> *</span></label>
+                    <label className="form-label"> Alternative Contact Phone </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter alternative phone number"
                       onChange={(e) => setAltcontactno(e.target.value)} value={altcontactno} />
 
-                    <label className="form-label">Country</label>
+                    <label className="form-label">Country <span className="red"> *</span></label>
                     <select className="form-select publisher-profile-select" aria-label="Select country"
                       onChange={(e) => select_country(e)} required>
                       <option value='0'>--Select--</option>
@@ -673,7 +701,7 @@ const ManagePublishersScreen = () => {
                         ))}
                     </select>
                     <p style={{ color: 'red' }}>{countryError}</p>
-                    <label className="form-label">State</label>
+                    <label className="form-label">State <span className="red"> *</span></label>
                     <select className="form-select publisher-profile-select" aria-label="Select state"
                       // value={selectedstate}  
                       onChange={select_states} required>
@@ -716,6 +744,10 @@ const ManagePublishersScreen = () => {
                     <input type="text" className="form-control mb-2" placeholder="Enter pin code"
                       onChange={(e) => setPin(e.target.value)} value={pin} required />
                     <p style={{ color: 'red' }}>{pinError}</p>
+                    <label className="form-label" style={{ paddingTop: '4%' }}>Shipment Duration <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter shipment duration"
+                      onChange={(e) => setShipmentDuration(e.target.value)} value={shipmentDuration} required />
+                    <p style={{ color: 'red' }}>{shipmentDurationError}</p>
                   </div>
                 </div>
               </div>
@@ -777,6 +809,9 @@ const ManagePublishersScreen = () => {
                     <label className="form-label mt-2">Zip Code </label>
                     <input type="text" className="form-control mb-2" placeholder="Enter pin code"
                       onChange={(e) => setPin(e.target.value)} value={pin} />
+                      <label className="form-label" style={{ paddingTop: '4%' }}>Shipment Duration <span className="red"> *</span></label>
+                    <input type="text" className="form-control mb-2" placeholder="Enter shipment duration"
+                      onChange={(e) => setShipmentDuration(e.target.value)} value={shipmentDuration} required />
                   </div>
                 </div>
               </div>
@@ -825,6 +860,9 @@ const ManagePublishersScreen = () => {
                     <p className="card-text">
                       <strong>Alternative Phone</strong> : {altcontactno}
                     </p>
+                    <p className="card-text">
+                      <strong>Shipment Duration</strong> : {shipmentDuration}
+                    </p>
 
                   </div>
                 </div>
@@ -847,25 +885,7 @@ const ManagePublishersScreen = () => {
                 </div>
 
               </div>
-              {/* <div className="col-md-4">
-                <div>
-                  <div className="card card-body" style={{ minHeight: '322px' }}>
-                    <p><strong>  Max Discount Permissible</strong> : {maxdiscount}  </p>
-                    <p><strong>  Revenue Share % </strong>  : {commission} </p>
-                    <p><strong>  Special Commission 1 </strong> : {spcom1}  </p>
-                    <p><strong>  Special Commission 2 </strong> : {spcom2}</p>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* <div className="row mt-3">
-                <div className="col-md-12">
-                  <div className="card card-body" style={{ minHeight: '297px' }}>
-                    <p><strong> About &nbsp; </strong></p>
-                    <div dangerouslySetInnerHTML={{ __html: about }}></div>
-                  </div>
-                </div>
-              </div> */}
+              
             </div>
           </Modal.Body>
         </Modal>
