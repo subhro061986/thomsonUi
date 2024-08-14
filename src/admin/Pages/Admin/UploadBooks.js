@@ -30,7 +30,8 @@ const UploadBooks = () => {
     const [volume, setVolume] = useState(0);
     const [year, setYear] = useState('');
     const [author, setAuthor] = useState('');
-    const [price, setPrice] = useState('');
+    const [customerPrice, setCustomerPrice] = useState('');
+    const [distributorPrice, setDistributorPrice] = useState('');
     const [coupon, setCoupon] = useState('');
     const [editionNo, setEditionNo] = useState(0);
     const [categoryId, setCategoryId] = useState(0);
@@ -132,7 +133,7 @@ const UploadBooks = () => {
         formData.append('volume', volume)
         formData.append('yearofpublishing', year)
         formData.append('img', coverFront instanceof File? coverFront : '')
-        // formData.append('price', price)
+        // formData.append('customerPrice', customerPrice)
         formData.append('noofpages', pageNo)
         formData.append('covertype', coverType)
         formData.append('currencyid', currencyId)
@@ -174,7 +175,7 @@ const UploadBooks = () => {
 
         // if (priceResp.data.statuscode === '0') {
 
-        //     toast.success(" Book price updated successfully", {
+        //     toast.success(" Book customerPrice updated successfully", {
         //         position: "top-center",
         //         autoClose: 2000,
         //         hideProgressBar: true,
@@ -187,7 +188,7 @@ const UploadBooks = () => {
         //     page_navigation();
         // }
         // else {
-        //     toast.error("Book price Updation failed", {
+        //     toast.error("Book customerPrice Updation failed", {
         //         position: "top-center",
         //         autoClose: 2000,
         //         hideProgressBar: true,
@@ -277,7 +278,8 @@ const UploadBooks = () => {
         setYear(resp?.yearofpublishing)
 
       
-        setPrice(resp?.price);
+        setCustomerPrice(resp?.customerprice);
+        setDistributorPrice(resp?.distributorprice);
         setPageNo(resp?.noofpages);
         // setEffectiveFrom(resp.effectivefrom);
 
@@ -421,7 +423,8 @@ const UploadBooks = () => {
         formData.append('yearofpublishing', year)
         formData.append('covertype', coverType)
         formData.append('img', coverFront)
-        formData.append('price', price)
+        formData.append('customerprice', customerPrice)
+        formData.append('distributorprice', distributorPrice)
         formData.append('noofpages', pageNo)
         formData.append('currencyid', currencyId)
         formData.append('effectivefrom', effectiveFrom)
@@ -531,8 +534,8 @@ const UploadBooks = () => {
                                         <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Volume no." value={volume} onChange={(e) => setVolume(e.target.value)} />
                                     </div>
                                     <div className="mb-3">
-                                        <label for="listPrice" className="form-label">Price<span className="red"> *</span></label>
-                                        <input type="text" readOnly={readOnly} className="form-control" id="exampleFormControlInput1" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                                        <label for="listPrice" className="form-label">Customer Price<span className="red"> *</span></label>
+                                        <input type="text" readOnly={readOnly} className="form-control" id="exampleFormControlInput1" placeholder="Enter Price for Customer" value={customerPrice} onChange={(e) => setCustomerPrice(e.target.value)} required />
                                     </div>
                                     <div className="mb-3">
                                         <label for="genre" className="form-label">Category<span className="red"> *</span></label>
@@ -583,6 +586,10 @@ const UploadBooks = () => {
                                         <label for="pages" className="form-label">Pages</label>
                                         <input type="number" className="form-control" id="pages" placeholder="500" />
                                     </div> */}
+                                    <div className="mb-3">
+                                        <label for="listPrice" className="form-label">Distributor Price<span className="red"> *</span></label>
+                                        <input type="text" readOnly={readOnly} className="form-control" id="exampleFormControlInput1" placeholder="Enter Price for Distributor" value={distributorPrice} onChange={(e) => setDistributorPrice(e.target.value)} required />
+                                    </div>
                                     <div className="mb-3">
                                         <label for="Year" className="form-label">Effective From the Date<span className="red"> *</span></label>
                                         <input type="date" readOnly={readOnly} className="form-control" id="eff_date" value={effectiveFrom} placeholder="Enter effective date" onChange={(e) => setEffectiveFrom(e.target.value)} required />

@@ -37,7 +37,7 @@ const CategoryDetailsPage = () => {
 
 
     const { getBook_by_category, allCategoryList, allActivePublisher, getAllCategory, category_by_publisher, add_delete_to_wishlist, wishlistitems, publisherId } = UserProfile()
-    const { wishlistshow, add_book_to_storage, authData, uuid } = useAuth()
+    const { wishlistshow, add_book_to_storage, authData, uuid, authRole } = useAuth()
 
     const navigate = useNavigate();
     const location = useLocation()

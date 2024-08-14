@@ -34,7 +34,7 @@ import { useNavigate, Link } from 'react-router-dom';
 const WishList = () => {
 
     const { get_wishlist_books, add_delete_to_wishlist, wishlistitems, cart_items, add_single_item } = UserProfile()
-    const { wishlistshow, uuid,add_book_to_storage } = useAuth();
+    const { wishlistshow, uuid, add_book_to_storage, authData, authRole } = useAuth();
 
     const [wishbooks, setWishbooks] = useState([])
 
@@ -70,7 +70,7 @@ const WishList = () => {
         }
     }
 
-   
+
     const add_to_cart = async (bookid) => {
         const json = {
             "deviceid": uuid,
@@ -117,7 +117,7 @@ const WishList = () => {
 
                 <div className="container ">
                     <div className="d-flex align-items-center justify-content-between mt-5">
-                        <div 
+                        <div
                         // className="d-flex align-items-center"
                         >
                             <div className="headerText mb-3">My Wishlist</div>
@@ -150,7 +150,7 @@ const WishList = () => {
                                                 src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
                                                 width={223}
                                                 height={247}
-                                                // src={dummy}
+                                            // src={dummy}
                                             />
                                             <Card.Body>
 
@@ -158,7 +158,10 @@ const WishList = () => {
                                                 <Card.Subtitle className="Subtitle mb-4">Author: {data.authors?.length > 0 ? data.authors : "Not Found"}</Card.Subtitle>
                                                 <div className="price">
                                                     {/* <hr /> */}
-                                                    <Card.Text className=" d-inline priceText">{data.price !== null ? data.price : "Not Updated"}</Card.Text>
+                                                    <Card.Text className=" d-inline priceText">
+                                                        {/* {data.price !== null ? data.price : "Not Updated"} */}
+                                                        {authData === '' || authData === null ? data.distributorprice : data.customerprice}
+                                                    </Card.Text>
                                                     {/* <Card.Text className=" d-inline price-cutText ps-2">187</Card.Text> */}
 
                                                 </div>
@@ -182,8 +185,8 @@ const WishList = () => {
 
                     </div>
                     <div className="d-flex justify-content-center mt-5 mb-5">
-                        <Button variant="outline-dark" className="rounded-pill  py-3 px-4" style={{color:'#061927', fontWeight:'500'}}
-                        onClick={() => { navigate('/') }}
+                        <Button variant="outline-dark" className="rounded-pill  py-3 px-4" style={{ color: '#061927', fontWeight: '500' }}
+                            onClick={() => { navigate('/') }}
                         >Continue Shopping</Button>
                     </div>
 

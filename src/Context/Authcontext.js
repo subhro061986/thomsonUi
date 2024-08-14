@@ -497,7 +497,7 @@ const AuthProvider = ({ children }) => {
     let tempArr = cartItems
     // console.log("tempArr index= ",tempArr[index])
     tempArr[index]["quantity"] += 1
-    tempArr[index]["amount"]= tempArr[index]["price"] * tempArr[index]["quantity"]
+    tempArr[index]["amount"]= tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
     setCartItems(tempArr)
     localStorage.setItem("cartData", JSON.stringify(tempArr));
     getCartData(authData)
@@ -516,7 +516,7 @@ const AuthProvider = ({ children }) => {
     if (tempArr[index]["quantity"] > 1) {  
       setCartCount(cartCount - 1)
       tempArr[index]["quantity"] -= 1
-      tempArr[index]["amount"]= tempArr[index]["price"] * tempArr[index]["quantity"]
+      tempArr[index]["amount"]= tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
       setCartItems(tempArr)
       localStorage.setItem("cartData", JSON.stringify(tempArr));
       getCartData(authData)

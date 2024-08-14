@@ -35,17 +35,21 @@ const BookApproval = () => {
 
   const [categoriesModal, setcategoriesModal] = useState(false);
   const [effectiveFrom, setEffectiveFrom] = useState('');
-  const [price, setPrice] = useState('');
+  const [customerPrice, setCustomerPrice] = useState('');
+  const [priceType, setPriceType] = useState('');
+  const [distributorPrice, setDistributorPrice] = useState('');
   const [bookid, setBookid] = useState('');
 
   useEffect(() => {
     // console.log("all book list : ", allBookList)
   }, [authData])
 
-  const opencategoriesModal = (val) => {
+  const opencategoriesModal = (val, type) => {
     console.log("book val : ", val);
-
-    setPrice(val.price)
+    setPriceType(type)
+    setCustomerPrice(val.customerprice)
+    setDistributorPrice(val.distributorprice)
+    
     setBookid(val.id)
     setcategoriesModal(true);
 
@@ -53,10 +57,14 @@ const BookApproval = () => {
 
   const saveCategory = async () => {
 
-    console.log('update_price_bookid', bookid)
+    console.log('update_price_cust', parseFloat(customerPrice))
+    console.log('update_price_cust_1', customerPrice)
+    console.log('update_price_dist', parseFloat(distributorPrice))
+    console.log('update_price_dist_1', distributorPrice)
     let update_price_json = {
       effectivefrom: effectiveFrom,
-      price: parseFloat(price)
+      customerprice: parseFloat(customerPrice.replace(/,/g, '')),
+      distributorprice: parseFloat(distributorPrice.replace(/,/g, ''))
     }
     console.log('update_price_json', update_price_json)
     const resp = await updatePriceOfSingleBook(bookid, update_price_json)
@@ -157,7 +165,8 @@ const BookApproval = () => {
                 <th>Title</th>
                 <th>Publisher</th>
                 <th>Category</th>
-                <th>Price</th>
+                <th>Customer Price</th>
+                <th>Distributor Price</th>
                 <th>Status</th>
                 <th>Actions</th>
 
@@ -175,9 +184,15 @@ const BookApproval = () => {
                   <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td>
                   <td className="all_col">{data.category.length > 0 ? data.category : "Not Available"}</td>
                   <td className="all_col">
-                    {data.price === null || data.price === '' ? "Not Available" : data.price}
+                    {data.customerprice === null || data.customerprice === '' ? "Not Available" : data.customerprice}
                     <SVG src={editIcon} style={{ fill: '#000', marginRight: '10px', marginLeft: '6px', marginTop: '-4px' }} width={15} height={32}
-                      onClick={() => opencategoriesModal(data)}
+                      onClick={() => opencategoriesModal(data, 'customerprice')}
+                    />
+                  </td>
+                  <td className="all_col">
+                    {data.distributorprice === null || data.distributorprice === '' ? "Not Available" : data.distributorprice}
+                    <SVG src={editIcon} style={{ fill: '#000', marginRight: '10px', marginLeft: '6px', marginTop: '-4px' }} width={15} height={32}
+                      onClick={() => opencategoriesModal(data, 'distributorprice')}
                     />
                   </td>
                   <td className={`${data.isactive}`}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
@@ -186,19 +201,19 @@ const BookApproval = () => {
                       onClick={() => editBook(data.id)}
                     /> */}
                     {/* <div className="d-flex justify-content-start align-items-start"> */}
-                      <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15} height={32}
-                        onClick={() => editBook(data.id)}
+                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15} height={32}
+                      onClick={() => editBook(data.id)}
+                    />
+
+                    <SVG src={eye} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={18} height={32}
+                      onClick={() => openModal(data.id)} />
+                    <div className="form-check form-switch switch_class" style={{ marginTop: '-24%', marginLeft: '48%' }} hidden={data.status === 'Pending' ? true : false}>
+                      <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                        style={{ cursor: 'pointer' }}
+                        checked={data.isactive === 1 ? true : false}
+                        onChange={(e) => rest_del_book(data.isactive, data.id)}
                       />
-                      
-                      <SVG src={eye} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={18} height={32}
-                        onClick={() => openModal(data.id)} />
-                        <div className="form-check form-switch switch_class" style={{ marginTop: '-24%', marginLeft: '48%' }} hidden={data.status === 'Pending' ? true : false}>
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                          style={{cursor: 'pointer'}}
-                          checked={data.isactive === 1 ? true : false}
-                          onChange={(e) => rest_del_book(data.isactive, data.id)}
-                        />
-                      </div>
+                    </div>
                     {/* </div> */}
 
                   </td>
@@ -251,7 +266,7 @@ const BookApproval = () => {
         </Modal> */}
       </div>
 
-      {/* price update modal */}
+      {/* customerPrice update modal */}
       <Modal
         show={categoriesModal}
         onHide={closecategoriesModal}
@@ -263,10 +278,19 @@ const BookApproval = () => {
         <Modal.Body>
           <div className="row">
             <div className="col-lg-12 mb-3">
-
-              <label className="form-label">Price</label>
-              <input type="text" className="form-control mb-2" placeholder="Enter price"
-                value={price} onChange={(e) => setPrice(e.target.value)} />
+              {priceType === 'customerprice' ? (
+                <div>
+                  <label className="form-label">Customer Price</label>
+                  <input type="text" className="form-control mb-2" placeholder="Enter customer price"
+                    value={customerPrice} onChange={(e) => setCustomerPrice(e.target.value)} />
+                </div>
+              ) : (
+                <div>
+                  <label className="form-label">Distributor Price</label>
+                  <input type="text" className="form-control mb-2" placeholder="Enter customer price"
+                    value={distributorPrice} onChange={(e) => setDistributorPrice(e.target.value)} />
+                </div>
+              )}
               <label className="form-label">Effective from date</label>
               <input type="date" className="form-control mb-2" placeholder="Enter effective date"
                 value={effectiveFrom} onChange={(e) => setEffectiveFrom(e.target.value)} />

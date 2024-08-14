@@ -53,26 +53,27 @@ const CartPage = () => {
     // const [subtotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        console.log("CONT CART ITEMS",cartItems)
-        if(cartItems.length>0){
+        console.log("CONT CART ITEMS", cartItems)
+        if (cartItems.length > 0) {
             setGetcartitems(cartItems)
         }
-        else{
+        else {
             setGetcartitems([])
         }
-        
+
         //setTotal(subTotal)
         //findSubtotal()
         getSubTotalFrmContext()
     }, [])
 
     useEffect(() => {
-        console.log("CART ITEMS",getcartitems)
-        console.log("CART ITEMS authdata",authData)
+        console.log("CART ITEMS", getcartitems)
+        console.log("CART ITEMS authdata", authData)
     }, [authData])
 
-    const getSubTotalFrmContext =async()=>{
-        const resp=findSubtotal()
+    const getSubTotalFrmContext = async () => {
+        const resp = findSubtotal()
+        console.log("CART subtotal", resp)
         setTotal(resp)
     }
 
@@ -146,15 +147,15 @@ const CartPage = () => {
 
 
     const gotoDetails = (book_id) => {
-        console.log("book id from cart",book_id)
+        console.log("book id from cart", book_id)
         navigate('/productdetails', { state: { BOOK_ID: book_id } })
     }
 
-    const removeCartItems = async (item,index) => {
+    const removeCartItems = async (item, index) => {
 
-        let tempArr=getcartitems
-        tempArr.splice(index,1)
-        let tot=0
+        let tempArr = getcartitems
+        tempArr.splice(index, 1)
+        let tot = 0
         tempArr.map((data, index) => {
             tot = tot + data.amount
         })
@@ -163,7 +164,7 @@ const CartPage = () => {
 
         if (item["bookid"] === undefined)
             item.bookid = item.id
-            item.deviceid = uuid
+        item.deviceid = uuid
         // check before login
         if (authData === '' || authData === null || authData === undefined) {
 
@@ -183,7 +184,7 @@ const CartPage = () => {
             alert("Please Login to Buy!")
         }
         else {
-            navigate("/billingaddress", { state:{buynow: 0} })
+            navigate("/billingaddress", { state: { buynow: 0 } })
 
         }
     }
@@ -197,22 +198,22 @@ const CartPage = () => {
     // }
 
     const increment = async (item) => {
-        let tempArr=getcartitems
-        let index=-1
-        
+        let tempArr = getcartitems
+        let index = -1
+
         if (authData === undefined || authData === "" || authData == null) {
-            index = tempArr.findIndex((val, i)=>{
-            return val.bookid === item.bookid
+            index = tempArr.findIndex((val, i) => {
+                return val.bookid === item.bookid
             });
 
             incrementQuantityFromState(item.bookid)
         }
         else {
-            index = tempArr.findIndex((val, i)=>{
+            index = tempArr.findIndex((val, i) => {
                 return val.id === item.id
             });
-        
-        
+
+
             let json = {
                 bookid: item.id,
                 quantity: item["quantity"] + 1
@@ -220,12 +221,19 @@ const CartPage = () => {
             const response = await incrementQuantity(json)
             // console.log("response after increment= ", response)
         }
-        
-        let qty=tempArr[index]["quantity"]+1
-        let price=tempArr[index]["price"]*qty
-        tempArr[index]["quantity"]=qty
-        tempArr[index]["amount"]=price
-        let tot=0
+        console.log("tempArr= ", tempArr)
+        let qty = tempArr[index]["quantity"] + 1
+        let price = 0
+        if (authRole === "Distributor") {
+            price = tempArr[index]["distributorprice"] * qty
+        }
+        else {
+            price = tempArr[index]["customerprice"] * qty
+        }
+
+        tempArr[index]["quantity"] = qty
+        tempArr[index]["amount"] = price
+        let tot = 0
         tempArr.map((data, index) => {
             tot = tot + data.amount
         })
@@ -235,41 +243,50 @@ const CartPage = () => {
 
     const decrement = async (item) => {
         if (item["quantity"] > 1) {
-        let tempArr=getcartitems
-        let index=-1
-        if (authData === undefined || authData === "" || authData == null) {
-            index = tempArr.findIndex((val, i)=>{
-                return val.bookid === item.bookid
+            let tempArr = getcartitems
+            let index = -1
+            if (authData === undefined || authData === "" || authData == null) {
+                index = tempArr.findIndex((val, i) => {
+                    return val.bookid === item.bookid
                 });
-            decrementQuantityFromState(item.bookid)
-        }
-        else {
-            index = tempArr.findIndex((val, i)=>{
-                return val.id === item.id
-            });
-            let json = {
-                bookid: item.id,
-                quantity: item["quantity"] - 1
+                decrementQuantityFromState(item.bookid)
             }
-            
+            else {
+                index = tempArr.findIndex((val, i) => {
+                    return val.id === item.id
+                });
+                let json = {
+                    bookid: item.id,
+                    quantity: item["quantity"] - 1
+                }
+
                 const response = await decrementQuantity(json)
                 // console.log("response after decrement= ", response)
 
             }
-            
 
-       
-        
-        let qty=tempArr[index]["quantity"]-1
-        let price=tempArr[index]["amount"]-tempArr[index]["price"]
-        tempArr[index]["quantity"]=qty
-        tempArr[index]["amount"]=price
-        let tot=0
-        tempArr.map((data, index) => {
-            tot = tot + data.amount
-        })
-        setGetcartitems([...tempArr])
-        setTotal(tot)
+
+
+
+            let qty = tempArr[index]["quantity"] - 1
+            let price = 0
+            if (authRole === "Distributor") {
+                price = tempArr[index]["distributorprice"] * qty
+            }
+            else {
+                price = tempArr[index]["customerprice"] * qty
+            }
+
+            // let price = tempArr[index]["amount"] - tempArr[index]["price"]
+            tempArr[index]["quantity"] = qty
+            tempArr[index]["amount"] = price
+
+            let tot = 0
+            tempArr.map((data, index) => {
+                tot = tot + data.amount
+            })
+            setGetcartitems([...tempArr])
+            setTotal(tot)
         }
         else {
             alert("you must have atleasst one quantity")
@@ -279,14 +296,14 @@ const CartPage = () => {
 
 
     return (
-        
+
         <div className="main-container">
-            
+
             <div className="container">
                 <TopBar />
                 <NavBarSouthsore />
                 {authData !== "" &&
-                <ProfileTab />
+                    <ProfileTab />
                 }
                 {/* {authData === null || authData === undefined || authData === "" ?(
                     <NavBarSouthsore />
@@ -315,7 +332,7 @@ const CartPage = () => {
                                     <button type="button"
                                         className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 continue_tn_empty_cart"
                                         onClick={() => { navigate('/') }}
-                                        // style={{ width: '20%' }}
+                                    // style={{ width: '20%' }}
                                     >
                                         Continue Shopping
                                     </button>
@@ -337,8 +354,8 @@ const CartPage = () => {
 
                                 <div className=" cart-page">
                                     <div className="order-list">
-                                        <div 
-                                        className="header"
+                                        <div
+                                            className="header"
                                         // cart-page-border-bottom 
                                         >
                                             <h2>My Cart</h2>
@@ -349,7 +366,7 @@ const CartPage = () => {
                                             Product Details
                                         </div>
 
-                                        
+
 
                                         {
 
@@ -364,10 +381,10 @@ const CartPage = () => {
 
 
 
-                                                        <img 
-                                                        // src={ dummy }
-                                                        src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} 
-                                                        className="mx-2 my-2"
+                                                        <img
+                                                            // src={ dummy }
+                                                            src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                            className="mx-2 my-2"
                                                         />
 
 
@@ -384,7 +401,11 @@ const CartPage = () => {
                                                         <div className="details">Author: {data.authors !== null ? data.authors : "Not Found"}</div>
 
                                                         <div className="details">Publisher: <strong>{data.publisher !== null ? data.publisher : "Not Found"}</strong></div>
-                                                        <div className="price-details">Price: <span className="price">₹{data.amount}</span></div>
+                                                        <div className="price-details">Price: <span className="price">
+                                                            {data.symbol}&nbsp;
+                                                            {data.amount}
+                                                            {/* {authData === '' || authData === null ? data.price : authRole === 'Distributor' ? data.distributorprice : data.customerprice} */}
+                                                        </span></div>
 
 
                                                         {/* <div className="mb-3">Quantity</div> */}
@@ -393,7 +414,7 @@ const CartPage = () => {
                                                                 onClick={() => decrement(data)}
                                                                 //className="buttonStyle"
                                                                 className="btn btn-outline-secondary"
-                                                                disabled={(data["quantity"]<=1)}
+                                                                disabled={(data["quantity"] <= 1)}
                                                             >-</button>
                                                             <input
                                                                 type="text"
@@ -406,13 +427,13 @@ const CartPage = () => {
                                                             <button
                                                                 onClick={() => increment(data)}
                                                                 //className="buttonStyle"
-                                                                 className="btn btn-outline-secondary"
+                                                                className="btn btn-outline-secondary"
                                                             >+</button>
                                                         </div>
                                                         <div className="bottom-menu my-3">
 
                                                             <div className="action-btns">
-                                                                <button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data,index)}>Remove</button>
+                                                                <button className="remove-from-cart button-solid button_color" onClick={() => removeCartItems(data, index)}>Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>

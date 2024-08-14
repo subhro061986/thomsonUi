@@ -56,7 +56,7 @@ const responsive = {
 
 const ProductDetailsPage = () => {
 
-    const { authData, wishlistshow, uuid, add_book_to_storage, remove_cart_item } = useAuth();
+    const { authData, authRole, wishlistshow, uuid, add_book_to_storage, remove_cart_item } = useAuth();
 
     const navigate = useNavigate()
 
@@ -170,11 +170,11 @@ const ProductDetailsPage = () => {
         setDefaultimg(img_data)
     }
     const add_to_cart = async (bookid, toCheckout) => {
-        
+        console.log("book details", bookdetail)
         let json_data = {
             title: bookdetail.title,
             authors: bookdetail.authors,
-            price: bookdetail.price,
+            price: bookdetail.distributorprice,
             publisher: bookdetail.publisher,
             items_no: 1,
             // image: defaultimg,
@@ -189,9 +189,10 @@ const ProductDetailsPage = () => {
         // before login
 
         if (authData === '' || authData === null || authData === undefined) {
-
+            console.log("json_data",json_data)
             json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
             json_data["amount"] = json_data["price"]
+            
             
             const resp = await add_book_to_storage(json_data)
             // for buy now
@@ -359,7 +360,7 @@ const ProductDetailsPage = () => {
                             </div>
                             <hr></hr>
                             <div className="d-flex justify-content-between">
-                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol + bookdetail.price}</span></div>
+                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol} </span><span className="disc_price fw600 " style={{ color: '#000000' }}>{authData === '' || authData === null ? bookdetail.distributorprice : authRole === 'Distributor' ? bookdetail.distributorprice : bookdetail.customerprice}</span></div>
 
                                 {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
                                 
