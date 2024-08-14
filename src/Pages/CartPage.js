@@ -26,6 +26,7 @@ const CartPage = () => {
 
     const {
         authData,
+        authRole,
         getCartData,
         cartItems,
         cartCount,

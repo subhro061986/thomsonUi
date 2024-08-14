@@ -49,7 +49,7 @@ const NewArrivalBooks = () => {
     }
 
     const { getNewArrivals, add_delete_to_wishlist, wishlistitems, publisherData, allNewArrival } = UserProfile()
-    const { wishlistshow } = useAuth()
+    const { wishlistshow, authData, authRole } = useAuth()
 
     const [newarrival, setNewarrival] = useState([])
 
@@ -190,8 +190,8 @@ const NewArrivalBooks = () => {
                                         {data.authors}
                                     </div>
                                     <div className="d-flex justify-content-center new_price_style mt-1">
-                                        {/* &#8377; */}
-                                        {data.price}
+                                        
+                                        {authData === '' || authData === null ? data.distributorprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice}
                                         {/* $2,746.00 */}
                                     </div>
 
