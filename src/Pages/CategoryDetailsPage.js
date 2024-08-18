@@ -70,6 +70,8 @@ const CategoryDetailsPage = () => {
     const [currentPageNo, setCurrentPageNo] = useState(1)
     const [recordsPerPage, setRecordsPerPage] = useState(6)
     const [maxPage, setMaxPage] = useState(0)
+    const [disablePrev, setDisablePrev] = useState(true)
+    const [disableNext, setDisableNext] = useState(false)
    
 
 
@@ -179,73 +181,73 @@ const CategoryDetailsPage = () => {
 
     var price_filters_arr = []
     var arr = []
-    const price_ranges = (booksarr) => {
-        const sorted_Products = booksarr.sort((a, b) => a.price - b.price);
-        arr = ([...sorted_Products])
+    // const price_ranges = (booksarr) => {
+    //     const sorted_Products = booksarr.sort((a, b) => a.price - b.price);
+    //     arr = ([...sorted_Products])
 
 
-        let price_min = arr[0].price
-        let price_max = arr[arr.length - 1].price
-
-
-
-        let a = price_max - price_min
-
-
-        let Filters_no = 0
-        if (arr.length > 0 && arr.length <= 6) {
-            Filters_no = 1
-        }
-        else {
-            Filters_no = 5
-        }
-        price_filters_arr = []
-
-        let b = a / Filters_no
-        let val = 0
-        let prev = 0
-        if (b > 0) {
-            price_filters_arr.push(`Under ₹${Math.trunc(b)}`)
-            val = b
-        }
-
-
-        if (b > 0) {
-            for (let i = 0; i < Filters_no; i++) {
-
-                if (val <= a) {
-                    prev = val
-                    val = val + b
-                    price_filters_arr.push(`₹${Math.trunc(prev)} - ₹${Math.trunc(val)}`)
-
-                }
-
-            }
-            //price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
-        }
-        else {
-            price_filters_arr.push(`₹${Math.trunc(b)} - ₹${Math.trunc(price_max)}`)
-
-        }
-        price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+    //     let price_min = arr[0].price
+    //     let price_max = arr[arr.length - 1].price
 
 
 
+    //     let a = price_max - price_min
 
-        if (price_filters_arr.length > Filters_no) {
 
-            setPricerangefilters(price_filters_arr.splice(0, price_filters_arr.length / 2))
-        }
-        else {
-            // console.log('array2000', price_filters_arr.length)
-            setPricerangefilters(price_filters_arr)
-        }
+    //     let Filters_no = 0
+    //     if (arr.length > 0 && arr.length <= 6) {
+    //         Filters_no = 1
+    //     }
+    //     else {
+    //         Filters_no = 5
+    //     }
+    //     price_filters_arr = []
+
+    //     let b = a / Filters_no
+    //     let val = 0
+    //     let prev = 0
+    //     if (b > 0) {
+    //         price_filters_arr.push(`Under ₹${Math.trunc(b)}`)
+    //         val = b
+    //     }
+
+
+    //     if (b > 0) {
+    //         for (let i = 0; i < Filters_no; i++) {
+
+    //             if (val <= a) {
+    //                 prev = val
+    //                 val = val + b
+    //                 price_filters_arr.push(`₹${Math.trunc(prev)} - ₹${Math.trunc(val)}`)
+
+    //             }
+
+    //         }
+    //         //price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
+    //     }
+    //     else {
+    //         price_filters_arr.push(`₹${Math.trunc(b)} - ₹${Math.trunc(price_max)}`)
+
+    //     }
+    //     price_filters_arr.push(`₹${price_filters_arr[price_filters_arr.length - 1].split('-')[1].split('₹')[1].trim()} - ₹${Math.trunc(price_max)}`)
 
 
 
 
+    //     if (price_filters_arr.length > Filters_no) {
 
-    }
+    //         setPricerangefilters(price_filters_arr.splice(0, price_filters_arr.length / 2))
+    //     }
+    //     else {
+    //         // console.log('array2000', price_filters_arr.length)
+    //         setPricerangefilters(price_filters_arr)
+    //     }
+
+
+
+
+
+    // }
 
 
     const filter_by_price = (range, index) => {
@@ -410,7 +412,7 @@ const CategoryDetailsPage = () => {
                 setNoofbooks(resp?.output?.books?.length)
                 setCategoryname(resp.output.books[0].category)
                 setPublisherName(resp.output.books[0].publisher)
-                price_ranges(resp?.output?.books)
+                // price_ranges(resp?.output?.books)
             }
             else {
                 setBooks([])
@@ -634,6 +636,12 @@ const CategoryDetailsPage = () => {
 
     const next_page=async()=>{
         let tempCurr=currentPageNo
+        if(tempCurr === maxPage){
+            setDisableNext(true)
+        }
+        else{
+            setDisableNext(false)
+        }
         if(tempCurr<=maxPage){
             setCurrentPageNo(tempCurr+1)
             await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr+1,minRange,maxRange)
@@ -642,6 +650,12 @@ const CategoryDetailsPage = () => {
     }
     const prev_page=async()=>{
         let tempCurr=currentPageNo
+        if(tempCurr === 1){
+            setDisablePrev(true)
+        }
+        else{
+            setDisablePrev(false)
+        }
         if(tempCurr>0){
             setCurrentPageNo(tempCurr-1)
             await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr-1,minRange,maxRange)
@@ -972,16 +986,16 @@ const CategoryDetailsPage = () => {
                                     className="mb-2"
                                     >
                                         <button type="button" style={{ width: '15%' }}
-                                            className="btn btn-outline-dark rounded-pill d-flex justify-content-center align-items-center py-2"
+                                            className="btn btn-outline-primary rounded-pill d-flex justify-content-center align-items-center py-2"
                                             onClick={() => prev_page()}
-                                            disabled={false}
+                                            disabled={disablePrev}
                                         >
                                             Previous
                                         </button>
                                         <button type="button" style={{ width: '15%' }}
-                                            className="btn btn-outline-dark rounded-pill d-flex justify-content-center align-items-center py-2 mx-2"
+                                            className="btn btn-outline-primary rounded-pill d-flex justify-content-center align-items-center py-2 mx-2"
                                             onClick={() => next_page()}
-                                            disabled={false}
+                                            disabled={disableNext}
                                         >
                                             Next
                                         </button>
