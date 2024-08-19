@@ -283,8 +283,8 @@ const BillingAddressPage = () => {
             if (order !== undefined) {
     
                 const options = {
-                    // key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
-                    key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
+                     key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
+                   // key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
                     amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     currency: "INR",
                     name: "Thompson & Reuters",
