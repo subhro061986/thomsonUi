@@ -143,7 +143,7 @@ const ApproveOrRejectBook = () => {
               
               
               <div className="row mt-4">
-                  <div className="col-lg-3 col-sm-6">
+                  <div className="col-lg-4 col-sm-6">
                       <div className="p-2 border border-dashed rounded">
                         <div>
                             <p className="text-muted mb-1" style={{fontSize:'13px'}}>ISBN 13</p>
@@ -151,7 +151,7 @@ const ApproveOrRejectBook = () => {
                         </div>
                       </div>
                   </div>
-                  <div className="col-lg-3 col-sm-6">
+                  <div className="col-lg-4 col-sm-6">
                       <div className="p-2 border border-dashed rounded">
                         <div>
                             <p className="text-muted mb-1" style={{fontSize:'13px'}}>ISBN 10</p>
@@ -159,15 +159,15 @@ const ApproveOrRejectBook = () => {
                         </div>
                       </div>
                   </div>
-                  <div className="col-lg-3 col-sm-6">
+                  {/* <div className="col-lg-3 col-sm-6">
                       <div className="p-2 border border-dashed rounded">
                         <div>
                             <p className="text-muted mb-1" style={{fontSize:'13px'}}>PRICE</p>
                             <h6 style={{fontSize:'13px'}}>{bookResponse.price === null ? "Not Available" : '₹' + bookResponse.price}</h6>
                         </div>
                       </div>
-                  </div>
-                  <div className="col-lg-3 col-sm-6">
+                  </div> */}
+                  <div className="col-lg-4 col-sm-6">
                       <div className="p-2 border border-dashed rounded">
                         <div>
                             <p className="text-muted mb-1" style={{fontSize:'13px'}}>LANGUAGE</p>
@@ -221,6 +221,18 @@ const ApproveOrRejectBook = () => {
                 <div className="mt-1">
                     <div className="fs-12">Published Date : 
                       <span className="text-muted">&nbsp;{bookResponse?.yearofpublishing}</span>
+                    </div> 
+                </div>
+
+                <div className="mt-1">
+                    <div className="fs-12">Customer Price : 
+                      <span className="text-muted">&nbsp;{bookResponse?.customerprice}</span>
+                    </div> 
+                </div>
+
+                <div className="mt-1">
+                    <div className="fs-12">Distributor Price : 
+                      <span className="text-muted">&nbsp;{bookResponse?.distributorprice}</span>
                     </div> 
                 </div>
 
