@@ -266,10 +266,10 @@ const ManageAdmin = () => {
                     >{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
                     <td>
                       <div className="d-flex justify-content-start align-items-start">
-                        <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15}
+                        {/* <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15}
                           onClick={() => opencategoriesModal()}
 
-                        />
+                        /> */}
                         {/* <SVG src={trashIcon} style={{ fill: '#dc3545', marginRight: 10 }} width={15}
                     onClick={()=>deleteCategory(data.id)}
                     /> */}
