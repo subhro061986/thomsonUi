@@ -209,7 +209,7 @@ const BookApproval = () => {
                       onClick={() => openModal(data.id)} />
                     <div className="form-check form-switch switch_class" style={{ marginTop: '-24%', marginLeft: '48%' }} hidden={data.status === 'Pending' ? true : false}>
                       <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                        style={{ cursor: 'pointer' }}
+                        // style={{ cursor: 'pointer' }}
                         checked={data.isactive === 1 ? true : false}
                         onChange={(e) => rest_del_book(data.isactive, data.id)}
                       />
