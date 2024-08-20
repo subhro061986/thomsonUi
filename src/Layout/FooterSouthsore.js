@@ -118,7 +118,7 @@ const FooterSouthsore = () => {
 
                                     </li>
                                     <li className="custom-footer-li">
-                                        <Link className="nav-link" to="/faqs">
+                                        <Link className="nav-link" to="/returnandcancel">
                                             Cancellation And Returns Policy
                                         </Link>
 

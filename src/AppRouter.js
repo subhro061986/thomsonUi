@@ -36,6 +36,7 @@ import DefaultScreen from './admin/DefaultScreen';
 import GalleryScreen from './admin/Pages/GalleryScreen';
 import ShippingAddress from './Pages/ShippingAddress';
 import DistributorOrderPage from './Pages/DistributorOrderPage';
+import ReturnandCancel from './Pages/ReturnandCancel';
 
 
 
@@ -76,6 +77,7 @@ const AfterLogin=()=> {
             <Route exact path="/terms" Component={TermsScreen}/>
             <Route exact path="/copyright" Component={CopyrightScreen}/>
             <Route exact path="/disclaimer" Component={DisclaimerScreen}/>
+            <Route exact path="/returnandcancel" Component={ReturnandCancel}/>
             <Route exact path="/admin/*" Component={DefaultScreen}/>
 
         </Routes>
@@ -106,6 +108,7 @@ const BeforeLogin=()=> {
             <Route exact path="/terms" Component={TermsScreen}/>
             <Route exact path="/copyright" Component={CopyrightScreen}/>
             <Route exact path="/disclaimer" Component={DisclaimerScreen}/>
+            <Route exact path="/returnandcancel" Component={ReturnandCancel}/>
             <Route exact path="/admin/*" Component={DefaultScreen} /> 
 
             {/* Later redirect it as required if any of the above routes don't match*/}
