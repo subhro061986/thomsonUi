@@ -57,7 +57,7 @@ const FooterSouthsore = () => {
                             </li>
                             <li className="custom-footer-li">
                                 <div className="south_val"><span className="south_key">Call Us:</span> 91-44-79624624</div>
-                                <div className="south_val"><span className="south_key">Email:</span> info@bookscentral.in</div>
+                                <div className="south_val"><span className="south_key">Email:</span> sales@southshore.in</div>
                             </li>
                         </ul>
                     </div>
@@ -98,13 +98,14 @@ const FooterSouthsore = () => {
                                     </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/terms">
-                                            Terms Of Use
+                                            Terms & Conditions
                                         </Link>
                                     </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/disclaimer">
-                                            IP Infringement Policy
-                                        </Link>  </li>
+                                            Ownership Policy
+                                        </Link>
+                                    </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/copyright">
                                             Copyright Policy
@@ -113,7 +114,7 @@ const FooterSouthsore = () => {
                                     </li>
                                     <li className="custom-footer-li">
                                         <Link className="nav-link" to="/faqs">
-                                        Cancellation And Returns Policy
+                                            Cancellation And Returns Policy
                                         </Link>
 
                                     </li>
@@ -132,11 +133,11 @@ const FooterSouthsore = () => {
                     </div>
 
 
-                    
+
 
                     <div className="col-md-1 s_f_mar_bot">
                         <ul className="remove-dots">
-                            
+
                             <div className="d-flex flex-row footer_pub_section ps-1">
                                 <div className="">
                                     <ul className="remove-dots ps-0">
@@ -162,7 +163,7 @@ const FooterSouthsore = () => {
             </div>
             <div className="container-fluid d-flex align-items-center justify-content-center footer-note py-2">
                 <span className="text-center"> &#169; Copyright Southshore Innovations Private Limited</span>
-                
+
             </div>
         </div>
 

@@ -177,7 +177,7 @@ const BookApproval = () => {
                 // data.status !== 'Rejected' && (
                 <tr className="custom-table-row" key={index}>
                   <td className="all_col">
-                    <img src={data.image === null || data.image === '' ? noImg : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.image + '?d=' + new Date()} width={40} height={40} />
+                    <img src={data.img === null || data.img === '' ? noImg : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} width={40} height={40} />
                   </td>
                   <td className="all_col">{data.isbn13 === null ? "Not Available" : data.isbn13}</td>
                   <td className="all_col">{data?.title?.length > 0 ? data.title : "Not Available"}</td>

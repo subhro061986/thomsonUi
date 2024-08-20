@@ -13,19 +13,21 @@ const BannerSouthsore = () => {
                 <div className="col-md-6 banner_southsore_text">
                     <div className="ban_head mb-2" style={{color: '#64646F'}}>A one stop shop for</div>
                     <p className="welcome_text"
-                    >legal &</p>
+                    >content</p>
                     <p className="welcome_text"
-                    >academic</p>
+                    >across</p>
+                    <p className="welcome_text"
+                    >the genres of</p>
                     <p className="welcome_text"
                     // className="text_2_banner_head"
-                    >content</p>
+                    >law and humanities</p>
 
                     <p className="heading"
                         // style={{ lineHeight: '6px'}}
-                    >Shop the print and ProView titles you need to support</p>
+                    >A curated collection of books from leading international</p>
                     <p className="heading"
                         // style={{ lineHeight: '0px'}}
-                    > your business and respond to current issues </p>
+                    >and Indian publishers.</p>
                     {/* <p className="text_4"
                     >Shop, <span style={{color: '#6A7984'}}>Read</span>, <span style={{color: '#404D57'}}>Repeat!</span></p> */}
                     {/* <div className="mt-5">

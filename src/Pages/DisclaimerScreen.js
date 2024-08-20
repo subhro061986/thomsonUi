@@ -43,13 +43,13 @@ const DisclaimerScreen = () => {
                     </div>
                     <div className="about-southshore-body">
                         
-                        <p className="mt-5"><Link to={Config.home_links} className="home_nav_link">www.ebooksjunction.com</Link> (A division of Southshore Innovations Private Limited) is an 
+                        <p className="mt-5"><Link to={Config.home_links} className="home_nav_link">www.bookscentral.in</Link> (A division of Southshore Innovations Private Limited) is an 
                         e-commerce enabled web portal which provides publishers the facility to create their own 
-                        webstore and display and sell their digital content to customers. 
+                        webstore and display and sell their print content to customers. 
                         The content which could be in the form of articles, journals or books displayed on this site 
                         shall remain the copyrighted material of its publisher. Dissemination of any information and / 
                         or derivative works using such content shall be governed by the terms and conditions prescribed by its publishers 
-                        or owners. <Link to={Config.home_links} className="home_nav_link">www.ebooksjunction.com</Link> (A division of Southshore innovations Private Limited) does not claim 
+                        or owners. <Link to={Config.home_links} className="home_nav_link">www.bookscentral.in</Link> (A division of Southshore innovations Private Limited) does not claim 
                         any title or ownership in such work, directly or indirectly, in any manner whatsoever. 
                         </p>
 

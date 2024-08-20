@@ -39,7 +39,7 @@ const TermsScreen = () => {
                     </div>
                     <div className="about-southshore-body">
                         <p className="mt-5">Southshore Innovations Private Limited owner of the 
-                        e-commerce marketplace for digital content <Link to={Config.home_links} className="home_nav_link">(www.ebooksjunction.com)</Link> is willing to 
+                        e-commerce marketplace for digital content <Link to={Config.home_links} className="home_nav_link">(www.bookscentral.in)</Link> is willing to 
                         license the licensed software to you as the individual, the company, or the legal entity that 
                         will be utilizing the licensed software (referenced below as “you” or “your”) only on the condition 
                         that you accept all of the terms of this license agreement (“license agreement”). 
@@ -60,10 +60,10 @@ const TermsScreen = () => {
                         PLURAL, AS THE CONTEXT MAY REQUIRE.
                         </p>
 
-                        <p className="mt-2">However, it must be made clear in unambiguous words that 
+                        {/* <p className="mt-2">However, it must be made clear in unambiguous words that 
                           Southshore Innovations Private Limited shall not be responsible for availability 
                           of the personal information of its user in any other public domain.
-                        </p>
+                        </p> */}
 
                         
 

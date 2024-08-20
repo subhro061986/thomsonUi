@@ -48,8 +48,8 @@ const PrivacyPolicyScreen = () => {
                         </div>
                     </div>
                     <div className="about-southshore-body">
-                        <p className="mt-5">At “ebooksjunction”, which a product owned 
-                          by Southshore Innovations Private Limited <Link to={Config.home_links} className="home_nav_link">(www.ebooksjunction.com)</Link>, 
+                        <p className="mt-5">At “bookscentral”, which a product owned 
+                          by Southshore Innovations Private Limited <Link to={Config.home_links} className="home_nav_link">(www.bookscentral.in)</Link>, 
                           one of our main priorities is the privacy of our visitors and Southshore Innovations Private Limited 
                           is committed to the same in its words & spirit. 
                           This document on Privacy Policy contains types of information that are 
