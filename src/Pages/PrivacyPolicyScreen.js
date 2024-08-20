@@ -6,6 +6,7 @@ import Config from "../Config/Config.json"
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import Whatsapp from "../Layout/Whatsapp";
+import TopBar from "../Layout/TopBar";
 
 
 const PrivacyPolicyScreen = () => {
@@ -33,7 +34,7 @@ const PrivacyPolicyScreen = () => {
   return (
     <div className="main-container">
       <div className="container">
-        <TopBarSouthsore />
+        <TopBar />
         <NavBarSouthsore />
       </div>
       <Whatsapp/>

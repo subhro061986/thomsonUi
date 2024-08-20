@@ -4,6 +4,7 @@ import NavBarSouthsore from "../Layout/NavBarSouthsore";
 import FooterSouthsore from "../Layout/FooterSouthsore";
 import Accordion from 'react-bootstrap/Accordion';
 import Whatsapp from "../Layout/Whatsapp";
+import TopBar from "../Layout/TopBar";
 
 const FaqScreen = () => {
   useEffect(() => {
@@ -27,7 +28,7 @@ const FaqScreen = () => {
   return (
     <div className="main-container">
       <div className="container">
-        <TopBarSouthsore />
+        <TopBar />
         <NavBarSouthsore />
       </div>
       <Whatsapp/>

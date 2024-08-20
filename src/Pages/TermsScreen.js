@@ -5,6 +5,7 @@ import FooterSouthsore from "../Layout/FooterSouthsore";
 import Config from "../Config/Config.json"
 import { Link } from "react-router-dom";
 import Whatsapp from "../Layout/Whatsapp";
+import TopBar from "../Layout/TopBar";
 
 const TermsScreen = () => {
   useEffect(() => {
@@ -24,7 +25,7 @@ const TermsScreen = () => {
   return (
     <div className="main-container">
       <div className="container">
-        <TopBarSouthsore />
+        <TopBar />
         <NavBarSouthsore />
       </div>
       <Whatsapp/>
