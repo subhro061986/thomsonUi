@@ -49,15 +49,20 @@ const FooterSouthsore = () => {
                         <img src={admin_logo} width={100} onClick={imgNavHome} style={{ cursor: 'pointer' }} />
                         <ul className="remove-dots" style={{ paddingLeft: 0 }}>
                             {/* <div className="custom-footer-Header">ebooksjunction.com</div> */}
-
+                            <li className="custom-footer-li pe-5 mb-1">Books Central</li>
+                            <li className="custom-footer-li pe-5 mb-1">(a division of Southshore innovations Private Limited)</li>
                             <li className="custom-footer-li pe-5">
-                                Books central office locations
-                                Plot 13, Heritage Phase 2, Telephone Nagar Perungudi, Chennai-600096
+                                Plot 13, Heritage Phase 2,
+                                Telephone Nagar Main Road,
+                                Perungudi, Chennai-600096
+                                Tamilnadu, India
                                 {/* <p className="mt-2" style={{ cursor: 'pointer' }} onClick={openMailto}><b>Mail Us </b>: sales@southshore.in </p> */}
                             </li>
                             <li className="custom-footer-li">
                                 <div className="south_val"><span className="south_key">Call Us:</span> 91-44-79624624</div>
                                 <div className="south_val"><span className="south_key">Email:</span> sales@southshore.in</div>
+                                <div className="south_val"><span className="south_key">CIN No:</span> U22219TN2022PTC151260</div>
+                                <div className="south_val"><span className="south_key">GST No:</span> 33ABICS2457D1ZI</div>
                             </li>
                         </ul>
                     </div>

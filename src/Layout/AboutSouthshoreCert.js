@@ -27,7 +27,7 @@ const AboutSouthshoreCert = ()=>{
                         </p>
                         <p className="mt-2" style={{fontStyle: 'italic', color: '#26252C'}}>
                             Southshore operates two platforms in the publishing space.&nbsp;  
-                            <span className="link_text"><a href="#">Books Central</a></span> &nbsp;
+                            <span className="link_text"><a href="#head_banner">Books Central</a></span> &nbsp;
                             which a B2B platform for books in the academic and professional genres and  &nbsp; 
                             <span className="link_text"><a href="https://www.ebooksjunction.com" target="__blank"> e-booksjunction </a> </span> &nbsp; a marketplace for e-books 
                             across genres and languages.
