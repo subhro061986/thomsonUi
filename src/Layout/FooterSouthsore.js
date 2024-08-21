@@ -71,12 +71,13 @@ const FooterSouthsore = () => {
                             <div className="">
                                 <ul className="remove-dots" >
                                     <div className="custom-footer-Header">Publishers</div>
-                                    {allActivePublisher.map((data, index) => (
+                                    {
+                                    allActivePublisher.map((data, index) => (
                                         <li className="custom-footer-li" style={{ cursor: 'pointer' }} key={index}
                                             hidden={data.isactive === 1 ? false : true}
                                             onClick={(e) => { get_publisher_data(data.id) }}
                                         >
-                                            {/* {console.log("PUB DATA : ", data)} */}
+                                            
                                             {data.name}
                                         </li>
                                     ))}

@@ -818,13 +818,20 @@ const UserProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-      setAllActivePublisher(response.data.output)
+        console.log("RESP FRM PUB CONTEXT===>",response)
+      if(response.data.output===null){
+        setAllActivePublisher([])
+      }
+      else{
+        setAllActivePublisher(response.data.output)
+      }
+      
 
 
       return response;
     }
     catch (error) {
-      //console.log("PUBLISHER CONTEXT ERROR: ", error);
+      console.log("PUBLISHER CONTEXT ERROR: ", error);
     }
   }
   const getAllActivePublishers = async () => {

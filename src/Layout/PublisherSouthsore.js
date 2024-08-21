@@ -84,7 +84,8 @@ const PublisherSouthsore = () => {
     <div className="d-flex justify-content-between align-items-center list_pub_bg">
       <div className="container">
         <div className="d-flex justify-content-center align-items-center section_head fw600">Listed Imprints</div>
-
+        {allActivePublisher.length > 0 &&
+          
         <div className="row mx-0">
           {allActivePublisher.length < 5 ? (
             // filter(pub => pub.isactive === 1).
@@ -164,7 +165,9 @@ const PublisherSouthsore = () => {
             </Carousel>
           )}
         </div>
-
+        
+          
+        }
       </div>
 
     </div>
