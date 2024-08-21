@@ -76,21 +76,23 @@ const BillingAddressPage = () => {
 
 
     const countryHandler = async (e) => {
-        if (selectedCountry == null && selectedCountry == '') {
-            try {
-                const resp = await get_state_list(e.target.value)
+
+        // if (selectedCountry === null && selectedCountry === '') {
+        //     try {
+        //         const resp = await get_state_list(e.target.value)
 
 
-                setStateList(resp.output)
+        //         setStateList(resp.output)
 
-                console.log("getStateList= ", resp.output)
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        else {
-            renderStateList(e.target.value)
-        }
+        //         console.log("getStateList= ", resp.output)
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // }
+        // else {
+        //     renderStateList(e.target.value)
+        // }
+        renderStateList(e.target.value)
         setSelectedCountry(e.target.value)
     }
 
@@ -127,7 +129,7 @@ const BillingAddressPage = () => {
             // console.log("inside statelist")
             const resp = await get_state_list(countyId)
             setStateList(resp.output)
-            // console.log("getStateList= ", resp.output)
+            console.log("getStateList= 123", resp.output)
         } catch (err) {
             console.error(err);
         }
@@ -161,8 +163,16 @@ const BillingAddressPage = () => {
         setPin(resp.output.pincode)
         setStateName(resp.output.statename)
         setCountryName(resp.output.countryname)
-        if (resp.output.countryid !== null && resp.output.countryid !== '') {
+        
+        if (resp.output.countryid === null || resp.output.countryid === '' || resp.output.countryid === undefined) {
+            console.log("COUNTRY ID=====>",resp.output)
+            setStateList([])
+            
+        }
+        else{
+            console.log("COUNTRY ID=====>123",resp.output)
             renderStateList(resp.output.countryid)
+            
         }
     }
     const processPaymentSuccess = async (placeOrder, data) => {
@@ -441,9 +451,13 @@ const BillingAddressPage = () => {
 
                                         <div className="col-md-6">
                                             <label className="form_label ">Country</label>
-                                            <select className="form-control p_hold" onChange={countryHandler} value={selectedCountry}>
+                                            <select 
+                                                className="form-control p_hold" 
+                                                onChange={countryHandler} 
+                                                value={selectedCountry}
+                                            >
 
-                                                <option disabled > Please Select</option>
+                                                <option disabled value=""> Please Select</option>
 
                                                 {
                                                     countryList.map((country, index) => (
@@ -451,7 +465,7 @@ const BillingAddressPage = () => {
                                                         <option
                                                             key={country.id}
                                                             value={country.id}
-                                                            selected={selectedCountry === country.id ? true : false}
+                                                            //selected={selectedCountry === country.id ? true : false}
                                                             autocomplete="new-password"
                                                         >
                                                             {country.name}
@@ -464,14 +478,19 @@ const BillingAddressPage = () => {
 
                                             <label className="form_label mt-2">State</label>
                                             <select className="form-control p_hold"
-                                                onChange={stateHandler} >
+                                                onChange={stateHandler}
+                                                value={selectedState}
+                                                
+                                            >
 
-                                                <option disabled> Please Select</option>
+                                                <option  value=""> Please Select</option>
 
                                                 {
                                                     stateList.map((state, index) => (
 
-                                                        <option key={state.id} value={state.id} selected={selectedState === state.id ? true : false} autocomplete="new-password"> {state.name} </option>
+                                                        <option key={index} value={state.id} 
+                                                        //selected={selectedState === state.id ? true : false} 
+                                                        autocomplete="new-password"> {state.name} </option>
 
                                                     ))
                                                 }
