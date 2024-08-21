@@ -92,18 +92,18 @@ const MyProfile = () => {
     const countryHandler = async (e) => {
         setSelectedCountry(e.target.value)
         // if (selectedCountry == null || selectedCountry == '') {
-            try {
-                const resp = await get_state_list(e.target.value)
+        try {
+            const resp = await get_state_list(e.target.value)
 
 
-                setStateList(resp.output)
+            setStateList(resp.output)
 
-            } catch (err) {
-                console.error(err);
-            }
+        } catch (err) {
+            console.error(err);
+        }
 
         // }
-        
+
     }
     const stateHandler = (e) => {
         setSelectedState(e.target.value)
@@ -235,6 +235,20 @@ const MyProfile = () => {
                             <input className="form-control p_hold" type="text"
                                 onChange={cityHandler} value={city} />
 
+                            <label className="form_label">Country</label>
+                            <select className="form-control p_hold" type="text"
+                                onChange={countryHandler} value={selectedCountry} >
+
+                                <option> Please Select</option>
+                                {
+                                    countryList.map((country, index) => (
+
+                                        <option key={country.id} value={country.id} selected={selectedCountry === country.id ? true : false}> {country.name} </option>
+
+                                    ))
+                                }
+                            </select>
+
                             <label className="form_label">State</label>
                             <select className="form-control p_hold" type="text"
                                 onChange={stateHandler} value={selectedState}>
@@ -249,19 +263,7 @@ const MyProfile = () => {
                                 }
                             </select>
 
-                            <label className="form_label">Country</label>
-                            <select className="form-control p_hold" type="text"
-                                onChange={countryHandler} value={selectedCountry} >
 
-                                <option> Please Select</option>
-                                {
-                                    countryList.map((country, index) => (
-
-                                        <option key={country.id} value={country.id} selected={selectedCountry === country.id ? true : false}> {country.name} </option>
-
-                                    ))
-                                }
-                            </select>
 
                             <label className="form_label">PIN</label>
                             <input className="form-control p_hold" type="text"

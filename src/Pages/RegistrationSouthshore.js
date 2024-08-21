@@ -126,7 +126,9 @@ const RegistrationSouthshore = () => {
             <div className="category_bg regis_bg">
                 <div className="row px-0">
                     <div className="col-md-6">
-                        <div className="h100">
+                        <div 
+                        // className="h100"
+                        >
                             <img src={loginsideimg}
                                 className="log_img_st"
                             // style={{ borderTopLeftRadius: '8%', borderBottomLeftRadius: '8%', width: '103%', height: '100%' }}
@@ -182,9 +184,9 @@ const RegistrationSouthshore = () => {
                             <p style={{ color: 'red' }}>{passwordError}</p> */}
 
 
-                            <div className="d-flex justify-content-center mt-4"><button className="btn btn-primary rounded-pill signin_txt" onClick={do_registration}>Sign Up</button></div>
+                            <div className="d-flex justify-content-center mt-3"><button className="btn btn-primary rounded-pill signin_txt" onClick={do_registration}>Sign Up</button></div>
                             {/* <div className="d-flex justify-content-center mt-2"><button className="btn btn-outline-secondary rounded-pill d-flex align-items-center signin_txt d-flex justify-content-between">Sign In With<img src={google} /></button></div> */}
-                            <div className="d-flex align-items-baseline form_footer mt-5">I have already account! <Link className="fw600 fc097EDA" to="/login"> Log In</Link></div>
+                            <div className="d-flex align-items-baseline form_footer mt-2">I have already account! <Link className="fw600 fc097EDA" to="/login"> Log In</Link></div>
                         </div>
                     </div>
                 </div>

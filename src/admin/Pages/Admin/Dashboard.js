@@ -35,13 +35,13 @@ const Dashboard = () => {
         console.log('publisher list', distributorList)
     }, [])
     useEffect(() => {
-        pubDashboard()
+        // pubDashboard()
     }, [selectedPubId])
     useEffect(() => {
-        custDashboard()
+        // custDashboard()
     }, [selectedCustId])
     useEffect(() => {
-        distDashboard()
+        // distDashboard()
     }, [selectedDistId])
 
 
@@ -50,6 +50,7 @@ const Dashboard = () => {
         let pub_id = e.target.value
         console.log('pub_id from nav select', pub_id)
         setselectedPubId(pub_id)
+        pubDashboard(pub_id)
 
     }
 
@@ -68,6 +69,7 @@ const Dashboard = () => {
         let cust_id = e.target.value
         console.log('pub_id from nav select', cust_id)
         setselectedCustId(cust_id)
+        custDashboard(cust_id)
 
     }
 
@@ -86,6 +88,7 @@ const Dashboard = () => {
         let dist_id = e.target.value
         console.log('pub_id from nav select', dist_id)
         setselectedDistId(dist_id)
+        distDashboard(dist_id)
 
     }
 
@@ -126,8 +129,9 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
                                     onChange={(e) => { pub_select(e) }}
+                                    value={selectedPubId}
                                 >
-                                    <option disabled selected>Please select</option>
+                                    <option disabled value={0}>Please select</option>
                                     {
                                         allPublisher.map((data, index) => (
                                             data.isactive === 1 && (
@@ -170,8 +174,9 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
                                     onChange={(e) => { cust_select(e) }}
+                                    value={selectedCustId}
                                 >
-                                    <option disabled selected>Please select</option>
+                                    <option disabled value={0}>Please select</option>
                                     {
                                         customer.map((data, index) => (
                                             data.isactive === 1 && (
@@ -214,9 +219,10 @@ const Dashboard = () => {
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
                                     onChange={(e) => { dist_select(e) }}
+                                    value={selectedDistId}
                                 >
 
-                                    <option disabled selected>Please select</option>
+                                    <option disabled value={0}>Please select</option>
                                     {
                                         distributorList.map((data, index) => (
                                             data.isactive === 1 && (
