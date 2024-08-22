@@ -120,7 +120,13 @@ const AdminProvider = ({ children }) => {
           },
         })
       // console.log("GET ALL PUBLISHERS : ", response);
-      setAllPublisher(response?.data?.output)
+      if(response.data.output===null){
+        setAllPublisher([])
+      }
+      else{
+        setAllPublisher(response.data.output)
+      }
+      //setAllPublisher(response?.data?.output)
       return response;
     }
     catch (error) {

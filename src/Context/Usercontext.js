@@ -818,7 +818,7 @@ const UserProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-        console.log("RESP FRM PUB CONTEXT===>",response)
+        
       if(response.data.output===null){
         setAllActivePublisher([])
       }
