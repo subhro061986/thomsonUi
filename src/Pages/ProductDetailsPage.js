@@ -360,7 +360,7 @@ const ProductDetailsPage = () => {
                             </div>
                             <hr></hr>
                             <div className="d-flex justify-content-between">
-                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol} </span><span className="disc_price fw600 " style={{ color: '#000000' }}>{authData === '' || authData === null ? bookdetail.distributorprice : authRole === 'Distributor' ? bookdetail.distributorprice : bookdetail.customerprice}</span></div>
+                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol} </span><span className="disc_price fw600 " style={{ color: '#000000' }}>{authData === '' || authData === null ? bookdetail.customerprice : authRole === 'Distributor' ? bookdetail.distributorprice : bookdetail.customerprice}</span></div>
 
                                 {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
                                 

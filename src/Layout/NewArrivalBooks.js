@@ -191,7 +191,7 @@ const NewArrivalBooks = () => {
                                     </div>
                                     <div className="d-flex justify-content-center new_price_style mt-1">
                                         
-                                        {authData === '' || authData === null ? data.distributorprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice}
+                                        {authData === '' || authData === null ? data.customerprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice}
                                         {/* $2,746.00 */}
                                     </div>
 

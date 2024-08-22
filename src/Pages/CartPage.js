@@ -200,7 +200,7 @@ const CartPage = () => {
     const increment = async (item) => {
         let tempArr = getcartitems
         let index = -1
-
+        console.log("tempArr= ", tempArr)
         if (authData === undefined || authData === "" || authData == null) {
             index = tempArr.findIndex((val, i) => {
                 return val.bookid === item.bookid

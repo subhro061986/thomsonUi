@@ -308,6 +308,7 @@ const AuthProvider = ({ children }) => {
     // -------- Before Login ----------//
     if (tok === '' || tok === null || tok === undefined) {
       let cc = localStorage.getItem("cartData")
+      console.log("items after change= ",cc)
       if (cc !== null && cc !== undefined && cc !== '') {
         let tempCartItems = JSON.parse(cc)
         setCartCount(tempCartItems.length)
@@ -332,6 +333,7 @@ const AuthProvider = ({ children }) => {
         
 
         let cd = response.data.output
+        // console.log("items befire change= ",cd)
         cd.map((item, index) => {
           item.image = image_path + item.publisherid + '/' + item.image + '?d=' + new Date();
         })
