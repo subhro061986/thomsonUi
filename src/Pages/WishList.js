@@ -160,7 +160,7 @@ const WishList = () => {
                                                     {/* <hr /> */}
                                                     <Card.Text className=" d-inline priceText">
                                                         {/* {data.price !== null ? data.price : "Not Updated"} */}
-                                                        {authData === '' || authData === null ? data.customerprice : data.distributorprice }
+                                                        {authRole === 'Distributor' ? data.distributorprice : data.customerprice }
                                                     </Card.Text>
                                                     {/* <Card.Text className=" d-inline price-cutText ps-2">187</Card.Text> */}
 

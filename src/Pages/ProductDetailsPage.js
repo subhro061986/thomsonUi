@@ -174,7 +174,7 @@ const ProductDetailsPage = () => {
         let json_data = {
             title: bookdetail.title,
             authors: bookdetail.authors,
-            price: bookdetail.distributorprice,
+            price: bookdetail.customerprice,
             publisher: bookdetail.publisher,
             items_no: 1,
             // image: defaultimg,
