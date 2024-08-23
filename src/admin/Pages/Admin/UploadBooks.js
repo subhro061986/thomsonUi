@@ -537,7 +537,7 @@ const UploadBooks = () => {
                                         >
                                             <option selected value='0'>--Select--</option>
                                             {currencies.map((data) => (
-                                                <option value={data.id} key={data.id} selected={currencyId === data.id ? true : false}>{data.symbol}</option>
+                                                <option value={data.id} key={data.id} selected={currencyId === data.id ? true : false}>{data.isocode}</option>
                                             ))}
                                         </select>
                                     </div>

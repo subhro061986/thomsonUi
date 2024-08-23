@@ -374,7 +374,7 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      // console.log("GET Currency DETAILS: ", response.data);
+      console.log("GET Currency DETAILS: ", response.data);
       setCurrencies(response.data.output)
       return response;
     }
