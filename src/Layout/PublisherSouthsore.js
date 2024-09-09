@@ -34,7 +34,7 @@ const responsive = {
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 2
+    items: 1
   }
 };
 
@@ -83,11 +83,11 @@ const PublisherSouthsore = () => {
     // <div id="myCarousel" classNameName="carousel slide" data-bs-ride="carousel">
     <div className="d-flex justify-content-between align-items-center list_pub_bg">
       <div className="container">
-        <div className="d-flex justify-content-center align-items-center section_head fw600">Listed Imprints</div>
+        <div className="d-flex justify-content-center align-items-center section_head fw600 mb-5">Listed Imprints</div>
         {allActivePublisher.length > 0 &&
           
-        <div className="row mx-0">
-          {allActivePublisher.length < 5 ? (
+        <div className="row mx-0 ">
+          {/* {allActivePublisher.length < 5 ? (
             // filter(pub => pub.isactive === 1).
             // <div className="d-flex justify-content-center align-items-center">
               allActivePublisher.map((data, index) => (
@@ -95,7 +95,7 @@ const PublisherSouthsore = () => {
                 data.isactive === 1 && (
                   <div
                     key={index}
-                    className="col-md d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
+                    className="col-md-3 d-flex flex-column justify-content-center align-items-center mar publisher_card mx-2"
                     onClick={() => goToCatagory(data)}
                     style={{ cursor: 'pointer', borderRadius: '30px', backgroundColor: '#FFFFFF' }}
                   >
@@ -105,14 +105,14 @@ const PublisherSouthsore = () => {
                       data-bs-placement="top"
                       title={data.name}
                     >
-                      {/* <img src={art} alt={"Category Image Not Found"} /> */}
+                      
                       <img src={data.logo === null || data.logo === "" ? ThomsonLogo : `${Config.API_URL + Config.PUB_IMAGES + data.id + '/' + data.logo}`} alt="publisher logo" width={140} />
-                      {/* <img src={ThomsonLogo} alt="publisher logo" width={140}/> */}
+                      
                     </div>
                     <div className="text-center cat_txt fw500 mb-4">
-                      {/* {data.name.length > 20 ? data.name.substring(0, 20) + ".." : data.name} */}
+                      
                       {data.name.replace("Thompson Reuters ", "").trim()}
-                      {/* UK */}
+                      
                     </div>
                   </div>
 
@@ -121,7 +121,7 @@ const PublisherSouthsore = () => {
               ))
               // </div>
             
-          ) : (
+          ) : ( */}
             <Carousel
               responsive={responsive}
               //autoPlay={true}
@@ -163,7 +163,7 @@ const PublisherSouthsore = () => {
               ))}
 
             </Carousel>
-          )}
+          {/* )} */}
         </div>
         
           

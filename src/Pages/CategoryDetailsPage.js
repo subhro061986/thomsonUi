@@ -636,30 +636,51 @@ const CategoryDetailsPage = () => {
 
     const next_page=async()=>{
         let tempCurr=currentPageNo
-        if(tempCurr === maxPage){
+        tempCurr=tempCurr+1
+        setDisablePrev(false)
+        console.log("NEXT PAGE===>",tempCurr)
+        // if(tempCurr === maxPage){
+        //     setDisableNext(true)
+        // }
+        // else{
+        //     setDisableNext(false)
+        // }
+        if(tempCurr === maxPage+1){
+            console.log("max page===>")
             setDisableNext(true)
+            
         }
         else{
             setDisableNext(false)
-        }
-        if(tempCurr<=maxPage){
-            setCurrentPageNo(tempCurr+1)
-            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr+1,minRange,maxRange)
-        }
+            setCurrentPageNo(tempCurr)
+            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr,minRange,maxRange) 
+         }
         
     }
     const prev_page=async()=>{
         let tempCurr=currentPageNo
-        if(tempCurr === 1){
-            setDisablePrev(true)
+        tempCurr=tempCurr-1
+        setDisableNext(false)
+        console.log("PREV PAGE===>123",tempCurr)
+        if(tempCurr>0){
+            // if(tempCurr === 1){
+            //     setDisablePrev(true)
+                
+            // }
+            // else{
+            //     setDisablePrev(false)
+            //     setCurrentPageNo(tempCurr)
+            //     await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr,minRange,maxRange)
+            // }
+            setDisablePrev(false)
+            setCurrentPageNo(tempCurr)
+            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr,minRange,maxRange)
+            
         }
         else{
-            setDisablePrev(false)
+            setDisablePrev(true)
         }
-        if(tempCurr>0){
-            setCurrentPageNo(tempCurr-1)
-            await books_by_category(filterPublisherIds, filterCategoryIds,tempCurr-1,minRange,maxRange)
-        }
+        
     }
     return (
         <>
@@ -743,9 +764,9 @@ const CategoryDetailsPage = () => {
                                     toggleCatPubdropdown === true &&
 
 
-                                    <div className="mt-4">
+                                    <div className="mt-4" >
                                         {location.state.category_id && (
-                                            <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                            <ul style={{ marginTop: '4%', paddingLeft: '0px',}}>
                                                 {
                                                     allActivePublisher.map((data, index) => (
                                                         data.isactive === 1 && (
@@ -762,7 +783,7 @@ const CategoryDetailsPage = () => {
                                             </ul>
                                         )}
                                         {location.state.publisher_id && (
-                                            <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                            <ul style={{ marginTop: '4%', paddingLeft: '0px'}}>
                                                 {
                                                     allCategoryList.map((data, index) => (
                                                         data.isactive === 1 && (
@@ -791,7 +812,7 @@ const CategoryDetailsPage = () => {
                                 <h4>{location.state.category_id ? "Imprints" : "Practice Area"}</h4>
 
                                 {location.state.category_id && (
-                                    <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                    <ul style={{ marginTop: '4%', paddingLeft: '0px',minHeight:'220px',overflowY:'auto' }}>
                                         {
                                             allActivePublisher.map((data, index) => (
                                                 data.isactive === 1 && (
@@ -808,7 +829,7 @@ const CategoryDetailsPage = () => {
                                     </ul>
                                 )}
                                 {location.state.publisher_id && (
-                                    <ul style={{ marginTop: '4%', paddingLeft: '0px' }}>
+                                    <ul style={{ marginTop: '4%', paddingLeft: '0px',height:'220px',overflowY:'auto' }}>
                                         {
                                             allCategoryList.map((data, index) => (
                                                 data.isactive === 1 && (
