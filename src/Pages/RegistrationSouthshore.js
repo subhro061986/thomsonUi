@@ -20,6 +20,8 @@ import TopBarSouthsore from "../Layout/TopBarSouthsore";
 import NavBarSouthsore from "../Layout/NavBarSouthsore";
 import Whatsapp from "../Layout/Whatsapp";
 import FooterSouthsore from "../Layout/FooterSouthsore";
+import PasswordChecklist from "react-password-checklist";
+
 
 const RegistrationSouthshore = () => {
 
@@ -29,10 +31,12 @@ const RegistrationSouthshore = () => {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [emailError, setEmailError] = useState('')
     const [phoneError, setPhoneError] = useState('')
     const [usernameError, setUserNameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const [profilePic, setProfilePic] = useState('')
     const [passShow, setPassShow] = useState(false)
 
@@ -47,7 +51,7 @@ const RegistrationSouthshore = () => {
     const user_registration = async () => {
         var json = {
             email: email,
-            // password: password,
+            password: password,
             contactno: phone,
             name: username
         }
@@ -80,10 +84,10 @@ const RegistrationSouthshore = () => {
         //     setPasswordError('Please enter password')
         //     setEmailError('Please enter email')
         // }
-        if (username === '' && email === '' && phone === '') {
+        if (username === '' && email === '' && phone === '' && password === '') {
             setUserNameError('Please enter username')
             setPhoneError('Please enter phone number')
-            // setPasswordError('Please enter password')
+            setPasswordError('Please enter password')
             setEmailError('Please enter email')
         }
         else if (username === '') {
@@ -92,12 +96,18 @@ const RegistrationSouthshore = () => {
             setPasswordError('')
             setEmailError('')
         }
-        // else if (password === '') {
-        //     setPasswordError('Please enter password')
-        //     setPhoneError('')
-        //     setUserNameError('')
-        //     setEmailError('')
-        // }
+        else if (password === '') {
+            setPasswordError('Please enter password')
+            setPhoneError('')
+            setUserNameError('')
+            setEmailError('')
+        }
+        else if (confirmPassword === '') {
+            setConfirmPasswordError('Please confirm your password')
+            setPhoneError('')
+            setUserNameError('')
+            setEmailError('')
+        }
         else if (email === '') {
             setEmailError('Please enter email')
             setPhoneError('')
@@ -109,6 +119,10 @@ const RegistrationSouthshore = () => {
             setPhoneError('Please enter phone number')
             setUserNameError('')
             setPasswordError('')
+        }
+
+        else if (password !== confirmPassword){
+            setConfirmPasswordError('Password and confirm password do not match!')
         }
         else {
             user_registration()
@@ -166,7 +180,7 @@ const RegistrationSouthshore = () => {
                             </div>
                             <p style={{ color: 'red' }}>{phoneError}</p>
 
-                            {/* <div className="pos_rel">
+                             <div className="pos_rel">
                                 <label className="form_label">Password</label>
                                 <input className="form-control p_hold" type={passShow ? "text" : "password"} placeholder="Enter your password"
                                     value={password} onChange={(e) => setPassword(e.target.value)}
@@ -181,8 +195,31 @@ const RegistrationSouthshore = () => {
                                         (<img src={eyeslash} className="sms_pos" onClick={() => setPassShow(!passShow)} />)
                                 }
                             </div>
-                            <p style={{ color: 'red' }}>{passwordError}</p> */}
+                            <p style={{ color: 'red' }}>{passwordError}</p> 
 
+                             <div className="pos_rel">
+                                <label className="form_label">Confirm Password</label>
+                                <input className="form-control p_hold" type={passShow ? "text" : "password"} placeholder="Enter your password"
+                                    value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                                />
+                                {
+                                    passShow ?
+
+                                        (<img src={eye_open} className="sms_pos" onClick={() => setPassShow(!passShow)} />)
+
+                                        :
+
+                                        (<img src={eyeslash} className="sms_pos" onClick={() => setPassShow(!passShow)} />)
+                                }
+                            </div>
+                            <p style={{ color: 'red' }}>{confirmPasswordError}</p> 
+                            
+                            <PasswordChecklist
+                                rules={["capital", "match", "specialChar", "minLength", "number", "lowercase", "notEmpty"]}
+                                minLength={8}
+                                value={password}
+                                valueAgain={confirmPassword}
+                            />
 
                             <div className="d-flex justify-content-center mt-3"><button className="btn btn-primary rounded-pill signin_txt" onClick={do_registration}>Sign Up</button></div>
                             {/* <div className="d-flex justify-content-center mt-2"><button className="btn btn-outline-secondary rounded-pill d-flex align-items-center signin_txt d-flex justify-content-between">Sign In With<img src={google} /></button></div> */}
