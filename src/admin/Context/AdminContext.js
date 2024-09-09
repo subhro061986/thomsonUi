@@ -35,6 +35,10 @@ const AdminProvider = ({ children }) => {
   const [adminList, setAdminList] = useState([]);
   const [customer, setCustomer] = useState([]);
 
+  const [bookListCurrentPageNumber, setBookListCurrentPageNumber] = useState(1);
+  const [bookListRecordsPerPage, setBookListRecordsPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
+  const [bookListMaxPage, setBookListMaxPage] = useState(1);
+
   useEffect(() => {
 
     // console.log(authData);
@@ -89,7 +93,9 @@ const AdminProvider = ({ children }) => {
   }
     , [authData]);
 
-
+  useEffect(() => {
+    getAllBookList(bookListCurrentPageNumber, bookListRecordsPerPage);
+  }, [bookListCurrentPageNumber, bookListRecordsPerPage]);
 
 
   const getAllCategory = async () => {
@@ -167,11 +173,11 @@ const AdminProvider = ({ children }) => {
   }
 
 
-  const getAllBookList = async () => {
+  const getAllBookList = async (currentPageNumber, recordsPerPage) => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
     try {
       // console.log("auth data= ", authData)
-      const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 50, {},
+      const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + currentPageNumber + "&recordPerPage=" + recordsPerPage, {},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -181,6 +187,7 @@ const AdminProvider = ({ children }) => {
       // }
       // console.log("GET ALL BOOK LIST : ", response);
       setAllBookList(response.data.output.books);
+      setBookListMaxPage(response.data.output.maxPage);
       return response;
 
     }
@@ -1837,8 +1844,13 @@ const AdminProvider = ({ children }) => {
         customerDashboard,
         distributorDashboard,
         getAll_customer,
-        customer
-
+        customer,
+        bookListCurrentPageNumber,
+        bookListRecordsPerPage,
+        setBookListCurrentPageNumber,
+        setBookListRecordsPerPage,
+        bookListMaxPage,
+        setBookListMaxPage
       }}
     >
       {children}

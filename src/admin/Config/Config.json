@@ -74,5 +74,7 @@
     "PUBLISHER_DASHBOARD": "dashboard/publisher",
     "CUSTOMER_DASHBOARD": "dashboard/customer",
     "DISTRIBUTOR_DASHBOARD": "dashboard/distributor",
-    "GET_ALL_CUSTOMER": "customer"
+    "GET_ALL_CUSTOMER": "customer",
+
+    "BOOK_LIST_RECORDS_PER_PAGE": 10
 }

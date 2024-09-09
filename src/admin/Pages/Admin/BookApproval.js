@@ -27,11 +27,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const BookApproval = () => {
   const { authData } = useAuth();
-  const { allBookList, deletebook, restorebook, updatePriceOfSingleBook } = AdminProfile();
+  const {
+    allBookList,
+    deletebook,
+    restorebook,
+    updatePriceOfSingleBook,
+    bookListCurrentPageNumber,
+    bookListRecordsPerPage,
+    setBookListCurrentPageNumber,
+    setBookListRecordsPerPage,
+    bookListMaxPage
+  } = AdminProfile();
 
   // const [bookListData,setBookListData]=useState([])
-  const [currentPageNo, setCurrentPageNo] = useState(1);
-  const [recordPerPage, setRecordPerPage] = useState(2);
+  // const [currentPageNo, setCurrentPageNo] = useState(1);
+  // const [recordPerPage, setRecordPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
 
   const [categoriesModal, setcategoriesModal] = useState(false);
   const [effectiveFrom, setEffectiveFrom] = useState('');
@@ -49,10 +59,28 @@ const BookApproval = () => {
     setPriceType(type)
     setCustomerPrice(val.customerprice)
     setDistributorPrice(val.distributorprice)
-    
+
     setBookid(val.id)
     setcategoriesModal(true);
 
+  }
+
+  const handlePreviousClick = () => {
+    let currentPageNumber = bookListCurrentPageNumber;
+    if (currentPageNumber === 1) {
+      alert('Already on first page');
+      return;
+    }
+    setBookListCurrentPageNumber(bookListCurrentPageNumber - 1);
+  }
+
+  const handleNextClick = () => {
+    let currentPageNumber = bookListCurrentPageNumber;
+    if (currentPageNumber === bookListMaxPage) {
+      alert('Already on last page');
+      return;
+    }
+    setBookListCurrentPageNumber(bookListCurrentPageNumber + 1);
   }
 
   const saveCategory = async () => {
@@ -223,6 +251,15 @@ const BookApproval = () => {
 
             </tbody>
           </table>
+        </div>
+        {/* Previous and Next buttons */}
+        <div className="d-flex justify-content-center aign-items-center mb-4 gap-2">
+            <button className="btn btn-main" onClick={() => {handlePreviousClick()}}>
+              <span>{'<'} Previous</span>
+            </button>
+          <button className="btn btn-main" onClick={() => {handleNextClick()}}>
+            <span>Next {'>'}</span>
+          </button>
         </div>
         {/* =========Book Approval Modal========= */}
         {/* <Modal show={bookApprovalModal} onHide={closeModal} centered
