@@ -49,7 +49,7 @@ const AdminProvider = ({ children }) => {
       console.log("authDetails:", authDeatils)
       // if (authDeatils.role === "Admin") {
         getAllCategory();
-        getAllBookList();
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE);
         get_pub_details();
         getAllPublishers();
         get_all_countries();
