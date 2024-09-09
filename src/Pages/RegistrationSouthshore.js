@@ -39,6 +39,7 @@ const RegistrationSouthshore = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const [profilePic, setProfilePic] = useState('')
     const [passShow, setPassShow] = useState(false)
+    const [confirmPassShow, setConfirmPassShow] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -199,17 +200,17 @@ const RegistrationSouthshore = () => {
 
                              <div className="pos_rel">
                                 <label className="form_label">Confirm Password</label>
-                                <input className="form-control p_hold" type={passShow ? "text" : "password"} placeholder="Enter your password"
+                                <input className="form-control p_hold" type={confirmPassShow ? "text" : "password"} placeholder="Enter your password"
                                     value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 {
-                                    passShow ?
+                                    confirmPassShow ?
 
-                                        (<img src={eye_open} className="sms_pos" onClick={() => setPassShow(!passShow)} />)
+                                        (<img src={eye_open} className="sms_pos" onClick={() => setConfirmPassShow(!confirmPassShow)} />)
 
                                         :
 
-                                        (<img src={eyeslash} className="sms_pos" onClick={() => setPassShow(!passShow)} />)
+                                        (<img src={eyeslash} className="sms_pos" onClick={() => setConfirmPassShow(!confirmPassShow)} />)
                                 }
                             </div>
                             <p style={{ color: 'red' }}>{confirmPasswordError}</p> 
