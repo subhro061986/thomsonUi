@@ -372,7 +372,11 @@ const OrderPage = () => {
                                         </div>
                                         
                                     ) : (
-                                        <div className="op_paystat me-4">AWB No.: <span>{book.awbno}</span></div>
+                                        <div>
+                                            <div className="op_paystat me-4">AWB No.: <span>{book.awbno}</span></div>
+                                            <div className="op_paystat me-4">Courier: <span>{book.shippername}</span></div>
+
+                                        </div>
                                         
                                     )}
                                     {book.status === "DELIVERED" &&

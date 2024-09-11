@@ -29,9 +29,11 @@ const OrderConfirmation = () => {
 
                         <div className="card-body">
                     <img src={verify} width={100} height={100} className="mb-2"/>
-                            <h2 className="card-title mb-2"><b>Order Confirmed</b></h2>
-                            <div className="card-subtitle mb-2 ">Thank you for choosing <span className="blueText">e-book junction</span>, your order has been confirm and your purchased item will be added in your bookshelf. <br/>
-                                <span className="blueText" > <strong>The invoice can be downloaded from the customer portal.</strong></span>
+                            <h2 className="card-title mb-2"><b>Your order is confirmed</b></h2>
+
+                            Thank you for choosing Books Central. We have received your order and the same will be fulfilled shortly. Thank you for your business and we look forward to seeing you again
+                            <div className="card-subtitle mb-2 ">Thank you for choosing <span className="blueText">Books Central.</span>, We have received your order and the same will be fulfilled shortly. <br/>
+                                Thank you for your business and we look forward to seeing you again.
                             </div>
 
                             {/* <hr></hr>

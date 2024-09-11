@@ -181,7 +181,7 @@ const CartPage = () => {
 
     const proceedToCheckout = () => {
         if (authData === '' || authData === null || authData === undefined) {
-            alert("Please Login to Buy!")
+            alert("We request you to sign in to / create an account to enable a seamless buying experience.")
         }
         else {
             navigate("/billingaddress", { state: { buynow: 0 } })

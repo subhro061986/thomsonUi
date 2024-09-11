@@ -297,7 +297,7 @@ const BillingAddressPage = () => {
                    // key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
                     amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     currency: "INR",
-                    name: "Thompson & Reuters",
+                    name: "Southshore Innovations Pvt Ltd",
                     description: "Test Transaction",
                     image: { admin_logo },// company logo
                     order_id: order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createRazorpayOrder().
@@ -530,7 +530,7 @@ const BillingAddressPage = () => {
                         <FormWizard.TabContent title="Process Payment" icon="ti-money">
                             <div className="card">
                                 <div className="card-body">
-                                    <h2 className="card-title"><b>Process Payment</b></h2>
+                                    <h2 className="card-title"><b>Please confirm your order to process payment</b></h2>
 
                                     <hr></hr>
 
