@@ -124,7 +124,7 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    Publisher Wise Sales
+                                    Sales by publisher
                                 </h5>
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
@@ -169,7 +169,7 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    Customer Wise Sales
+                                    Sales by Customer
                                 </h5>
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
@@ -214,7 +214,7 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    Distributor Wise Sales
+                                    Sales by distributor
                                 </h5>
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}

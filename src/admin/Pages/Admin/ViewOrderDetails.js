@@ -31,7 +31,7 @@ const ViewOrderDetails = () => {
     const [statusInfoModal, setStatusInfoModal] = useState(false)
     const [statusCode, setStatusCode] = useState(0)
     const [awbNo, setAwbNo] = useState('')
-    const [shipper, setShipper] = useState('')
+    const [shipper, setShipper] = useState('0')
     const  statuses  =[
         {"value":1,'label': 'PENDING'},
         {"value":2,'label': 'CANCELLED'},
@@ -258,92 +258,109 @@ const ViewOrderDetails = () => {
     }
 
     const updateShippingStatusChange = async () => {
-
-        const json = {
-            "awbNo": awbNo,
-            "shipperid": shipper,
-            "orderid": location.state.orderid,
-            "statusid":5,
-            "id": location.state.orderid,
+        if(shipper==="0"){
+            alert("Please select shipper")
         }
-        // console.log(json)
-        const response = await changeOrderStatus(json)
-        if (response.statuscode === "0") {
-            alert("Status changed successfully")
-            setStatusInfoModal(false)
-            setShipperInfoModal(false)
-        } else {
-            alert("Failed to change status")
+        else if(awbNo===""){
+            alert("Please enter awb no")
         }
+        else{
+            const json = {
+                "awbNo": awbNo,
+                "shipperid": shipper,
+                "orderid": location.state.orderid,
+                "statusid":5,
+                "id": location.state.orderid,
+            }
+            // console.log(json)
+            const response = await changeOrderStatus(json)
+            if (response.statuscode === "0") {
+                alert("Status changed successfully")
+                setStatusInfoModal(false)
+                setShipperInfoModal(false)
+            } else {
+                alert("Failed to change status")
+            }
+        }
+        
     }
 
     const orderStatusChange = async (e) => {
-        // e.preventDefault()
-        const json = {
-            "id": location.state.orderid,
-            "statusid": statusCode,
-            "awbNo": awbNo,
-            "shipperid": shipper,
-            "type":"Customer"
+        if(shipper==="0"){
+            alert("Please select shipper")
         }
-
-        const response = await changeOrderStatus(json)
-        if (response.statuscode === "0") {
-            alert("Status changed successfully")
+        else if(awbNo===""){
+            alert("Please enter awb no")
+        }
+        else{
+            const json = {
+                "id": location.state.orderid,
+                "statusid": statusCode,
+                "awbNo": awbNo,
+                "shipperid": shipper,
+                "type":"Customer"
+            }
+    
+            const response = await changeOrderStatus(json)
+            if (response.statuscode === "0") {
+                alert("Status changed successfully")
+               
+    
+                if(statusCode === "9") {
+                    const processRefundDetails= {
+                        amount:orderInfo?.totalamount * 100,
+                        currency:orderInfo?.currencyisocode,
+                        paymentid:orderInfo?.razorpay_payment_id,
+                        id:location.state.orderid
+                    }
+                    const refundResponse = await processRefund(processRefundDetails)
+                    if(refundResponse.statuscode === "0"){
+                        alert("Refund processed successfully")
+                    }
+                    else {
+                        alert("Failed to process refund")
+                    }
+                }
+                else if (statusCode=== "8"){
+                    const returnAcceptedjson = {
+                        "comment":'Order return accepted',
+                        "id": location.state.orderid,
+                    }
+                    // console.log(json)
+                    const returnAcceptedResponse = await returnOrderVerdict(returnAcceptedjson)
+    
+                    if(returnAcceptedResponse.statuscode === "0"){
+                        alert("Return order accepted successfully")
+                    }
+                    else {
+                        alert("Failed to accept return order")
+                    }
+                }
+                else if(statusCode === "2"){
+                    const cancelOrderDetails= {
+                        amount:orderInfo?.totalamount * 100,
+                        currency:orderInfo?.currencyisocode,
+                        paymentid:orderInfo?.razorpay_payment_id,
+                        id:location.state.orderid
+                    }
+                    const refundResponse = await cancelOrder(cancelOrderDetails)
+                    if(refundResponse.statuscode === "0"){
+                        alert("Order cancelled successfully")
+                    }
+                    else {
+                        alert("Failed to cancel order")
+                    }
+                }
+    
+                setStatusInfoModal(false)
+                setShipperInfoModal(false)
            
-
-            if(statusCode === "9") {
-                const processRefundDetails= {
-                    amount:orderInfo?.totalamount * 100,
-                    currency:orderInfo?.currencyisocode,
-                    paymentid:orderInfo?.razorpay_payment_id,
-                    id:location.state.orderid
-                }
-                const refundResponse = await processRefund(processRefundDetails)
-                if(refundResponse.statuscode === "0"){
-                    alert("Refund processed successfully")
-                }
-                else {
-                    alert("Failed to process refund")
-                }
+            } else {
+                alert("Failed to change status")
             }
-            else if (statusCode=== "8"){
-                const returnAcceptedjson = {
-                    "comment":'Order return accepted',
-                    "id": location.state.orderid,
-                }
-                // console.log(json)
-                const returnAcceptedResponse = await returnOrderVerdict(returnAcceptedjson)
-
-                if(returnAcceptedResponse.statuscode === "0"){
-                    alert("Return order accepted successfully")
-                }
-                else {
-                    alert("Failed to accept return order")
-                }
-            }
-            else if(statusCode === "2"){
-                const cancelOrderDetails= {
-                    amount:orderInfo?.totalamount * 100,
-                    currency:orderInfo?.currencyisocode,
-                    paymentid:orderInfo?.razorpay_payment_id,
-                    id:location.state.orderid
-                }
-                const refundResponse = await cancelOrder(cancelOrderDetails)
-                if(refundResponse.statuscode === "0"){
-                    alert("Order cancelled successfully")
-                }
-                else {
-                    alert("Failed to cancel order")
-                }
-            }
-
-            setStatusInfoModal(false)
-            setShipperInfoModal(false)
-       
-        } else {
-            alert("Failed to change status")
         }
+        // e.preventDefault()
+        
     }
     return (
         <>
@@ -430,7 +447,7 @@ const ViewOrderDetails = () => {
                                         value={shipper}
                                         onChange={handleShipper}
                                     >
-                                        <option disabled selected>Please select</option>
+                                        <option  value="0">Please select</option>
                                         {
                                             shipperInfoList.map((data, index) => (
                                                 data.isactive === 1 &&
