@@ -215,7 +215,7 @@ const BillingAddressPage = () => {
                 billingaddressid: billingAddressId,
                 shippingaddressid: selectedShippingAddressId
             }
-            // console.log("placeorder Json=", placeorderJson)
+            console.log("placeorder Json=", placeorderJson)
             const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
             console.log("respPlaceOrder=", respPlaceOrder)
             setPlaceOrderResponse(respPlaceOrder)
