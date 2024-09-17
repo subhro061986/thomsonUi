@@ -121,7 +121,7 @@ const OrderPage = () => {
                                 Plot 13, Heritage Phase 2, Telephone Nagar, Perungudi </br>
                                 Chennai - 600096 </br>
                                 Tamilnadu, India </br>
-                                GSTIN:<strong>1234</strong>
+                                GSTIN:<strong>33ABICS2457D1ZI</strong>
                             </address>
                         </div>
                         
