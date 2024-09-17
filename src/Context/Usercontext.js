@@ -882,6 +882,7 @@ const UserProvider = ({ children }) => {
     }
     catch (error) {
       console.log("Razor CONTEXT ERROR: ", error);
+      alert(error.response.data.error.description)
     }
   }
   const processPayment = async (data) => {

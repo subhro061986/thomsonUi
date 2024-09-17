@@ -4,7 +4,7 @@ import whatsapp_1 from '../Assets/Images/whatsapp_1.png';
 const Whatsapp = () => {
 
   const gotoWa = () => {
-    window.location.replace('https://api.whatsapp.com/send/?phone=9176545334&text=Hi%2C+I+am+visiting+your+website+www.ebooksjunction.com&type=phone_number&app_absent=0');
+    window.open('https://api.whatsapp.com/send/?phone=9176545334&text=Hi%2C+I+am+visiting+your+website+www.bookscentral.in&type=phone_number&app_absent=0');
   }
 
     return (

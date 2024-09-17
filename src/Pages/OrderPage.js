@@ -64,23 +64,23 @@ const OrderPage = () => {
     const calculateTotalCGST = (invoices) => {
         let totalCGST = 0;
         invoices?.map((invoice) => {
-            totalCGST += invoice?.cgst
+            totalCGST += parseFloat(invoice?.cgst).toFixed(2).toString();
         })
-        return totalCGST
+        return totalCGST === "00.00"? "0.00": totalCGST
     }
     const calculateTotalSGST = (invoices) => {
         let totalSGST = 0;
         invoices?.map((invoice) => {
-            totalSGST += invoice?.sgst
+            totalSGST += parseFloat(invoice?.sgst).toFixed(2).toString()
         })
-        return totalSGST
+        return totalSGST === "00.00"? "0.00": totalSGST
     }
     const calculateTotalIGST = (invoices) => {
         let totalIGST = 0;
         invoices?.map((invoice) => {
-            totalIGST += invoice?.igst
+            totalIGST += parseFloat(invoice?.igst).toFixed(2).toString()
         })
-        return totalIGST
+        return totalIGST === "00.00"? "0.00": totalIGST
     }
     const generateInvoiceHTML = (invoice) => {
         return `
@@ -117,11 +117,11 @@ const OrderPage = () => {
                         <div style="text-align:left;padding:5px;border:0;">
                             <h4 style="margin:5px 0;border-bottom:1px solid #333;">Sold By</h4>
                             <address>
-                                ${invoice?.billingFrom?.publishername}<br/>
-                                ${invoice?.billingFrom?.addressline} <br/>
-                                ${invoice?.billingFrom?.city} , ${invoice?.billingFrom?.pincode}<br/>
-                                ${invoice?.billingFrom?.statename} , ${invoice?.billingFrom?.countryname}<br/>
-                                GSTIN: <strong> ${invoice?.billingFrom?.gstin}</strong>
+                                Books Central ( a division of Southshore Innovations Private Limited) </br>
+                                Plot 13, Heritage Phase 2, Telephone Nagar, Perungudi </br>
+                                Chennai - 600096 </br>
+                                Tamilnadu, India </br>
+                                GSTIN:<strong>1234</strong>
                             </address>
                         </div>
                         
@@ -217,6 +217,12 @@ const OrderPage = () => {
             </table>
         </body>
     </html>`
+    
+    // ${invoice?.billingFrom?.publishername}<br/>
+    // ${invoice?.billingFrom?.addressline} <br/>
+    // ${invoice?.billingFrom?.city} , ${invoice?.billingFrom?.pincode}<br/>
+    // ${invoice?.billingFrom?.statename} , ${invoice?.billingFrom?.countryname}<br/>
+    // GSTIN: <strong> ${invoice?.billingFrom?.gstin}</strong>
     }
     const getInvoice = async (id) => {
         const resp = await getInvoiceById(id)
@@ -234,7 +240,8 @@ const OrderPage = () => {
             // html2canvas: { scale: 0.57 },
         })
             .then(() => {
-                pdf.addImage(img, 'PNG', 10, 750, 150, 50);
+                // pdf.addImage(img, 'PNG', 10, 750, 150, 50);
+                pdf.addImage(img, 'PNG', 10, 0, 40, 40);
                 pdf.save('invoice_' + resp.output.invoiceno + '.pdf');
             });
         // pdf.html(generateInvoiceHTML(), 10, 10)

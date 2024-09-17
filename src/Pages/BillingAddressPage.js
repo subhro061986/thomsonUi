@@ -258,12 +258,19 @@ const BillingAddressPage = () => {
     
             const contactDetailsPesponse = await change_contact_details(changecontactDetails)
             // console.log("contact details=", contactDetailsPesponse)
-    
+            if(contactDetailsPesponse.statuscode !== '0' ){
+                alert(contactDetailsPesponse.message) 
+            }
             const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
             // console.log("billing details=", billingDetailsPesponse)
-    
+            if(billingDetailsPesponse.statuscode !== '0') {
+                alert(billingDetailsPesponse.message) 
+            }
             if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
                 // console.log("check,",formWizardRef.current)
+                if(billingDetailsPesponse.output.id > 0){
+                    setBillingAddressId(billingDetailsPesponse.output.id)
+                }
                 formWizardRef.current?.goToTab(1);
             }
         }
@@ -276,7 +283,7 @@ const BillingAddressPage = () => {
         // console.log("amt= ", amount)
 
         if(authRole  === Config.ROLE_DISTRIBUTOR){
-         navigate('/confirmorder')   
+         navigate('/confirmorder',{state:{orderDetails:placeOrderResponse.output}})   
         }
         else{
             const amount = parseInt(orderTotal * 100)
@@ -288,13 +295,15 @@ const BillingAddressPage = () => {
     
             }
             const order = await createRazorpayOrder(order_params); //  Create order on your backend
-            // console.log("order response= ", order)
+            console.log("order response= ", order)
+            // if(order.)
     
             if (order !== undefined) {
     
                 const options = {
-                     key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
-                   // key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
+                    //  key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
+                //    key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
+                    key: 'rzp_test_onx4fvZbYNcUMB', // Enter the Key ID generated from the Dashboard
                     amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     currency: "INR",
                     name: "Southshore Innovations Pvt Ltd",
@@ -342,11 +351,11 @@ const BillingAddressPage = () => {
                 rzp1.on("payment.failed", function (response) {
                     alert(response.error.code);
                     alert(response.error.description);
-                    alert(response.error.source);
-                    alert(response.error.step);
-                    alert(response.error.reason);
-                    alert(response.error.metadata.order_id);
-                    alert(response.error.metadata.payment_id);
+                    // alert(response.error.source);
+                    // alert(response.error.step);
+                    // alert(response.error.reason);
+                    // alert(response.error.metadata.order_id);
+                    // alert(response.error.metadata.payment_id);
     
     
                     processPaymentFailed(placeOrderResponse, {
