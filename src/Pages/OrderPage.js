@@ -342,7 +342,8 @@ const OrderPage = () => {
                                     </span></div>
                                     <div className="op_price">Price: <span className="ms-2">
                                         {/* 300 */}
-                                        { book.currency +  ' ' +book.totalamount}
+                                        { book.currency +  ' ' +book.bookprice}
+                                        {/* { book.currency +  ' ' +book.totalamount} */}
                                     </span></div>
                                 </div>
                             </div>

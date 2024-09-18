@@ -84,8 +84,8 @@ const ManageOrderScreen = () => {
                                             <th>Order Date</th>
                                             <th>Customer</th>
                                             {/* <th>Publisher</th> */}
-                                            <th>Amount</th>
-
+                                            <th>Book Price</th>
+                                            <th>Order Amount</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -98,6 +98,7 @@ const ManageOrderScreen = () => {
                                                 <td className="all_col">{data.orderdate}</td>
                                                 <td className="all_col">{data.customer}</td>
                                                 {/* <td className="all_col">Modern Publishing</td> */}
+                                                <td className="all_col">{data.bookprice}</td>
                                                 <td className="all_col">{data.totalamount}</td>
 
                                                 <td className="inact_col">
