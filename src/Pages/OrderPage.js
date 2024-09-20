@@ -144,7 +144,7 @@ const OrderPage = () => {
                      <td colspan="3" width="50%" style="vertical-align:top;">
                         <div style="text-align:right;padding:5px 20px 5px 5px;border:0;">
                             <h4 style="margin:5px 0;border-bottom:1px solid #333;">Shipping Address</h4>
-                            <address
+                            <address>
                                 ${invoice?.shippingInfo?.addressline}<br/>
                                 ${invoice?.shippingInfo?.city} , ${invoice?.shippingInfo?.pincode} <br/>
                                 ${invoice?.shippingInfo?.statename} , ${invoice?.shippingInfo?.countryname} <br/>
