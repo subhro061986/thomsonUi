@@ -182,6 +182,7 @@ const ShippingComp = () => {
             }
             let response = await addShippingAddress(addShippingData)
             // console.log(" add shipping response ", response)
+            if(response.statuscode !== 0){alert(response.message)}
             closeAddAddressModal()
         }
         else {
@@ -195,6 +196,7 @@ const ShippingComp = () => {
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
             // console.log(" add shipping response ", response)
+            if(response.statuscode !== 0){alert(response.message)}
             closeAddAddressModal()
         }
 
