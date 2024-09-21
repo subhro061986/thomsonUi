@@ -220,7 +220,7 @@ const DistributorOrderPage = () => {
 
     const getMyOrders = async () => {
         let myOrdersResponse = await myorders(1, 10)
-        // console.log("resp from order page", myOrdersResponse)
+        console.log("resp from order page", myOrdersResponse)
         if (myOrdersResponse.statuscode === "0") {
             let tempArray = myOrdersResponse.output.orders
             // console.log("tempArray from order= ", tempArray)
