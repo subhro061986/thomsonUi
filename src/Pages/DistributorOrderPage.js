@@ -223,9 +223,16 @@ const DistributorOrderPage = () => {
         console.log("resp from order page", myOrdersResponse)
         if (myOrdersResponse.statuscode === "0") {
             let tempArray = myOrdersResponse.output.orders
+            if(tempArray===null || tempArray===undefined){
+                SetOrders([])
+            }
+            else{
+                SetOrders(tempArray)
+            }
             // console.log("tempArray from order= ", tempArray)
-            SetOrders(tempArray)
-
+        }
+        else{
+            SetOrders([])
         }
         // console.log("myOrderDetails= ", myOrdersResponse)
     }
@@ -264,7 +271,8 @@ const DistributorOrderPage = () => {
 
                 </div>
 
-                {orders.map((book, index) => (
+                {
+                orders.map((book, index) => (
                     <div
                         key={index}
                     >
