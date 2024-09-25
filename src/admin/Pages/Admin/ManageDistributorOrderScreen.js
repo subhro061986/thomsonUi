@@ -88,6 +88,7 @@ const ManageDistributorOrderScreen
                                             <th>Book Price</th>
                                             <th>Order Amount</th>
                                             <th>Status</th>
+                                            <th>Active</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -105,6 +106,7 @@ const ManageDistributorOrderScreen
                                                 <td className="inact_col">
                                                     {data.status}
                                                 </td>
+                                                <td className="all_col">{data.isactive}</td>
                                                 <td>
                                                     <SVG src={eye}
                                                         // style={{ fill: '#000', marginRight: 10 }}
