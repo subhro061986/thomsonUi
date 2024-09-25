@@ -895,7 +895,7 @@ const UserProvider = ({ children }) => {
           },
         })
 
-      //console.log("razor pay payment confirmed  : ", response);
+      console.log("razor pay payment confirmed  : ", response);
        setOrderConfirmation(response.data)
       return response.data;
     }
