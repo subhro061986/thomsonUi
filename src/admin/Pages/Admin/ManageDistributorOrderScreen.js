@@ -12,58 +12,80 @@ import { AdminProfile } from "../../Context/AdminContext";
 import { useAuth } from "../../Context/AuthContext";
 
 const ManageDistributorOrderScreen
- = () => {
+    = () => {
 
-    const { getAllDistributorOrder } = AdminProfile();
-    const { authData}=useAuth()
-    const navigate = useNavigate();
+        const { getAllDistributorOrder } = AdminProfile();
+        const { authData } = useAuth()
+        const navigate = useNavigate();
 
-    const [orderDescriptionModal, setOrderDescriptionModal] = useState(false)
-    const [allOrders, setAllOrders] = useState([])
+        const [orderDescriptionModal, setOrderDescriptionModal] = useState(false)
+        const [allOrders, setAllOrders] = useState([])
+        const [currPage, setCurrPage] = useState(1)
+        const [recPerPage, setRecPerPage] = useState(10)
+        const [maxPage, setMaxPage] = useState(0)
 
-    useEffect(() => {
-        all_order()
-    }, [authData])
+        useEffect(() => {
+            all_order()
+        }, [authData])
 
-    const all_order = async () => {
-        let currPage = 1
-        let recPerPage = 10
-        const resp = await getAllDistributorOrder(currPage, recPerPage)
-        // console.log("all_order_resp_in_if ",resp)
+        const all_order = async () => {
+           
+            const resp = await getAllDistributorOrder(currPage, recPerPage)
+            // console.log("all_order_resp_in_if ",resp)
 
-        if (resp === undefined || resp === null) {
-            setAllOrders([])
-        }
-        else {
-
-            console.log("all_order_resp ", resp)
-            if (resp.statuscode === "0" && resp.output.orders?.length > 0) {
-                setAllOrders(resp.output.orders)
-                console.log("all_order_resp_obtained ", resp.output.orders)
-            }
-            else {
-                console.log("book array is empty")
+            if (resp === undefined || resp === null) {
                 setAllOrders([])
             }
+            else {
+
+                console.log("all_order_resp ", resp)
+                if (resp.statuscode === "0" && resp.output.orders?.length > 0) {
+                    setAllOrders(resp.output.orders)
+                    setMaxPage(resp.output.maxPage)
+                    console.log("all_order_resp_obtained ", resp.output.orders)
+                }
+                else {
+                    console.log("book array is empty")
+                    setAllOrders([])
+                }
+            }
+
         }
 
-    }
+        const openOrderDescriptionModal = (id) => {
+            // setOrderDescriptionModal(true)
+            navigate("/admin/view-distributor-orderdetails", { state: { orderid: id } });
+        }
 
-    const openOrderDescriptionModal = (id) => {
-        // setOrderDescriptionModal(true)
-        navigate("/admin/view-distributor-orderdetails", { state: { orderid: id } });
-    }
+        const closeOrderDescriptionModal = () => {
+            setOrderDescriptionModal(false)
+        }
+        const handlePreviousClick = () => {
+            // let currentPageNumber = bookListCurrentPageNumber;
+            if (currPage === 1) {
+              alert('Already on first page');
+              return;
+            }
+            setCurrPage(currPage - 1);
+            all_order()
+          }
+        
+          const handleNextClick = () => {
+            // let currentPageNumber = bookListCurrentPageNumber;
+            if (currPage === maxPage) {
+              alert('Already on last page');
+              return;
+            }
+            setCurrPage(currPage + 1);
+            all_order()
+          }
 
-    const closeOrderDescriptionModal = () => {
-        setOrderDescriptionModal(false)
-    }
-
-    return (
-        <>
-            <SideMenu />
-            <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <Header title="Manage Distributor Orders" />
-                {/* <div className="bg-white p-3 m-3 rounded-2">
+        return (
+            <>
+                <SideMenu />
+                <div className="wrapper d-flex flex-column min-vh-100 bg-light">
+                    <Header title="Manage Distributor Orders" />
+                    {/* <div className="bg-white p-3 m-3 rounded-2">
                     <select name="order-filter" id="order-filter" className="form-select order-filter" aria-label="Filter orders by">
                         <option selected>Filter orders by</option>
                         <option value="All">All Orders</option>
@@ -72,71 +94,78 @@ const ManageDistributorOrderScreen
                         <option value="Publisher">Publisher</option>
                     </select>
                 </div> */}
-                <div className="m-3">
-                    <div className="bg-white p-3 rounded-2">
-                        {
-                            allOrders.length === 0 ? (
-                                <div>No records found</div>
-                            ) : (
-                                <table className="table bg-white">
-                                    <thead className="text-center">
-                                        <tr>
-                                            <th>Order No</th>
-                                            <th>Order Date</th>
-                                            <th>Distributor</th>
-                                            {/* <th>Publisher</th> */}
-                                            <th>Book Price</th>
-                                            <th>Order Amount</th>
-                                            <th>Status</th>
-                                            <th>Active</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-center">
-
-                                        {allOrders.map((data, index) => (
-                                            <tr key={index} className="custom-table-row">
-                                                <td className="all_col">{data.orderno}</td>
-                                                <td className="all_col">{data.orderdate}</td>
-                                                <td className="all_col">{data.distributor}</td>
-                                                {/* <td className="all_col">Modern Publishing</td> */}
-                                                <td className="all_col">{data.bookprice}</td>
-                                                <td className="all_col">{data.totalamount}</td>
-
-                                                <td className="inact_col">
-                                                    {data.status}
-                                                </td>
-                                                <td className="all_col">{data.isactive}</td>
-                                                <td>
-                                                    <SVG src={eye}
-                                                        // style={{ fill: '#000', marginRight: 10 }}
-                                                        height={20} width={20}
-                                                        onClick={()=>openOrderDescriptionModal(data.id)}
-                                                    />
-                                                </td>
+                    <div className="m-3">
+                        <div className="bg-white p-3 rounded-2">
+                            {
+                                allOrders.length === 0 ? (
+                                    <div>No records found</div>
+                                ) : (
+                                    <table className="table bg-white">
+                                        <thead className="text-center">
+                                            <tr>
+                                                <th>Order No</th>
+                                                <th>Order Date</th>
+                                                <th>Distributor</th>
+                                                {/* <th>Publisher</th> */}
+                                                <th>Book Price</th>
+                                                <th>Order Amount</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            )}
+                                        </thead>
+                                        <tbody className="text-center">
+
+                                            {allOrders.map((data, index) => (
+                                                <tr key={index} className="custom-table-row">
+                                                    <td className="all_col">{data.orderno}</td>
+                                                    <td className="all_col">{data.orderdate}</td>
+                                                    <td className="all_col">{data.distributor}</td>
+                                                    {/* <td className="all_col">Modern Publishing</td> */}
+                                                    <td className="all_col">{data.bookprice}</td>
+                                                    <td className="all_col">{data.totalamount}</td>
+
+                                                    <td className="inact_col">
+                                                        {data.status}
+                                                    </td>
+                                                    <td>
+                                                        <SVG src={eye}
+                                                            // style={{ fill: '#000', marginRight: 10 }}
+                                                            height={20} width={20}
+                                                            onClick={() => openOrderDescriptionModal(data.id)}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                )}
+
+                        </div>
+                            <div className="d-flex justify-content-center aign-items-center mt-4 gap-2">
+                                <button className="btn btn-main" onClick={() => { handlePreviousClick() }}>
+                                    <span>{'<'} Previous</span>
+                                </button>
+                                <button className="btn btn-main" onClick={() => { handleNextClick() }}>
+                                    <span>Next {'>'}</span>
+                                </button>
+                            </div>
                     </div>
-                </div>
 
-                {/* ------------Add order description Modal------------ */}
+                    {/* ------------Add order description Modal------------ */}
 
-                <Modal
-                    show={orderDescriptionModal}
-                    onHide={closeOrderDescriptionModal}
-                    backdrop="static"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add Category</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="row">
+                    <Modal
+                        show={orderDescriptionModal}
+                        onHide={closeOrderDescriptionModal}
+                        backdrop="static"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add Category</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="row">
 
 
-                            {/* <div className="col-lg-12 mb-3">
+                                {/* <div className="col-lg-12 mb-3">
 
                                 <label
                                     className="form-label">Category Name</label>
@@ -164,40 +193,40 @@ const ManageDistributorOrderScreen
                                 </select>
 
                             </div> */}
-                            <div className="book-details p-3">
-                                <p><strong>Order Id</strong> : 1</p>
-                                <p>
-                                    <strong>Customer</strong> : John Doe
-                                </p>
-                                <p><strong>Publisher</strong> : Modern Pubishing</p>
-                                <p><strong>Amount</strong> : 653 </p>
-                                <p><strong>Date</strong> : 1 Nov 2023</p>
-                                <p><strong>Status</strong> : <span className="inact_col">Failed</span></p>
+                                <div className="book-details p-3">
+                                    <p><strong>Order Id</strong> : 1</p>
+                                    <p>
+                                        <strong>Customer</strong> : John Doe
+                                    </p>
+                                    <p><strong>Publisher</strong> : Modern Pubishing</p>
+                                    <p><strong>Amount</strong> : 653 </p>
+                                    <p><strong>Date</strong> : 1 Nov 2023</p>
+                                    <p><strong>Status</strong> : <span className="inact_col">Failed</span></p>
+                                </div>
+
+
+
+
+
+
                             </div>
+                        </Modal.Body>
+                        <Modal.Footer>
 
+                            <button className="btn btn-success"
+                            //  onClick={saveProduct}
+                            //onClick={this.addPresentDetails}
+                            >
+                                <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} />
+                                Save
+                            </button>
+                        </Modal.Footer>
+                    </Modal>
 
-
-
-
-
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-
-                        <button className="btn btn-success"
-                        //  onClick={saveProduct}
-                        //onClick={this.addPresentDetails}
-                        >
-                            <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} />
-                            Save
-                        </button>
-                    </Modal.Footer>
-                </Modal>
-
-            </div>
-        </>
-    );
-}
+                </div>
+            </>
+        );
+    }
 
 export default ManageDistributorOrderScreen
-;
+    ;

@@ -19,14 +19,15 @@ const ManageOrderScreen = () => {
 
     const [orderDescriptionModal, setOrderDescriptionModal] = useState(false)
     const [allOrders, setAllOrders] = useState([])
-
+    const [currPage, setCurrPage] = useState(1)
+    const [recPerPage, setRecPerPage] = useState(10)
+    const [maxPage, setMaxPage] = useState(0)
     useEffect(() => {
         all_order()
     }, [authData])
 
     const all_order = async () => {
-        let currPage = 1
-        let recPerPage = 10
+        
         const resp = await getManageOrder(currPage, recPerPage)
         // console.log("all_order_resp_in_if ",resp)
 
@@ -38,6 +39,7 @@ const ManageOrderScreen = () => {
             console.log("all_order_resp ", resp)
             if (resp.data.statuscode === "0" && resp.data.output.orders?.length > 0) {
                 setAllOrders(resp.data.output.orders)
+                setMaxPage(resp.data.output.maxPage)
                 console.log("all_order_resp_obtained ", resp.data.output.orders)
             }
             else {
@@ -56,6 +58,26 @@ const ManageOrderScreen = () => {
     const closeOrderDescriptionModal = () => {
         setOrderDescriptionModal(false)
     }
+
+    const handlePreviousClick = () => {
+        // let currentPageNumber = bookListCurrentPageNumber;
+        if (currPage === 1) {
+          alert('Already on first page');
+          return;
+        }
+        setCurrPage(currPage - 1);
+        all_order()
+      }
+    
+      const handleNextClick = () => {
+        // let currentPageNumber = bookListCurrentPageNumber;
+        if (currPage === maxPage) {
+          alert('Already on last page');
+          return;
+        }
+        setCurrPage(currPage + 1);
+        all_order()
+      }
 
     return (
         <>
@@ -117,6 +139,14 @@ const ManageOrderScreen = () => {
                                 </table>
                             )}
                     </div>
+                    <div className="d-flex justify-content-center aign-items-center mt-4 gap-2">
+                                <button className="btn btn-main" onClick={() => { handlePreviousClick() }}>
+                                    <span>{'<'} Previous</span>
+                                </button>
+                                <button className="btn btn-main" onClick={() => { handleNextClick() }}>
+                                    <span>Next {'>'}</span>
+                                </button>
+                            </div>
                 </div>
 
                 {/* ------------Add order description Modal------------ */}
