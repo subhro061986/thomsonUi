@@ -61,6 +61,7 @@
     "ORDER_CREATE":"order/create",
     "CANCEL_ORDER":"order/cancel",
     "RETURN_ORDER":"order/return-request",
+    "CONFIRM_ORDER":"order/confirm",
     "ROLE_DISTRIBUTOR":"Distributor",
     "ROLE_CUSTOMER":"Customer"
 }

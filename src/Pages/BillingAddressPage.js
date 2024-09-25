@@ -35,7 +35,8 @@ const BillingAddressPage = () => {
         editBillingAddress,
         createAppOrder,
         selectedShippingAddressId,
-        userShippingAddress
+        userShippingAddress,
+        confirmOrder
     } = UserProfile()
     const navigate = useNavigate();
     const location = useLocation()
@@ -283,7 +284,15 @@ const BillingAddressPage = () => {
         // console.log("amt= ", amount)
 
         if(authRole  === Config.ROLE_DISTRIBUTOR){
-         navigate('/confirmorder',{state:{orderDetails:placeOrderResponse.output}})   
+            let order_params={
+                id:placeOrderResponse.output.id
+            }
+
+            const order=await confirmOrder(order_params)
+            if(order.statuscode === '0'){
+
+                navigate('/confirmorder',{state:{orderDetails:placeOrderResponse.output}})   
+            }
         }
         else{
             const amount = parseInt(orderTotal * 100)
@@ -376,8 +385,6 @@ const BillingAddressPage = () => {
             }
         }
     }; 
-
-
     const handleComplete = () => {
         navigate('/')
     };

@@ -1218,6 +1218,27 @@ const UserProvider = ({ children }) => {
       console.log("place_order_error : ", error)
     }
   }
+  const confirmOrder = async (args) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.CONFIRM_ORDER, args,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+
+        })
+
+
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("place_order_error : ", error)
+    }
+  }
 
   const selectShippingAddress = async (id) => {
     setSelectedShippingAddressId(id)
@@ -1288,7 +1309,8 @@ const UserProvider = ({ children }) => {
         returnOrderRequest,
         userShippingAddress,
         orderConfirmation,
-        profileImage
+        profileImage,
+        confirmOrder
 
 
       }}

@@ -32,6 +32,7 @@
     "react-form-wizard-component": "^0.2.3",
     "react-inlinesvg": "^4.0.4",
     "react-loading-overlay-ts": "^2.0.2",
+    "react-make-csv": "^0.0.1",
     "react-multi-carousel": "^2.8.4",
     "react-password-checklist": "^1.5.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
