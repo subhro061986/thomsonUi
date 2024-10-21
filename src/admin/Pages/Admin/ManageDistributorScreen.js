@@ -348,7 +348,7 @@ const ManageDistributorScreen = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
 
-                                <label className="form-label">Contact No.</label>
+                                <label className="form-label">Contact No. <span className="red"> *</span></label>
                                 <input type="text" className="form-control mb-2" placeholder="Type contact no"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
