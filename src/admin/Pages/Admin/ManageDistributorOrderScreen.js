@@ -107,7 +107,7 @@ const ManageDistributorOrderScreen
                                                 <th>Order Date</th>
                                                 <th>Distributor</th>
                                                 {/* <th>Publisher</th> */}
-                                                <th>Book Price</th>
+                                                {/* <th>Book Price</th> */}
                                                 <th>Order Amount</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
@@ -121,7 +121,7 @@ const ManageDistributorOrderScreen
                                                     <td className="all_col">{data.orderdate}</td>
                                                     <td className="all_col">{data.distributor}</td>
                                                     {/* <td className="all_col">Modern Publishing</td> */}
-                                                    <td className="all_col">{data.bookprice}</td>
+                                                    {/* <td className="all_col">{data.bookprice}</td> */}
                                                     <td className="all_col">{data.totalamount}</td>
 
                                                     <td className="inact_col">
