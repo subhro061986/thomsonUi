@@ -198,7 +198,9 @@ const TopBar = () => {
           <div className="d-flex align-items-center">
             <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profileImage === '' ? profile : (Config.API_URL + Config.UPLOAD_URL + profileImage + '?d=' + new Date())} onClick={goToProfile} width={40} height={40} className="rounded-circle"/></button>
             {/* <Button className="rounded-pill" variant="outline-primary" onClick={doLogout}>Sign Out</Button> */}
-            <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} />
+            {/* <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} /> */}
+            {/* <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} /> */}
+            <Button className="rounded-pill sign_in_btn" variant="outline-secondary" onClick={doLogout} > Logout </Button>
           </div>
         )}
       </div>

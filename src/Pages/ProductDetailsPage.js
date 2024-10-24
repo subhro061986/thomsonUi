@@ -342,8 +342,11 @@ const ProductDetailsPage = () => {
                                     <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
                                     <li>Cover Type: <span>{bookdetail.covertype}</span></li>
 
-                                    <li>Publishing Date: <span>
+                                    {/* <li>Publishing Date: <span>
                                         {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
+                                    </span></li> */}
+                                    <li>Year of Publishing: <span>
+                                        {bookdetail.yearofpublishing === undefined || bookdetail.yearofpublishing === null ? "Not Found" : bookdetail.yearofpublishing}
                                     </span></li>
 
 

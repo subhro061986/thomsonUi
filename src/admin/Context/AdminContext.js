@@ -8,7 +8,7 @@ import React, {
 import Config from "../Config/Config.json"
 import axios from "axios";
 import { useAuth } from "./AuthContext";
-
+import LoadingOverlay from 'react-loading-overlay-ts';
 const AdminContext = createContext();
 const AdminProvider = ({ children }) => {
   const { authData, authDeatils } = useAuth();
@@ -34,6 +34,8 @@ const AdminProvider = ({ children }) => {
   const [distributorOrderInfo,setDistributorOrderInfo]= useState(null);
   const [adminList, setAdminList] = useState([]);
   const [customer, setCustomer] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const [isbnSearch, setIsbnSearch] = useState("");
 
   const [bookListCurrentPageNumber, setBookListCurrentPageNumber] = useState(1);
   const [bookListRecordsPerPage, setBookListRecordsPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
@@ -49,7 +51,7 @@ const AdminProvider = ({ children }) => {
       console.log("authDetails:", authDeatils)
       // if (authDeatils.role === "Admin") {
         getAllCategory();
-        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE);
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch);
         get_pub_details();
         getAllPublishers();
         get_all_countries();
@@ -94,8 +96,8 @@ const AdminProvider = ({ children }) => {
     , [authData]);
 
   useEffect(() => {
-    getAllBookList(bookListCurrentPageNumber, bookListRecordsPerPage);
-  }, [bookListCurrentPageNumber, bookListRecordsPerPage]);
+    getAllBookList(bookListCurrentPageNumber, bookListRecordsPerPage,isbnSearch);
+  }, [bookListCurrentPageNumber, bookListRecordsPerPage,isbnSearch]);
 
 
   const getAllCategory = async () => {
@@ -173,11 +175,13 @@ const AdminProvider = ({ children }) => {
   }
 
 
-  const getAllBookList = async (currentPageNumber, recordsPerPage) => {
+  const getAllBookList = async (currentPageNumber, recordsPerPage,isbnSearch) => {
     // console.log("currentpageno", Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + 1 + "&recordPerPage=" + 5)
+    console.log("isbn search",isbnSearch)
+    setIsActive(true)
     try {
       // console.log("auth data= ", authData)
-      const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + currentPageNumber + "&recordPerPage=" + recordsPerPage, {},
+      const response = await axios.post(Config.API_URL + Config.BOOK_LIST_API + "?currentPage=" + currentPageNumber + "&recordPerPage=" + recordsPerPage +"&search=" + isbnSearch, {},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -188,11 +192,13 @@ const AdminProvider = ({ children }) => {
       // console.log("GET ALL BOOK LIST : ", response);
       setAllBookList(response.data.output.books);
       setBookListMaxPage(response.data.output.maxPage);
+      setIsActive(false)
       return response;
 
     }
 
     catch (error) {
+      setIsActive(false)
       console.log("Book_List_Error : ", error)
     }
   }
@@ -1745,6 +1751,10 @@ const AdminProvider = ({ children }) => {
     }
   }
 
+  const putIsbnInSearch = (search) =>{
+    setIsbnSearch(search);
+  }
+
   return (
     <AdminContext.Provider
       value={{
@@ -1850,10 +1860,18 @@ const AdminProvider = ({ children }) => {
         setBookListCurrentPageNumber,
         setBookListRecordsPerPage,
         bookListMaxPage,
-        setBookListMaxPage
+        setBookListMaxPage,
+        putIsbnInSearch
       }}
     >
+      {/* {children} */}
+      <LoadingOverlay
+      active={isActive}
+      spinner
+      text='Loading your content...'
+    >
       {children}
+      </LoadingOverlay>
     </AdminContext.Provider>
   )
 

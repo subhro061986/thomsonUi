@@ -1,29 +1,29 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Layout/Header";
 import SideMenu from "../../Layout/SideMenu";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
-import rejectIcon from '../../assets/icons/x-circle.svg';
-import approveIcon from '../../assets/icons/icons8-checkmark-30.svg';
-import eye from '../../assets/icons/eye.svg';
-import editIcon from '../../assets/icons/editicon.svg';
-import Delete from '../../assets/icons/delete.svg';
-import infoIcon from '../../assets/icons/clock.svg';
+import rejectIcon from "../../assets/icons/x-circle.svg";
+import approveIcon from "../../assets/icons/icons8-checkmark-30.svg";
+import eye from "../../assets/icons/eye.svg";
+import editIcon from "../../assets/icons/editicon.svg";
+import Delete from "../../assets/icons/delete.svg";
+import infoIcon from "../../assets/icons/clock.svg";
 import { Modal } from "react-bootstrap";
 // import saveIcon from '../assets/icons/save.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { AdminProfile } from "../../Context/AdminContext.js";
 import { useAuth } from "../../Context/AuthContext";
-import noImg from '../../assets/img/no-img.png';
+import noImg from "../../assets/img/no-img.png";
 import Config from "../../Config/Config.json";
 
 import book1 from "../../assets/img/bbook1.png";
 import book2 from "../../assets/img/bbook2.png";
 import book3 from "../../assets/img/bbook3.png";
 import book4 from "../../assets/img/bbook4.png";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BookApproval = () => {
   const { authData } = useAuth();
@@ -36,7 +36,8 @@ const BookApproval = () => {
     bookListRecordsPerPage,
     setBookListCurrentPageNumber,
     setBookListRecordsPerPage,
-    bookListMaxPage
+    bookListMaxPage,
+    putIsbnInSearch,
   } = AdminProfile();
 
   // const [bookListData,setBookListData]=useState([])
@@ -44,63 +45,64 @@ const BookApproval = () => {
   // const [recordPerPage, setRecordPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
 
   const [categoriesModal, setcategoriesModal] = useState(false);
-  const [effectiveFrom, setEffectiveFrom] = useState('');
-  const [customerPrice, setCustomerPrice] = useState('');
-  const [priceType, setPriceType] = useState('');
-  const [distributorPrice, setDistributorPrice] = useState('');
-  const [bookid, setBookid] = useState('');
+  const [effectiveFrom, setEffectiveFrom] = useState("");
+  const [customerPrice, setCustomerPrice] = useState("");
+  const [priceType, setPriceType] = useState("");
+  const [distributorPrice, setDistributorPrice] = useState("");
+  const [bookid, setBookid] = useState("");
+  const [searchIsbn, setSearchIsbn] = useState("");
 
   useEffect(() => {
     // console.log("all book list : ", allBookList)
-  }, [authData])
+  }, [authData]);
 
   const opencategoriesModal = (val, type) => {
     console.log("book val : ", val);
-    setPriceType(type)
-    setCustomerPrice(val.customerprice)
-    setDistributorPrice(val.distributorprice)
+    setPriceType(type);
+    setCustomerPrice(val.customerprice);
+    setDistributorPrice(val.distributorprice);
 
-    setBookid(val.id)
+    setBookid(val.id);
     setcategoriesModal(true);
-
-  }
+  };
 
   const handlePreviousClick = () => {
     let currentPageNumber = bookListCurrentPageNumber;
     if (currentPageNumber === 1) {
-      alert('Already on first page');
+      alert("Already on first page");
       return;
     }
     setBookListCurrentPageNumber(bookListCurrentPageNumber - 1);
-  }
+  };
 
   const handleNextClick = () => {
     let currentPageNumber = bookListCurrentPageNumber;
     if (currentPageNumber === bookListMaxPage) {
-      alert('Already on last page');
+      alert("Already on last page");
       return;
     }
     setBookListCurrentPageNumber(bookListCurrentPageNumber + 1);
-  }
+  };
 
   const saveCategory = async () => {
-
-    console.log('update_price_cust', parseFloat(customerPrice))
-    console.log('update_price_cust_1', customerPrice)
-    console.log('update_price_dist', parseFloat(distributorPrice))
-    console.log('update_price_dist_1', distributorPrice)
+    console.log("update_price_cust", parseFloat(customerPrice));
+    console.log("update_price_cust_1", customerPrice);
+    console.log("update_price_dist", parseFloat(distributorPrice));
+    console.log("update_price_dist_1", distributorPrice);
     let update_price_json = {
       effectivefrom: effectiveFrom,
-      customerprice: parseFloat(customerPrice.replace(/,/g, '')),
-      distributorprice: parseFloat(distributorPrice.replace(/,/g, ''))
-    }
-    console.log('update_price_json', update_price_json)
-    const resp = await updatePriceOfSingleBook(bookid, update_price_json)
+      customerprice: parseFloat(customerPrice.replace(/,/g, "")),
+      distributorprice: parseFloat(distributorPrice.replace(/,/g, "")),
+    };
+    console.log("update_price_json", update_price_json);
+    const resp = await updatePriceOfSingleBook(bookid, update_price_json);
 
-    console.log('update_price_resp', resp)
+    console.log("update_price_resp", resp);
 
-    if (resp?.data?.statuscode === '0' && resp?.data?.message === 'Information saved successfully.') {
-
+    if (
+      resp?.data?.statuscode === "0" &&
+      resp?.data?.message === "Information saved successfully."
+    ) {
       toast.success("Price updated successfully", {
         position: "top-right",
         autoClose: 2000,
@@ -109,11 +111,10 @@ const BookApproval = () => {
         pauseOnHover: true,
         draggable: true,
         closeButton: false,
-        theme: "light"
+        theme: "light",
       });
       // console.log("Edit category response : ", resp);
-    }
-    else {
+    } else {
       toast.error("Price updation failed", {
         position: "top-right",
         autoClose: 2000,
@@ -122,60 +123,62 @@ const BookApproval = () => {
         pauseOnHover: true,
         draggable: true,
         closeButton: false,
-        style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+        style: { fontWeight: "bold", backgroundColor: "rgb(255, 237, 246)" },
       });
     }
 
     // console.log("Edit category response : ", resp);
     closecategoriesModal();
-
-  }
+  };
 
   const closecategoriesModal = () => {
-    setcategoriesModal(false)
-  }
+    setcategoriesModal(false);
+  };
 
   const navigate = useNavigate();
-  // const [bookApprovalModal, setBookApprovalModal] = useState(false);  
+  // const [bookApprovalModal, setBookApprovalModal] = useState(false);
   const openModal = (id) => {
     // setBookApprovalModal(true);
     navigate("/admin/bookdetails", { state: { bookid: id } });
-  }
+  };
 
   const editBook = (id, isactive) => {
     // setBookApprovalModal(true);
-    navigate("/admin/uploadbooks", { state: { BookId: id, bookstatus: isactive } });
-  }
+    navigate("/admin/uploadbooks", {
+      state: { BookId: id, bookstatus: isactive },
+    });
+  };
 
   const delete_book = async (bookid) => {
-    const resp = await deletebook(bookid)
+    const resp = await deletebook(bookid);
 
-    console.log('Delete_book', resp)
-  }
+    console.log("Delete_book", resp);
+  };
 
   const restore_book = async (bookid) => {
-    const resp = await restorebook(bookid)
+    const resp = await restorebook(bookid);
 
-    console.log('Restore_book', resp)
-  }
+    console.log("Restore_book", resp);
+  };
 
   const rest_del_book = (activeVal, bookid) => {
     // console.log("event :  ", e.target.value);
     if (activeVal === 1) {
-
-      if (window.confirm("Do you want to delete the book?") == true) {
+      if (window.confirm("Do you want to deactivate the book?") == true) {
         // console.log("You pressed OK!");
         delete_book(bookid);
       } else {
         console.log("You pressed cancel!");
       }
-
-    }
-    else {
+    } else {
       restore_book(bookid);
     }
+  };
 
-  }
+  const setSearchIsbnNumber = async () => {
+    console.log("search isbn number=", searchIsbn)
+    const resp = await putIsbnInSearch(searchIsbn);
+  };
   // const closeModal = () => {
   //   setBookApprovalModal(false);
   // }
@@ -184,11 +187,27 @@ const BookApproval = () => {
       <SideMenu />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <Header title="Book List" />
+
+        <div className="d-flex justify-content-between bg-white p-3 m-3 rounded-2">
+          <div className="d-flex col-md-7 " >
+            <input
+              type="text"
+              className="form-control "
+              placeholder="Search By ISBN10, ISBN13, Author, or Title "
+              value={searchIsbn}
+              onChange={(e) => setSearchIsbn(e.target.value)}
+            />
+            <button className="btn btn-success ms-5"  onClick={setSearchIsbnNumber}> Search</button>
+          </div>
+          <label for="exampleFormControlInput1" className="form-label">
+            Page No: {bookListCurrentPageNumber}
+          </label>
+        </div>
         <div className="m-3">
           <table className="table bg-white">
             <thead className="text-center">
               <tr>
-                <th>Cover</th>
+                {/* <th>Cover</th> */}
                 <th>ISBN 13</th>
                 <th>Title</th>
                 <th>Publisher</th>
@@ -197,68 +216,136 @@ const BookApproval = () => {
                 <th>Distributor Price</th>
                 <th>Status</th>
                 <th>Actions</th>
-
               </tr>
             </thead>
             <tbody className="text-center">
               {allBookList.map((data, index) => (
                 // data.status !== 'Rejected' && (
                 <tr className="custom-table-row" key={index}>
-                  <td className="all_col">
+                  {/* <td className="all_col">
                     <img src={data.img === null || data.img === '' ? noImg : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()} width={40} height={40} />
-                  </td>
-                  <td className="all_col">{data.isbn13 === null ? "Not Available" : data.isbn13}</td>
-                  <td className="all_col">{data?.title?.length > 0 ? data.title : "Not Available"}</td>
-                  <td className="all_col">{data?.publisher?.length > 0 ? data.publisher : "Not Available"}</td>
-                  <td className="all_col">{data.category.length > 0 ? data.category : "Not Available"}</td>
+                  </td> */}
                   <td className="all_col">
-                    {data.customerprice === null || data.customerprice === '' ? "Not Available" : data.customerprice}
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: '10px', marginLeft: '6px', marginTop: '-4px' }} width={15} height={32}
-                      onClick={() => opencategoriesModal(data, 'customerprice')}
+                    {data.isbn13 === null ? "Not Available" : data.isbn13}
+                  </td>
+                  <td className="all_col">
+                    {data?.title?.length > 0 ? data.title : "Not Available"}
+                  </td>
+                  <td className="all_col">
+                    {data?.publisher?.length > 0
+                      ? data.publisher
+                      : "Not Available"}
+                  </td>
+                  <td className="all_col">
+                    {data.category.length > 0 ? data.category : "Not Available"}
+                  </td>
+                  <td className="all_col">
+                    {data.customerprice === null || data.customerprice === ""
+                      ? "Not Available"
+                      : data.customerprice}
+                    <SVG
+                      src={editIcon}
+                      style={{
+                        fill: "#000",
+                        marginRight: "10px",
+                        marginLeft: "6px",
+                        marginTop: "-4px",
+                      }}
+                      width={15}
+                      height={32}
+                      onClick={() => opencategoriesModal(data, "customerprice")}
                     />
                   </td>
                   <td className="all_col">
-                    {data.distributorprice === null || data.distributorprice === '' ? "Not Available" : data.distributorprice}
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: '10px', marginLeft: '6px', marginTop: '-4px' }} width={15} height={32}
-                      onClick={() => opencategoriesModal(data, 'distributorprice')}
+                    {data.distributorprice === null ||
+                    data.distributorprice === ""
+                      ? "Not Available"
+                      : data.distributorprice}
+                    <SVG
+                      src={editIcon}
+                      style={{
+                        fill: "#000",
+                        marginRight: "10px",
+                        marginLeft: "6px",
+                        marginTop: "-4px",
+                      }}
+                      width={15}
+                      height={32}
+                      onClick={() =>
+                        opencategoriesModal(data, "distributorprice")
+                      }
                     />
                   </td>
-                  <td className={`${data.isactive}`}>{data.isactive === 1 ? 'Active' : 'Inactive'}</td>
+                  <td className={`${data.isactive}`}>
+                    {data.isactive === 1 ? "Active" : "Inactive"}
+                  </td>
                   <td className="all_col">
                     {/* <SVG src={data.status === 'Pending' ? editIcon : null} style={{ fill: '#000', marginRight: 10 }} width={15} height={32}
                       onClick={() => editBook(data.id)}
                     /> */}
                     {/* <div className="d-flex justify-content-start align-items-start"> */}
-                    <SVG src={editIcon} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={15} height={32}
+                    <SVG
+                      src={editIcon}
+                      style={{
+                        fill: "#000",
+                        marginRight: 10,
+                        cursor: "pointer",
+                      }}
+                      width={15}
+                      height={32}
                       onClick={() => editBook(data.id)}
                     />
 
-                    <SVG src={eye} style={{ fill: '#000', marginRight: 10, cursor: 'pointer' }} width={18} height={32}
-                      onClick={() => openModal(data.id)} />
-                    <div className="form-check form-switch switch_class" style={{ marginTop: '-24%', marginLeft: '48%' }} hidden={data.status === 'Pending' ? true : false}>
-                      <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                    <SVG
+                      src={eye}
+                      style={{
+                        fill: "#000",
+                        marginRight: 10,
+                        cursor: "pointer",
+                      }}
+                      width={18}
+                      height={32}
+                      onClick={() => openModal(data.id)}
+                    />
+                    <div
+                      className="form-check form-switch switch_class"
+                      style={{ marginTop: "-24%", marginLeft: "48%" }}
+                      hidden={data.status === "Pending" ? true : false}
+                    >
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="flexSwitchCheckDefault"
                         // style={{ cursor: 'pointer' }}
                         checked={data.isactive === 1 ? true : false}
                         onChange={(e) => rest_del_book(data.isactive, data.id)}
                       />
                     </div>
                     {/* </div> */}
-
                   </td>
                 </tr>
                 // )
               ))}
-
             </tbody>
           </table>
         </div>
         {/* Previous and Next buttons */}
         <div className="d-flex justify-content-center aign-items-center mb-4 gap-2">
-            <button className="btn btn-main" onClick={() => {handlePreviousClick()}}>
-              <span>{'<'} Previous</span>
-            </button>
-          <button className="btn btn-main" onClick={() => {handleNextClick()}}>
-            <span>Next {'>'}</span>
+          <button
+            className="btn btn-main"
+            onClick={() => {
+              handlePreviousClick();
+            }}
+          >
+            <span>{"<"} Previous</span>
+          </button>
+          <button
+            className="btn btn-main"
+            onClick={() => {
+              handleNextClick();
+            }}
+          >
+            <span>Next {">"}</span>
           </button>
         </div>
         {/* =========Book Approval Modal========= */}
@@ -315,31 +402,46 @@ const BookApproval = () => {
         <Modal.Body>
           <div className="row">
             <div className="col-lg-12 mb-3">
-              {priceType === 'customerprice' ? (
+              {priceType === "customerprice" ? (
                 <div>
                   <label className="form-label">Customer Price</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter customer price"
-                    value={customerPrice} onChange={(e) => setCustomerPrice(e.target.value)} />
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    placeholder="Enter customer price"
+                    value={customerPrice}
+                    onChange={(e) => setCustomerPrice(e.target.value)}
+                  />
                 </div>
               ) : (
                 <div>
                   <label className="form-label">Distributor Price</label>
-                  <input type="text" className="form-control mb-2" placeholder="Enter customer price"
-                    value={distributorPrice} onChange={(e) => setDistributorPrice(e.target.value)} />
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    placeholder="Enter customer price"
+                    value={distributorPrice}
+                    onChange={(e) => setDistributorPrice(e.target.value)}
+                  />
                 </div>
               )}
               <label className="form-label">Effective from date</label>
-              <input type="date" className="form-control mb-2" placeholder="Enter effective date"
-                value={effectiveFrom} onChange={(e) => setEffectiveFrom(e.target.value)} />
-
+              <input
+                type="date"
+                className="form-control mb-2"
+                placeholder="Enter effective date"
+                value={effectiveFrom}
+                onChange={(e) => setEffectiveFrom(e.target.value)}
+              />
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-
-          <button className="btn btn-main"
+          <button
+            className="btn btn-main"
             onClick={saveCategory}
-            style={{ width: '20%' }}>
+            style={{ width: "20%" }}
+          >
             {/* <SVG src={saveIcon} style={{ marginRight: 10 }} width={15} /> */}
             Save
           </button>
@@ -347,6 +449,6 @@ const BookApproval = () => {
       </Modal>
     </>
   );
-}
+};
 
 export default BookApproval;
