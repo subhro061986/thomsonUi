@@ -176,8 +176,11 @@ const BookApproval = () => {
   };
 
   const setSearchIsbnNumber = async () => {
-    console.log("search isbn number=", searchIsbn)
     const resp = await putIsbnInSearch(searchIsbn);
+  };
+  const resetSearchIsbnNumber = async () => {
+    setSearchIsbn("")
+    const resp = await putIsbnInSearch("");
   };
   // const closeModal = () => {
   //   setBookApprovalModal(false);
@@ -197,7 +200,8 @@ const BookApproval = () => {
               value={searchIsbn}
               onChange={(e) => setSearchIsbn(e.target.value)}
             />
-            <button className="btn btn-success ms-5"  onClick={setSearchIsbnNumber}> Search</button>
+            <button className="btn btn-primary ms-5"  onClick={setSearchIsbnNumber}> Search</button>
+            <button className="btn btn-success ms-1"  onClick={resetSearchIsbnNumber}> Reset</button>
           </div>
           <label for="exampleFormControlInput1" className="form-label">
             Page No: {bookListCurrentPageNumber}
