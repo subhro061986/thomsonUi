@@ -25,6 +25,7 @@ import ManageShipper from './Pages/Admin/ManageShipper';
 import ManageDistributorOrderScreen from './Pages/Admin/ManageDistributorOrderScreen';
 import ViewDistributorOrderDetails from './Pages/Admin/ViewDistributorOrderDetails';
 import Dashboard from './Pages/Admin/Dashboard';
+import ManageCustomerScreen from './Pages/Admin/ManageCustomerScreen';
 
 
 
@@ -58,6 +59,7 @@ const Navigation=()=> {
              <Route exact path='/managecategories' Component={ManageCategoriesScreen}/>
              <Route exact path='/manageshippers' Component={ManageShipper}/>
              <Route exact path='/managedistributor' Component={ManageDistributorScreen}/>
+             <Route exact path='/managecustomer' Component={ManageCustomerScreen}/>
              <Route exact path='/uploadbooks' Component={UploadBooks}/>
              <Route exact path='/booklist' Component={BookList}/>
              <Route exact path='/booklisting' Component={BookApproval}/>
