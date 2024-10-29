@@ -47,13 +47,16 @@ const CartPage = () => {
     // const [quanity, setQuantity] = useState()
     const [dependencyvar, setDependencyvar] = useState(false)
     const [wishlistshow, setWishlistshow] = useState(false)
+    const [prevButtonDisable, setPrevButtonDisable] = useState(false)
 
     // const [count, setCount] = useState(1);
     const [total, setTotal] = useState(0);
+    const [inputNum, setInputNum] = useState(0);
+    const [inputData, setInputData] = useState({});
     // const [subtotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        console.log("CONT CART ITEMS", cartItems)
+        
         if (cartItems.length > 0) {
             setGetcartitems(cartItems)
         }
@@ -67,16 +70,18 @@ const CartPage = () => {
     }, [])
 
     useEffect(() => {
-        console.log("CART ITEMS", getcartitems)
-        console.log("CART ITEMS authdata", authData)
+        
     }, [authData])
 
     const getSubTotalFrmContext = async () => {
         const resp = findSubtotal()
-        console.log("CART subtotal", resp)
         setTotal(resp)
     }
 
+    const addInput=()=> {
+        setInputNum(inputNum + 1);
+      }
+  
 
     // const findSubtotal = () => {
     //     console.log("inside cart")
@@ -242,6 +247,7 @@ const CartPage = () => {
     };
 
     const decrement = async (item) => {
+        setPrevButtonDisable(true)
         if (item["quantity"] > 1) {
             let tempArr = getcartitems
             let index = -1
@@ -261,6 +267,7 @@ const CartPage = () => {
                 }
 
                 const response = await decrementQuantity(json)
+                setPrevButtonDisable(false)
                 // console.log("response after decrement= ", response)
 
             }
@@ -294,7 +301,72 @@ const CartPage = () => {
         }
     };
 
+    const handleKeyPress=async(e,item,index)=>{
+        
+        if(e.key === 'Enter'){
+            if(parseInt(e.target.value)<=0 || e.target.value===''){
+                alert("Please enter valid qauntity")
+            }
+            else{
+                if(isNaN(parseInt(e.target.value))){
+                    alert("Please enter valid qauntity")
+                }
+                else{
+                    let tempArr = getcartitems
+                    let json = {
+                        bookid: item.id,
+                        quantity: item["quantity"]
+                    }
+                    
+                    const response = await incrementQuantity(json)
+                    let qty = tempArr[index]["quantity"]
+                    let price = 0
+                    if (authRole === "Distributor") {
+                        price = tempArr[index]["distributorprice"] * qty
+                    }
+                    else {
+                        price = tempArr[index]["customerprice"] * qty
+                    }
 
+                    tempArr[index]["quantity"] = qty
+                    tempArr[index]["amount"] = price
+                    let tot = 0
+                    tempArr.map((data, index) => {
+                        tot = tot + data.amount
+                    })
+                    setGetcartitems([...tempArr])
+                    setTotal(tot)
+                }
+            
+            }
+        }
+        else{
+            console.log("ITS NOT ENTER")
+            //API CALL AFTER QUANTITY CHANGE
+            
+        }
+    }
+    const enterValue=(e,item,index)=>{
+        if(parseInt(e.target.value)<=0){
+            alert("Please enter valid qauntity")
+        }
+        else{
+            if(e.target.value===''){
+                let tempCartItems=getcartitems
+                tempCartItems[index]["quantity"]=e.target.value
+                setGetcartitems([...tempCartItems])
+            }
+            else{
+                let tempCartItems=getcartitems
+                tempCartItems[index]["quantity"]=e.target.value
+                setGetcartitems([...tempCartItems])
+            }
+            
+        }
+        
+
+    }
+    
     return (
 
         <div className="main-container">
@@ -414,15 +486,17 @@ const CartPage = () => {
                                                                 onClick={() => decrement(data)}
                                                                 //className="buttonStyle"
                                                                 className="btn btn-outline-secondary"
-                                                                disabled={(data["quantity"] <= 1)}
+                                                                disabled={(data["quantity"] <= 1) || prevButtonDisable}
                                                             >-</button>
                                                             <input
                                                                 type="text"
                                                                 value={data["quantity"]}
-                                                                readOnly
+                                                                //readOnly
                                                                 // style={{ width: '50px', textAlign: 'center' }}
                                                                 //className="inc_dec_input"
                                                                 className="form-control text-center mx-3 quantity_inp_cart"
+                                                                onChange={(e)=>enterValue(e,data,index)}
+                                                                onKeyPress={(e)=>handleKeyPress(e,data,index)}
                                                             />
                                                             <button
                                                                 onClick={() => increment(data)}
