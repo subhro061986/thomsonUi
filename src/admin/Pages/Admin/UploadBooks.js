@@ -15,6 +15,8 @@ import { useAuth } from "../../Context/AuthContext";
 import Format from "../../assets/book-upload-format/CSV_Format_For_Bulk_Upload.csv";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import imageCompression from 'browser-image-compression';
+import Resizer from "react-image-file-resizer";
 
 const UploadBooks = () => {
     const [uploadBooksModal, setUploadBooksModal] = useState(false);
@@ -385,10 +387,45 @@ const UploadBooks = () => {
         console.log("Publishing_Date : ", e.target.value)
     }
 
-    const coverFrontHandler = (e) => {
+    const coverFrontHandler = async (e) => {
         console.log("front image", e.target.files[0])
         console.log("cover", e)
-        setCoverFront(e.target.files[0])
+        try {
+            Resizer.imageFileResizer(
+              e.target.files[0],
+              120,
+              180,
+              "JPEG",
+              100,
+              0,
+              (uri) => {
+                console.log("image uri=", uri);
+                setCoverFront(uri);
+              },
+              "file",
+              100,
+              149
+            );
+          } catch (err) {
+            console.log(err);
+          }
+
+        // const options = {
+        //     maxSizeMB: 0.5,
+        //     maxWidthOrHeight: 180,
+        //     useWebWorker: false,
+        //     initialQuality: 1,       // optional, initial quality value between 0 and 1 (default: 1)
+        //     alwaysKeepResolution: true
+        //   }
+        // try {
+            
+        //     let compressedFile = await imageCompression(e.target.files[0], options);
+        //     console.log("compressed file", compressedFile)
+        //     setCoverFront(compressedFile)
+           
+        //   } catch (error) {
+        //     console.log(error);
+        //   }
         // setCoverfronttext('')
         // setImageUrl(URL.createObjectURL(e.target.files[0]))
         // `${Config.API_URL + Config.PROFILE_IMAGES + image}`
@@ -438,6 +475,7 @@ const UploadBooks = () => {
 
         let formData = new FormData();
 
+        console.log("cover front=",coverFront)
         formData.append('title', title)
         formData.append('description', description)
         formData.append('categoryid', categoryId)
