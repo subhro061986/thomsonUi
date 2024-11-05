@@ -85,46 +85,44 @@ const BookApproval = () => {
   };
 
   const saveCategory = async () => {
-    console.log("update_price_cust", parseFloat(customerPrice));
-    console.log("update_price_cust_1", customerPrice);
-    console.log("update_price_dist", parseFloat(distributorPrice));
-    console.log("update_price_dist_1", distributorPrice);
+    
     let update_price_json = {
       effectivefrom: effectiveFrom,
       customerprice: parseFloat(customerPrice.replace(/,/g, "")),
       distributorprice: parseFloat(distributorPrice.replace(/,/g, "")),
     };
-    console.log("update_price_json", update_price_json);
     const resp = await updatePriceOfSingleBook(bookid, update_price_json);
 
-    console.log("update_price_resp", resp);
+   
 
     if (
       resp?.data?.statuscode === "0" &&
       resp?.data?.message === "Information saved successfully."
     ) {
-      toast.success("Price updated successfully", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        closeButton: false,
-        theme: "light",
-      });
+        alert(resp?.data?.message)
+      // toast.success("Price updated successfully", {
+      //   position: "top-right",
+      //   autoClose: 2000,
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   closeButton: false,
+      //   theme: "light",
+      // });
       // console.log("Edit category response : ", resp);
     } else {
-      toast.error("Price updation failed", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        closeButton: false,
-        style: { fontWeight: "bold", backgroundColor: "rgb(255, 237, 246)" },
-      });
+      // toast.error("Price updation failed", {
+      //   position: "top-right",
+      //   autoClose: 2000,
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   closeButton: false,
+      //   style: { fontWeight: "bold", backgroundColor: "rgb(255, 237, 246)" },
+      // });
+      alert("Price updation failed")
     }
 
     // console.log("Edit category response : ", resp);

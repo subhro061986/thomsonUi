@@ -255,9 +255,7 @@ const AdminProvider = ({ children }) => {
   }
 
   const updatePriceOfSingleBook = async (id, args) => {
-    // console.log('token in single update', authData)
-    // console.log('took_update_id', id)
-    // console.log('update_api',Config.API_URL + Config.UPDATE_SINGLE_BOOK + id)
+ 
     try {
       const response = await axios.post(Config.API_URL + Config.UPDATE_SINGLE_BOOK_PRICE + id, args,
         {
@@ -268,7 +266,7 @@ const AdminProvider = ({ children }) => {
         })
       // }
       // if (response.data.statuscode === '0') {
-        getAllBookList()
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       // }
       // console.log(" update Single Book Response : ", response);
       return response;
@@ -943,7 +941,7 @@ const AdminProvider = ({ children }) => {
       // if(response.data.statuscode === 0){
       //   getAllBookList();
       // }
-      getAllBookList();
+      getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       return response.data.message;
     }
     catch (error) {
@@ -963,7 +961,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-      getAllBookList();
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       // }
       return response.data.message;
     }
@@ -984,7 +982,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-      getAllBookList();
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       // }
       return response;
     }
@@ -1005,7 +1003,7 @@ const AdminProvider = ({ children }) => {
       );
       // console.log("REJECT_book_resp : ", response);
       // if(response.data.statuscode === 0){
-      getAllBookList();
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       // }
       return response;
     }
