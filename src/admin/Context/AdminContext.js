@@ -64,9 +64,9 @@ const AdminProvider = ({ children }) => {
         getAllDistributor();
         getAllShipper();
         getAll_admins();
-        publisherDashboard();
-        customerDashboard();
-        distributorDashboard();
+        //publisherDashboard();
+        //customerDashboard();
+        //distributorDashboard();
         getAll_customer();
         // getAllCoupons();
       // }
@@ -1689,8 +1689,7 @@ const AdminProvider = ({ children }) => {
   }
 
   const customerDashboard = async (body) => {
-    console.log("authData :", authData);
-    console.log("body :", body);
+    
     try {
       const response = await axios.post(Config.API_URL + Config.CUSTOMER_DASHBOARD, body,
         {

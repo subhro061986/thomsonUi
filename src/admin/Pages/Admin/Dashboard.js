@@ -30,9 +30,7 @@ const Dashboard = () => {
     const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
     const [distributorYearlySales, setdistributorYearlySales] = useState(0)
     useEffect(() => {
-        console.log('customer list', customer)
-        console.log('distributor list', allPublisher)
-        console.log('publisher list', distributorList)
+        
     }, [])
     useEffect(() => {
         // pubDashboard()
