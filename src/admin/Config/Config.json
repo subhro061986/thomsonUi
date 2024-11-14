@@ -1,7 +1,7 @@
 {
-    "API_URL" : "https://www.bookscentral.in/api/",
+    "API_URL_LOCAL" : "https://www.bookscentral.in/api/",
 
-    "API_URL_LOCAL" : "http://localhost:5000/",
+    "API_URL" : "http://localhost:5000/",
     "ALL_BOOK_CATEGORY" : "category/all",
     "GET_CATEGORY_BY_ID" : "category",
     "ADD_CATEGORY" : "category/add",
@@ -72,8 +72,10 @@
     "All_ADMINS": "account/get-admins",
     "ADD_ADMINS": "account/create-admin",
     "PUBLISHER_DASHBOARD": "dashboard/publisher",
+    "PUBLISHER_TITLES_DASHBOARD": "dashboard/publisher/title",
     "CUSTOMER_DASHBOARD": "dashboard/customer",
     "DISTRIBUTOR_DASHBOARD": "dashboard/distributor",
+    "PUBLISHER_SALE_AMT_DASHBOARD": "dashboard/publisher/amount",
     "GET_ALL_CUSTOMER": "customer",
 
     "BOOK_LIST_RECORDS_PER_PAGE": 10

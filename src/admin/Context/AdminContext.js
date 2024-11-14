@@ -1687,6 +1687,24 @@ const AdminProvider = ({ children }) => {
       console.log("PUBLISHER_DASHBOARD_Error : ", error)
     }
   }
+  const pubTitleDashboard = async (id) => {
+    console.log("authData :", authData);
+    // console.log("body :", body);
+    try {
+      const response = await axios.get(Config.API_URL + Config.PUBLISHER_TITLES_DASHBOARD +"/"+ id ,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("PUBLISHER TITLES DASHBOARD RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("PUBLISHER_TITLES_DASHBOARD_Error : ", error)
+    }
+  }
 
   const customerDashboard = async (body) => {
     
@@ -1718,6 +1736,25 @@ const AdminProvider = ({ children }) => {
           },
         })
       console.log("DISTRIBUTOR DASHBOARD RESPONSE : ", response);
+      return response;
+    }
+    catch (error) {
+      console.log("DISTRIBUTOR_DASHBOARD_Error : ", error)
+    }
+  }
+  const getPublilsherSalesAmtDashboardData = async (pub_id) => {
+    console.log("authData :", authData);
+    // console.log("body :", body);
+    try {
+      const response = await axios.get(Config.API_URL + Config.PUBLISHER_SALE_AMT_DASHBOARD + "/" +pub_id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("TOTAL SALES DASHBOARD RESPONSE : ", response);
+
       return response;
     }
     catch (error) {
@@ -1858,7 +1895,10 @@ const AdminProvider = ({ children }) => {
         setBookListRecordsPerPage,
         bookListMaxPage,
         setBookListMaxPage,
-        putIsbnInSearch
+        putIsbnInSearch,
+        pubTitleDashboard,
+       
+        getPublilsherSalesAmtDashboardData
       }}
     >
       {/* {children} */}
