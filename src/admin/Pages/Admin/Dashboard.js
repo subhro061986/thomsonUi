@@ -76,7 +76,6 @@ const Dashboard = () => {
 
     const pub_select = (e) => {
         let pub_id = e.target.value
-        console.log('pub_id from nav select', pub_id)
         setselectedPubId(pub_id)
         pubDashboard(pub_id)
 
@@ -119,22 +118,16 @@ const Dashboard = () => {
      }
 
     const getPubTitleDashboard= async (id) => {
-
-        console.log('pub_id', id)
-        
         let pubResponse = await pubTitleDashboard(id)
-        console.log("pub_dashboard_resp= ", pubResponse)
         setPubTitleCount(pubResponse.data.output.publisherTitleCount)
 
     }
 
-    const pubDashboard = async (id) => {
-        console.log('pub_id', id)
+    const pubDashboard = async (pub_id) => {
         let pub_dash_json = {
-            id: selectedPubId
+            id: pub_id
         }
         let pubResponse = await publisherDashboard(pub_dash_json)
-        console.log("pub_dashboard_resp= ", pubResponse)
         setpublisherDailySales(pubResponse.data.output.dailySale)
         setpublisherWeeklySales(pubResponse.data.output.weeklySale)
         setpublisherMonthlySales(pubResponse.data.output.monthlySale)
@@ -145,19 +138,16 @@ const Dashboard = () => {
 
     const cust_select = (e) => {
         let cust_id = e.target.value
-        console.log('pub_id from nav select', cust_id)
         setselectedCustId(cust_id)
         custDashboard(cust_id)
 
     }
 
-    const custDashboard = async (id) => {
-        console.log('cust_id', id)
+    const custDashboard = async (cust_id) => {
         let cust_dash_json = {
-            id: selectedCustId
+            id: cust_id
         }
         let custResponse = await customerDashboard(cust_dash_json)
-        console.log("pub_dashboard_resp= ", custResponse)
         setcustomerDailySales(custResponse.data.output.dailySale)
         setcustomerWeeklySales(custResponse.data.output.weeklySale)
         setcustomerMonthlySales(custResponse.data.output.monthlySale)
@@ -174,13 +164,11 @@ const Dashboard = () => {
 
     }
 
-    const distDashboard = async (id) => {
-        console.log('dist_id', id)
+    const distDashboard = async (dist_id) => {
         let dist_dash_json = {
-            id: selectedDistId
+            id: dist_id
         }
         let distResponse = await distributorDashboard(dist_dash_json)
-        console.log("pub_dashboard_resp= ", distResponse)
         setdistributorDailySales(distResponse.data.output.dailySale)
         setdistributorWeeklySales(distResponse.data.output.weeklySale)
         setdistributorMonthlySales(distResponse.data.output.monthlySale)
