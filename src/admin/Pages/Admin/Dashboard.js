@@ -158,7 +158,7 @@ const Dashboard = () => {
 
     const dist_select = (e) => {
         let dist_id = e.target.value
-        console.log('pub_id from nav select', dist_id)
+        
         setselectedDistId(dist_id)
         distDashboard(dist_id)
 
@@ -361,7 +361,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                         </div>
                                         <div className="number">
-                                           {monthlyPublisherSalesCurrency} {monthlyPublisherSales}
+                                           {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -369,7 +369,7 @@ const Dashboard = () => {
                                             Last Year Sales
                                         </div>
                                         <div className="number">
-                                           {yearlyPublisherSalesCurrency} {yearlyPublisherSales}
+                                           {yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}
                                             
                                         </div>
                                     </div>
