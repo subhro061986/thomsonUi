@@ -20,45 +20,84 @@ import 'react-toastify/dist/ReactToastify.css';
 const Dashboard = () => {
     const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard, pubTitleDashboard,getPublilsherSalesAmtDashboardData } = AdminProfile();
     const [allOrders, setAllOrders] = useState([])
+    const [selectedCustId, setselectedCustId] = useState(0)
+    const [selectedDistId, setselectedDistId] = useState(0)
+
+    // publisher data
     const [selectedPubIdTitles, setselectedPubIdTitles] = useState(0)
     const [selectedPubIdSales, setselectedPubIdSales] = useState(0)
     const [selectedPubId, setselectedPubId] = useState(0)
-    const [selectedCustId, setselectedCustId] = useState(0)
-    const [selectedDistId, setselectedDistId] = useState(0)
+    
     const [publisherDailySales, setpublisherDailySales] = useState(0)
     const [publisherWeeklySales, setpublisherWeeklySales] = useState(0)
     const [publisherMonthlySales, setpublisherMonthlySales] = useState(0)
     const [publisherYearlySales, setpublisherYearlySales] = useState(0)
-    const [customerDailySales, setcustomerDailySales] = useState(0)
-    const [customerWeeklySales, setcustomerWeeklySales] = useState(0)
-    const [customerMonthlySales, setcustomerMonthlySales] = useState(0)
-    const [customerYearlySales, setcustomerYearlySales] = useState(0)
-    const [distributorDailySales, setdistributorDailySales] = useState(0)
-    const [distributorWeeklySales, setdistributorWeeklySales] = useState(0)
-    const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
-    const [distributorYearlySales, setdistributorYearlySales] = useState(0)
+    
     const [monthlyPublisherSales,setMonthlyPublisherSales]=useState(0)
     const [monthlyPublisherSalesCurrency,setMonthlyPublisherSalesCurrency]=useState("")
     const [yearlyPublisherSales,setYearlyPublisherSales]=useState(0)
     const [yearlyPublisherSalesCurrency,setYearlyPublisherSalesCurrency]=useState("")
+    
     const [activeMonthBtnPublisher,setActiveMonthBtnPublisher]=useState(true)
     const [activeWeekBtnPublisher,setActiveWeekBtnPublisher]=useState(false)
     const [activeDayBtnPublisher,setActiveDayBtnPublisher]=useState(false)
+    
     const [salesTitlePublisher,setSalesTitlePublisher]=useState("Month")
     const [salesValuePublisher,setSalesValuePublisher]=useState(0)
+    const [pubTitleCount, setPubTitleCount] = useState(0)
+
+    const [isbn13Input,setIsbn13Input]=useState("")
+
+    //customer data
+    const [customerDailySales, setcustomerDailySales] = useState(0)
+    const [customerWeeklySales, setcustomerWeeklySales] = useState(0)
+    const [customerMonthlySales, setcustomerMonthlySales] = useState(0)
+    const [customerYearlySales, setcustomerYearlySales] = useState(0)
+    
     const [activeMonthBtnCustomer,setActiveMonthBtnCustomer]=useState(true)
     const [activeWeekBtnCustomer,setActiveWeekBtnCustomer]=useState(false)
     const [activeDayBtnCustomer,setActiveDayBtnCustomer]=useState(false)
+    
     const [salesTitleCustomer,setSalesTitleCustomer]=useState("Month")
+    
+    const [dailyCustomerSalesAmt,setDailyCustomerSalesAmt]=useState(0)
+    const [dailyCustomerSalesCurrency,setDailyCustomerSalesCurrency]=useState("")
+    const [weeklyCustomerSalesAmt,setWeeklyCustomerSalesAmt]=useState(0)
+    const [weeklyCustomerSalesCurrency,setWeeklyCustomerSalesCurrency]=useState("")
+    const [monthlyCustomerSaleAmt,setMonthlyCustomerSalesAmt]=useState(0)
+    const [monthlyCustomerSalesCurrency,setMonthlyCustomerSalesCurrency]=useState("")
+    const [yearlyCustomerSalesAmt,setYearlyCustomerSalesAmt]=useState(0)
+    const [yearlyCustomerSalesCurrency,setYearlyCustomerSalesCurrency]=useState("")
+    
     const [salesValueCustomer,setSalesValueCustomer]=useState(0)
+    const [salesCurrencyCustomer,setSalesCurrencyCustomer]=useState("")
+    
+    //distributor data
+    const [distributorDailySales, setdistributorDailySales] = useState(0)
+    const [distributorWeeklySales, setdistributorWeeklySales] = useState(0)
+    const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
+    const [distributorYearlySales, setdistributorYearlySales] = useState(0)
+    
     const [activeMonthBtnDistributor,setActiveMonthBtnDistributor]=useState(true)
     const [activeWeekBtnDistributor,setActiveWeekBtnDistributor]=useState(false)
     const [activeDayBtnDistributor,setActiveDayBtnDistributor]=useState(false)
+    
     const [salesTitleDistributor,setSalesTitleDistributor]=useState("Month")
+    
+    const [dailyDistributorSalesAmt,setDailyDistributorSalesAmt]=useState(0)
+    const [dailyDistributorSalesCurrency,setDailyDistributorSalesCurrency]=useState("")
+    const [weeklyDistributorSalesAmt,setWeeklyDistributorSalesAmt]=useState(0)
+    const [weeklyDistributorSalesCurrency,setWeeklyDistributorSalesCurrency]=useState("")
+    const [monthlyDistributorSalesAmt,setMonthlyDistributorSalesAmt]=useState(0)
+    const [monthlyDistributorSalesCurrency,setMonthlyDistributorSalesCurrency]=useState("")
+    const [yearlyDistributorSalesAmt,setYearlyDistributorSalesAmt]=useState(0)
+    const [yearlyDistributorSalesCurrency,setYearlyDistributorSalesCurrency]=useState("")
+    
     const [salesValueDistributor,setSalesValueDistributor]=useState(0)
+    const [salesCurrencyDistributor,setSalesCurrencyDistributor]=useState("")
 
     
-    const [pubTitleCount, setPubTitleCount] = useState(0)
+   
     useEffect(() => {
         
     }, [])
@@ -78,7 +117,7 @@ const Dashboard = () => {
         let pub_id = e.target.value
         console.log('pub_id from nav select', pub_id)
         setselectedPubId(pub_id)
-        pubDashboard(pub_id)
+        // pubDashboard(pub_id)
 
     }
     const pub_title_select = (e) => {
@@ -108,7 +147,7 @@ const Dashboard = () => {
             setMonthlyPublisherSalesCurrency("")
 
         }
-        if(response.data.statuscode === '0' && response.data.output.monthlySale !== null){
+        if(response.data.statuscode === '0' && response.data.output.yearlySale !== null){
             setYearlyPublisherSales(response.data.output.yearlySale.total)
             setYearlyPublisherSalesCurrency(response.data.output.yearlySale.currency)
         }
@@ -128,18 +167,45 @@ const Dashboard = () => {
 
     }
 
-    const pubDashboard = async (id) => {
-        console.log('pub_id', id)
-        let pub_dash_json = {
-            id: selectedPubId
+    const isbn13InputHandler = async (e) => {
+        setIsbn13Input(e.target.value)
+    }
+
+    const isbn13Validation = () =>{
+        console.log('isbn13_validation',isbn13Input.substring(0,3));
+        if(isbn13Input.length !== 13) {
+            alert("ISBN13 must be 13 digits long.")
+            return false
         }
-        let pubResponse = await publisherDashboard(pub_dash_json)
-        console.log("pub_dashboard_resp= ", pubResponse)
-        setpublisherDailySales(pubResponse.data.output.dailySale)
-        setpublisherWeeklySales(pubResponse.data.output.weeklySale)
-        setpublisherMonthlySales(pubResponse.data.output.monthlySale)
-        setpublisherYearlySales(pubResponse.data.output.yearlySale)
-        setSalesValuePublisher(pubResponse.data.output.monthlySale)
+        if (isbn13Input.substring(0,3) === "978" || isbn13Input.substring(0,3) ===  "979"){
+            return true
+        }
+        else{
+            alert("ISBN13 must start with either 978 or 979");
+            return false
+        } 
+        return true;
+    }
+    const pubDashboard = async () => {
+        console.log('pub_id', selectedPubId)
+
+        if(isbn13Validation()) {
+
+            let pub_dash_json = {
+                id: selectedPubId,
+                isbn13:isbn13Input
+            }
+            let pubResponse = await publisherDashboard(pub_dash_json)
+            console.log("pub_dashboard_resp= ", pubResponse)
+            setpublisherDailySales(pubResponse.data.output.dailySale)
+            setpublisherWeeklySales(pubResponse.data.output.weeklySale)
+            setpublisherMonthlySales(pubResponse.data.output.monthlySale)
+            setpublisherYearlySales(pubResponse.data.output.yearlySale)
+            setSalesValuePublisher(pubResponse.data.output.monthlySale)
+        }
+        else {
+            alert("ISBN13 validation failed!");
+        }
 
     }
 
@@ -151,18 +217,64 @@ const Dashboard = () => {
 
     }
 
-    const custDashboard = async (id) => {
-        console.log('cust_id', id)
+    const custDashboard = async (cust_id) => {
+        console.log('cust_id', cust_id)
         let cust_dash_json = {
-            id: selectedCustId
+            id: cust_id
         }
         let custResponse = await customerDashboard(cust_dash_json)
-        console.log("pub_dashboard_resp= ", custResponse)
-        setcustomerDailySales(custResponse.data.output.dailySale)
-        setcustomerWeeklySales(custResponse.data.output.weeklySale)
-        setcustomerMonthlySales(custResponse.data.output.monthlySale)
-        setcustomerYearlySales(custResponse.data.output.yearlySale)
-        setSalesValueCustomer(custResponse.data.output.monthlySale)
+        console.log("cust_dashboard_resp= ", custResponse)
+        // setcustomerDailySales(custResponse.data.output.dailySale)
+        // setcustomerWeeklySales(custResponse.data.output.weeklySale)
+        // setcustomerMonthlySales(custResponse.data.output.monthlySale)
+        // setcustomerYearlySales(custResponse.data.output.yearlySale)
+        // setSalesValueCustomer(custResponse.data.output.monthlySale)
+        
+        setActiveMonthBtnCustomer(true)
+        setActiveWeekBtnCustomer(false)
+        setActiveDayBtnCustomer(false)
+
+        if(custResponse.data.statuscode === '0' && custResponse.data.output.dailySale !== null){
+            setDailyCustomerSalesAmt(custResponse.data.output.dailySale.total)
+            setDailyCustomerSalesCurrency(custResponse.data.output.dailySale.currency)
+           }
+           else {
+            setDailyCustomerSalesAmt(0)
+            setDailyCustomerSalesCurrency("")
+   
+           }
+        if(custResponse.data.statuscode === '0' && custResponse.data.output.weeklySale !== null){
+            setWeeklyCustomerSalesAmt(custResponse.data.output.weeklySale.total)
+            setWeeklyCustomerSalesCurrency(custResponse.data.output.weeklySale.currency)
+        }
+        else {
+            setWeeklyCustomerSalesAmt(0)
+            setWeeklyCustomerSalesCurrency("")
+        }
+        if(custResponse.data.statuscode === '0' && custResponse.data.output.monthlySale !== null){
+            setMonthlyCustomerSalesAmt(custResponse.data.output.monthlySale.total)
+            setMonthlyCustomerSalesCurrency(custResponse.data.output.monthlySale.currency)
+            setSalesValueCustomer(custResponse.data.output.monthlySale.total)
+            setSalesCurrencyCustomer(custResponse.data.output.monthlySale.currency)
+           }
+           else {
+            setMonthlyCustomerSalesAmt(0)
+            setMonthlyCustomerSalesCurrency("")
+            setSalesValueCustomer(0)
+            setSalesCurrencyCustomer("")
+   
+           }
+        if(custResponse.data.statuscode === '0' && custResponse.data.output.yearlySale !== null){
+            setYearlyCustomerSalesAmt(custResponse.data.output.yearlySale.total)
+            setYearlyCustomerSalesCurrency(custResponse.data.output.yearlySale.currency)
+        }
+        else {
+            setYearlyCustomerSalesAmt(0)
+            setYearlyCustomerSalesCurrency("")
+        }
+
+       
+        
 
     }
 
@@ -174,18 +286,61 @@ const Dashboard = () => {
 
     }
 
-    const distDashboard = async (id) => {
-        console.log('dist_id', id)
+    const distDashboard = async (dist_id) => {
+        console.log('dist_id', dist_id)
         let dist_dash_json = {
-            id: selectedDistId
+            id: dist_id
         }
         let distResponse = await distributorDashboard(dist_dash_json)
-        console.log("pub_dashboard_resp= ", distResponse)
-        setdistributorDailySales(distResponse.data.output.dailySale)
-        setdistributorWeeklySales(distResponse.data.output.weeklySale)
-        setdistributorMonthlySales(distResponse.data.output.monthlySale)
-        setdistributorYearlySales(distResponse.data.output.yearlySale)
-        setSalesValueDistributor(distResponse.data.output.monthlySale)
+        console.log("dist_dashboard_resp= ", distResponse)
+        // setdistributorDailySales(distResponse.data.output.dailySale)
+        // setdistributorWeeklySales(distResponse.data.output.weeklySale)
+        // setdistributorMonthlySales(distResponse.data.output.monthlySale)
+        // setdistributorYearlySales(distResponse.data.output.yearlySale)
+        // setSalesValueDistributor(distResponse.data.output.monthlySale)
+        
+        setActiveMonthBtnDistributor(true)
+        setActiveWeekBtnDistributor(false)
+        setActiveDayBtnDistributor(false)
+
+        if(distResponse.data.statuscode === '0' && distResponse.data.output.dailySale !== null){
+            setDailyDistributorSalesAmt(distResponse.data.output.dailySale.total)
+            setDailyDistributorSalesCurrency(distResponse.data.output.dailySale.currency)
+           }
+           else {
+            setDailyDistributorSalesAmt(0)
+            setDailyDistributorSalesCurrency("")
+   
+           }
+        if(distResponse.data.statuscode === '0' && distResponse.data.output.weeklySale !== null){
+            setWeeklyDistributorSalesAmt(distResponse.data.output.weeklySale.total)
+            setWeeklyDistributorSalesCurrency(distResponse.data.output.weeklySale.currency)
+        }
+        else {
+            setWeeklyDistributorSalesAmt(0)
+            setWeeklyDistributorSalesCurrency("")
+        }
+        if(distResponse.data.statuscode === '0' && distResponse.data.output.monthlySale !== null){
+            setMonthlyDistributorSalesAmt(distResponse.data.output.monthlySale.total)
+            setMonthlyDistributorSalesCurrency(distResponse.data.output.monthlySale.currency)
+            setSalesValueDistributor(distResponse.data.output.monthlySale.total)
+            setSalesCurrencyDistributor(distResponse.data.output.monthlySale.currency)
+           }
+           else {
+            setMonthlyDistributorSalesAmt(0)
+            setMonthlyDistributorSalesCurrency("")
+            setSalesValueDistributor(0)
+            setSalesCurrencyDistributor("")
+   
+           }
+        if(distResponse.data.statuscode === '0' && distResponse.data.output.yearlySale !== null){
+            setYearlyDistributorSalesAmt(distResponse.data.output.yearlySale.total)
+            setYearlyDistributorSalesCurrency(distResponse.data.output.yearlySale.currency)
+        }
+        else {
+            setYearlyDistributorSalesAmt(0)
+            setYearlyDistributorSalesCurrency("")
+        }
 
     }
 
@@ -227,59 +382,69 @@ const Dashboard = () => {
             setActiveDayBtnCustomer(false)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(true)
-            setSalesValueCustomer(customerMonthlySales)
+            setSalesValueCustomer(monthlyCustomerSaleAmt)
+            setSalesCurrencyCustomer(monthlyCustomerSalesCurrency)
 
         }
         else if(value ==="Week"){
             setActiveDayBtnCustomer(false)
             setActiveMonthBtnCustomer(false)
             setActiveWeekBtnCustomer(true)
-            setSalesValueCustomer(customerWeeklySales)
+            setSalesValueCustomer(weeklyCustomerSalesAmt)
+            setSalesCurrencyCustomer(weeklyCustomerSalesCurrency)
 
         }
         else if(value ==="Day"){
             setActiveDayBtnCustomer(true)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(false)
-            setSalesValueCustomer(customerDailySales)
+            setSalesValueCustomer(dailyCustomerSalesAmt)
+            setSalesCurrencyCustomer(dailyCustomerSalesCurrency)
             
         }
         else{
             setActiveDayBtnCustomer(false)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(true)
-            setSalesValueCustomer(customerMonthlySales)
+            setSalesValueCustomer(monthlyCustomerSaleAmt)
+            setSalesCurrencyCustomer(monthlyCustomerSalesCurrency)
 
         }
     }
+
+
     const changeSelectedDistributor= (value) =>{
         setSalesTitleDistributor(value)
         if(value ==="Month"){
             setActiveDayBtnDistributor(false)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(true)
-            setSalesValueDistributor(distributorMonthlySales)
+            setSalesValueDistributor(monthlyDistributorSalesAmt)
+            setSalesCurrencyDistributor(monthlyDistributorSalesCurrency)
 
         }
         else if(value ==="Week"){
             setActiveDayBtnDistributor(false)
             setActiveMonthBtnDistributor(false)
             setActiveWeekBtnDistributor(true)
-            setSalesValueDistributor(distributorWeeklySales)
+            setSalesValueDistributor(weeklyDistributorSalesAmt)
+            setSalesCurrencyDistributor(weeklyDistributorSalesCurrency)
 
         }
         else if(value ==="Day"){
             setActiveDayBtnDistributor(true)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(false)
-            setSalesValueDistributor(distributorDailySales)
+            setSalesValueDistributor(dailyDistributorSalesAmt)
+            setSalesCurrencyDistributor(dailyDistributorSalesCurrency)
             
         }
         else{
             setActiveDayBtnDistributor(false)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(true)
-            setSalesValueDistributor(distributorMonthlySales)
+            setSalesValueDistributor(monthlyDistributorSalesAmt)
+            setSalesCurrencyDistributor(monthlyDistributorSalesCurrency)
 
         }
     }
@@ -378,7 +543,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="col-md-6  " >
                                         <div className="title">
-                                            Last Year Sales
+                                            Current Year Sales
                                         </div>
                                         <div className="number">
                                            {yearlyPublisherSalesCurrency} {yearlyPublisherSales}
@@ -396,7 +561,7 @@ const Dashboard = () => {
                 <div className="row d-flex justify-content-between m-3  p-2">
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3">
+                            <div className="card-body p-3" style={{minHeight:368}}>
                                 <h5 className="card-title">
                                     Sales by publisher
                                 </h5>
@@ -415,6 +580,11 @@ const Dashboard = () => {
                                     }
 
                                 </select>
+                                <div className="d-flex flex-column gap-2 mb-3 ">
+                                    <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler}/>
+                                    
+                                    <button type="button" className="btn btn-primary" style={{width:'30%'}} onClick={pubDashboard}>Search</button>
+                                </div>
                                 <div className="d-flex justify-content-evenly"  >
                                     <button type="button" className={activeMonthBtnPublisher === true?"btn btn-info": " btn btn-outline-info" } onClick={()=>changeSelectedPublisher("Month")}>
                                         Month
@@ -441,7 +611,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="col-md-6  " >
                                         <div className="title">
-                                            Last Year Sales
+                                            Current Year Sales
                                         </div>
                                         <div className="number">
                                             {publisherYearlySales}
@@ -453,7 +623,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3">
+                            <div className="card-body p-3" style={{minHeight:368}}>
                                 <h5 className="card-title">
                                     Sales by Customer
                                 </h5>
@@ -492,15 +662,15 @@ const Dashboard = () => {
                                             Last {salesTitleCustomer} Sales
                                         </div>
                                         <div className="number">
-                                            {salesValueCustomer}
+                                         {salesCurrencyCustomer}   {salesValueCustomer}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
                                         <div className="title">
-                                            Last Year Sales
+                                            Current Year Sales
                                         </div>
                                         <div className="number">
-                                            {customerYearlySales}
+                                         {yearlyCustomerSalesCurrency}   {yearlyCustomerSalesAmt}
                                         </div>
                                     </div>
                                 </div>
@@ -509,7 +679,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3">
+                            <div className="card-body p-3" style={{minHeight:368}}>
                                 <h5 className="card-title">
                                     Sales by distributor
                                 </h5>
@@ -549,15 +719,15 @@ const Dashboard = () => {
                                             Last {salesTitleDistributor} Sales
                                         </div>
                                         <div className="number">
-                                            {salesValueDistributor}
+                                          {salesCurrencyDistributor}  {salesValueDistributor}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
                                         <div className="title">
-                                            Last Year Sales
+                                            Current Year Sales
                                         </div>
                                         <div className="number">
-                                            {distributorYearlySales}
+                                          {yearlyDistributorSalesCurrency}  {yearlyDistributorSalesAmt}
                                         </div>
                                     </div>
                                 </div>
