@@ -115,7 +115,6 @@ const Dashboard = () => {
 
     const pub_select = (e) => {
         let pub_id = e.target.value
-        console.log('pub_id from nav select', pub_id)
         setselectedPubId(pub_id)
         // pubDashboard(pub_id)
 
@@ -158,11 +157,7 @@ const Dashboard = () => {
      }
 
     const getPubTitleDashboard= async (id) => {
-
-        console.log('pub_id', id)
-        
         let pubResponse = await pubTitleDashboard(id)
-        console.log("pub_dashboard_resp= ", pubResponse)
         setPubTitleCount(pubResponse.data.output.publisherTitleCount)
 
     }
@@ -211,7 +206,6 @@ const Dashboard = () => {
 
     const cust_select = (e) => {
         let cust_id = e.target.value
-        console.log('pub_id from nav select', cust_id)
         setselectedCustId(cust_id)
         custDashboard(cust_id)
 
@@ -280,7 +274,7 @@ const Dashboard = () => {
 
     const dist_select = (e) => {
         let dist_id = e.target.value
-        console.log('pub_id from nav select', dist_id)
+        
         setselectedDistId(dist_id)
         distDashboard(dist_id)
 
@@ -538,7 +532,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                         </div>
                                         <div className="number">
-                                           {monthlyPublisherSalesCurrency} {monthlyPublisherSales}
+                                           {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -546,7 +540,7 @@ const Dashboard = () => {
                                             Current Year Sales
                                         </div>
                                         <div className="number">
-                                           {yearlyPublisherSalesCurrency} {yearlyPublisherSales}
+                                           {yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}
                                             
                                         </div>
                                     </div>
