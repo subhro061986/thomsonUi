@@ -205,7 +205,7 @@ const CartPage = () => {
     const increment = async (item) => {
         let tempArr = getcartitems
         let index = -1
-        console.log("tempArr= ", tempArr)
+        
         if (authData === undefined || authData === "" || authData == null) {
             index = tempArr.findIndex((val, i) => {
                 return val.bookid === item.bookid
@@ -218,16 +218,17 @@ const CartPage = () => {
                 return val.id === item.id
             });
 
-
+            
             let json = {
                 bookid: item.id,
-                quantity: item["quantity"] + 1
+                quantity: parseInt(item["quantity"]) + 1
             }
             const response = await incrementQuantity(json)
             // console.log("response after increment= ", response)
         }
-        console.log("tempArr= ", tempArr)
-        let qty = tempArr[index]["quantity"] + 1
+        
+        let qty = parseInt(tempArr[index]["quantity"]) + 1
+        
         let price = 0
         if (authRole === "Distributor") {
             price = tempArr[index]["distributorprice"] * qty
@@ -312,6 +313,7 @@ const CartPage = () => {
                     alert("Please enter valid qauntity")
                 }
                 else{
+                    console.log("GET CART ITEMS===>",getcartitems)
                     let tempArr = getcartitems
                     let json = {
                         bookid: item.id,

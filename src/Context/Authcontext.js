@@ -499,6 +499,8 @@ const AuthProvider = ({ children }) => {
     let tempArr = cartItems
     // console.log("tempArr index= ",tempArr[index])
     tempArr[index]["quantity"] += 1
+    //tempArr[index]["quantity"]=tempArr[index]["quantity"]+1;
+    
     tempArr[index]["amount"]= tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
     setCartItems(tempArr)
     localStorage.setItem("cartData", JSON.stringify(tempArr));
