@@ -36,11 +36,16 @@ const AdminProvider = ({ children }) => {
   const [customer, setCustomer] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [isbnSearch, setIsbnSearch] = useState("");
-
+  
   const [bookListCurrentPageNumber, setBookListCurrentPageNumber] = useState(1);
   const [bookListRecordsPerPage, setBookListRecordsPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
   const [bookListMaxPage, setBookListMaxPage] = useState(1);
-
+  
+  const [allDistributorOrderList, setAllDistributorOrderList] = useState([]);
+  const [distributorOrderNoSearch, setDistributorOrderNoSearch] = useState("");
+  const [distributorOrderCurrentPageNumber, setDistributorOrderCurrentPageNumber] = useState(1);
+  const [distributorOrderRecordsPerPage, setDistributorOrderRecordsPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
+  const [distributorOrderMaxPage, setDistributorOrderMaxPage] = useState(1);
   useEffect(() => {
 
     // console.log(authData);
@@ -57,7 +62,7 @@ const AdminProvider = ({ children }) => {
         get_all_countries();
         //   // getAllCustomers_admin();
           getManageOrder();
-        getAllDistributorOrder();
+        getAllDistributorOrder(1, Config.BOOK_LIST_RECORDS_PER_PAGE,distributorOrderNoSearch);
         getAllLanguage();
         getAllCurrency();
 
@@ -98,6 +103,10 @@ const AdminProvider = ({ children }) => {
   useEffect(() => {
     getAllBookList(bookListCurrentPageNumber, bookListRecordsPerPage,isbnSearch);
   }, [bookListCurrentPageNumber, bookListRecordsPerPage,isbnSearch]);
+  
+  useEffect(() => {
+    getAllDistributorOrder(distributorOrderCurrentPageNumber, distributorOrderRecordsPerPage,distributorOrderNoSearch);
+  }, [distributorOrderCurrentPageNumber, distributorOrderRecordsPerPage,distributorOrderNoSearch]);
 
 
   const getAllCategory = async () => {
@@ -1592,15 +1601,18 @@ const AdminProvider = ({ children }) => {
       console.log("GET SINGLE ORDER ERROR : ", error);
     }
   }
-  const getAllDistributorOrder = async (currentPage, recordPerPage) => {
+  const getAllDistributorOrder = async (currentPage, recordPerPage,distributorOrderNoSearch) => {
     try {
-      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+'/'+ Config.GET_ALL_Distributor+ "?currentPage=" + currentPage + "&recordPerPage=" + recordPerPage,
+      const response = await axios.get(Config.API_URL + Config.MANAGE_ORDER_API+'/'+ Config.GET_ALL_Distributor+ "?currentPage=" + currentPage + "&recordPerPage=" + recordPerPage + "&search=" + distributorOrderNoSearch,
         {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + authData
           },
         })
+
+        setAllDistributorOrderList(response.data.output.orders)
+        setDistributorOrderMaxPage(response.data.output.maxPage)
         setManageDistributorOrder(response.data)
       return response.data;
     }
@@ -1788,6 +1800,9 @@ const AdminProvider = ({ children }) => {
   const putIsbnInSearch = (search) =>{
     setIsbnSearch(search);
   }
+  const putDistribuorOrderNoInSearch = (search) =>{
+    setDistributorOrderNoSearch(search);
+  }
 
   return (
     <AdminContext.Provider
@@ -1897,7 +1912,13 @@ const AdminProvider = ({ children }) => {
         setBookListMaxPage,
         putIsbnInSearch,
         pubTitleDashboard,
-       
+        putDistribuorOrderNoInSearch,
+        allDistributorOrderList,
+        distributorOrderMaxPage,
+        distributorOrderCurrentPageNumber, 
+        setDistributorOrderCurrentPageNumber,
+        distributorOrderRecordsPerPage, 
+        setDistributorOrderRecordsPerPage,
         getPublilsherSalesAmtDashboardData
       }}
     >
