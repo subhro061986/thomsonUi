@@ -18,7 +18,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-    const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard, pubTitleDashboard,getPublilsherSalesAmtDashboardData } = AdminProfile();
+    const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard, pubTitleDashboard, getPublilsherSalesAmtDashboardData } = AdminProfile();
     const [allOrders, setAllOrders] = useState([])
     const [selectedCustId, setselectedCustId] = useState(0)
     const [selectedDistId, setselectedDistId] = useState(0)
@@ -27,79 +27,83 @@ const Dashboard = () => {
     const [selectedPubIdTitles, setselectedPubIdTitles] = useState(0)
     const [selectedPubIdSales, setselectedPubIdSales] = useState(0)
     const [selectedPubId, setselectedPubId] = useState(0)
-    
+
     const [publisherDailySales, setpublisherDailySales] = useState(0)
     const [publisherWeeklySales, setpublisherWeeklySales] = useState(0)
     const [publisherMonthlySales, setpublisherMonthlySales] = useState(0)
     const [publisherYearlySales, setpublisherYearlySales] = useState(0)
-    
-    const [monthlyPublisherSales,setMonthlyPublisherSales]=useState(0)
-    const [monthlyPublisherSalesCurrency,setMonthlyPublisherSalesCurrency]=useState("")
-    const [yearlyPublisherSales,setYearlyPublisherSales]=useState(0)
-    const [yearlyPublisherSalesCurrency,setYearlyPublisherSalesCurrency]=useState("")
-    
-    const [activeMonthBtnPublisher,setActiveMonthBtnPublisher]=useState(true)
-    const [activeWeekBtnPublisher,setActiveWeekBtnPublisher]=useState(false)
-    const [activeDayBtnPublisher,setActiveDayBtnPublisher]=useState(false)
-    
-    const [salesTitlePublisher,setSalesTitlePublisher]=useState("Month")
-    const [salesValuePublisher,setSalesValuePublisher]=useState(0)
+
+    const [monthlyPublisherSales, setMonthlyPublisherSales] = useState(0)
+    const [monthlyPublisherSalesCurrency, setMonthlyPublisherSalesCurrency] = useState("")
+    const [yearlyPublisherSales, setYearlyPublisherSales] = useState(0)
+    const [yearlyPublisherSalesCurrency, setYearlyPublisherSalesCurrency] = useState("")
+
+    const [activeMonthBtnPublisher, setActiveMonthBtnPublisher] = useState(true)
+    const [activeWeekBtnPublisher, setActiveWeekBtnPublisher] = useState(false)
+    const [activeDayBtnPublisher, setActiveDayBtnPublisher] = useState(false)
+
+    const [salesTitlePublisher, setSalesTitlePublisher] = useState("Month")
+    const [salesValuePublisher, setSalesValuePublisher] = useState(0)
     const [pubTitleCount, setPubTitleCount] = useState(0)
 
-    const [isbn13Input,setIsbn13Input]=useState("")
+    const [isbn13Input, setIsbn13Input] = useState("")
 
     //customer data
     const [customerDailySales, setcustomerDailySales] = useState(0)
     const [customerWeeklySales, setcustomerWeeklySales] = useState(0)
     const [customerMonthlySales, setcustomerMonthlySales] = useState(0)
     const [customerYearlySales, setcustomerYearlySales] = useState(0)
-    
-    const [activeMonthBtnCustomer,setActiveMonthBtnCustomer]=useState(true)
-    const [activeWeekBtnCustomer,setActiveWeekBtnCustomer]=useState(false)
-    const [activeDayBtnCustomer,setActiveDayBtnCustomer]=useState(false)
-    
-    const [salesTitleCustomer,setSalesTitleCustomer]=useState("Month")
-    
-    const [dailyCustomerSalesAmt,setDailyCustomerSalesAmt]=useState(0)
-    const [dailyCustomerSalesCurrency,setDailyCustomerSalesCurrency]=useState("")
-    const [weeklyCustomerSalesAmt,setWeeklyCustomerSalesAmt]=useState(0)
-    const [weeklyCustomerSalesCurrency,setWeeklyCustomerSalesCurrency]=useState("")
-    const [monthlyCustomerSaleAmt,setMonthlyCustomerSalesAmt]=useState(0)
-    const [monthlyCustomerSalesCurrency,setMonthlyCustomerSalesCurrency]=useState("")
-    const [yearlyCustomerSalesAmt,setYearlyCustomerSalesAmt]=useState(0)
-    const [yearlyCustomerSalesCurrency,setYearlyCustomerSalesCurrency]=useState("")
-    
-    const [salesValueCustomer,setSalesValueCustomer]=useState(0)
-    const [salesCurrencyCustomer,setSalesCurrencyCustomer]=useState("")
-    
+
+    const [activeMonthBtnCustomer, setActiveMonthBtnCustomer] = useState(true)
+    const [activeWeekBtnCustomer, setActiveWeekBtnCustomer] = useState(false)
+    const [activeDayBtnCustomer, setActiveDayBtnCustomer] = useState(false)
+
+    const [salesTitleCustomer, setSalesTitleCustomer] = useState("Month")
+
+    const [dailyCustomerSalesAmt, setDailyCustomerSalesAmt] = useState(0)
+    const [dailyCustomerSalesCurrency, setDailyCustomerSalesCurrency] = useState("")
+    const [weeklyCustomerSalesAmt, setWeeklyCustomerSalesAmt] = useState(0)
+    const [weeklyCustomerSalesCurrency, setWeeklyCustomerSalesCurrency] = useState("")
+    const [monthlyCustomerSaleAmt, setMonthlyCustomerSalesAmt] = useState(0)
+    const [monthlyCustomerSalesCurrency, setMonthlyCustomerSalesCurrency] = useState("")
+    const [yearlyCustomerSalesAmt, setYearlyCustomerSalesAmt] = useState(0)
+    const [yearlyCustomerSalesCurrency, setYearlyCustomerSalesCurrency] = useState("")
+
+    const [customerSalesAmtTableData, setCustomerSalesAmtTableData] = useState([])
+
+    const [salesValueCustomer, setSalesValueCustomer] = useState(0)
+    const [salesCurrencyCustomer, setSalesCurrencyCustomer] = useState("")
+
     //distributor data
     const [distributorDailySales, setdistributorDailySales] = useState(0)
     const [distributorWeeklySales, setdistributorWeeklySales] = useState(0)
     const [distributorMonthlySales, setdistributorMonthlySales] = useState(0)
     const [distributorYearlySales, setdistributorYearlySales] = useState(0)
-    
-    const [activeMonthBtnDistributor,setActiveMonthBtnDistributor]=useState(true)
-    const [activeWeekBtnDistributor,setActiveWeekBtnDistributor]=useState(false)
-    const [activeDayBtnDistributor,setActiveDayBtnDistributor]=useState(false)
-    
-    const [salesTitleDistributor,setSalesTitleDistributor]=useState("Month")
-    
-    const [dailyDistributorSalesAmt,setDailyDistributorSalesAmt]=useState(0)
-    const [dailyDistributorSalesCurrency,setDailyDistributorSalesCurrency]=useState("")
-    const [weeklyDistributorSalesAmt,setWeeklyDistributorSalesAmt]=useState(0)
-    const [weeklyDistributorSalesCurrency,setWeeklyDistributorSalesCurrency]=useState("")
-    const [monthlyDistributorSalesAmt,setMonthlyDistributorSalesAmt]=useState(0)
-    const [monthlyDistributorSalesCurrency,setMonthlyDistributorSalesCurrency]=useState("")
-    const [yearlyDistributorSalesAmt,setYearlyDistributorSalesAmt]=useState(0)
-    const [yearlyDistributorSalesCurrency,setYearlyDistributorSalesCurrency]=useState("")
-    
-    const [salesValueDistributor,setSalesValueDistributor]=useState(0)
-    const [salesCurrencyDistributor,setSalesCurrencyDistributor]=useState("")
 
-    
-   
+    const [activeMonthBtnDistributor, setActiveMonthBtnDistributor] = useState(true)
+    const [activeWeekBtnDistributor, setActiveWeekBtnDistributor] = useState(false)
+    const [activeDayBtnDistributor, setActiveDayBtnDistributor] = useState(false)
+
+    const [salesTitleDistributor, setSalesTitleDistributor] = useState("Month")
+
+    const [dailyDistributorSalesAmt, setDailyDistributorSalesAmt] = useState(0)
+    const [dailyDistributorSalesCurrency, setDailyDistributorSalesCurrency] = useState("")
+    const [weeklyDistributorSalesAmt, setWeeklyDistributorSalesAmt] = useState(0)
+    const [weeklyDistributorSalesCurrency, setWeeklyDistributorSalesCurrency] = useState("")
+    const [monthlyDistributorSalesAmt, setMonthlyDistributorSalesAmt] = useState(0)
+    const [monthlyDistributorSalesCurrency, setMonthlyDistributorSalesCurrency] = useState("")
+    const [yearlyDistributorSalesAmt, setYearlyDistributorSalesAmt] = useState(0)
+    const [yearlyDistributorSalesCurrency, setYearlyDistributorSalesCurrency] = useState("")
+
+    const [distributorSalesAmtTableData, setDistributorSalesAmtTableData] = useState([])
+
+    const [salesValueDistributor, setSalesValueDistributor] = useState(0)
+    const [salesCurrencyDistributor, setSalesCurrencyDistributor] = useState("")
+
+
+
     useEffect(() => {
-        
+
     }, [])
     useEffect(() => {
         // pubDashboard()
@@ -134,19 +138,19 @@ const Dashboard = () => {
 
     }
 
-     const getPunblisherAmt= async(pub_id) =>{
-        const response= await getPublilsherSalesAmtDashboardData(pub_id)
+    const getPunblisherAmt = async (pub_id) => {
+        const response = await getPublilsherSalesAmtDashboardData(pub_id)
         console.log("response from where=", response)
-        if(response.data.statuscode === '0' && response.data.output.monthlySale !== null){
-         setMonthlyPublisherSales(response.data.output.monthlySale.total)
-         setMonthlyPublisherSalesCurrency(response.data.output.monthlySale.currency)
+        if (response.data.statuscode === '0' && response.data.output.monthlySale !== null) {
+            setMonthlyPublisherSales(response.data.output.monthlySale.total)
+            setMonthlyPublisherSalesCurrency(response.data.output.monthlySale.currency)
         }
         else {
             setMonthlyPublisherSales(0)
             setMonthlyPublisherSalesCurrency("")
 
         }
-        if(response.data.statuscode === '0' && response.data.output.yearlySale !== null){
+        if (response.data.statuscode === '0' && response.data.output.yearlySale !== null) {
             setYearlyPublisherSales(response.data.output.yearlySale.total)
             setYearlyPublisherSalesCurrency(response.data.output.yearlySale.currency)
         }
@@ -154,9 +158,9 @@ const Dashboard = () => {
             setYearlyPublisherSales(0)
             setYearlyPublisherSalesCurrency("")
         }
-     }
+    }
 
-    const getPubTitleDashboard= async (id) => {
+    const getPubTitleDashboard = async (id) => {
         let pubResponse = await pubTitleDashboard(id)
         setPubTitleCount(pubResponse.data.output.publisherTitleCount)
 
@@ -166,29 +170,29 @@ const Dashboard = () => {
         setIsbn13Input(e.target.value)
     }
 
-    const isbn13Validation = () =>{
-        console.log('isbn13_validation',isbn13Input.substring(0,3));
-        if(isbn13Input.length !== 13) {
+    const isbn13Validation = () => {
+        console.log('isbn13_validation', isbn13Input.substring(0, 3));
+        if (isbn13Input.length !== 13) {
             alert("ISBN13 must be 13 digits long.")
             return false
         }
-        if (isbn13Input.substring(0,3) === "978" || isbn13Input.substring(0,3) ===  "979"){
+        if (isbn13Input.substring(0, 3) === "978" || isbn13Input.substring(0, 3) === "979") {
             return true
         }
-        else{
+        else {
             alert("ISBN13 must start with either 978 or 979");
             return false
-        } 
+        }
         return true;
     }
     const pubDashboard = async () => {
         console.log('pub_id', selectedPubId)
 
-        if(isbn13Validation()) {
+        if (isbn13Validation()) {
 
             let pub_dash_json = {
                 id: selectedPubId,
-                isbn13:isbn13Input
+                isbn13: isbn13Input
             }
             let pubResponse = await publisherDashboard(pub_dash_json)
             console.log("pub_dashboard_resp= ", pubResponse)
@@ -223,21 +227,21 @@ const Dashboard = () => {
         // setcustomerMonthlySales(custResponse.data.output.monthlySale)
         // setcustomerYearlySales(custResponse.data.output.yearlySale)
         // setSalesValueCustomer(custResponse.data.output.monthlySale)
-        
+
         setActiveMonthBtnCustomer(true)
         setActiveWeekBtnCustomer(false)
         setActiveDayBtnCustomer(false)
 
-        if(custResponse.data.statuscode === '0' && custResponse.data.output.dailySale !== null){
+        if (custResponse.data.statuscode === '0' && custResponse.data.output.dailySale !== null) {
             setDailyCustomerSalesAmt(custResponse.data.output.dailySale.total)
             setDailyCustomerSalesCurrency(custResponse.data.output.dailySale.currency)
-           }
-           else {
+        }
+        else {
             setDailyCustomerSalesAmt(0)
             setDailyCustomerSalesCurrency("")
-   
-           }
-        if(custResponse.data.statuscode === '0' && custResponse.data.output.weeklySale !== null){
+
+        }
+        if (custResponse.data.statuscode === '0' && custResponse.data.output.weeklySale !== null) {
             setWeeklyCustomerSalesAmt(custResponse.data.output.weeklySale.total)
             setWeeklyCustomerSalesCurrency(custResponse.data.output.weeklySale.currency)
         }
@@ -245,20 +249,20 @@ const Dashboard = () => {
             setWeeklyCustomerSalesAmt(0)
             setWeeklyCustomerSalesCurrency("")
         }
-        if(custResponse.data.statuscode === '0' && custResponse.data.output.monthlySale !== null){
+        if (custResponse.data.statuscode === '0' && custResponse.data.output.monthlySale !== null) {
             setMonthlyCustomerSalesAmt(custResponse.data.output.monthlySale.total)
             setMonthlyCustomerSalesCurrency(custResponse.data.output.monthlySale.currency)
             setSalesValueCustomer(custResponse.data.output.monthlySale.total)
             setSalesCurrencyCustomer(custResponse.data.output.monthlySale.currency)
-           }
-           else {
+        }
+        else {
             setMonthlyCustomerSalesAmt(0)
             setMonthlyCustomerSalesCurrency("")
             setSalesValueCustomer(0)
             setSalesCurrencyCustomer("")
-   
-           }
-        if(custResponse.data.statuscode === '0' && custResponse.data.output.yearlySale !== null){
+
+        }
+        if (custResponse.data.statuscode === '0' && custResponse.data.output.yearlySale !== null) {
             setYearlyCustomerSalesAmt(custResponse.data.output.yearlySale.total)
             setYearlyCustomerSalesCurrency(custResponse.data.output.yearlySale.currency)
         }
@@ -266,15 +270,18 @@ const Dashboard = () => {
             setYearlyCustomerSalesAmt(0)
             setYearlyCustomerSalesCurrency("")
         }
+        if (custResponse.data.statuscode === "0" ) {
+            setCustomerSalesAmtTableData(custResponse.data.output.tableData)
+        }
 
-       
-        
+
+
 
     }
 
     const dist_select = (e) => {
         let dist_id = e.target.value
-        
+
         setselectedDistId(dist_id)
         distDashboard(dist_id)
 
@@ -292,21 +299,21 @@ const Dashboard = () => {
         // setdistributorMonthlySales(distResponse.data.output.monthlySale)
         // setdistributorYearlySales(distResponse.data.output.yearlySale)
         // setSalesValueDistributor(distResponse.data.output.monthlySale)
-        
+
         setActiveMonthBtnDistributor(true)
         setActiveWeekBtnDistributor(false)
         setActiveDayBtnDistributor(false)
 
-        if(distResponse.data.statuscode === '0' && distResponse.data.output.dailySale !== null){
+        if (distResponse.data.statuscode === '0' && distResponse.data.output.dailySale !== null) {
             setDailyDistributorSalesAmt(distResponse.data.output.dailySale.total)
             setDailyDistributorSalesCurrency(distResponse.data.output.dailySale.currency)
-           }
-           else {
+        }
+        else {
             setDailyDistributorSalesAmt(0)
             setDailyDistributorSalesCurrency("")
-   
-           }
-        if(distResponse.data.statuscode === '0' && distResponse.data.output.weeklySale !== null){
+
+        }
+        if (distResponse.data.statuscode === '0' && distResponse.data.output.weeklySale !== null) {
             setWeeklyDistributorSalesAmt(distResponse.data.output.weeklySale.total)
             setWeeklyDistributorSalesCurrency(distResponse.data.output.weeklySale.currency)
         }
@@ -314,20 +321,20 @@ const Dashboard = () => {
             setWeeklyDistributorSalesAmt(0)
             setWeeklyDistributorSalesCurrency("")
         }
-        if(distResponse.data.statuscode === '0' && distResponse.data.output.monthlySale !== null){
+        if (distResponse.data.statuscode === '0' && distResponse.data.output.monthlySale !== null) {
             setMonthlyDistributorSalesAmt(distResponse.data.output.monthlySale.total)
             setMonthlyDistributorSalesCurrency(distResponse.data.output.monthlySale.currency)
             setSalesValueDistributor(distResponse.data.output.monthlySale.total)
             setSalesCurrencyDistributor(distResponse.data.output.monthlySale.currency)
-           }
-           else {
+        }
+        else {
             setMonthlyDistributorSalesAmt(0)
             setMonthlyDistributorSalesCurrency("")
             setSalesValueDistributor(0)
             setSalesCurrencyDistributor("")
-   
-           }
-        if(distResponse.data.statuscode === '0' && distResponse.data.output.yearlySale !== null){
+
+        }
+        if (distResponse.data.statuscode === '0' && distResponse.data.output.yearlySale !== null) {
             setYearlyDistributorSalesAmt(distResponse.data.output.yearlySale.total)
             setYearlyDistributorSalesCurrency(distResponse.data.output.yearlySale.currency)
         }
@@ -336,32 +343,36 @@ const Dashboard = () => {
             setYearlyDistributorSalesCurrency("")
         }
 
+        if (distResponse.data.statuscode === "0" ) {
+            setDistributorSalesAmtTableData(distResponse.data.output.tableData)
+        }
+
     }
 
-    const changeSelectedPublisher= (value) =>{
+    const changeSelectedPublisher = (value) => {
         setSalesTitlePublisher(value)
-        if(value ==="Month"){
+        if (value === "Month") {
             setActiveDayBtnPublisher(false)
             setActiveWeekBtnPublisher(false)
             setActiveMonthBtnPublisher(true)
             setSalesValuePublisher(publisherMonthlySales)
 
         }
-        else if(value ==="Week"){
+        else if (value === "Week") {
             setActiveDayBtnPublisher(false)
             setActiveMonthBtnPublisher(false)
             setActiveWeekBtnPublisher(true)
             setSalesValuePublisher(publisherWeeklySales)
 
         }
-        else if(value ==="Day"){
+        else if (value === "Day") {
             setActiveDayBtnPublisher(true)
             setActiveWeekBtnPublisher(false)
             setActiveMonthBtnPublisher(false)
             setSalesValuePublisher(publisherDailySales)
-            
+
         }
-        else{
+        else {
             setActiveDayBtnPublisher(false)
             setActiveWeekBtnPublisher(false)
             setActiveMonthBtnPublisher(true)
@@ -370,9 +381,9 @@ const Dashboard = () => {
         }
     }
 
-    const changeSelectedCustomer= (value) =>{
+    const changeSelectedCustomer = (value) => {
         setSalesTitleCustomer(value)
-        if(value ==="Month"){
+        if (value === "Month") {
             setActiveDayBtnCustomer(false)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(true)
@@ -380,7 +391,7 @@ const Dashboard = () => {
             setSalesCurrencyCustomer(monthlyCustomerSalesCurrency)
 
         }
-        else if(value ==="Week"){
+        else if (value === "Week") {
             setActiveDayBtnCustomer(false)
             setActiveMonthBtnCustomer(false)
             setActiveWeekBtnCustomer(true)
@@ -388,15 +399,15 @@ const Dashboard = () => {
             setSalesCurrencyCustomer(weeklyCustomerSalesCurrency)
 
         }
-        else if(value ==="Day"){
+        else if (value === "Day") {
             setActiveDayBtnCustomer(true)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(false)
             setSalesValueCustomer(dailyCustomerSalesAmt)
             setSalesCurrencyCustomer(dailyCustomerSalesCurrency)
-            
+
         }
-        else{
+        else {
             setActiveDayBtnCustomer(false)
             setActiveWeekBtnCustomer(false)
             setActiveMonthBtnCustomer(true)
@@ -407,9 +418,9 @@ const Dashboard = () => {
     }
 
 
-    const changeSelectedDistributor= (value) =>{
+    const changeSelectedDistributor = (value) => {
         setSalesTitleDistributor(value)
-        if(value ==="Month"){
+        if (value === "Month") {
             setActiveDayBtnDistributor(false)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(true)
@@ -417,7 +428,7 @@ const Dashboard = () => {
             setSalesCurrencyDistributor(monthlyDistributorSalesCurrency)
 
         }
-        else if(value ==="Week"){
+        else if (value === "Week") {
             setActiveDayBtnDistributor(false)
             setActiveMonthBtnDistributor(false)
             setActiveWeekBtnDistributor(true)
@@ -425,15 +436,15 @@ const Dashboard = () => {
             setSalesCurrencyDistributor(weeklyDistributorSalesCurrency)
 
         }
-        else if(value ==="Day"){
+        else if (value === "Day") {
             setActiveDayBtnDistributor(true)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(false)
             setSalesValueDistributor(dailyDistributorSalesAmt)
             setSalesCurrencyDistributor(dailyDistributorSalesCurrency)
-            
+
         }
-        else{
+        else {
             setActiveDayBtnDistributor(false)
             setActiveWeekBtnDistributor(false)
             setActiveMonthBtnDistributor(true)
@@ -461,7 +472,7 @@ const Dashboard = () => {
                 </div> */}
 
 
-<div className="row d-flex justify-content-between m-3  p-2">
+                <div className="row d-flex justify-content-between m-3  p-2">
                     <div className="col-md-6">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
@@ -489,13 +500,13 @@ const Dashboard = () => {
 
 
                                         <div className="title">
-                                        Number of titles 
+                                            Number of titles
                                         </div>
                                         <div className="number">
                                             {pubTitleCount}
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -504,7 +515,7 @@ const Dashboard = () => {
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
-                                Total Sales
+                                    Total Sales
                                 </h5>
 
                                 <select className="form-select my-3"
@@ -522,7 +533,7 @@ const Dashboard = () => {
                                     }
 
                                 </select>
-                              
+
                                 <div className="row my-4" >
 
                                     <div className="col-md-6 border-end border-secondary "  >
@@ -532,7 +543,7 @@ const Dashboard = () => {
                                             Last Month Sales
                                         </div>
                                         <div className="number">
-                                           {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
+                                            {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -540,22 +551,22 @@ const Dashboard = () => {
                                             Current Year Sales
                                         </div>
                                         <div className="number">
-                                           {yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}
-                                            
+                                            {yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
-                
+
                 <div className="row d-flex justify-content-between m-3  p-2">
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{minHeight:368}}>
+                            <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
                                     Sales by publisher
                                 </h5>
@@ -575,23 +586,23 @@ const Dashboard = () => {
 
                                 </select>
                                 <div className="d-flex flex-column gap-2 mb-3 ">
-                                    <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler}/>
-                                    
-                                    <button type="button" className="btn btn-primary" style={{width:'30%'}} onClick={pubDashboard}>Search</button>
+                                    <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler} />
+
+                                    <button type="button" className="btn btn-primary" style={{ width: '30%' }} onClick={pubDashboard}>Search</button>
                                 </div>
                                 <div className="d-flex justify-content-evenly"  >
-                                    <button type="button" className={activeMonthBtnPublisher === true?"btn btn-info": " btn btn-outline-info" } onClick={()=>changeSelectedPublisher("Month")}>
+                                    <button type="button" className={activeMonthBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Month")}>
                                         Month
                                     </button>
-                                    <button type="button" className={activeWeekBtnPublisher === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedPublisher("Week")}>
-                                            Week
+                                    <button type="button" className={activeWeekBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Week")}>
+                                        Week
                                     </button>
-                                    <button type="button" className={activeDayBtnPublisher === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedPublisher("Day")}>
-                                            Day
+                                    <button type="button" className={activeDayBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Day")}>
+                                        Day
                                     </button>
                                 </div>
                                 <div className="row my-4" >
-                                    
+
 
                                     <div className="col-md-6 border-end border-secondary "  >
 
@@ -617,7 +628,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{minHeight:368}}>
+                            <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
                                     Sales by Customer
                                 </h5>
@@ -636,18 +647,18 @@ const Dashboard = () => {
                                     }
 
                                 </select>
-                                <div className="d-flex justify-content-evenly"  >
-                                    <button type="button" className={activeMonthBtnCustomer === true?"btn btn-info": " btn btn-outline-info" } onClick={()=>changeSelectedCustomer("Month")}>
+                                {/* <div className="d-flex justify-content-evenly"  >
+                                    <button type="button" className={activeMonthBtnCustomer === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedCustomer("Month")}>
                                         Month
                                     </button>
-                                    <button type="button" className={activeWeekBtnCustomer === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedCustomer("Week")}>
-                                            Week
+                                    <button type="button" className={activeWeekBtnCustomer === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedCustomer("Week")}>
+                                        Week
                                     </button>
-                                    <button type="button" className={activeDayBtnCustomer === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedCustomer("Day")}>
-                                            Day
+                                    <button type="button" className={activeDayBtnCustomer === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedCustomer("Day")}>
+                                        Day
                                     </button>
-                                </div>
-                                <div className="row my-4" >
+                                </div> */}
+                                {/* <div className="row my-4" >
 
                                     <div className="col-md-6 border-end border-secondary "  >
 
@@ -656,7 +667,7 @@ const Dashboard = () => {
                                             Last {salesTitleCustomer} Sales
                                         </div>
                                         <div className="number">
-                                         {salesCurrencyCustomer}   {salesValueCustomer}
+                                            {salesCurrencyCustomer}   {salesValueCustomer}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -664,8 +675,41 @@ const Dashboard = () => {
                                             Current Year Sales
                                         </div>
                                         <div className="number">
-                                         {yearlyCustomerSalesCurrency}   {yearlyCustomerSalesAmt}
+                                            {yearlyCustomerSalesCurrency}   {yearlyCustomerSalesAmt}
                                         </div>
+                                    </div>
+                                </div> */}
+                                <div className="row">
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th className="fs-6" scope="col"></th>
+                                                    <th className="fs-6" scope="col">Last Day Sale</th>
+                                                    <th className="fs-6" scope="col">Last Week Sale</th>
+                                                    <th className="fs-6" scope="col">Last Month Sale</th>
+                                                    <th className="fs-6" scope="col">Current Year Sale</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {customerSalesAmtTableData.length > 0 ?
+                                                    <>
+                                                        {customerSalesAmtTableData.map((data, index) => (
+
+                                                            <tr key={index}>
+                                                                <td >{data.currency}</td>
+                                                                <td >{data.dailySaleAmt}</td>
+                                                                <td >{data.weeklySaleAmt}</td>
+                                                                <td >{data.monthlySaleAmt}</td>
+                                                                <td >{data.yearlySaleAmt}</td>
+                                                            </tr>
+
+                                                        ))}
+                                                    </> : <tr> <td colSpan={5}><p >No Data Available</p></td> </tr> }
+                                                
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -673,7 +717,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{minHeight:368}}>
+                            <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
                                     Sales by distributor
                                 </h5>
@@ -693,15 +737,15 @@ const Dashboard = () => {
                                     }
 
                                 </select>
-                                <div className="d-flex justify-content-evenly"  >
-                                    <button type="button" className={activeMonthBtnDistributor === true?"btn btn-info": " btn btn-outline-info" } onClick={()=>changeSelectedDistributor("Month")}>
+                                {/* <div className="d-flex justify-content-evenly"  >
+                                    <button type="button" className={activeMonthBtnDistributor === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedDistributor("Month")}>
                                         Month
                                     </button>
-                                    <button type="button" className={activeWeekBtnDistributor === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedDistributor("Week")}>
-                                            Week
+                                    <button type="button" className={activeWeekBtnDistributor === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedDistributor("Week")}>
+                                        Week
                                     </button>
-                                    <button type="button" className={activeDayBtnDistributor === true?"btn btn-info": " btn btn-outline-info"  } onClick={()=>changeSelectedDistributor("Day")}>
-                                            Day
+                                    <button type="button" className={activeDayBtnDistributor === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedDistributor("Day")}>
+                                        Day
                                     </button>
                                 </div>
                                 <div className="row my-4" >
@@ -713,7 +757,7 @@ const Dashboard = () => {
                                             Last {salesTitleDistributor} Sales
                                         </div>
                                         <div className="number">
-                                          {salesCurrencyDistributor}  {salesValueDistributor}
+                                            {salesCurrencyDistributor}  {salesValueDistributor}
                                         </div>
                                     </div>
                                     <div className="col-md-6  " >
@@ -721,15 +765,49 @@ const Dashboard = () => {
                                             Current Year Sales
                                         </div>
                                         <div className="number">
-                                          {yearlyDistributorSalesCurrency}  {yearlyDistributorSalesAmt}
+                                            {yearlyDistributorSalesCurrency}  {yearlyDistributorSalesAmt}
                                         </div>
+                                    </div>
+                                </div> */}
+
+                                <div className="row">
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th className="fs-6" scope="col"></th>
+                                                    <th className="fs-6" scope="col">Last Day Sale</th>
+                                                    <th className="fs-6" scope="col">Last Week Sale</th>
+                                                    <th className="fs-6" scope="col">Last Month Sale</th>
+                                                    <th className="fs-6" scope="col">Current Year Sale</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {distributorSalesAmtTableData.length > 0 ?
+                                                    <>
+                                                        {distributorSalesAmtTableData.map((data, index) => (
+
+                                                            <tr key={index}>
+                                                                <td >{data.currency}</td>
+                                                                <td >{data.dailySaleAmt}</td>
+                                                                <td >{data.weeklySaleAmt}</td>
+                                                                <td >{data.monthlySaleAmt}</td>
+                                                                <td >{data.yearlySaleAmt}</td>
+                                                            </tr>
+
+                                                        ))}
+                                                    </> : <tr> <td colSpan={5}><p >No Data Available</p></td> </tr> }
+                                                
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
 
 
             </div>
