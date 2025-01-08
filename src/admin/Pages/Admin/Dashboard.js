@@ -473,8 +473,8 @@ const Dashboard = () => {
 
 
                 <div className="row d-flex justify-content-between m-3  p-2">
-                    <div className="col-md-6">
-                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                    <div className="col-md-3">
+                        <div className="card bg-white" style={{ borderRadius: "1rem",minHeight:'242px'}}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
                                     Titles By Imprint
@@ -511,8 +511,8 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
-                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                    <div className="col-md-5">
+                        <div className="card bg-white" style={{ borderRadius: "1rem",minHeight:'242px' }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title">
                                     Total Sales
@@ -559,16 +559,12 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-
-                <div className="row d-flex justify-content-between m-3  p-2">
+                    
                     <div className="col-md-4">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{ minHeight: 368 }}>
+                            <div className="card-body p-3">
                                 <h5 className="card-title">
-                                    Sales by publisher
+                                    Sales by Publisher
                                 </h5>
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
@@ -585,12 +581,12 @@ const Dashboard = () => {
                                     }
 
                                 </select>
-                                <div className="d-flex flex-column gap-2 mb-3 ">
-                                    <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler} />
+                                <div className="d-flex flex-row justify-content-between gap-2 mb-3 ">
+                                    <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler} style={{width:'60%'}}/>
 
                                     <button type="button" className="btn btn-primary" style={{ width: '30%' }} onClick={pubDashboard}>Search</button>
                                 </div>
-                                <div className="d-flex justify-content-evenly"  >
+                                {/* <div className="d-flex justify-content-evenly"  >
                                     <button type="button" className={activeMonthBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Month")}>
                                         Month
                                     </button>
@@ -600,8 +596,8 @@ const Dashboard = () => {
                                     <button type="button" className={activeDayBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Day")}>
                                         Day
                                     </button>
-                                </div>
-                                <div className="row my-4" >
+                                </div> */}
+                                {/* <div className="row my-4" >
 
 
                                     <div className="col-md-6 border-end border-secondary "  >
@@ -622,11 +618,26 @@ const Dashboard = () => {
                                             {publisherYearlySales}
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
+                                    <div className="row" >
+                                        <div className="col-12 "  >
+                                            <div className="title">
+                                                Total Sales
+                                            </div>
+                                            <div className="number">
+                                                {publisherYearlySales}
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                </div>
+
+
+                <div className="row d-flex justify-content-between m-3  p-2">
+                    
+                    <div className="col-md-6">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
@@ -684,28 +695,35 @@ const Dashboard = () => {
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th className="fs-6" scope="col"></th>
-                                                    <th className="fs-6" scope="col">Last Day Sale</th>
-                                                    <th className="fs-6" scope="col">Last Week Sale</th>
-                                                    <th className="fs-6" scope="col">Last Month Sale</th>
-                                                    <th className="fs-6" scope="col">Current Year Sale</th>
+                                                    <th scope="col"></th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#b8daff'}} scope="col">Last Month</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#c3e6cb'}} scope="col">Last Week</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#f5c6cb'}} scope="col">Last Day</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#ffeeba'}} scope="col">Current Month</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#bee5eb'}} scope="col">Current Year</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {customerSalesAmtTableData.length > 0 ?
-                                                    <>
-                                                        {customerSalesAmtTableData.map((data, index) => (
+                                                {customerSalesAmtTableData.length > 0 ?(
+                                                    
+                                                        customerSalesAmtTableData.map((data, index) => (
 
                                                             <tr key={index}>
                                                                 <td >{data.currency}</td>
-                                                                <td >{data.dailySaleAmt}</td>
-                                                                <td >{data.weeklySaleAmt}</td>
-                                                                <td >{data.monthlySaleAmt}</td>
-                                                                <td >{data.yearlySaleAmt}</td>
+                                                                <td >{data.monthlySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.weeklySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.dailySaleAmt.toLocaleString()}</td>
+                                                                <td></td>
+                                                                <td >{data.yearlySaleAmt.toLocaleString()}</td>
                                                             </tr>
 
-                                                        ))}
-                                                    </> : <tr> <td colSpan={5}><p >No Data Available</p></td> </tr> }
+                                                        ))
+                                                     ) :( 
+                                                        <tr> 
+                                                            <td colSpan={7}><p >No Data Available</p></td> 
+                                                        </tr> 
+
+                                                     )}
                                                 
                                                 
                                             </tbody>
@@ -715,11 +733,11 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <div className="card bg-white" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
-                                    Sales by distributor
+                                    Sales by Distributor
                                 </h5>
                                 <select className="form-select my-3"
                                     style={{ width: "100%" }}
@@ -775,28 +793,34 @@ const Dashboard = () => {
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th className="fs-6" scope="col"></th>
-                                                    <th className="fs-6" scope="col">Last Day Sale</th>
-                                                    <th className="fs-6" scope="col">Last Week Sale</th>
-                                                    <th className="fs-6" scope="col">Last Month Sale</th>
-                                                    <th className="fs-6" scope="col">Current Year Sale</th>
+                                                    <th scope="col" style={{fontSize:'12px'}}></th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#b8daff'}} scope="col">Last Month</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#c3e6cb'}} scope="col">Last Week</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#f5c6cb'}} scope="col">Last Day</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#ffeeba'}} scope="col">Current Month</th>
+                                                    <th style={{fontSize:'11px',backgroundColor:'#bee5eb'}} scope="col">Current Year</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {distributorSalesAmtTableData.length > 0 ?
-                                                    <>
-                                                        {distributorSalesAmtTableData.map((data, index) => (
+                                                {distributorSalesAmtTableData.length > 0 ?(
+                                                   
+                                                        distributorSalesAmtTableData.map((data, index) => (
 
                                                             <tr key={index}>
                                                                 <td >{data.currency}</td>
-                                                                <td >{data.dailySaleAmt}</td>
-                                                                <td >{data.weeklySaleAmt}</td>
-                                                                <td >{data.monthlySaleAmt}</td>
-                                                                <td >{data.yearlySaleAmt}</td>
+                                                                <td >{data.monthlySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.weeklySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.dailySaleAmt.toLocaleString()}</td>
+                                                                <td></td>
+                                                                <td >{data.yearlySaleAmt.toLocaleString()}</td>
                                                             </tr>
 
-                                                        ))}
-                                                    </> : <tr> <td colSpan={5}><p >No Data Available</p></td> </tr> }
+                                                        ))
+                                                    ):( 
+                                                    <tr> 
+                                                        <td colSpan={6}><p >No Data Available</p></td> 
+                                                    </tr> 
+                                                )}
                                                 
                                                 
                                             </tbody>
