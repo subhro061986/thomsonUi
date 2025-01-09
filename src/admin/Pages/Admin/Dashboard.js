@@ -710,10 +710,10 @@ const Dashboard = () => {
 
                                                             <tr key={index}>
                                                                 <td >{data.currency}</td>
-                                                                <td >{data.monthlySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.lastMonthSale.toLocaleString()}</td>
                                                                 <td >{data.weeklySaleAmt.toLocaleString()}</td>
                                                                 <td >{data.dailySaleAmt.toLocaleString()}</td>
-                                                                <td></td>
+                                                                <td>{data.monthlySaleAmt.toLocaleString()}</td>
                                                                 <td >{data.yearlySaleAmt.toLocaleString()}</td>
                                                             </tr>
 
@@ -808,10 +808,10 @@ const Dashboard = () => {
 
                                                             <tr key={index}>
                                                                 <td >{data.currency}</td>
-                                                                <td >{data.monthlySaleAmt.toLocaleString()}</td>
+                                                                <td >{data.lastMonthSale.toLocaleString()}</td>
                                                                 <td >{data.weeklySaleAmt.toLocaleString()}</td>
                                                                 <td >{data.dailySaleAmt.toLocaleString()}</td>
-                                                                <td></td>
+                                                                <td>{data.monthlySaleAmt.toLocaleString()}</td>
                                                                 <td >{data.yearlySaleAmt.toLocaleString()}</td>
                                                             </tr>
 
