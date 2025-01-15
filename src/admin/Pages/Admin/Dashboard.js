@@ -35,6 +35,8 @@ const Dashboard = () => {
 
     const [monthlyPublisherSales, setMonthlyPublisherSales] = useState(0)
     const [monthlyPublisherSalesCurrency, setMonthlyPublisherSalesCurrency] = useState("")
+    const [currentMonthlyPublisherSales, setCurrentMonthlyPublisherSales] = useState(0)
+    const [currentMonthlyPublisherSalesCurrency, setCurrentMonthlyPublisherSalesCurrency] = useState("")
     const [yearlyPublisherSales, setYearlyPublisherSales] = useState(0)
     const [yearlyPublisherSalesCurrency, setYearlyPublisherSalesCurrency] = useState("")
 
@@ -148,6 +150,15 @@ const Dashboard = () => {
         else {
             setMonthlyPublisherSales(0)
             setMonthlyPublisherSalesCurrency("")
+
+        }
+        if (response.data.statuscode === '0' && response.data.output.currentmonthSale !== null) {
+            setCurrentMonthlyPublisherSales(response.data.output.currentmonthSale.total)
+            setCurrentMonthlyPublisherSalesCurrency(response.data.output.currentmonthSale.currency)
+        }
+        else {
+            setCurrentMonthlyPublisherSales(0)
+            setCurrentMonthlyPublisherSalesCurrency("")
 
         }
         if (response.data.statuscode === '0' && response.data.output.yearlySale !== null) {
@@ -474,9 +485,9 @@ const Dashboard = () => {
 
                 <div className="row d-flex justify-content-between m-3  p-2">
                     <div className="col-md-3">
-                        <div className="card bg-white" style={{ borderRadius: "1rem",minHeight:'242px'}}>
+                        <div className="card bg-custom-1" style={{ borderRadius: "1rem",minHeight:'242px'}}>
                             <div className="card-body p-3">
-                                <h5 className="card-title">
+                                <h5 className="card-title" style={{color:'#fff'}}>
                                     Titles By Imprint
                                 </h5>
                                 <select className="form-select my-3"
@@ -512,9 +523,9 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className="col-md-5">
-                        <div className="card bg-white" style={{ borderRadius: "1rem",minHeight:'242px' }}>
+                        <div className="card bg-custom-2" style={{ borderRadius: "1rem",minHeight:'242px' }}>
                             <div className="card-body p-3">
-                                <h5 className="card-title">
+                                <h5 className="card-title" style={{color:'#fff'}}>
                                     Total Sales
                                 </h5>
 
@@ -536,7 +547,7 @@ const Dashboard = () => {
 
                                 <div className="row my-4" >
 
-                                    <div className="col-md-6 border-end border-secondary "  >
+                                    <div className="col-md-4 border-end border-secondary "  >
 
 
                                         <div className="title">
@@ -546,7 +557,17 @@ const Dashboard = () => {
                                             {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
                                         </div>
                                     </div>
-                                    <div className="col-md-6  " >
+                                    <div className="col-md-4 border-end border-secondary "  >
+
+
+                                        <div className="title">
+                                            Current Month Sales
+                                        </div>
+                                        <div className="number">
+                                            {currentMonthlyPublisherSalesCurrency} {currentMonthlyPublisherSales.toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4" >
                                         <div className="title">
                                             Current Year Sales
                                         </div>
@@ -561,9 +582,9 @@ const Dashboard = () => {
                     </div>
                     
                     <div className="col-md-4">
-                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                        <div className="card bg-custom-3" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
-                                <h5 className="card-title">
+                                <h5 className="card-title" style={{color:'#fff'}}>
                                     Sales by Publisher
                                 </h5>
                                 <select className="form-select my-3"
@@ -584,7 +605,7 @@ const Dashboard = () => {
                                 <div className="d-flex flex-row justify-content-between gap-2 mb-3 ">
                                     <input className="form-control no-scroll" type="number" placeholder="Enter ISBN13 Number" value={isbn13Input} onChange={isbn13InputHandler} style={{width:'60%'}}/>
 
-                                    <button type="button" className="btn btn-primary" style={{ width: '30%' }} onClick={pubDashboard}>Search</button>
+                                    <button type="button" className="btn btn-light" style={{ width: '30%' }} onClick={pubDashboard}>Search</button>
                                 </div>
                                 {/* <div className="d-flex justify-content-evenly"  >
                                     <button type="button" className={activeMonthBtnPublisher === true ? "btn btn-info" : " btn btn-outline-info"} onClick={() => changeSelectedPublisher("Month")}>
@@ -638,7 +659,7 @@ const Dashboard = () => {
                 <div className="row d-flex justify-content-between m-3  p-2">
                     
                     <div className="col-md-6">
-                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                        <div className="card bg-custom-4" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
                                     Sales by Customer
@@ -695,12 +716,12 @@ const Dashboard = () => {
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col"></th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#b8daff'}} scope="col">Last Month</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#c3e6cb'}} scope="col">Last Week</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#f5c6cb'}} scope="col">Last Day</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#ffeeba'}} scope="col">Current Month</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#bee5eb'}} scope="col">Current Year</th>
+                                                    <th scope="col" style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}}>Currency</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}} scope="col">Last Month</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}} scope="col">Last Week</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}} scope="col">Last Day</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}} scope="col">Current Month</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#667BC6',color:'#fff'}} scope="col">Current Year</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -730,11 +751,42 @@ const Dashboard = () => {
                                         </table>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col" style={{fontSize:'10px',backgroundColor:'#7E5CAD',color:'#fff'}}>Currency</th>
+                                                    <th colSpan={5} style={{fontSize:'10px',backgroundColor:'#7E5CAD',color:'#fff'}} scope="col">Gross Merchendise Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {customerSalesAmtTableData.length > 0 ?(
+                                                   
+                                                   customerSalesAmtTableData.map((data, index) => (
+
+                                                            <tr key={index}>
+                                                                <td >{data.currency}</td>
+                                                                <td colSpan={5}>{data.yearlySaleAmt.toLocaleString()}</td>
+                                                            </tr>
+
+                                                        ))
+                                                    ):( 
+                                                    <tr> 
+                                                        <td colSpan={6}><p >No Data Available</p></td> 
+                                                    </tr> 
+                                                )}
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-6">
-                        <div className="card bg-white" style={{ borderRadius: "1rem" }}>
+                        <div className="card bg-custom-4" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3" style={{ minHeight: 368 }}>
                                 <h5 className="card-title">
                                     Sales by Distributor
@@ -793,12 +845,12 @@ const Dashboard = () => {
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col" style={{fontSize:'12px'}}></th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#b8daff'}} scope="col">Last Month</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#c3e6cb'}} scope="col">Last Week</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#f5c6cb'}} scope="col">Last Day</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#ffeeba'}} scope="col">Current Month</th>
-                                                    <th style={{fontSize:'11px',backgroundColor:'#bee5eb'}} scope="col">Current Year</th>
+                                                    <th scope="col" style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}}>Currency</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}} scope="col">Last Month</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}} scope="col">Last Week</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}} scope="col">Last Day</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}} scope="col">Current Month</th>
+                                                    <th style={{fontSize:'10px',backgroundColor:'#4DA1A9',color:'#fff'}} scope="col">Current Year</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -813,6 +865,38 @@ const Dashboard = () => {
                                                                 <td >{data.dailySaleAmt.toLocaleString()}</td>
                                                                 <td>{data.monthlySaleAmt.toLocaleString()}</td>
                                                                 <td >{data.yearlySaleAmt.toLocaleString()}</td>
+                                                            </tr>
+
+                                                        ))
+                                                    ):( 
+                                                    <tr> 
+                                                        <td colSpan={6}><p >No Data Available</p></td> 
+                                                    </tr> 
+                                                )}
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col" style={{fontSize:'10px',backgroundColor:'#7E5CAD',color:'#fff'}}>Currency</th>
+                                                    <th colSpan={5} style={{fontSize:'10px',backgroundColor:'#7E5CAD',color:'#fff'}} scope="col">Gross Merchendise Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {distributorSalesAmtTableData.length > 0 ?(
+                                                   
+                                                        distributorSalesAmtTableData.map((data, index) => (
+
+                                                            <tr key={index}>
+                                                                <td >{data.currency}</td>
+                                                                <td colSpan={5}>{data.yearlySaleAmt.toLocaleString()}</td>
                                                             </tr>
 
                                                         ))

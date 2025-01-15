@@ -12422,6 +12422,47 @@ html:not([dir=rtl]) .text-center {
 .bg-white {
   --cui-bg-opacity: 1;
   background-color: rgba(var(--cui-white-rgb), var(--cui-bg-opacity)) !important;
+  /* background-image: url('../assets/img/circle.png'); */
+}
+
+.bg-custom-1 {
+  --cui-bg-opacity: 1;
+  background-color: #667BC6 !important;
+  /* background-image: url('../assets/img/circle.png');
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat; */
+  border-color:#667BC6
+}
+
+.bg-custom-2 {
+  --cui-bg-opacity: 1;
+  background-color: #4DA1A9 !important;
+  /* background-image: url('../assets/img/circle.png');
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat; */
+  border-color:#4DA1A9
+}
+
+.bg-custom-3 {
+  --cui-bg-opacity: 1;
+  background-color: #7E5CAD !important;
+  /* background-image: url('../assets/img/circle.png');
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat; */
+  border-color:#7E5CAD
+}
+
+.bg-custom-4 {
+  --cui-bg-opacity: 1;
+  background-color: #F8FAFC !important;
+  /* background-image: url('../assets/img/circle.png');
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat; */
+  /* border-color:#7E5CAD */
 }
 
 .bg-body {
@@ -16858,9 +16899,11 @@ tr {
 }
 
  .number {
-  color: #26252C;
+  /* color: #26252C; */
+  color:#fff;
   font-family: 'Poppins';
-  font-size: 24px;
+  /* font-size: 24px; */
+  font-size: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: 46px;
@@ -16885,9 +16928,11 @@ color: #fff; */
 }
 
 .title {
-  color: #8C98A0;
+  /* color: #8C98A0; */
+  color:#fff;
   font-family: 'Roboto';
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 14px;
@@ -17309,11 +17354,13 @@ color: #fff; */
 
 .sidebar,
 .nest_sidebar {
-  background-color: #406198 !important;
+  /* background-color: #406198 !important; */
+  background-color: #212631 !important;
 }
 
 .nest_sidebar :hover {
-  background-color: #2E4E83 !important;
+  /* background-color: #2E4E83 !important; */
+  background-color: #323a49 !important;
 }
 
 .btn-main {
