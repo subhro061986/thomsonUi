@@ -76,6 +76,7 @@
     "DISTRIBUTOR_DASHBOARD": "dashboard/distributor",
     "PUBLISHER_SALE_AMT_DASHBOARD": "dashboard/publisher/amount",
     "GET_ALL_CUSTOMER": "customer",
+    "TOTAL_SALES_DASHBOARD": "dashboard/totalSales",
 
     "BOOK_LIST_RECORDS_PER_PAGE": 10
 }

@@ -73,6 +73,7 @@ const AdminProvider = ({ children }) => {
         //customerDashboard();
         //distributorDashboard();
         getAll_customer();
+        getTotalDashboardSales();
         // getAllCoupons();
       // }
       // else if(authDeatils.role === "South Shore Admin" ){
@@ -1794,6 +1795,28 @@ const AdminProvider = ({ children }) => {
     }
     catch (error) {
       console.log(" ALL CUSTOMER ERROR : ", error)
+    }
+  }
+  //Get All Customer
+
+  const getTotalDashboardSales = async () => {
+    try {
+      // console.log("all_customers_admin_Authdata :", authData)
+      const response = await axios.get(Config.API_URL + Config.TOTAL_SALES_DASHBOARD,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+      console.log("GET ALL Sales  : ", response);
+      setCustomer(response.data.output);
+      // const cust = response.data.output.length > 0 ? response.data.output : [];
+      // setCustomerList(cust === null || cust === undefined ? [] : cust);
+      // return cust === null || cust === undefined ? [] : cust;
+    }
+    catch (error) {
+      console.log(" ALL Sales ERROR : ", error)
     }
   }
 
