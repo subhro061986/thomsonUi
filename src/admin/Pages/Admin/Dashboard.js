@@ -142,19 +142,19 @@ const Dashboard = () => {
 
     const getPunblisherAmt = async (pub_id) => {
         const response = await getPublilsherSalesAmtDashboardData(pub_id)
-        console.log("response from where=", response)
-        if (response.data.statuscode === '0' && response.data.output.monthlySale !== null) {
-            setMonthlyPublisherSales(response.data.output.monthlySale.total)
-            setMonthlyPublisherSalesCurrency(response.data.output.monthlySale.currency)
+        console.log("response from publisher amt=", response)
+        if (response.data.statuscode === '0' && response.data.output.lastMonthSale !== null) {
+            setMonthlyPublisherSales(response.data.output.lastMonthSale.total)
+            setMonthlyPublisherSalesCurrency(response.data.output.lastMonthSale.currency)
         }
         else {
             setMonthlyPublisherSales(0)
             setMonthlyPublisherSalesCurrency("")
 
         }
-        if (response.data.statuscode === '0' && response.data.output.currentmonthSale !== null) {
-            setCurrentMonthlyPublisherSales(response.data.output.currentmonthSale.total)
-            setCurrentMonthlyPublisherSalesCurrency(response.data.output.currentmonthSale.currency)
+        if (response.data.statuscode === '0' && response.data.output.monthlySale !== null) {
+            setCurrentMonthlyPublisherSales(response.data.output.monthlySale.total)
+            setCurrentMonthlyPublisherSalesCurrency(response.data.output.monthlySale.currency)
         }
         else {
             setCurrentMonthlyPublisherSales(0)

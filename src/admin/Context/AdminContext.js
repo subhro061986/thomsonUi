@@ -1810,7 +1810,7 @@ const AdminProvider = ({ children }) => {
           },
         })
       console.log("GET ALL Sales  : ", response);
-      setCustomer(response.data.output);
+      // setCustomer(response.data.output);
       // const cust = response.data.output.length > 0 ? response.data.output : [];
       // setCustomerList(cust === null || cust === undefined ? [] : cust);
       // return cust === null || cust === undefined ? [] : cust;
