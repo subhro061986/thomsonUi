@@ -46,6 +46,7 @@ const AdminProvider = ({ children }) => {
   const [distributorOrderCurrentPageNumber, setDistributorOrderCurrentPageNumber] = useState(1);
   const [distributorOrderRecordsPerPage, setDistributorOrderRecordsPerPage] = useState(Config.BOOK_LIST_RECORDS_PER_PAGE);
   const [distributorOrderMaxPage, setDistributorOrderMaxPage] = useState(1);
+  const [getAllGmv, setGetAllGmv] = useState([]);
   useEffect(() => {
 
     // console.log(authData);
@@ -1809,13 +1810,15 @@ const AdminProvider = ({ children }) => {
             'Authorization': 'Bearer ' + authData
           },
         })
-      console.log("GET ALL Sales  : ", response);
+      console.log("GET ALL Sales  : ", response.data.output.totalSale.data);
+      setGetAllGmv(response.data.output.totalSale.data)
       // setCustomer(response.data.output);
       // const cust = response.data.output.length > 0 ? response.data.output : [];
       // setCustomerList(cust === null || cust === undefined ? [] : cust);
       // return cust === null || cust === undefined ? [] : cust;
     }
     catch (error) {
+      setGetAllGmv([])
       console.log(" ALL Sales ERROR : ", error)
     }
   }
@@ -1942,7 +1945,8 @@ const AdminProvider = ({ children }) => {
         setDistributorOrderCurrentPageNumber,
         distributorOrderRecordsPerPage, 
         setDistributorOrderRecordsPerPage,
-        getPublilsherSalesAmtDashboardData
+        getPublilsherSalesAmtDashboardData,
+        getAllGmv
       }}
     >
       {/* {children} */}

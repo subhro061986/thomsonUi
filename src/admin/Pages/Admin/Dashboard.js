@@ -18,7 +18,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-    const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard, pubTitleDashboard, getPublilsherSalesAmtDashboardData } = AdminProfile();
+    const { allPublisher, customer, distributorList, publisherDashboard, customerDashboard, distributorDashboard, pubTitleDashboard, getPublilsherSalesAmtDashboardData,getAllGmv } = AdminProfile();
     const [allOrders, setAllOrders] = useState([])
     const [selectedCustId, setselectedCustId] = useState(0)
     const [selectedDistId, setselectedDistId] = useState(0)
@@ -105,7 +105,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-
+        console.log("GET ALL GMV===>",getAllGmv)
     }, [])
     useEffect(() => {
         // pubDashboard()
@@ -522,7 +522,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-3">
                         <div className="card bg-custom-2" style={{ borderRadius: "1rem",minHeight:'242px' }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title" style={{color:'#fff'}}>
@@ -547,7 +547,7 @@ const Dashboard = () => {
 
                                 <div className="row my-4" >
 
-                                    <div className="col-md-4 border-end border-secondary "  >
+                                    {/* <div className="col-md-4 border-end border-secondary "  >
 
 
                                         <div className="title">
@@ -556,8 +556,8 @@ const Dashboard = () => {
                                         <div className="number">
                                             {monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}
                                         </div>
-                                    </div>
-                                    <div className="col-md-4 border-end border-secondary "  >
+                                    </div> */}
+                                    {/* <div className="col-md-4 border-end border-secondary "  >
 
 
                                         <div className="title">
@@ -566,8 +566,8 @@ const Dashboard = () => {
                                         <div className="number">
                                             {currentMonthlyPublisherSalesCurrency} {currentMonthlyPublisherSales.toLocaleString()}
                                         </div>
-                                    </div>
-                                    <div className="col-md-4" >
+                                    </div> */}
+                                    {/* <div className="col-md-4" >
                                         <div className="title">
                                             Current Year Sales
                                         </div>
@@ -575,13 +575,39 @@ const Dashboard = () => {
                                             {yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}
 
                                         </div>
+                                    </div> */}
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    
+                                                    <th style={{fontSize:'9px',backgroundColor:'#F8FAFC',color:'#000'}} scope="col">Last Month</th>
+                                                    <th style={{fontSize:'9px',backgroundColor:'#F8FAFC',color:'#000'}} scope="col">Current Month</th>
+                                                    <th style={{fontSize:'9px',backgroundColor:'#F8FAFC',color:'#000'}} scope="col">Current Year</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               
+                                                <tr>
+                                                    
+                                                    <td style={{color:'#fff'}}>{monthlyPublisherSalesCurrency} {monthlyPublisherSales.toLocaleString()}</td>
+                                                    <td style={{color:'#fff'}}>{currentMonthlyPublisherSalesCurrency} {currentMonthlyPublisherSales.toLocaleString()}</td>
+                                                    <td style={{color:'#fff'}}>{yearlyPublisherSalesCurrency} {yearlyPublisherSales.toLocaleString()}</td>
+                                                    
+                                                </tr>
+
+                                                      
+                                                
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <div className="card bg-custom-3" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-3">
                                 <h5 className="card-title" style={{color:'#fff'}}>
@@ -653,6 +679,55 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-3">
+                        <div className="card bg-custom-2" style={{ borderRadius: "1rem" }}>
+                            <div className="card-body p-3">
+                                <h5 className="card-title" style={{color:'#fff'}}>
+                                    GMV
+                                </h5>
+                                
+                                
+                                
+                                
+                            <div className="row" >
+                                <div className="col-12 "  >
+                                            
+                                <div className="row">
+                                    <div className="col-md-12 table-responsive">
+                                        <table className="table table-bordered table-striped ">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col" style={{fontSize:'10px',backgroundColor:'#F8FAFC',color:'#000'}}>Currency</th>
+                                                    <th colSpan={5} style={{fontSize:'10px',backgroundColor:'#F8FAFC',color:'#000'}} scope="col">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {getAllGmv.length > 0 ?(
+                                                   
+                                                   getAllGmv.map((data, index) => (
+
+                                                            <tr key={index}>
+                                                                <td style={{color:'#fff',width:'20%'}}>{data.currency}</td>
+                                                                <td style={{color:'#fff',width:'80%'}}>{data.amount.toLocaleString()}</td>
+                                                            </tr>
+
+                                                        ))
+                                                    ):( 
+                                                    <tr> 
+                                                        <td colSpan={6}><p >No Data Available</p></td> 
+                                                    </tr> 
+                                                )}
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -660,7 +735,7 @@ const Dashboard = () => {
                     
                     <div className="col-md-6">
                         <div className="card bg-custom-4" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{ minHeight: 368 }}>
+                            <div className="card-body p-3">
                                 <h5 className="card-title">
                                     Sales by Customer
                                 </h5>
@@ -751,7 +826,7 @@ const Dashboard = () => {
                                         </table>
                                     </div>
                                 </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-md-12 table-responsive">
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
@@ -781,13 +856,13 @@ const Dashboard = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="card bg-custom-4" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-3" style={{ minHeight: 368 }}>
+                            <div className="card-body p-3" >
                                 <h5 className="card-title">
                                     Sales by Distributor
                                 </h5>
@@ -880,7 +955,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
 
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-md-12 table-responsive">
                                         <table className="table table-bordered table-striped ">
                                             <thead class="thead-dark">
@@ -910,7 +985,7 @@ const Dashboard = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
