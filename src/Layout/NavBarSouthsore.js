@@ -151,8 +151,8 @@ const NavBarSouthsore = () => {
             {
                 drawerStat == false && (
                     <nav 
-                    className="navbar navbar-expand-lg top-nav nav_padding_y border-bottom"
-                    style={{boxShadow: '0px 0px 10px 0px #A9AAB62E'}}
+                    className="navbar navbar-expand-lg top-nav nav_padding_y"
+                    // style={{boxShadow: '0px 0px 10px 0px #A9AAB62E'}}
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 bar_menu">
                             <li className="nav-item">
