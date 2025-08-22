@@ -1,0 +1,249 @@
+import React, { useEffect, useState, } from "react";
+
+import wishlight from "../Assets/Images/wishlight.png";
+import wishlistedicon from "../Assets/Images/wishlistedicon.png";
+import nbook1 from "../Assets/Images/nbook1.png";
+import dummy from "../Assets/Images/dummy.png";
+import book3 from "../Assets/Images/book3.png";
+import book4 from "../Assets/Images/book4.png";
+
+import Config from "../Config/Config.json"
+
+import { UserProfile } from "../Context/Usercontext";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Context/Authcontext';
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+const responsive = {
+    superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 6
+    },
+    LargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 3000, min: 1920 },
+        items: 6
+    },
+    desktop: {
+        breakpoint: { max: 1919, min: 1024 },
+        items: 6
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1
+    }
+};
+
+const PublisherWiseBooks = ({ publisherId, publisherName, publisherImage, logoWidth, publisherClass }) => {
+    const navigate = useNavigate();
+
+    const goToProductDetails = () => {
+        navigate('/productdetails')
+    }
+
+    const { getNewArrivals, add_delete_to_wishlist, wishlistitems, publisherData, allNewArrival, getBook_by_category } = UserProfile()
+    const { wishlistshow, authData, authRole } = useAuth()
+
+    const [newarrival, setNewarrival] = useState([])
+    const [bookList, setBookList] = useState([])
+
+    const [containerClass, setContainerClass] = useState('container');
+
+    const updateContainerClass = () => {
+        if (window.innerWidth === 1366) {
+            setContainerClass(''); // Set to empty string or a different class if needed
+        } else if (window.innerWidth === 1920) {
+            setContainerClass('container');
+        } else {
+            setContainerClass(''); // Default class or another class
+        }
+    };
+
+    useEffect(() => {
+        updateContainerClass(); // Set initial class based on initial window size
+        window.addEventListener('resize', updateContainerClass);
+        return () => window.removeEventListener('resize', updateContainerClass);
+    }, []);
+
+
+    // useEffect(() => {
+
+    // }, [pubid])
+
+    // useEffect(() => {
+
+    // }, [allNewArrival])
+    // useEffect(() => {
+    //     getJurisPressBooks();
+    // }, [])
+    useEffect(() => {
+        if (publisherId) {
+            getJurisPressBooks(publisherId);
+        }
+    }, [publisherId])
+
+    const getJurisPressBooks = async (pubId) => {
+
+        let json = {
+            "filterCriteria": {
+
+                "categoryids": [],
+                "publisherids": [pubId]
+            }
+        }
+
+        // console.log("GET json", json)
+
+        const resp = await getBook_by_category(1, 6, json)
+        console.log("JurisPress Books Response", resp)
+        setBookList(resp?.output?.books)
+    }
+
+
+
+    const gotoDetails = (book_id) => {
+        navigate('/productdetails', { state: { BOOK_ID: book_id } })
+    }
+
+
+
+
+    const Wishlist = (event, book_id) => {
+        event.stopPropagation()
+        if (wishlistshow === true) {
+            Add_To_Wishlist(book_id)
+        }
+        else {
+            navigate('/login')
+        }
+
+    }
+
+
+    const Add_To_Wishlist = async (book_id) => {
+
+
+
+        let json = {
+
+            "bookid": book_id,
+            "currentPage": 1,
+            "recordPerPage": 5
+
+        }
+
+
+
+        const resp = await add_delete_to_wishlist(json)
+
+        // New_arrival()
+        getNewArrivals()
+        // console.log("wishlist items : ", wishlistitems)
+
+        console.log("Wishlist_resp ", resp)
+    }
+
+
+
+
+    return (
+        <div
+            className={`containerClass ${publisherClass}`}
+        // className={containerClass}
+        >
+            <div className="px-5">
+                <div className="pub_name">
+                    {/* Modern <span className="pub_span">Publishing House</span> */}
+                    {/* {publisherData?.name} */}
+                </div>
+                <div className="section_head"
+                    style={{ fontSize: '20px' }}
+                >
+                    <span>{publisherName}</span>
+                </div>
+                <div className="d-flex justify-content-center"><img width={logoWidth} src={publisherImage} /></div>
+                <div className="row mx-3 mb-5">
+
+                    <Carousel
+                        responsive={responsive}
+                        //autoPlay={true}
+                        //autoPlaySpeed={2000}
+                        showDots={true}
+                        dotListClass="custom-dot-list-style-publisher"
+                        infinite={true}
+                        containerClass="carousel-container-publisher"
+                        itemClass="carousel-item-padding-40-px-publisher"
+                    >
+
+                        {
+                            bookList.map((data, index) => (
+
+
+                                <div
+                                    key={index}
+                                    className="col-md border card_border_light new_book_card h380 m-3"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => { gotoDetails(data.id) }}
+                                >
+                                    <div className="d-flex flex-column my-3">
+                                        <div className="d-flex justify-content-end me-2"
+                                            onClick={(e) => Wishlist(e, data.id)}
+                                        >
+                                            {
+                                                data.isFavourite === 1 ? (
+                                                    <img src={wishlistedicon} width={20} height={20} />
+                                                )
+                                                    :
+                                                    (<img src={wishlight} width={20} height={20} />)
+                                            }
+                                        </div>
+                                        <div className="d-flex justify-content-center align-items-start"
+                                            style={{ marginTop: '-15px' }}>
+                                            {/* {console.log("Data : ", data.image)} */}
+                                            <img
+                                                src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
+                                                // src={nbook1}
+                                                width={100} height={150} alt={"Product Image Not Found"}
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div className="d-flex justify-content-center book_name mx-2 mt-2">
+                                            {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title}
+                                            {/* Insurance Coverage of Construction Disputes */}
+                                        </div>
+                                        {/* <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">{data.publisher.length > 20 ? data.publisher.substring(0, 20) + "..." : data.publisher}</span></div> */}
+                                        <div className="d-flex justify-content-center author_name">
+                                            Author:
+                                            {/* Name */}
+                                            {data.authors.length > 15 ? data.authors.substring(0, 15) + "..." : data.authors}
+                                        </div>
+                                        <div className="d-flex justify-content-center new_price_style mt-1">{data.currency}
+
+                                            {/* {authData === '' || authData === null ? data.customerprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice} */}
+                                            {/* $2,746.00 */}
+                                            {data.price}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            ))}
+
+
+
+                    </Carousel>
+
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default PublisherWiseBooks;

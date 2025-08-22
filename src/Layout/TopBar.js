@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useCallback} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import SVG from "react-inlinesvg";
 import publisher_logo from "../Assets/Images/publisher_demo.png";
 // import profile from "../Assets/Images/profile.png";
 import a_logo from "../Assets/Images/book_central_logo.svg";
 import profile from "../Assets/Images/usser_login.png";
 import logout from "../Assets/Images/logout_icon.png";
-import search_icon from "../Assets/Images/search-normal.png";
+// import search_icon from "../Assets/Images/search-normal.png";
+import search_icon from "../Assets/Images/orange_search.png";
 import Config from "../Config/Config.json";
 import noImg from "../Assets/Images/no-img.png";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ const TopBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const { category_by_publisher, items, getPublishersById, publisherId, getBooksBySearchText, profileImage } = UserProfile()
-  const { wishlistshow, authData, logOut,authRole } = useAuth()
+  const { wishlistshow, authData, logOut, authRole } = useAuth()
   const [publisherDetails, setPublisherDetails] = useState('')
   const [searchText, setSearchText] = useState('')
   const [toggleSearch, setToggleSearch] = useState(false)
@@ -48,7 +49,7 @@ const TopBar = () => {
       pubid = location.state.publisher_id
     }
     const result = await getPublishersById(pubid)
-    
+
     setPublisherDetails(result?.data?.output)
 
 
@@ -87,7 +88,7 @@ const TopBar = () => {
   const getbookByText = async (e) => {
     setSearchText(e.target.value)
 
-    if(e.target.value !== "" && e.target.value !== undefined && e.target.value !== null){
+    if (e.target.value !== "" && e.target.value !== undefined && e.target.value !== null) {
       let json = {
         searchText: e.target.value
       }
@@ -105,7 +106,7 @@ const TopBar = () => {
 
 
 
-  
+
 
   const goToProductDetailsPage = (id) => {
     navigate('/productdetails', { state: { BOOK_ID: id } })
@@ -124,23 +125,20 @@ const TopBar = () => {
         />
 
       </div> */}
-      <div className="admin_logo_pos">
-          <SVG src={a_logo} className="admin_logo_size" onClick={() => navigate("/")} style={{cursor:'pointer'}}/>
-        </div>
-      <div className="top-bar-right">
-        {/* <form>
-          <div className="form-group search-bar">
-            <img src={search_icon} />
-            <input type="text" className="form-control search-box" placeholder="Search by Author, Title, ISBN" />
-          </div>
-        </form> */}
-        <div style={{ width: '100%'}} className="big_search">
+      <div className="admin_logo_pos d-flex" style={{ width: '40%' }}>
+        <SVG src={a_logo} className="admin_logo_size me-3" onClick={() => navigate("/")} style={{ cursor: 'pointer' }} />
+        <div style={{ width: '100%' }} className="big_search mt-1">
 
           <form style={{ position: 'relative' }}>
-            <div className="form-group search-bar pos_rel" style={{width:'100%'}}>
-              <img src={search_icon} className="search_icon_pos" />
-              <input type="text" value={searchText} className="form-control search-box ps-5" onChange={getbookByText} placeholder="Search by Author, Title, ISBN" />
-             
+            <div className="form-group search-bar pos_rel" style={{ width: '100%' }}>
+              {/* <img src={search_icon} height={20} width={20} className="search_icon_pos" /> */}
+              <input type="text" value={searchText}
+                style={{
+                  border: '1.5px solid #F8371E',
+                  borderRadius: '100px'
+                }}
+                className="form-control search-box" onChange={getbookByText} placeholder="Search by Author, Title, ISBN" />
+              <img src={search_icon} height={30} width={30} className="search_icon_pos" />
             </div>
 
             {publisherBooks.length > 0 && searchText.length > 0 &&
@@ -189,14 +187,23 @@ const TopBar = () => {
 
 
         </div>
+      </div>
+      <div className="top-bar-right">
+        {/* <form>
+          <div className="form-group search-bar">
+            <img src={search_icon} />
+            <input type="text" className="form-control search-box" placeholder="Search by Author, Title, ISBN" />
+          </div>
+        </form> */}
+
         <div className="small_search_t" onClick={handleToggleSearch}>
           <img src={search_icon} />
         </div>
         {authData === '' ? (
-          <Button className="rounded-pill" variant="outline-primary" onClick={gotoLogin}> Signin</Button>
+          <Button className="rounded-pill text-decoration-none" variant="link" onClick={gotoLogin}> Signin</Button>
         ) : (
           <div className="d-flex align-items-center">
-            <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profileImage === '' ? profile : (Config.API_URL + Config.UPLOAD_URL + profileImage + '?d=' + new Date())} onClick={goToProfile} width={40} height={40} className="rounded-circle"/></button>
+            <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profileImage === '' ? profile : (Config.API_URL + Config.UPLOAD_URL + profileImage + '?d=' + new Date())} onClick={goToProfile} width={40} height={40} className="rounded-circle" /></button>
             {/* <Button className="rounded-pill" variant="outline-primary" onClick={doLogout}>Sign Out</Button> */}
             {/* <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} /> */}
             {/* <img src={logout} onClick={doLogout} style={{ height: '34px', width: '34px', cursor: 'pointer', marginLeft: '6%' }} /> */}
@@ -209,8 +216,18 @@ const TopBar = () => {
           {/* <input type="text" placeholder="search" /> */}
           <form>
             <div className="form-group search-bar pos_rel search_div_height">
-              <img src={search_icon} className="search_icon_pos" />
-              <input type="text" style={{ width: '100%', height: '100%', paddingLeft: '12%' }} className="form-control search-box" placeholder="Search by Author, Title, ISBN" />
+              <img src={search_icon} height={40} width={40} className="search_icon_pos" />
+              <input type="text"
+                style={{
+                  border: '1.5px solid #F8371E',
+                  borderRadius: '100px',
+                  width: '100%',
+                  height: '100%',
+                  paddingLeft: '12%'
+                }}
+                className="form-control search-box"
+                placeholder="Search by Author, Title, ISBN"
+              />
 
             </div>
           </form>

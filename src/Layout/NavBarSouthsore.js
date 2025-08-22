@@ -116,6 +116,11 @@ const NavBarSouthsore = () => {
                             <HashLink smooth className="nav-link" to='/#head_banner' > Home </HashLink>
                         </li>
 
+                        <li className="nav-item"
+                        >
+                            <HashLink smooth className="nav-link" to='/#best_sellers' > Best Sellers </HashLink>
+                        </li>
+
                         <li className="nav-item dropdown" style={{ height: '52px' }}>
                             <Accordion>
                                 <Accordion.Item eventKey="0" className="accordian_item">
@@ -145,10 +150,20 @@ const NavBarSouthsore = () => {
             }
             {
                 drawerStat == false && (
-                    <nav className="navbar navbar-expand-lg top-nav nav_padding_y">
+                    <nav 
+                    className="navbar navbar-expand-lg top-nav nav_padding_y border-bottom"
+                    style={{boxShadow: '0px 0px 10px 0px #A9AAB62E'}}
+                    >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 bar_menu">
                             <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/#head_banner' > Home </HashLink>
+                                {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Home
+                                </Link> */}
+                            </li>
+
+                            <li className="nav-item">
+                                <HashLink smooth className="nav-link" to='/#best_sellers' > Best Sellers </HashLink>
                                 {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Home
                                 </Link> */}

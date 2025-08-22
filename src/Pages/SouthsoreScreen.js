@@ -4,6 +4,9 @@ import { Button } from 'react-bootstrap';
 import eyeslash from "../Assets/Images/eyeslash.png"
 import eye_open from "../Assets/Images/eye_open.png"
 import close from "../Assets/Images/close-circle.png"
+import jurisPressLogo from "../Assets/Images/jurisPressLogo.png"
+import ThompsonReutersIndiaLogo from "../Assets/Images/ThompsonReutersIndiaLogo.png"
+import SweetMaxWellReprints from "../Assets/Images/Sweet&MaxWellReprints.png"
 
 import TopBar from "../Layout/TopBar";
 import NavBar from "../Layout/NavBar";
@@ -24,6 +27,9 @@ import Whatsapp from "../Layout/Whatsapp";
 import { useAuth } from "../Context/Authcontext";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate, useLocation } from 'react-router-dom';
+import PublisherWiseBooks from "../Layout/PublisherWiseBooks";
+import PublishersBooks from "../Layout/PublishersBooks";
+import BestSellerBooks from "../Layout/BestSellerBooks";
 
 
 const SouthsoreScreen = () => {
@@ -47,7 +53,7 @@ const SouthsoreScreen = () => {
 
   useEffect(() => {
     const urlContainsToken = window.location.href.includes('token');
-    
+
     if (urlContainsToken) {
       setModal(true);
       const queryString = window.location.search;
@@ -161,13 +167,43 @@ const SouthsoreScreen = () => {
       </div>
       <div id="about_ebook">
       </div>
-      <PublisherSouthsore />
+      {/* <PublisherSouthsore /> */}
       <div id="features">
       </div>
-      <NewArrivalBooks />
+      {/* <NewArrivalBooks /> */}
+      <div id="best_sellers">
+        <BestSellerBooks />
+      </div>
+      {/* <PublisherWiseBooks
+        publisherId={1}
+        // publisherName={"Juris Press"}
+        publisherImage={jurisPressLogo}
+        publisherClass="publiserWiseBg pt-5 pb-3"
+        logoWidth={150}
+      />
+      <PublisherWiseBooks
+        publisherId={2}
+        // publisherName={"Thomson Reuters(India)"}
+        publisherImage={ThompsonReutersIndiaLogo}
+        publisherClass="pt-5 pb-3"
+        logoWidth={220}
+      />
+      <PublisherWiseBooks
+        publisherId={3}
+        // publisherName={"Sweet & Maxwell(Reprints)"}
+        publisherImage={SweetMaxWellReprints}
+        publisherClass="publiserWiseBg pt-5 pb-3"
+        logoWidth={220}
+      />
+      <PublisherWiseBooks
+        publisherId={4}
+        publisherName={"Sweet & Maxwell(UK)"}
+        publisherClass="pt-5 pb-3"
+      /> */}
+      <PublishersBooks />
 
-      <div id="about_ss">
-        <AboutSouthshoreCert />
+      <div id="about_ss" style={{ borderBottom: '1px solid #C2C2C8' }}>
+        {/* <AboutSouthshoreCert /> */}
       </div>
       <div id="contact">
         <FooterSouthsore />

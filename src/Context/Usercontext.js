@@ -98,6 +98,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
+        console.log("getAllCategory response", response);
       setAllCategoryList(response.data.output)
       return response.data
 

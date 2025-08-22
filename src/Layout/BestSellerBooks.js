@@ -20,16 +20,16 @@ const responsive = {
     superLargeDesktop: {
         // the naming can be any, depends on you.
         breakpoint: { max: 4000, min: 3000 },
-        items: 5
+        items: 6
     },
     LargeDesktop: {
         // the naming can be any, depends on you.
         breakpoint: { max: 3000, min: 1920 },
-        items: 4
+        items: 6
     },
     desktop: {
         breakpoint: { max: 1919, min: 1024 },
-        items: 4
+        items: 6
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
@@ -41,7 +41,7 @@ const responsive = {
     }
 };
 
-const NewArrivalBooks = () => {
+const BestSellerBooks = () => {
     const navigate = useNavigate();
 
     const goToProductDetails = () => {
@@ -134,7 +134,7 @@ const NewArrivalBooks = () => {
                 {/* Modern <span className="pub_span">Publishing House</span> */}
                 {/* {publisherData?.name} */}
             </div>
-            <div className="section_head fw500" style={{ lineHeight: '20px' }}><span className="fw600">New Arrivals</span></div>
+            <div className="section_head fw500" style={{ lineHeight: '20px' }}><span className="fw600">Best Sellers</span></div>
             <div className="row mx-3 mb-5">
 
                 <Carousel
@@ -159,15 +159,15 @@ const NewArrivalBooks = () => {
                                 onClick={() => { gotoDetails(data.id) }}
                             >
                                 <div className="d-flex flex-column my-3">
-                                    <div className="d-flex justify-content-end mt-1 me-3"
+                                    <div className="d-flex justify-content-end me-2"
                                         onClick={(e) => Wishlist(e, data.id)}
                                     >
                                         {
                                             data.isFavourite === 1 ? (
-                                                <img src={wishlistedicon} width={27} height={27} />
+                                                <img src={wishlistedicon} width={20} height={20} />
                                             )
                                                 :
-                                                (<img src={wishlight} width={27} height={27} />)
+                                                (<img src={wishlight} width={20} height={20} />)
                                         }
                                     </div>
                                     <div className="d-flex justify-content-center">
@@ -175,7 +175,7 @@ const NewArrivalBooks = () => {
                                         <img
                                             src={data.img === null || data.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + data.publisherid + "/" + data.img + '?d=' + new Date()}
                                             // src={nbook1}
-                                            width={120} height={170} alt={"Product Image Not Found"}
+                                            width={100} height={150} alt={"Product Image Not Found"}
                                             loading="lazy"
                                         />
                                     </div>
@@ -210,4 +210,4 @@ const NewArrivalBooks = () => {
     );
 }
 
-export default NewArrivalBooks;
+export default BestSellerBooks;

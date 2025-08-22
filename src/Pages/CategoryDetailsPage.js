@@ -372,6 +372,9 @@ const CategoryDetailsPage = () => {
     const books_by_category = async (pub_id, cat_id,currpage,min,max) => {
         // console.log("GET Category Id BY CATEGORY", cat_id)
         // console.log("GET publisher Id BY publisher", pub_id)
+        // console.log("min price", min)
+        // console.log("max price", max)
+        console.log("recordsPerPage", recordsPerPage)
         
         let json = {
             "filterCriteria": {
