@@ -31,13 +31,14 @@ const UserProvider = ({ children }) => {
   const [allCategoryList, setAllCategoryList] = useState([])
   const [allNewArrival, setallNewArrival] = useState([])
   const [allBestSeller, setAllBestSeller] = useState([])
+  const [bestSellers, setBestSellers] = useState([])
   const [shippingList, setShippingList] = useState([])
   const [selectedShippingAddressId, setSelectedShippingAddressId] = useState(0)
   const [userShippingAddress, setUserShippingAddress] = useState(null)
   const [orderConfirmation, setOrderConfirmation] = useState(null)
   const [profileImage, setProfileImage] = useState('')
-  
-  
+
+
 
 
 
@@ -49,7 +50,8 @@ const UserProvider = ({ children }) => {
     getAllActivePublishers();
     //category_all();
     getAllCategory();
-    getNewArrivals()
+    getNewArrivals();
+    getBestSellers();
 
 
     if (authData === '' || authData === null || authData === undefined) {
@@ -98,7 +100,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
-        console.log("getAllCategory response", response);
+      console.log("getAllCategory response", response);
       setAllCategoryList(response.data.output)
       return response.data
 
@@ -135,6 +137,43 @@ const UserProvider = ({ children }) => {
         }
       }
 
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("Book_new_arrival error : ", error)
+    }
+  }
+
+
+  const getBestSellers = async (record_no) => {
+
+
+
+    try {
+      const response = await axios.get(Config.API_URL + Config.BEST_SELLER + "?recordPerPage=" + 6,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': wishlistshow === true ? ('Bearer ' + authData) : null
+          },
+
+        })
+      // if (response === undefined || response === null) {
+      //   setallNewArrival([])
+      // }
+      // else {
+      //   if (response.data.statuscode === "0" && response.data.output.length > 0) {
+      //     setallNewArrival(response.data.output)
+      //   }
+      //   else {
+      //     setallNewArrival([])
+      //   }
+      // }
+      
+      console.log("getBestSellers response", response);
+      setBestSellers(response?.data?.output)
 
       return response.data
 
@@ -819,14 +858,14 @@ const UserProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         })
-        
-      if(response.data.output===null){
+
+      if (response.data.output === null) {
         setAllActivePublisher([])
       }
-      else{
+      else {
         setAllActivePublisher(response.data.output)
       }
-      
+
 
 
       return response;
@@ -897,7 +936,7 @@ const UserProvider = ({ children }) => {
         })
 
       console.log("razor pay payment confirmed  : ", response);
-       setOrderConfirmation(response.data)
+      setOrderConfirmation(response.data)
       return response.data;
     }
     catch (error) {
@@ -1155,10 +1194,10 @@ const UserProvider = ({ children }) => {
   }
 
   const createAppOrder = async (buyNow, args) => {
-    
+
     try {
       const response = await axios.post(Config.API_URL + Config.ORDER_CREATE + `?buynow=${buyNow}`, args,
-        
+
         {
           headers: {
             'Content-Type': 'application/json',
@@ -1311,7 +1350,9 @@ const UserProvider = ({ children }) => {
         userShippingAddress,
         orderConfirmation,
         profileImage,
-        confirmOrder
+        confirmOrder,
+        getBestSellers,
+        bestSellers
 
 
       }}

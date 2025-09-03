@@ -48,7 +48,7 @@ const BestSellerBooks = () => {
         navigate('/productdetails')
     }
 
-    const { getNewArrivals, add_delete_to_wishlist, wishlistitems, publisherData, allNewArrival } = UserProfile()
+    const { getNewArrivals, add_delete_to_wishlist, wishlistitems, publisherData, allNewArrival, bestSellers } = UserProfile()
     const { wishlistshow, authData, authRole } = useAuth()
 
     const [newarrival, setNewarrival] = useState([])
@@ -149,7 +149,7 @@ const BestSellerBooks = () => {
                 >
 
                     {
-                        allNewArrival.map((data, index) => (
+                        bestSellers.map((data, index) => (
 
 
                             <div
@@ -185,13 +185,13 @@ const BestSellerBooks = () => {
                                     </div>
                                     {/* <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">{data.publisher.length > 20 ? data.publisher.substring(0, 20) + "..." : data.publisher}</span></div> */}
                                     <div className="d-flex justify-content-center author_name">
-                                        Author:
-                                        {/* Name */}
-                                        {data.authors}
+                                        Author: &nbsp;
+                                        {data.authors.length > 15 ? data.authors.substring(0, 15) + "..." : data.authors}
                                     </div>
                                     <div className="d-flex justify-content-center new_price_style mt-1">{data.currencysymbol} 
                                         
-                                        {authData === '' || authData === null ? data.customerprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice}
+                                        {/* {authData === '' || authData === null ? data.customerprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice} */}
+                                        {data.price}
                                         {/* $2,746.00 */}
                                     </div>
 

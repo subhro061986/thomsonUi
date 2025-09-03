@@ -6,6 +6,7 @@
     "ALL_BOOK_CATEGORY" : "category/all",
     "ALL_Cateory":"category/get-parent-category",
     "NEW_ARRIVAL" : "book/newarrival",
+    "BEST_SELLER" : "book/bestselling",
     "BEST_SELLING" : "book/bestselling",
     "BOOK_BY_GENRE" : "book",
     "SIGN_IN_API" : "account/signup",
