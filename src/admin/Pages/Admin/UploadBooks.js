@@ -392,23 +392,23 @@ const UploadBooks = () => {
         console.log("cover", e)
         try {
             Resizer.imageFileResizer(
-              e.target.files[0],
-              120,
-              180,
-              "JPEG",
-              100,
-              0,
-              (uri) => {
-                console.log("image uri=", uri);
-                setCoverFront(uri);
-              },
-              "file",
-              100,
-              149
+                e.target.files[0],
+                120,
+                180,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    console.log("image uri=", uri);
+                    setCoverFront(uri);
+                },
+                "file",
+                100,
+                149
             );
-          } catch (err) {
+        } catch (err) {
             console.log(err);
-          }
+        }
 
         // const options = {
         //     maxSizeMB: 0.5,
@@ -418,11 +418,11 @@ const UploadBooks = () => {
         //     alwaysKeepResolution: true
         //   }
         // try {
-            
+
         //     let compressedFile = await imageCompression(e.target.files[0], options);
         //     console.log("compressed file", compressedFile)
         //     setCoverFront(compressedFile)
-           
+
         //   } catch (error) {
         //     console.log(error);
         //   }
@@ -475,7 +475,7 @@ const UploadBooks = () => {
 
         let formData = new FormData();
 
-        console.log("cover front=",coverFront)
+        console.log("cover front=", coverFront)
         formData.append('title', title)
         formData.append('description', description)
         formData.append('categoryid', categoryId)
@@ -495,25 +495,9 @@ const UploadBooks = () => {
         formData.append('currencyid', currencyId)
         formData.append('effectivefrom', effectiveFrom)
 
-        const resp = await uploadSingleBook(formData);
-        console.log("upload_single_book_resp", resp)
-        if (resp?.data?.statuscode === '0') {
+        if (currencyId === 0 || currencyId === '0') {
 
-            toast.success(" Book Uploaded successfully", {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                closeButton: false,
-                theme: "light"
-            });
-
-            page_navigation();
-        }
-        else {
-            toast.error("Book Upload failed", {
+            toast.error("Please select currency", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -524,8 +508,140 @@ const UploadBooks = () => {
                 style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
             });
         }
+        else if (categoryId === 0 || categoryId === '0') {
 
+            toast.error("Please select category", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (publisher === 0 || publisher === '0') {
 
+            toast.error("Please select publisher", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (author === '') {
+
+            toast.error("Please add author", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (year === '') {
+
+            toast.error("Please add a publishing year", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (coverType === '') {
+
+            toast.error("Please add a cover type", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (effectiveFrom === '') {
+
+            toast.error("Please select effective from date", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (customerPrice === '' || customerPrice === 0) {
+            toast.error("Please add customer price", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else if (distributorPrice === '' || distributorPrice === 0) {
+            toast.error("Please add distributor price", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
+        else {
+
+            const resp = await uploadSingleBook(formData);
+            console.log("upload_single_book_resp", resp)
+            if (resp?.data?.statuscode === '0') {
+
+                toast.success(" Book Uploaded successfully", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    closeButton: false,
+                    theme: "light"
+                });
+
+                page_navigation();
+            }
+            else {
+                toast.error("Book Upload failed", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    closeButton: false,
+                    style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+                });
+            }
+        }
     }
 
     const handlePublisher = (e) => {
@@ -567,7 +683,7 @@ const UploadBooks = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label for="currency" className="form-label">Currency
-                                            {/* <span className="red"> *</span> */}
+                                            <span className="red"> *</span>
                                         </label>
                                         <select className="form-select" aria-label="Default select currency"
                                             onChange={(e) => setCurrencyId(e.target.value)}
