@@ -560,6 +560,19 @@ const UploadBooks = () => {
                 style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
             });
         }
+        else if (isbn13 === '') {
+
+            toast.error("Please add ISBN 13", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                closeButton: false,
+                style: { fontWeight: 'bold', backgroundColor: "rgb(255, 237, 246)" }
+            });
+        }
         else if (coverType === '') {
 
             toast.error("Please add a cover type", {
