@@ -21,7 +21,7 @@ const responsive = {
 const PublishersBooks = () => {
     const navigate = useNavigate();
     const { getBook_by_category, add_delete_to_wishlist, getNewArrivals, allActivePublisher } = UserProfile();
-    const { wishlistshow } = useAuth();
+    const { wishlistshow, authData, authRole } = useAuth();
 
     const [booksByPublisher, setBooksByPublisher] = useState({}); // store books keyed by publisher id
     const [containerClass, setContainerClass] = useState("container");
@@ -39,6 +39,7 @@ const PublishersBooks = () => {
     }, []);
 
     const fetchBooksForPublisher = async (pubid) => {
+        console.log("Fetching books for publisher ID:", pubid);
         const json = {
             filterCriteria: {
                 categoryids: [],
@@ -77,7 +78,7 @@ const PublishersBooks = () => {
 
     return (
         <>
-            {allActivePublisher.map((data, index) => (
+            {allActivePublisher?.map((data, index) => (
                 <div className={`containerClass ${index % 2 === 0 ? "publiserWiseBg" : ""}`} key={index}>
                     <div className="p-5">
                         <div className="section_head fw500">
@@ -128,7 +129,7 @@ const PublishersBooks = () => {
                                                 style={{ marginTop: '-15px' }}>
                                                 {/* {console.log("Data : ", data.image)} */}
                                                 <img
-                                                    src={book.img === null || book.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.img + '?d=' + new Date()}
+                                                    src={book.img === null || book.img === 'null' || book.img === '' ? dummy : Config.API_URL + Config.PUB_IMAGES + book.publisherid + "/" + book.img + '?d=' + new Date()}
                                                     // src={nbook1}
                                                     width={100} height={150} alt={"Product Image Not Found"}
                                                     loading="lazy"
@@ -143,6 +144,8 @@ const PublishersBooks = () => {
                                                 Author:
                                                 {/* Name */}
                                                 {book.authors.length > 15 ? book.authors.substring(0, 15) + "..." : book.authors}
+                                                {/* {book?.authors?.substring(0, 15) || "Unknown"}
+                                                {book?.authors?.length > 15 && "..."} */}
                                             </div>
                                             <div className="d-flex justify-content-center new_price_style mt-1">{book.currency}
 

@@ -37,6 +37,7 @@ import GalleryScreen from './admin/Pages/GalleryScreen';
 import ShippingAddress from './Pages/ShippingAddress';
 import DistributorOrderPage from './Pages/DistributorOrderPage';
 import ReturnandCancel from './Pages/ReturnandCancel';
+import AboutSouthShore from './Pages/AboutSouthShore';
 
 
 
@@ -52,6 +53,7 @@ const AfterLogin=()=> {
             {/* <Route exact path="/" Component={SouthsoreScreen}/> */}
             <Route exact path="/" Component={SouthsoreScreen}/>
             {/* <Route exact path="/home" Component={HomePage}/> */}
+            <Route exact path="/aboutsouthshore" Component={AboutSouthShore}/>
             <Route exact path="/wishlist" Component={WishList}/>
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
@@ -93,6 +95,7 @@ const BeforeLogin=()=> {
         <Routes>
             <Route exact path="/" Component={SouthsoreScreen}/>
             {/* <Route exact path="/home" Component={HomePage}/> */}
+            <Route exact path="/aboutsouthshore" Component={AboutSouthShore}/>
             <Route exact path="/category" Component={CategoryDetailsPage}/>
             <Route exact path="/productdetails" Component={ProductDetailsPage}/>
             <Route exact path="/login" Component={LoginPage}/>

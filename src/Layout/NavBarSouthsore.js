@@ -15,7 +15,7 @@ import { useAuth } from '../Context/Authcontext';
 const NavBarSouthsore = () => {
     const navigate = useNavigate();
     const { category_by_publisher, items, allActivePublisher, allCategoryList } = UserProfile()
-    const { wishlistshow,cartCount } = useAuth()
+    const { wishlistshow, cartCount } = useAuth()
     const [drawerStat, setDrawerStat] = useState(false)
     // const [submneuDrawer, setsubmneuDrawer] = useState(false)
     const [pubcat, setPubcat] = useState([])
@@ -104,6 +104,11 @@ const NavBarSouthsore = () => {
         navigate('/cartpage');
     }
 
+    const get_publisher_data = (pub_id) => {
+        navigate('/category', { state: { publisher_id: pub_id } });
+    };
+
+
     return (
         <>
             <div className="mobile_menu_display" onClick={openDrawer}>
@@ -140,18 +145,23 @@ const NavBarSouthsore = () => {
                             </Accordion>
                         </li>
 
-                        <li className="nav-item" 
+                        <li className="nav-item"
                         // onClick={gotoCert}
                         >
-                            <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
+                            <HashLink smooth className="nav-link"
+                                // to='/#about_ss'
+                                to='/aboutsouthshore'
+                            >
+                                About Southshore
+                            </HashLink>
                         </li>
                     </ul>
                 )
             }
             {
                 drawerStat == false && (
-                    <nav 
-                    className="navbar navbar-expand-lg top-nav nav_padding_y"
+                    <nav
+                        className="navbar navbar-expand-lg top-nav nav_padding_y"
                     // style={{boxShadow: '0px 0px 10px 0px #A9AAB62E'}}
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 bar_menu">
@@ -169,11 +179,33 @@ const NavBarSouthsore = () => {
                                 </Link> */}
                             </li>
 
-                            
+                            <li className="nav-item dropdown">
+                                <select
+                                    className="cat_dropdown mt-3 me-3"
+                                    style={{ width: '121px' }}
+                                    defaultValue="0"
+                                    onChange={(e) => get_publisher_data(e.target.value)}
+                                >
+                                    <option value="0" disabled>Publishers</option>
+
+                                    {allActivePublisher.map((data, index) => (
+                                        data.isactive === 1 && (
+                                            <option
+                                                style={{ backgroundColor: "#E4E8F3" }}
+                                                key={index}
+                                                value={data.id}
+                                            >
+                                                {data.name}
+                                            </option>
+                                        )
+                                    ))}
+                                </select>
+                            </li>
+
 
                             <li className="nav-item dropdown">
                                 <select className="cat_dropdown mt-3 me-3"
-                                    style={{width:'121px'}}
+                                    style={{ width: '121px' }}
                                     name="cars" id="cars"
                                     onChange={(e) => { cat_dropdown_nav(e) }}
                                     defaultValue={0}
@@ -183,18 +215,25 @@ const NavBarSouthsore = () => {
                                     {allCategoryList.map((data, index) => (
                                         data.isactive === 1 && (
 
-                                        <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
+                                            <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>
 
-                                    )
+                                        )
                                     ))}
 
                                 </select>
                             </li>
 
-                            <li className="nav-item" 
+                            <li className="nav-item"
                             // onClick={gotoCert}
                             >
-                                <HashLink smooth className="nav-link" to='/#about_ss' > About Southshore </HashLink>
+                                <HashLink
+                                    smooth
+                                    className="nav-link"
+                                    // to='/#about_ss'
+                                    to='/aboutsouthshore'
+                                >
+                                    About Southshore
+                                </HashLink>
                                 {/* <Link to="/" className="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     About Southshore
                                 </Link> */}
