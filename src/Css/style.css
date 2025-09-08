@@ -3165,6 +3165,12 @@ body.active-modal {
 
 @media screen and (max-width: 376px)and (min-width: 280px) {
 
+  .new_book_card {
+    width: 70%;
+    cursor: pointer;
+    background-color: #FFFFFF;
+  }
+
   .continue_tn_empty_cart {
     width: 64%;
   }
@@ -3373,7 +3379,7 @@ body.active-modal {
 
 
   .h380 {
-    height: 95%;
+    height: 90%;
   }
 
   .book_card {
@@ -4032,6 +4038,12 @@ body.active-modal {
 
 @media screen and (max-width: 436px)and (min-width: 377px) {
 
+  .new_book_card {
+    width: 70%;
+    cursor: pointer;
+    background-color: #FFFFFF;
+  }
+
   .media_margin {
     margin-top: 8%;
   }
@@ -4290,7 +4302,7 @@ body.active-modal {
   }
 
   .h380 {
-    height: 95%;
+    height: 90%;
   }
 
   .book_card {

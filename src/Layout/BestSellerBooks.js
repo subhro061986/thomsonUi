@@ -149,12 +149,12 @@ const BestSellerBooks = () => {
                 >
 
                     {
-                        bestSellers.map((data, index) => (
+                        bestSellers?.map((data, index) => (
 
 
                             <div
                                 key={index}
-                                className="col-md border card_border_light new_book_card h380 m-3"
+                                className="col-md border card_border_light new_book_card h380 my-3 mx-5"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => { gotoDetails(data.id) }}
                             >
@@ -179,19 +179,19 @@ const BestSellerBooks = () => {
                                             loading="lazy"
                                         />
                                     </div>
-                                    <div className="d-flex justify-content-center book_name mx-2 mt-2">
-                                        {data.title.length > 20 ? data.title.substring(0, 20) + ".." : data.title}
+                                    <div className="d-flex justify-content-center book_name mx-2 mt-2" title={data.title}>
+                                        {data.title.length > 10 ? data.title.substring(0, 10) + ".." : data.title}
                                         {/* Insurance Coverage of Construction Disputes */}
                                     </div>
                                     {/* <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">{data.publisher.length > 20 ? data.publisher.substring(0, 20) + "..." : data.publisher}</span></div> */}
-                                    <div className="d-flex justify-content-center author_name">
+                                    <div className="d-flex justify-content-center author_name" title={data.authors}>
                                         Author: &nbsp;
                                         {data.authors.length > 15 ? data.authors.substring(0, 15) + "..." : data.authors}
                                     </div>
                                     <div className="d-flex justify-content-center new_price_style mt-1">{data.currencysymbol} 
                                         
                                         {/* {authData === '' || authData === null ? data.customerprice : authRole === 'Distributor' ? data.distributorprice : data.customerprice} */}
-                                        {data.price}
+                                        {data.currency}{data.price}
                                         {/* $2,746.00 */}
                                     </div>
 

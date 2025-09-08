@@ -3,7 +3,7 @@ import Banner from "../Assets/Images/Banner_inside_img.png";
 const BannerSouthsore = () => {
     return (
         <div className="banner_thomson" style={{
-            boxShadow: '0px 10px 5px rgba(169, 170, 182, 0.25), 0px -1px 5px rgba(169, 170, 182, 0.25)',
+            boxShadow: '0px -1px 5px rgba(169, 170, 182, 0.25)',
             // boxShadow: "0px -10px 5px rgba(169, 170, 182, 0.25)"
             marginTop: '10px'
         }}>

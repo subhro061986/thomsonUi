@@ -108,7 +108,7 @@ const PublishersBooks = () => {
                                     // </div>
                                     <div
                                         key={book.id}
-                                        className="col-md border card_border_light new_book_card h380 m-3"
+                                        className="col-md border card_border_light new_book_card h380 my-3 mx-5"
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => { gotoDetails(book.id) }}
                                     >
@@ -135,7 +135,7 @@ const PublishersBooks = () => {
                                                 />
                                             </div>
                                             <div className="d-flex justify-content-center book_name mx-2 mt-2">
-                                                {book.title.length > 20 ? book.title.substring(0, 20) + ".." : book.title}
+                                                {book.title.length > 10 ? book.title.substring(0, 10) + ".." : book.title}
                                                 {/* Insurance Coverage of Construction Disputes */}
                                             </div>
                                             {/* <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">{data.publisher.length > 20 ? data.publisher.substring(0, 20) + "..." : data.publisher}</span></div> */}
