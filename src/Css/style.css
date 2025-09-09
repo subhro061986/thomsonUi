@@ -3163,7 +3163,17 @@ body.active-modal {
   background-color: #F4F5FF;
 }
 
+.marginx-5 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 @media screen and (max-width: 376px)and (min-width: 280px) {
+
+  .marginx-5 {
+    margin-left: 2rem;
+    margin-right: 3rem;
+  }
 
   .new_book_card {
     width: 70%;
@@ -3498,8 +3508,10 @@ body.active-modal {
   }
 
   .banner_southsore_text>.heading {
-    font-size: 12px;
+    font-size: 11px;
   }
+
+
 
   .banner_southsore_text>.text_2,
   .banner_southsore_text>.text_3 {
@@ -4037,6 +4049,11 @@ body.active-modal {
 
 
 @media screen and (max-width: 436px)and (min-width: 377px) {
+
+  .marginx-5{
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 
   .new_book_card {
     width: 70%;
@@ -4945,6 +4962,12 @@ body.active-modal {
 }
 
 @media screen and (min-width: 1920px) {
+
+  .marginx-5{
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
   .about-southshore {
     padding: 0 300px !important;
   }

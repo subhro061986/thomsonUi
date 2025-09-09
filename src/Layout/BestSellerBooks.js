@@ -154,7 +154,7 @@ const BestSellerBooks = () => {
 
                             <div
                                 key={index}
-                                className="col-md border card_border_light new_book_card h380 my-3 mx-5"
+                                className="col-md border card_border_light new_book_card h380 my-3 marginx-5"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => { gotoDetails(data.id) }}
                             >
