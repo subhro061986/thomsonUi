@@ -70,6 +70,11 @@ const TopBar = () => {
   const gotoLogin = () => {
     navigate('/login')
   }
+
+  const gotoSignUp = () => {
+    navigate('/register')
+  }
+
   const doLogout = async () => {
 
     const resp = await logOut()
@@ -200,7 +205,11 @@ const TopBar = () => {
           <img src={search_icon} />
         </div>
         {authData === '' ? (
-          <Button className="rounded-pill text-decoration-none" variant="link" onClick={gotoLogin}> Signin</Button>
+          <>
+            <Button className="text-dark text-decoration-none px-0" variant="link" onClick={gotoLogin}> Login</Button>
+            <div className="border border-start border-dark" style={{height:'20px'}}></div>
+            <Button className="text-dark text-decoration-none px-0" variant="link" onClick={gotoSignUp}> Signup</Button>
+          </>
         ) : (
           <div className="d-flex align-items-center">
             <button className="btn btn-circle" style={{ padding: '0', cursor: 'pointer' }}><img src={profileImage === '' ? profile : (Config.API_URL + Config.UPLOAD_URL + profileImage + '?d=' + new Date())} onClick={goToProfile} width={40} height={40} className="rounded-circle" /></button>

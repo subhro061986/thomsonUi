@@ -47,6 +47,10 @@ const TopBarSouthsore = () => {
     navigate('/loginsouthsore')
   }
 
+  const gotoSignUp = () => {
+    navigate('/register')
+  }
+
   const gotoLogout = async () => {
     console.log("authdata from to_1:", authData);
     const resp = await logOut();
@@ -114,6 +118,7 @@ const TopBarSouthsore = () => {
           </div>
 
           <Button className="rounded-pill sign_in_btn" variant="outline-primary" onClick={gotoLogin} hidden={hideSignInBtn}> Signin</Button>
+          <Button className="rounded-pill sign_in_btn" variant="outline-primary" onClick={gotoSignUp} hidden={hideSignInBtn}> Signup</Button>
           <Button style={{ padding: '0', cursor: 'pointer', background: 'transparent', border: 'none' }} hidden={!hideSignInBtn}><img src={profileImg} onClick={goToProfile} width={40} height={40} /></Button>
           <Button className="rounded-pill sign_in_btn" variant="outline-primary" onClick={gotoLogout} hidden={!hideSignInBtn}> Signout </Button>
         </div>
