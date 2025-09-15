@@ -366,7 +366,8 @@ const CategoryDetailsPage = () => {
 
 
     const gotoDetails = (book_id) => {
-        navigate('/productdetails', { state: { BOOK_ID: book_id } })
+        // navigate('/productdetails', { state: { BOOK_ID: book_id } })
+        navigate('/productdetails?bookid='+book_id)
     }
 
     const books_by_category = async (pub_id, cat_id,currpage,min,max) => {

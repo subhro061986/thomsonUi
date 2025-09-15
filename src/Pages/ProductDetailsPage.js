@@ -77,23 +77,24 @@ const ProductDetailsPage = () => {
     const [nondefaultimg, setNondefaultimg] = useState('')
     const [isBookPresent, setIsBookPresent] = useState(false)
     const [dependencyvar, setDependencyvar] = useState(false)
+    const [bookIdentity, setBookIdentity] = useState(0)
 
     const [containerClass, setContainerClass] = useState('container');
 
     const updateContainerClass = () => {
-      if (window.innerWidth === 1366) {
-        setContainerClass(''); // Set to empty string or a different class if needed
-      } else if (window.innerWidth === 1920) {
-        setContainerClass('container');
-      } else {
-        setContainerClass(''); // Default class or another class
-      }
+        if (window.innerWidth === 1366) {
+            setContainerClass(''); // Set to empty string or a different class if needed
+        } else if (window.innerWidth === 1920) {
+            setContainerClass('container');
+        } else {
+            setContainerClass(''); // Default class or another class
+        }
     };
-  
+
     useEffect(() => {
-      updateContainerClass(); // Set initial class based on initial window size
-      window.addEventListener('resize', updateContainerClass);
-      return () => window.removeEventListener('resize', updateContainerClass);
+        updateContainerClass(); // Set initial class based on initial window size
+        window.addEventListener('resize', updateContainerClass);
+        return () => window.removeEventListener('resize', updateContainerClass);
     }, []);
 
     const image_path = Config.API_URL + Config.PUB_IMAGES;
@@ -107,14 +108,24 @@ const ProductDetailsPage = () => {
 
     useEffect(() => {
         // console.log("p_detail : ", location?.state ? location?.state?.BOOK_ID : 2)
-        book_detail(location?.state?.BOOK_ID)
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const bookId = urlParams.get('bookid');
+        console.log("book id from url:", bookId)
+        setBookIdentity(bookId)
+        // book_detail(location?.state?.BOOK_ID)
+        book_detail(bookId)
 
         // console.log("bookid= ", location.state?.BOOK_ID)
-        
-    }, [location.state?.BOOK_ID])
+
+    },
+        // [location.state?.BOOK_ID]
+        // [bookId]
+        [bookIdentity]
+    )
 
 
-    
+
     const book_detail = async (book_id) => {
         console.log(" book id", book_id)
         const resp = await get_book_details(book_id)
@@ -157,14 +168,14 @@ const ProductDetailsPage = () => {
 
         let frontCover = image_path + pub_obj.publisherid + '/' + pub_obj.img + '?d=' + new Date();
         let backCover = image_path + pub_obj.publisherid + '/' + pub_obj.back_cover + '?d=' + new Date();
-        
+
         setDefaultimg(frontCover);
         setNondefaultimg(backCover);
 
     }
 
     const img_alter = (img_data) => {
-        
+
         // let path_img_data = image_path + bookdetail.publisher + "/" + img_data + '?d=' + new Date();
         // console.log("path_img_data :", path_img_data);
         setDefaultimg(img_data)
@@ -189,11 +200,11 @@ const ProductDetailsPage = () => {
         // before login
 
         if (authData === '' || authData === null || authData === undefined) {
-            console.log("json_data",json_data)
+            console.log("json_data", json_data)
             json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
             json_data["amount"] = json_data["price"]
-            
-            
+
+
             const resp = await add_book_to_storage(json_data)
             // for buy now
             if (toCheckout) {
@@ -262,7 +273,8 @@ const ProductDetailsPage = () => {
         }
         const resp = await add_delete_to_wishlist(json)
 
-        book_detail(location?.state?.BOOK_ID)
+        // book_detail(location?.state?.BOOK_ID)
+        book_detail(bookIdentity)
         // console.log("wishlist items : ", wishlistitems)
         console.log("Wishlist_resp ", resp)
     }
@@ -281,99 +293,99 @@ const ProductDetailsPage = () => {
 
             <Whatsapp />
             <div className={containerClass}>
-            <div className="category_bg details_main pb-5">
-                <div className="details_path"><span className="fw700">Home</span><span className="fw600"> &gt; {bookdetail.category} &gt;</span><span className="fw400"> {bookdetail.title}</span></div>
-                <div className="row mt-5">
-                    <div className="col-md-4 product_image_div">
-                        <div className="book_bg pb-5">
-                            <div className="d-flex justify-content-end align-items-center pt-2 me-2">
-                                <button className="btn btn-circle" onClick={(e) => Wishlist(e, bookdetail.id)}>
-                                    {
-                                        bookdetail.isFavourite === 1 ? (<img src={wishblue} width={27} height={27} />)
-                                            :
-                                            (<img src={wishlight} width={27} height={27} />)
-                                    }
-                                </button>
+                <div className="category_bg details_main pb-5">
+                    <div className="details_path"><span className="fw700">Home</span><span className="fw600"> &gt; {bookdetail.category} &gt;</span><span className="fw400"> {bookdetail.title}</span></div>
+                    <div className="row mt-5">
+                        <div className="col-md-4 product_image_div">
+                            <div className="book_bg pb-5">
+                                <div className="d-flex justify-content-end align-items-center pt-2 me-2">
+                                    <button className="btn btn-circle" onClick={(e) => Wishlist(e, bookdetail.id)}>
+                                        {
+                                            bookdetail.isFavourite === 1 ? (<img src={wishblue} width={27} height={27} />)
+                                                :
+                                                (<img src={wishlight} width={27} height={27} />)
+                                        }
+                                    </button>
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center ">
+                                    {/* <img src={defaultimg?.length > 0 ? defaultimg.image : dummy} className="d-flex justify-content-center align-items-center product_image" /> */}
+                                    <img src={bookdetail.img !== '' ? image_path + bookdetail.publisherid + '/' + bookdetail.img + '?d=' + new Date() : dummy} width={246} height={250}
+                                        className="d-flex justify-content-center align-items-center product_image"
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
-                            <div className="d-flex justify-content-center align-items-center ">
-                                {/* <img src={defaultimg?.length > 0 ? defaultimg.image : dummy} className="d-flex justify-content-center align-items-center product_image" /> */}
-                                <img src={bookdetail.img!=='' ? image_path + bookdetail.publisherid + '/' + bookdetail.img + '?d=' + new Date() : dummy} width={246} height={250}
-                                    className="d-flex justify-content-center align-items-center product_image"
-                                    loading="lazy"
-                                />
-                            </div>
+
+
+
+
+
+
                         </div>
+                        <div className="col-md-8 product_details_text_container">
+                            <div className=" ms-4 pt-2 pb-5">
+                                <div className="details_head fw600">{bookdetail.title}</div>
+                                <div className="mt-1 Product_author">Author: <span style={{ fontWeight: '400' }}>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></div>
+                                <div className="mt-1 Product_pub">Publisher: <span style={{ fontWeight: '500' }}>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></div>
+                                <div className="details_desc_head fw600 mt-3">Description</div>
 
+                                {
+                                    readbool ? (
+                                        <div className="details_desc fw400 mt-2 product_description">{bookdetail.description?.substring(0, 336) +
+                                            (showtext ? "" : "...")
+                                        }
 
-                        
+                                            <span style={{ display: showtext ? "" : "none" }}> {bookdetail.description.substring(336, bookdetail.description.length)}  </span>
+                                            <button onClick={() => setShowtext(!showtext)} className="read_more fw600 button-solid">
+                                                {showtext ? "Read Less" : "Read More"}
+                                            </button>
+                                        </div>
 
+                                    ) : (
+                                        <div className="details_desc fw400 mt-2 product_description">{bookdetail.description}</div>
 
+                                    )
 
-                    </div>
-                    <div className="col-md-8 product_details_text_container">
-                        <div className=" ms-4 pt-2 pb-5">
-                            <div className="details_head fw600">{bookdetail.title}</div>
-                            <div className="mt-1 Product_author">Author: <span style={{fontWeight:'400'}}>{bookdetail.authors !== null ? bookdetail.authors : "Not Found"}</span></div>
-                            <div className="mt-1 Product_pub">Publisher: <span style={{fontWeight:'500'}}>{bookdetail.publisher !== null ? bookdetail.publisher : "Not Found"}</span></div>
-                            <div className="details_desc_head fw600 mt-3">Description</div>
+                                }
 
-                            {
-                                readbool ? (
-                                    <div className="details_desc fw400 mt-2 product_description">{bookdetail.description?.substring(0, 336) +
-                                        (showtext ? "" : "...")
-                                    }
+                                <div className="prod_details fw500 mt-5 mb-2">Product Details</div>
+                                <div className="product_details details_list">
+                                    <ul className="ul_border">
+                                        <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
+                                        <li>Cover Type: <span>{bookdetail.covertype}</span></li>
 
-                                        <span style={{ display: showtext ? "" : "none" }}> {bookdetail.description.substring(336, bookdetail.description.length)}  </span>
-                                        <button onClick={() => setShowtext(!showtext)} className="read_more fw600 button-solid">
-                                            {showtext ? "Read Less" : "Read More"}
-                                        </button>
-                                    </div>
-
-                                ) : (
-                                    <div className="details_desc fw400 mt-2 product_description">{bookdetail.description}</div>
-
-                                )
-
-                            }
-
-                            <div className="prod_details fw500 mt-5 mb-2">Product Details</div>
-                            <div className="product_details details_list">
-                                <ul className="ul_border">
-                                    <li>No of Pages: <span>{bookdetail.noofpages !== null ? bookdetail.noofpages : "Not Found"}</span></li>
-                                    <li>Cover Type: <span>{bookdetail.covertype}</span></li>
-
-                                    {/* <li>Publishing Date: <span>
+                                        {/* <li>Publishing Date: <span>
                                         {bookdetail.publishdate === undefined || bookdetail.publishdate === null ? "Not Found" : Datetime(bookdetail.publishdate?.split(" ")[0])}
                                     </span></li> */}
-                                    <li>Year of Publishing: <span>
-                                        {bookdetail.yearofpublishing === undefined || bookdetail.yearofpublishing === null ? "Not Found" : bookdetail.yearofpublishing}
-                                    </span></li>
+                                        <li>Year of Publishing: <span>
+                                            {bookdetail.yearofpublishing === undefined || bookdetail.yearofpublishing === null ? "Not Found" : bookdetail.yearofpublishing}
+                                        </span></li>
 
 
-                                </ul>
+                                    </ul>
 
-                                <hr className='hr' />
+                                    <hr className='hr' />
 
-                                <ul className="ul_2">
-                                    <li>Edition No: <span>{bookdetail.editionno !== null ? bookdetail.editionno : "No Editions Found"}</span></li>
-                                    <li>ISBN-10: <span>{bookdetail.isbn10 !== null ? bookdetail.isbn10 : "Not Found"}</span></li>
-                                    <li>ISBN-13: <span>{bookdetail.isbn13 !== null ? bookdetail.isbn13 : "Not Found"}</span></li>
+                                    <ul className="ul_2">
+                                        <li>Edition No: <span>{bookdetail.editionno !== null ? bookdetail.editionno : "No Editions Found"}</span></li>
+                                        <li>ISBN-10: <span>{bookdetail.isbn10 !== null ? bookdetail.isbn10 : "Not Found"}</span></li>
+                                        <li>ISBN-13: <span>{bookdetail.isbn13 !== null ? bookdetail.isbn13 : "Not Found"}</span></li>
 
-                                </ul>
-                            </div>
-                            <hr></hr>
-                            <div className="d-flex justify-content-between">
-                                <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol} </span><span className="disc_price fw600 " style={{ color: '#000000' }}>{authData === '' || authData === null ? bookdetail.customerprice : authRole === 'Distributor' ? bookdetail.distributorprice : bookdetail.customerprice}</span></div>
+                                    </ul>
+                                </div>
+                                <hr></hr>
+                                <div className="d-flex justify-content-between">
+                                    <div className="details_price fw600 mt-4">Price: &nbsp; <span className="disc_price fw600 " style={{ color: '#000000' }}>{bookdetail.symbol} </span><span className="disc_price fw600 " style={{ color: '#000000' }}>{authData === '' || authData === null ? bookdetail.customerprice : authRole === 'Distributor' ? bookdetail.distributorprice : bookdetail.customerprice}</span></div>
 
-                                {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
-                                
-                            </div>
+                                    {/* <div className="d-flex flex-row justify-content-start mt-5"> */}
 
-                            
+                                </div>
 
-                                
 
-                                
+
+
+
+
 
                                 <div className="d-flex flex-row justify-content-start mt-5 button_width">
                                     <button type="button" style={{ width: '70%' }}
@@ -383,16 +395,16 @@ const ProductDetailsPage = () => {
                                     </button>
                                     {/* <button type="button" className="btn btn-primary rounded-pill d-flex justify-content-center align-items-center details_btn txt_color_FFFFFF fw500" onClick={() => add_to_cart(bookdetail.id, true)}>Buy Now</button> */}
                                 </div>
-                            
+
+
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
-            </div>
 
-            
+
             <FooterSouthsore />
 
             <ToastContainer />

@@ -153,7 +153,8 @@ const CartPage = () => {
 
     const gotoDetails = (book_id) => {
         console.log("book id from cart", book_id)
-        navigate('/productdetails', { state: { BOOK_ID: book_id } })
+        // navigate('/productdetails', { state: { BOOK_ID: book_id } })
+        navigate('/productdetails?bookid='+book_id)
     }
 
     const removeCartItems = async (item, index) => {

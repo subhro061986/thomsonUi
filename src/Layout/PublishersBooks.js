@@ -61,7 +61,8 @@ const PublishersBooks = () => {
     }, [allActivePublisher]);
 
     const gotoDetails = (book_id) => {
-        navigate("/productdetails", { state: { BOOK_ID: book_id } });
+        // navigate("/productdetails", { state: { BOOK_ID: book_id } });
+        navigate('/productdetails?bookid='+book_id)
     };
 
     const Wishlist = (event, book_id) => {
@@ -82,7 +83,7 @@ const PublishersBooks = () => {
                 <div className={`containerClass ${index % 2 === 0 ? "publiserWiseBg" : ""}`} key={index}>
                     <div className="p-5">
                         <div className="section_head fw500">
-                            <img
+                            {/* <img
                                 src={
                                     data.logo === null || data.logo === ""
                                         ? ThomsonLogo
@@ -90,7 +91,8 @@ const PublishersBooks = () => {
                                 }
                                 alt={data.name}
                                 width={140}
-                            />
+                            /> */}
+                            {data.name}
                         </div>
                         <div className="row mx-3">
                             {/* Carousel of Books */}

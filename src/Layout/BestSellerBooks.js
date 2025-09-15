@@ -83,7 +83,8 @@ const BestSellerBooks = () => {
 
 
     const gotoDetails = (book_id) => {
-        navigate('/productdetails', { state: { BOOK_ID: book_id } })
+        // navigate('/productdetails?bookid='+book_id, { state: { BOOK_ID: book_id } })
+        navigate('/productdetails?bookid='+book_id)
     }
 
 

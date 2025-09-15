@@ -113,8 +113,9 @@ const TopBar = () => {
 
 
 
-  const goToProductDetailsPage = (id) => {
-    navigate('/productdetails', { state: { BOOK_ID: id } })
+  const goToProductDetailsPage = (book_id) => {
+    // navigate('/productdetails', { state: { BOOK_ID: id } })
+    navigate('/productdetails?bookid='+book_id)
   }
 
   return (
