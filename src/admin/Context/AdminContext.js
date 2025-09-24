@@ -227,9 +227,9 @@ const AdminProvider = ({ children }) => {
         })
       // }
       if (response.data.statuscode === '0') {
-        getAllBookList()
+        getAllBookList(1, Config.BOOK_LIST_RECORDS_PER_PAGE,isbnSearch)
       }
-      // console.log(" Upload Single Book Response : ", response);
+      console.log(" Upload Single Book Response : ", response);
       return response;
 
     }
