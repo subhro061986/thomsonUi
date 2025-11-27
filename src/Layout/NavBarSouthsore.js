@@ -11,11 +11,12 @@ import Accordion from 'react-bootstrap/Accordion';
 import { HashLink } from 'react-router-hash-link';
 import { UserProfile } from "../Context/Usercontext"
 import { useAuth } from '../Context/Authcontext';
+import Config from "../Config/Config.json";
 
 const NavBarSouthsore = () => {
     const navigate = useNavigate();
     const { category_by_publisher, items, allActivePublisher, allCategoryList } = UserProfile()
-    const { wishlistshow, cartCount } = useAuth()
+    const { wishlistshow, cartCount, authRole, authData } = useAuth()
     const [drawerStat, setDrawerStat] = useState(false)
     // const [submneuDrawer, setsubmneuDrawer] = useState(false)
     const [pubcat, setPubcat] = useState([])
@@ -108,6 +109,20 @@ const NavBarSouthsore = () => {
         navigate('/category', { state: { publisher_id: pub_id } });
     };
 
+    const goToProfile = () => {
+        if (wishlistshow === true) {
+            if (authRole === Config.ROLE_DISTRIBUTOR) {
+                navigate('/orderpageDistributor')
+            }
+            else {
+                navigate('/orderpage', { state: { fromHome: false } })
+            }
+        }
+        else {
+            navigate('/login')
+        }
+    }
+
 
     return (
         <>
@@ -155,6 +170,12 @@ const NavBarSouthsore = () => {
                                 About Southshore
                             </HashLink>
                         </li>
+                        <li className="nav-item" onClick={goToProfile}>
+                            <span className="nav-link" style={{ cursor: "pointer" }}>
+                                My Dashboard
+                            </span>
+                        </li>
+
                     </ul>
                 )
             }
@@ -238,7 +259,19 @@ const NavBarSouthsore = () => {
                                     About Southshore
                                 </Link> */}
                             </li>
-
+                            {authData === '' ?
+                                (
+                                    <li></li>
+                                )
+                                :
+                                (
+                                    <li className="nav-item" onClick={goToProfile}>
+                                        <HashLink className="nav-link" style={{ cursor: "pointer" }}>
+                                            My Dashboard
+                                        </HashLink>
+                                    </li>
+                                )
+                            }
                             {/* <li className="nav-item">
                                 <HashLink smooth className="nav-link" to='/#contact' > Contact Us </HashLink>
                                 
