@@ -14,16 +14,16 @@ import NavBarSouthsore from "../Layout/NavBarSouthsore";
 import { useAuth } from "../Context/Authcontext";
 
 
-const ShippingComp = () => {
-    
-    const {authData}=useAuth()
-    const { getAllShippingAddress, 
-        shippingList, 
-        addShippingAddress, 
-        getSippingAddressById, 
-        editShippingAddress, 
-        delShippingAddress, 
-        get_country_list, 
+const ShippingComp = ({ savedBillingDetails, savedContactDetails }) => {
+
+    const { authData } = useAuth()
+    const { getAllShippingAddress,
+        shippingList,
+        addShippingAddress,
+        getSippingAddressById,
+        editShippingAddress,
+        delShippingAddress,
+        get_country_list,
         get_state_list,
         selectShippingAddress,
         selectedShippingAddressId, } = UserProfile()
@@ -45,16 +45,24 @@ const ShippingComp = () => {
     const [stateId, setStateId] = useState(0)
     const [shippingAddId, setShippingAddId] = useState(0)
     const [shipList, setShipList] = useState([])
-    const [tempShippingArr,setTempShippingArr]=useState(shippingList)
+    const [tempShippingArr, setTempShippingArr] = useState(shippingList)
+
+    const [sameAsBilling, setSameAsBilling] = useState(false);
+
     //const [tempShippingArr,setTempShippingArr]=useState(props.list)
+
+    useEffect(() => {
+        console.log("Billing Details Updated:", savedBillingDetails);
+        console.log("Contact Details Updated:", savedContactDetails);
+    }, [savedBillingDetails, savedContactDetails]);
 
     const [checkedItems, setCheckedItems] = useState(
         shippingList.reduce((acc, data) => {
-          acc[data.id] = data.defaultChecked;
-          return acc;
+            acc[data.id] = data.defaultChecked;
+            return acc;
         }, {})
-      );
-      useEffect(() => {
+    );
+    useEffect(() => {
         get_countries()
         get_states()
     }, [authData]);
@@ -64,30 +72,30 @@ const ShippingComp = () => {
     }, [selectedShippingAddressId]);
 
     useEffect(() => {
-        console.log("SHIPPING LIST===>",shippingList)
+        console.log("SHIPPING LIST===>", shippingList)
         getShipLists()
     }, [shippingList]);
 
     const getShipLists = async () => {
-        let tempArr=shippingList
-        for(let i=0;i<tempArr.length;i++){
-         if(tempArr[i]['id'] === selectedShippingAddressId){
-             tempArr[i]['checked']=true;
-         }
-         else {
-             tempArr[i]['checked']=false;
-         }
- 
+        let tempArr = shippingList
+        for (let i = 0; i < tempArr.length; i++) {
+            if (tempArr[i]['id'] === selectedShippingAddressId) {
+                tempArr[i]['checked'] = true;
+            }
+            else {
+                tempArr[i]['checked'] = false;
+            }
+
         }
         setTempShippingArr([...tempArr]);
-     }
-      const handleCheckboxChange = async(id) => {
+    }
+    const handleCheckboxChange = async (id) => {
         // setCheckedItems((prevState) => ({
         //   ...prevState,
         //   [id]: !prevState[id],
         // }));
-        const resp= await selectShippingAddress(id);
-      };
+        const resp = await selectShippingAddress(id);
+    };
 
     const navigate = useNavigate();
     const goToHome = () => {
@@ -95,31 +103,40 @@ const ShippingComp = () => {
     }
 
     const openAddAddressModal = async (id) => {
-        console.log("edit shipping id ", id)
-        setAddAddressModal(true)
+        console.log("edit shipping id ", id);
+        setAddAddressModal(true);
 
-        const response = await getSippingAddressById(id)
-        console.log("response of ship by id", response)
+        const response = await getSippingAddressById(id);
+        console.log("response of ship by id", response);
+
         if (id === 0) {
-            setmodaltitle('Add Address')
-            setStreetAddress('')
-            setCountryId(0)
-            setStateId(0)
-            setCity('')
-            setPin('')
-            setShippingAddId(0)
-        }
-        else {
-            setmodaltitle('Edit Address')
-            setStreetAddress(response.data.output.streetaddress)
-            setCountryId(response.data.output.countryid)
-            setStateId(response.data.output.stateid)
-            setCity(response.data.output.city)
-            setPin(response.data.output.pincode)
-            setShippingAddId(id)
+            setmodaltitle('Add Address');
+            setStreetAddress('');
+            setCountryId(0);
+            setStateId(0);
+            setCity('');
+            setPin('');
+            setShippingAddId(0);
+        } else {
+            setmodaltitle('Edit Address');
 
+            setStreetAddress(response.data.output.streetaddress);
+            setCity(response.data.output.city);
+            setPin(response.data.output.pincode);
+            setShippingAddId(id);
+
+            // STEP 1: set country
+            const cid = response.data.output.countryid;
+            setCountryId(cid);
+
+            // STEP 2: fetch states of that country
+            await get_states(cid);
+
+            // STEP 3: select correct state
+            setStateId(response.data.output.stateid);
         }
-    }
+    };
+
 
     const closeAddAddressModal = () => {
         setAddAddressModal(false)
@@ -171,7 +188,7 @@ const ShippingComp = () => {
 
 
     const saveShipping = async () => {
-        
+
         if (shippingAddId === 0) {
             let addShippingData = {
                 streetAddress: streetAddress,
@@ -181,8 +198,16 @@ const ShippingComp = () => {
                 pincode: pin
             }
             let response = await addShippingAddress(addShippingData)
-            // console.log(" add shipping response ", response)
-            if(response.statuscode !== 0){alert(response.message)}
+            console.log(" add shipping response ", response)
+            // if (response.statuscode !== 0) { 
+            alert(response.data.message)
+            // }
+
+            // ⬇️ Fetch updated states after changing country
+            if (countryId) {
+                await get_states(countryId);
+            }
+
             closeAddAddressModal()
         }
         else {
@@ -195,8 +220,16 @@ const ShippingComp = () => {
                 pincode: pin
             }
             let response = await editShippingAddress(editShippingData, shippingAddId)
-            // console.log(" add shipping response ", response)
-            if(response.statuscode !== 0){alert(response.message)}
+            console.log(" edit shipping response ", response)
+            // if (response.statuscode !== 0) { 
+            alert(response.data.message)
+            // }
+
+            // ⬇️ Fetch updated states after changing country
+            if (countryId) {
+                await get_states(countryId);
+            }
+
             closeAddAddressModal()
         }
 
@@ -210,6 +243,33 @@ const ShippingComp = () => {
     }
 
 
+    const handleSameAsBilling = async (checked) => {
+        setSameAsBilling(checked);
+
+        if (checked) {
+            // Fill from billing
+            setStreetAddress(savedBillingDetails.streetAddress || "");
+            setCity(savedBillingDetails.city || "");
+            setPin(savedBillingDetails.pincode || "");
+            setCountryId(savedBillingDetails.countryid || 0);
+
+            // fetch states again
+            if (savedBillingDetails.countryid) {
+                await get_states(savedBillingDetails.countryid);
+            }
+
+            setStateId(savedBillingDetails.stateid || 0);
+
+        } else {
+            // Reset fields
+            setStreetAddress("");
+            setCity("");
+            setPin("");
+            setCountryId(0);
+            setStateId(0);
+            setStateList([]);
+        }
+    };
 
 
 
@@ -217,13 +277,13 @@ const ShippingComp = () => {
 
     return (
         <>
-            
+
             <div className="d-flex ms-2">
-            <button className="btn rounded-pill d-flex justify-content-center align-items-center mt-2 px-4 py-2"  style={{background:'#058EFA',color:"white"}} onClick={() => openAddAddressModal(0)}>Add Address</button>
-                </div>
+                <button className="btn rounded-pill d-flex justify-content-center align-items-center mt-2 px-4 py-2" style={{ background: '#058EFA', color: "white" }} onClick={() => openAddAddressModal(0)}>Add Address</button>
+            </div>
             <div className="row my-4 mx-1">
                 {tempShippingArr.map((data, index) => (
-                    <div className="col-md-3 text-start border border-secondary  mx-2 mt-3 py-3 px-3" style={{borderRadius:15}} key={index}>
+                    <div className="col-md-3 text-start border border-secondary  mx-2 mt-3 py-3 px-3" style={{ borderRadius: 15 }} key={index}>
                         <input className="form-check-input" type="radio" checked={data.checked}
                             onChange={() => handleCheckboxChange(data.id)} value={data.id} />
                         <div className="">
@@ -233,8 +293,8 @@ const ShippingComp = () => {
                             <div>{data.pincode}</div>
                             <div>{data.countryname}</div>
                             <div className="d-flex">
-                            <button className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center mt-2 px-4"  onClick={() => openAddAddressModal(data.id)}>Edit</button>
-                                
+                                <button className="btn btn-outline-secondary rounded-pill d-flex justify-content-center align-items-center mt-2 px-4" onClick={() => openAddAddressModal(data.id)}>Edit</button>
+
                             </div>
                         </div>
 
@@ -242,7 +302,7 @@ const ShippingComp = () => {
                 ))}
             </div>
 
-            
+
 
             {/* Add Address Modal */}
 
@@ -310,12 +370,24 @@ const ShippingComp = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-
-                    <button className="btn btn-main"
-                        onClick={saveShipping}
-                        style={{ width: '20%' }}>
-                        Save
-                    </button>
+                    <div className="d-flex justify-content-between align-items-center w-100">
+                        {shippingAddId === 0 &&
+                            <div className="d-flex align-items-center">
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input me-2"
+                                    checked={sameAsBilling}
+                                    onChange={(e) => handleSameAsBilling(e.target.checked)}
+                                />
+                                <label className="form-check-label">Same as Billing Address</label>
+                            </div>
+                        }
+                        <button className="btn btn-main"
+                            onClick={saveShipping}
+                            style={{ width: '20%' }}>
+                            Save
+                        </button>
+                    </div>
                 </Modal.Footer>
             </Modal>
 

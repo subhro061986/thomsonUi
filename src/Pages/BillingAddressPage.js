@@ -22,7 +22,7 @@ import verify from "../Assets/Images/verify.png";
 
 const BillingAddressPage = () => {
     const formWizardRef = useRef();
-    const { authData,authRole } = useAuth()
+    const { authData, authRole } = useAuth()
     const {
         my_profile,
         get_country_list,
@@ -43,8 +43,8 @@ const BillingAddressPage = () => {
     const [address, setAddress] = useState('')
     const [selectedCountry, setSelectedCountry] = useState('')
     const [selectedState, setSelectedState] = useState('')
-    const [stateName,setStateName] = useState('')
-    const [countryName,setCountryName] = useState('')
+    const [stateName, setStateName] = useState('')
+    const [countryName, setCountryName] = useState('')
     const [city, setCity] = useState('')
     const [pin, setPin] = useState('')
     const [name, setName] = useState('')
@@ -58,6 +58,9 @@ const BillingAddressPage = () => {
     const [buyNow, setBuyNow] = useState(0)
     const [billingAddressId, setBillingAddressId] = useState(0)
     const [Razorpay] = useRazorpay();
+
+    const [savedBillingDetails, setSavedBillingDetails] = useState({})
+    const [savedContactDetails, setSavedContactDetails] = useState({})
 
 
     useEffect(() => {
@@ -73,7 +76,7 @@ const BillingAddressPage = () => {
 
     useEffect(() => {
         console.log("SHIPPING LIST FROM PARENT=", userShippingAddress)
-    }, [shippingList,selectedShippingAddressId])
+    }, [shippingList, selectedShippingAddressId])
 
 
     const countryHandler = async (e) => {
@@ -164,16 +167,16 @@ const BillingAddressPage = () => {
         setPin(resp.output.pincode)
         setStateName(resp.output.statename)
         setCountryName(resp.output.countryname)
-        
+
         if (resp.output.countryid === null || resp.output.countryid === '' || resp.output.countryid === undefined) {
-            console.log("COUNTRY ID=====>",resp.output)
+            console.log("COUNTRY ID=====>", resp.output)
             setStateList([])
-            
+
         }
-        else{
-            console.log("COUNTRY ID=====>123",resp.output)
+        else {
+            console.log("COUNTRY ID=====>123", resp.output)
             renderStateList(resp.output.countryid)
-            
+
         }
     }
     const processPaymentSuccess = async (placeOrder, data) => {
@@ -189,7 +192,7 @@ const BillingAddressPage = () => {
         // console.log("resp confirmed= ", respPaymentConfirmed)
         if (respPaymentConfirmed['statuscode'] === "0") {
             navigate('/confirmorder')
-            
+
         }
         else {
             alert("Could not process payment correctly")
@@ -210,7 +213,7 @@ const BillingAddressPage = () => {
     const placeOrder = async () => {
 
         // console.log("selected shipping address=",selectedShippingAddress)
-        if(selectedShippingAddressId > 0){
+        if (selectedShippingAddressId > 0) {
 
             let placeorderJson = {
                 billingaddressid: billingAddressId,
@@ -232,17 +235,16 @@ const BillingAddressPage = () => {
     }
 
     const saveBillingDetails = async (data) => {
-        if(address==='' || city==='' || 
-            selectedState==='' || selectedCountry==='' ||
-            email==='' || phone==='' || address===undefined || city===undefined || 
-            selectedState===undefined || selectedCountry===undefined ||
-            email===undefined || phone===undefined
-        )
-        {
+        if (address === '' || city === '' ||
+            selectedState === '' || selectedCountry === '' ||
+            email === '' || phone === '' || address === undefined || city === undefined ||
+            selectedState === undefined || selectedCountry === undefined ||
+            email === undefined || phone === undefined
+        ) {
             console.log("IN IF")
             alert("Please fill up all fields")
         }
-        else{
+        else {
             console.log("IN ELSE")
             let changebillingDetails = {
                 streetAddress: address,
@@ -251,31 +253,34 @@ const BillingAddressPage = () => {
                 stateid: selectedState,
                 countryid: selectedCountry,
             }
-    
+
+            setSavedBillingDetails(changebillingDetails)
+
             let changecontactDetails = {
                 email: email,
                 contactno: phone,
             }
-    
+            setSavedContactDetails(changecontactDetails)
+
             const contactDetailsPesponse = await change_contact_details(changecontactDetails)
-            // console.log("contact details=", contactDetailsPesponse)
-            if(contactDetailsPesponse.statuscode !== '0' ){
-                alert(contactDetailsPesponse.message) 
+            console.log("contact details=", contactDetailsPesponse)
+            if (contactDetailsPesponse.statuscode !== '0') {
+                alert(contactDetailsPesponse.message)
             }
             const billingDetailsPesponse = await editBillingAddress(changebillingDetails)
-            // console.log("billing details=", billingDetailsPesponse)
-            if(billingDetailsPesponse.statuscode !== '0') {
-                alert(billingDetailsPesponse.message) 
+            console.log("billing details=", billingDetailsPesponse)
+            if (billingDetailsPesponse.statuscode !== '0') {
+                alert(billingDetailsPesponse.message)
             }
             if (contactDetailsPesponse.statuscode === '0' && billingDetailsPesponse.statuscode === '0') {
                 // console.log("check,",formWizardRef.current)
-                if(billingDetailsPesponse.output.id > 0){
+                if (billingDetailsPesponse.output.id > 0) {
                     setBillingAddressId(billingDetailsPesponse.output.id)
                 }
                 formWizardRef.current?.goToTab(1);
             }
         }
-        
+
 
     }
 
@@ -283,35 +288,35 @@ const BillingAddressPage = () => {
         // const amount = location.state.pageData.total_price
         // console.log("amt= ", amount)
 
-        if(authRole  === Config.ROLE_DISTRIBUTOR){
-            let order_params={
-                id:placeOrderResponse.output.id
+        if (authRole === Config.ROLE_DISTRIBUTOR) {
+            let order_params = {
+                id: placeOrderResponse.output.id
             }
 
-            const order=await confirmOrder(order_params)
-            if(order.statuscode === '0'){
+            const order = await confirmOrder(order_params)
+            if (order.statuscode === '0') {
 
-                navigate('/confirmorder',{state:{orderDetails:placeOrderResponse.output}})   
+                navigate('/confirmorder', { state: { orderDetails: placeOrderResponse.output } })
             }
         }
-        else{
+        else {
             const amount = parseInt(orderTotal * 100)
             let order_params = {
                 amount: amount,
                 currency: placeOrderResponse.output.currencyisocode,
                 orderno: placeOrderResponse.output.orderno,
                 orderid: placeOrderResponse.output.id
-    
+
             }
             const order = await createRazorpayOrder(order_params); //  Create order on your backend
             console.log("order response= ", order)
             // if(order.)
-    
+
             if (order !== undefined) {
-    
+
                 const options = {
                     //  key: Config.RAZORPAY_LIVE_KEY, // Enter the Key ID generated from the Dashboard
-                //    key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
+                    //    key: Config.RAZORPAY_TEST_KEY, // Enter the Key ID generated from the Dashboard
                     key: 'rzp_live_gXUYrgWkg9i2Fl', // Enter the Key ID generated from the Dashboard
                     amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     currency: "INR",
@@ -334,13 +339,13 @@ const BillingAddressPage = () => {
                                 "payment_signature": response.razorpay_signature,
                                 "transactionamount": order.amount
                                 // "currency" :"INR"
-    
+
                             })
                         }
                         else {
                             alert("Your transaction process failed! Please try again later.")
                         }
-    
+
                     },
                     prefill: {
                         name: name,
@@ -354,9 +359,9 @@ const BillingAddressPage = () => {
                         color: "#3399cc",
                     },
                 };
-    
+
                 const rzp1 = new Razorpay(options);
-    
+
                 rzp1.on("payment.failed", function (response) {
                     alert(response.error.code);
                     alert(response.error.description);
@@ -365,26 +370,26 @@ const BillingAddressPage = () => {
                     // alert(response.error.reason);
                     // alert(response.error.metadata.order_id);
                     // alert(response.error.metadata.payment_id);
-    
-    
+
+
                     processPaymentFailed(placeOrderResponse, {
                         "paymentid": "",
                         "razorpay_orderid": order.order_id,
                         "payment_signature": response.razorpay_signature,
                         "transactionamount": order.amount,
                         // "currency" :"INR"
-    
+
                     })
                 });
                 rzp1.on("payment.captured", function (response) {
                     // console.log("payment successfulb response= ", response)
                     placeOrder()
                 });
-    
+
                 rzp1.open();
             }
         }
-    }; 
+    };
     const handleComplete = () => {
         navigate('/')
     };
@@ -412,7 +417,7 @@ const BillingAddressPage = () => {
         <div className="main-container">
 
             <div className="container">
-                <TopBar/>
+                <TopBar />
                 <NavBarSouthsore />
             </div>
             <Whatsapp />
@@ -423,7 +428,7 @@ const BillingAddressPage = () => {
                         onComplete={handleComplete}
                         // onTabChange={tabChanged}
                         ref={formWizardRef}
-                        backButtonTemplate={()=> (<></>)}
+                        backButtonTemplate={() => (<></>)}
                         nextButtonTemplate={(handleNext) => (
                             <></>
                         )}
@@ -446,30 +451,30 @@ const BillingAddressPage = () => {
                                         <div className="col-md-6">
                                             <label className="form_label">Address</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={addressHandler} value={address} autocomplete="new-password"/>
+                                                onChange={addressHandler} value={address} autocomplete="new-password" />
 
                                             <label className="form_label mt-2">City</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={cityHandler} value={city} autocomplete="new-password"/>
+                                                onChange={cityHandler} value={city} autocomplete="new-password" />
 
                                             <label className="form_label mt-2">Name</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={nameHandler} value={name} autocomplete="new-password"/>
+                                                onChange={nameHandler} value={name} autocomplete="new-password" />
 
                                             <label className="form_label mt-2">Email</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={emailHandler} value={email} autocomplete="new-password"/>
+                                                onChange={emailHandler} value={email} autocomplete="new-password" />
 
                                             <label className="form_label mt-2">Phone</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={phoneHandler} value={phone} autocomplete="new-password"/>
+                                                onChange={phoneHandler} value={phone} autocomplete="new-password" />
                                         </div>
 
                                         <div className="col-md-6">
                                             <label className="form_label ">Country</label>
-                                            <select 
-                                                className="form-control p_hold" 
-                                                onChange={countryHandler} 
+                                            <select
+                                                className="form-control p_hold"
+                                                onChange={countryHandler}
                                                 value={selectedCountry}
                                             >
 
@@ -496,17 +501,17 @@ const BillingAddressPage = () => {
                                             <select className="form-control p_hold"
                                                 onChange={stateHandler}
                                                 value={selectedState}
-                                                
+
                                             >
 
-                                                <option  value=""> Please Select</option>
+                                                <option value=""> Please Select</option>
 
                                                 {
                                                     stateList.map((state, index) => (
 
-                                                        <option key={index} value={state.id} 
-                                                        //selected={selectedState === state.id ? true : false} 
-                                                        autocomplete="new-password"> {state.name} </option>
+                                                        <option key={index} value={state.id}
+                                                            //selected={selectedState === state.id ? true : false} 
+                                                            autocomplete="new-password"> {state.name} </option>
 
                                                     ))
                                                 }
@@ -515,11 +520,11 @@ const BillingAddressPage = () => {
 
                                             <label className="form_label mt-2">PIN</label>
                                             <input className="form-control p_hold" type="text"
-                                                onChange={pinHandler} value={pin} autocomplete="new-password"/>
+                                                onChange={pinHandler} value={pin} autocomplete="new-password" />
                                         </div>
 
                                     </div>
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(0)}>Save & Next</Button>
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={() => tabChanged(0)}>Save & Next</Button>
 
 
                                 </div>
@@ -534,10 +539,13 @@ const BillingAddressPage = () => {
                                     <h2 className="card-title"><b>Shipping Address</b></h2>
 
                                     <hr></hr>
-                                    <ShippingComp/>
+                                    <ShippingComp
+                                        savedBillingDetails={savedBillingDetails}
+                                        savedContactDetails={savedContactDetails}
+                                    />
 
 
-                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(1)}>Place Order</Button>
+                                    <Button className="mt-2 rounded-pill px-4" variant="outline-primary" onClick={() => tabChanged(1)}>Place Order</Button>
 
 
                                 </div>
@@ -550,51 +558,51 @@ const BillingAddressPage = () => {
 
                                     <hr></hr>
 
-                                        <p className="card-title fs-5 fw-medium" style={{color:"gray"}}>Order Summary</p>
-                                        <hr></hr>
+                                    <p className="card-title fs-5 fw-medium" style={{ color: "gray" }}>Order Summary</p>
+                                    <hr></hr>
                                     <div className="d-flex justify-content-between align-items-start">
                                         <div>
-                                                <h3>Billing address</h3>
-                                                <hr></hr>
-                                                <div className="d-flex flex-column justify-content-between align-items-start" >
-                                                    <p><strong>Address:</strong> {address}</p> 
-                                                    <p><strong>City:</strong> {city}</p>
-                                                    <p><strong>Pin Code:</strong>{pin}</p>
-                                                    <p><strong>State:</strong>{stateName}</p>
-                                                    <p><strong>Country:</strong> {countryName}</p>
-                                                </div>
+                                            <h3>Billing address</h3>
+                                            <hr></hr>
+                                            <div className="d-flex flex-column justify-content-between align-items-start" >
+                                                <p><strong>Address:</strong> {address}</p>
+                                                <p><strong>City:</strong> {city}</p>
+                                                <p><strong>Pin Code:</strong>{pin}</p>
+                                                <p><strong>State:</strong>{stateName}</p>
+                                                <p><strong>Country:</strong> {countryName}</p>
+                                            </div>
 
                                         </div>
                                         <div>
-                                                <h3>Shipping address</h3>
-                                                <hr></hr>
-                                                <div className="d-flex flex-column justify-content-between align-items-start" >
-                                                    
-                                          
-                                                    <p><strong>Address:</strong> {userShippingAddress?.streetaddress}</p> 
-                                                    <p><strong>City:</strong> {userShippingAddress?.city}</p>
-                                                    <p><strong>Pin Code:</strong>{userShippingAddress?.pincode}</p>
-                                                    <p><strong>State:</strong>{userShippingAddress?.statename}</p>
-                                                    <p><strong>Country:</strong> {userShippingAddress?.countryname}</p>
-                                                </div>
+                                            <h3>Shipping address</h3>
+                                            <hr></hr>
+                                            <div className="d-flex flex-column justify-content-between align-items-start" >
+
+
+                                                <p><strong>Address:</strong> {userShippingAddress?.streetaddress}</p>
+                                                <p><strong>City:</strong> {userShippingAddress?.city}</p>
+                                                <p><strong>Pin Code:</strong>{userShippingAddress?.pincode}</p>
+                                                <p><strong>State:</strong>{userShippingAddress?.statename}</p>
+                                                <p><strong>Country:</strong> {userShippingAddress?.countryname}</p>
+                                            </div>
 
                                         </div>
                                         <div >
-                                        <h3>Total Amount</h3>
-                                        <hr></hr>
-                                        <h4>Price : {placeOrderResponse?.output?.currency} {placeOrderResponse?.output?.totalAmount} </h4>
-                              
+                                            <h3>Total Amount</h3>
+                                            <hr></hr>
+                                            <h4>Price : {placeOrderResponse?.output?.currency} {placeOrderResponse?.output?.totalAmount} </h4>
+
                                         </div>
                                         <div>
 
                                         </div>
                                     </div>
-                                    <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={()=>tabChanged(2)}>Confirm Order</Button>
+                                    <Button className="m-2 rounded-pill px-4" variant="outline-primary" onClick={() => tabChanged(2)}>Confirm Order</Button>
 
                                 </div>
                             </div>
                         </FormWizard.TabContent>
-                        
+
                     </FormWizard>
                     {/* add style */}
                     <style>{`

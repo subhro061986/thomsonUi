@@ -119,9 +119,9 @@ const ProductDetailsPage = () => {
         // console.log("bookid= ", location.state?.BOOK_ID)
 
     },
-        // [location.state?.BOOK_ID]
+        [new URLSearchParams(window.location.search).get('bookid')]
         // [bookId]
-        [bookIdentity]
+        //[bookIdentity]
     )
 
 
