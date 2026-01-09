@@ -1513,6 +1513,7 @@ const UserProvider = ({ children }) => {
         Send_OTP_By_Email,
         Validate_Guest,
         Guest_Details,
+        guestToken,
         createAppOrderGuest,
         createRazorpayOrderGuest,
         processPaymentGuest,
