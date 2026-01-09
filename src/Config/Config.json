@@ -17,6 +17,7 @@
     "ADD_DELETE_IN_WISHLIST" : "user/wishlist/toggle",
     "GET_CART_ITEMS" : "cart" ,
     "ADD_SINGLE_ITEM" : "cart/add" ,
+    "CLEAR_CART_ITEMS" : "cart/clear" ,
     "ADD_MULTIPLE_ITEMS" : "cart/add-multiple" ,
     "REMOVE_CART_ITEM" : "cart/remove",
     "EDIT_CART_ITEM" : "cart/edit",
@@ -64,6 +65,10 @@
     "RETURN_ORDER":"order/return-request",
     "CONFIRM_ORDER":"order/confirm",
     "ROLE_DISTRIBUTOR":"Distributor",
-    "ROLE_CUSTOMER":"Customer"
+    "ROLE_CUSTOMER":"Customer",
+
+    "SEND_OTP_BY_EMAIL" : "user/sendOTPbyEmail",
+    "VALIDATE_GUEST" : "user/validate-guest",
+    "GUEST_DETAILS" : "user/guest-details"
 }
   

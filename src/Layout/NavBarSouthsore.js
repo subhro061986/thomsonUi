@@ -209,7 +209,7 @@ const NavBarSouthsore = () => {
                                 >
                                     <option value="0" disabled>Publishers</option>
 
-                                    {allActivePublisher.map((data, index) => (
+                                    {allActivePublisher?.map((data, index) => (
                                         data.isactive === 1 && (
                                             <option
                                                 style={{ backgroundColor: "#E4E8F3" }}
@@ -233,7 +233,7 @@ const NavBarSouthsore = () => {
                                 >
                                     <option value={"0"} disabled >Practice Area</option>
 
-                                    {allCategoryList.map((data, index) => (
+                                    {allCategoryList?.map((data, index) => (
                                         data.isactive === 1 && (
 
                                             <option style={{ backgroundColor: "#E4E8F3" }} key={index} value={data.id}>{data.name}</option>

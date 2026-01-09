@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   const [uuid, SetUuid] = useState()
   const [cartCount, setCartCount] = useState(0)
   const [cartItems, setCartItems] = useState([])
-  const [subTotal, setSubTotal]= useState(0)
+  const [subTotal, setSubTotal] = useState(0)
   const [authRole, setAuthRole] = useState('');
   const image_path = Config.API_URL + Config.PUB_IMAGES;
 
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
 
 
   const decode_token = async (token) => {
-    
+
     let My_token = token
 
     if (My_token !== "") {
@@ -102,7 +102,7 @@ const AuthProvider = ({ children }) => {
 
     }
     else {
-      
+
       SetUuid(my_unique_id)
 
     }
@@ -113,7 +113,7 @@ const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    
+
   }, [cartItems])
 
 
@@ -139,7 +139,7 @@ const AuthProvider = ({ children }) => {
 
 
   const logIn = async (arg) => {
-    
+
     try {
       const response = await axios.post(Config.API_URL + Config.LOGIN_API, arg,
         {
@@ -148,9 +148,9 @@ const AuthProvider = ({ children }) => {
           },
 
         })
-      
+
       let decode_resp = jwtDecode(response.data.token)
-      
+
       if (response.status === 200) {
         setAuthData(response.data.token)
         setAuthRole(decode_resp.role)
@@ -193,7 +193,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("userid", '');
     localStorage.setItem("userRole", '');
     // localStorage.setItem("username", '');
-    
+
     // getCartData('')
     setCartCount(0)
     setCartItems([])
@@ -308,7 +308,7 @@ const AuthProvider = ({ children }) => {
     // -------- Before Login ----------//
     if (tok === '' || tok === null || tok === undefined) {
       let cc = localStorage.getItem("cartData")
-      console.log("items after change= ",cc)
+      console.log("items after change= ", cc)
       if (cc !== null && cc !== undefined && cc !== '') {
         let tempCartItems = JSON.parse(cc)
         setCartCount(tempCartItems.length)
@@ -330,7 +330,7 @@ const AuthProvider = ({ children }) => {
 
           })
 
-        
+
 
         let cd = response.data.output
         // console.log("items befire change= ",cd)
@@ -360,15 +360,24 @@ const AuthProvider = ({ children }) => {
     let isPresent = false
     // console.log("inside add book to storage")
     // -------- Before Login ----------//
-    if (authData === '' || authData === null || authData === undefined) {
-      const cd = localStorage.getItem('cartData');
-      
+    console.log("authData in add book to storage= ", authData)
+    console.log(authData, typeof authData);
+    console.log("authData length:", authData?.length);
+
+    if (authData === "" || authData === null || authData === undefined) {
+      console.log("✅ BEFORE LOGIN BLOCK HIT");
+      console.log("ALL localStorage keys:", Object.keys(localStorage));
+      console.log("RAW cartData:", localStorage.getItem("cartData"));
+      const cd = localStorage.getItem("cartData");
+      console.log("cart data from storage= ", cd)
+      const ui = localStorage.getItem("publisher_id");
+      console.log("publisher id from storage= ", ui)
 
       // nothing present in async storage i.e first entry
-      if (cd === null || cd === '' || cd === undefined) {
+      if (cd === null || cd === '' || cd === undefined || cd === '[]') {
         setCartCount(1)
         tempCartArray.push(data)
-
+        console.log("cart data after first entry= ", tempCartArray)
         localStorage.setItem("cartData", JSON.stringify(tempCartArray));
 
       }
@@ -393,7 +402,7 @@ const AuthProvider = ({ children }) => {
         // book already present in cart and do nothing 
         else {
           isPresent = true
-          
+
         }
 
       }
@@ -422,7 +431,7 @@ const AuthProvider = ({ children }) => {
 
             })
 
-          
+
 
           // get new updated cart items
           getCartData(authData)
@@ -444,6 +453,42 @@ const AuthProvider = ({ children }) => {
       return { message: "Book already present in cart", isPresent: true }
     }
     return { message: "Item added to cart", isPresent: false }
+  }
+
+  // only for guest mode
+  const add_cart_item = async (args) => {
+    console.log("Auth Data:", localStorage.getItem("token"));
+    let authdata = localStorage.getItem("token");
+    try {
+      const response = await axios.post(Config.API_URL + Config.ADD_SINGLE_ITEM, args,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authdata
+          },
+
+        })
+
+      // //if the function is called from buynow button then the state needs to be change quickly hence the manual state change
+      // if (buyNow) {
+      //   removeBookFromState(args.bookid)
+      // }
+      // // if it gets called from another place like cart page then we can call the getCardData api to fix it
+      // else {
+      //   // console.log("inside if of get cart adter removal")
+      //   getCartData(authData)
+
+      // }
+
+
+      // await price_items_signin(response.data)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("remove_cart_item_error : ", error)
+    }
   }
 
   const remove_cart_item = async (args, buyNow) => {
@@ -479,6 +524,45 @@ const AuthProvider = ({ children }) => {
       console.log("remove_cart_item_error : ", error)
     }
   }
+
+  const clear_cart_items = async () => {
+    // if (!authData) {
+    //   authData = localStorage.getItem("token")
+    // }
+    console.log("Auth Data:", localStorage.getItem("token"));
+    let authdata = localStorage.getItem("token");
+    try {
+      const response = await axios.get(Config.API_URL + Config.CLEAR_CART_ITEMS,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authdata
+          },
+
+        })
+
+      //if the function is called from buynow button then the state needs to be change quickly hence the manual state change
+      // if (buyNow) {
+      //   removeBookFromState(args.bookid)
+      // }
+      // // if it gets called from another place like cart page then we can call the getCardData api to fix it
+      // else {
+        // console.log("inside if of get cart adter removal")
+        // getCartData(authData)
+
+      // }
+
+
+      // await price_items_signin(response.data)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("remove_cart_item_error : ", error)
+    }
+  }
+
   const removeBookFromState = (bookid) => {
 
     setCartCount(cartCount - 1)
@@ -500,8 +584,8 @@ const AuthProvider = ({ children }) => {
     // console.log("tempArr index= ",tempArr[index])
     tempArr[index]["quantity"] += 1
     //tempArr[index]["quantity"]=tempArr[index]["quantity"]+1;
-    
-    tempArr[index]["amount"]= tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
+
+    tempArr[index]["amount"] = tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
     setCartItems(tempArr)
     localStorage.setItem("cartData", JSON.stringify(tempArr));
     getCartData(authData)
@@ -511,16 +595,16 @@ const AuthProvider = ({ children }) => {
 
 
   const decrementQuantityFromState = (bookid) => {
-    
+
     let index = cartItems.findIndex((item, i) => {
       return item.bookid === bookid
     });
     let tempArr = cartItems
     // console.log("tempArr index= ",tempArr[index])
-    if (tempArr[index]["quantity"] > 1) {  
+    if (tempArr[index]["quantity"] > 1) {
       setCartCount(cartCount - 1)
       tempArr[index]["quantity"] -= 1
-      tempArr[index]["amount"]= tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
+      tempArr[index]["amount"] = tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
       setCartItems(tempArr)
       localStorage.setItem("cartData", JSON.stringify(tempArr));
       getCartData(authData)
@@ -532,7 +616,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  const incrementQuantity = async(args) =>{
+  const incrementQuantity = async (args) => {
     try {
       const response = await axios.post(Config.API_URL + Config.EDIT_CART_ITEM, args,
         {
@@ -543,7 +627,7 @@ const AuthProvider = ({ children }) => {
 
         })
 
-        getCartData(authData)
+      getCartData(authData)
 
 
       // await price_items_signin(response.data)
@@ -556,7 +640,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  const decrementQuantity = async(args) =>{
+  const decrementQuantity = async (args) => {
     try {
       const response = await axios.post(Config.API_URL + Config.EDIT_CART_ITEM, args,
         {
@@ -567,7 +651,7 @@ const AuthProvider = ({ children }) => {
 
         })
 
-        getCartData(authData)
+      getCartData(authData)
 
 
 
@@ -582,22 +666,22 @@ const AuthProvider = ({ children }) => {
   }
   const findSubtotal = () => {
     let subtotal = 0;
-    
-    if (cartItems.length > 0) {
-        cartItems.map((data, index) => {
-                subtotal = subtotal + data.amount
-        })
 
-        // console.log("subtotal function=", subtotal)
-        setSubTotal(subtotal)
+    if (cartItems.length > 0) {
+      cartItems.map((data, index) => {
+        subtotal = subtotal + data.amount
+      })
+
+      // console.log("subtotal function=", subtotal)
+      setSubTotal(subtotal)
 
     } else {
-        setSubTotal(0)
+      setSubTotal(0)
     }
     return subtotal
-}
+  }
 
-  
+
   return (
     <AuthContext.Provider
       value={{
@@ -625,7 +709,9 @@ const AuthProvider = ({ children }) => {
         incrementQuantity,
         decrementQuantity,
         subTotal,
-        findSubtotal
+        findSubtotal,
+        clear_cart_items,
+        add_cart_item
 
         // authUsername
       }}

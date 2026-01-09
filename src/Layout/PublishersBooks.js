@@ -142,10 +142,10 @@ const PublishersBooks = () => {
                                                 {/* Insurance Coverage of Construction Disputes */}
                                             </div>
                                             {/* <div className="d-flex justify-content-center pub_name mt-2">Publisher: <span className="pub_span">{data.publisher.length > 20 ? data.publisher.substring(0, 20) + "..." : data.publisher}</span></div> */}
-                                            <div className="d-flex justify-content-center author_name" title={book.authors}>
+                                            <div className="d-flex justify-content-center author_name" title={book?.authors}>
                                                 Author:
                                                 {/* Name */}
-                                                {book.authors.length > 15 ? book.authors.substring(0, 15) + "..." : book.authors}
+                                                {book.authors?.length > 15 ? book.authors.substring(0, 15) + "..." : book.authors}
                                                 {/* {book?.authors?.substring(0, 15) || "Unknown"}
                                                 {book?.authors?.length > 15 && "..."} */}
                                             </div>

@@ -37,6 +37,7 @@ const UserProvider = ({ children }) => {
   const [userShippingAddress, setUserShippingAddress] = useState(null)
   const [orderConfirmation, setOrderConfirmation] = useState(null)
   const [profileImage, setProfileImage] = useState('')
+  const [guestToken, setGuestToken] = useState('')
 
 
 
@@ -52,7 +53,6 @@ const UserProvider = ({ children }) => {
     getAllCategory();
     getNewArrivals();
     getBestSellers();
-
 
     if (authData === '' || authData === null || authData === undefined) {
       // get_items()
@@ -171,7 +171,7 @@ const UserProvider = ({ children }) => {
       //     setallNewArrival([])
       //   }
       // }
-      
+
       console.log("getBestSellers response", response);
       setBestSellers(response?.data?.output)
 
@@ -493,7 +493,7 @@ const UserProvider = ({ children }) => {
           },
 
         })
-
+      console.log("cart_items_response", response)
 
       setCartItems(response.data.output)
 
@@ -1215,6 +1215,9 @@ const UserProvider = ({ children }) => {
       console.log("place_order_error : ", error)
     }
   }
+
+
+
   const cancelOrder = async (args) => {
     try {
       const response = await axios.post(Config.API_URL + Config.CANCEL_ORDER, args,
@@ -1286,6 +1289,160 @@ const UserProvider = ({ children }) => {
     setUserShippingAddress(shippingaddress)
     return id
   }
+
+  const Send_OTP_By_Email = async (email) => {
+
+    try {
+      const response = await axios.post(Config.API_URL + Config.SEND_OTP_BY_EMAIL, { email },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+
+      console.log("SEND_OTP_Response", response);
+
+      return response;
+    }
+    catch (error) {
+      console.log("SEND_OTP_Error : ", error)
+    }
+  }
+
+  const Validate_Guest = async (email, otp) => {
+    try {
+      const response = await axios.post(
+        Config.API_URL + Config.VALIDATE_GUEST,
+        {
+          email,
+          otp,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log("VALIDATE_GUEST_Response", response);
+      return response;
+    } catch (error) {
+      console.log("VALIDATE_GUEST_Error:", error.response || error);
+      throw error;
+    }
+  };
+
+  const Guest_Details = async (addguest) => {
+    console.log("addguest", addguest);
+
+    try {
+      const response = await axios.post(Config.API_URL + Config.GUEST_DETAILS, addguest,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+
+      console.log("GUEST_DETAILS_Response", response);
+      setGuestToken(response?.data?.token)
+
+
+      return response;
+    }
+    catch (error) {
+      console.log("GUEST_DETAILS_Error : ", error)
+    }
+  }
+
+  const createAppOrderGuest = async (buyNow, args) => {
+    console.log("guest token", guestToken)
+    try {
+      const response = await axios.post(Config.API_URL + Config.ORDER_CREATE + `?buynow=${buyNow}`, args,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + guestToken
+          },
+
+        })
+
+
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("place_order_error : ", error)
+    }
+  }
+
+  const processPaymentGuest = async (data) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.RAZORPAY_PROCESS_PAYMENT, data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + guestToken
+          },
+        })
+
+      console.log("razor pay payment confirmed  : ", response);
+      setOrderConfirmation(response.data)
+      return response.data;
+    }
+    catch (error) {
+      console.log("process payment CONTEXT ERROR: ", error);
+    }
+  }
+
+  const createRazorpayOrderGuest = async (data) => {
+    try {
+      const response = await axios.post(Config.API_URL + Config.RAZORPAY_CREATE_ORDER, data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + guestToken
+          },
+        })
+      return response.data;
+    }
+    catch (error) {
+      console.log("Razor CONTEXT ERROR: ", error);
+      alert(error.response.data.error.description)
+    }
+  }
+
+  const guest_cart_items = async (args) => {
+
+    try {
+      //console.log("get_carg_args :", args)
+      const response = await axios.post(Config.API_URL + Config.GET_CART_ITEMS, args,
+
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + guestToken
+          },
+
+        })
+
+
+      setCartItems(response.data.output)
+
+      return response.data
+
+    }
+    catch (error) {
+      console.log("get_cart_items_error : ", error)
+    }
+  }
+
+  // useEffect(() => {
+  //   cart_items();
+  // }, [authData])
+
   return (
     <UserContext.Provider
       value={{
@@ -1352,9 +1509,14 @@ const UserProvider = ({ children }) => {
         profileImage,
         confirmOrder,
         getBestSellers,
-        bestSellers
-
-
+        bestSellers,
+        Send_OTP_By_Email,
+        Validate_Guest,
+        Guest_Details,
+        createAppOrderGuest,
+        createRazorpayOrderGuest,
+        processPaymentGuest,
+        guest_cart_items,
       }}
     >
       <LoadingOverlay

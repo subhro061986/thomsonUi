@@ -220,6 +220,7 @@ const BillingAddressPage = () => {
                 shippingaddressid: selectedShippingAddressId
             }
             console.log("placeorder Json=", placeorderJson)
+            console.log("buyNow=", buyNow)
             const respPlaceOrder = await createAppOrder(buyNow, placeorderJson)
             console.log("respPlaceOrder=", respPlaceOrder)
             setPlaceOrderResponse(respPlaceOrder)
@@ -287,8 +288,11 @@ const BillingAddressPage = () => {
     const handlePayment = async (params) => {
         // const amount = location.state.pageData.total_price
         // console.log("amt= ", amount)
+        console.log("auth role= ", authRole)
 
-        if (authRole === Config.ROLE_DISTRIBUTOR) {
+        if (authRole === Config.ROLE_DISTRIBUTOR 
+            || authRole === Config.ROLE_ADMIN
+        ) {
             let order_params = {
                 id: placeOrderResponse.output.id
             }

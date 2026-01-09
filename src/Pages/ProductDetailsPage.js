@@ -202,17 +202,23 @@ const ProductDetailsPage = () => {
         if (authData === '' || authData === null || authData === undefined) {
             console.log("json_data", json_data)
             json_data["price"] = parseFloat(json_data.price.replace(/,/g, ''))
+            console.log("json_data_price", json_data["price"])
             json_data["amount"] = json_data["price"]
+            console.log("json_data_amount", json_data["amount"])
 
 
             const resp = await add_book_to_storage(json_data)
+            console.log("Add to cart resp in if:", resp)
             // for buy now
             if (toCheckout) {
                 alert("Please Login to Buy this book!")
+                // navigate('/cartpage', { buynow: 1 })
             }
             // for add to cart
             else {
                 alert(resp.message);
+                console.log("Add to cart resp in else:", resp)
+                navigate('/cartpage', { state:{ buynow: 1 } })
             }
         }
 
@@ -220,6 +226,7 @@ const ProductDetailsPage = () => {
         else {
 
             const resp = await add_book_to_storage(json_data)
+            console.log("Add to cart resp in else:", resp)
 
             // for buy now
             if (toCheckout) {
@@ -228,7 +235,7 @@ const ProductDetailsPage = () => {
                     // remove data from backend
                     remove_item_and_add(json_data)
                 }
-                navigate('/billingAddress', { buynow: 1 })
+                navigate('/billingAddress', { state:{ buynow: 1 } })
             }
             // for add to cart
             else {
