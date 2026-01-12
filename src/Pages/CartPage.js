@@ -49,7 +49,7 @@ const CartPage = () => {
     const { get_items, price, items, cart_items, applyCoupon,
         get_country_list, get_state_list, Send_OTP_By_Email,
         Validate_Guest, Guest_Details,
-        createAppOrderGuest, createRazorpayOrderGuest, processPayment } = UserProfile()
+        createAppOrderGuest, createRazorpayOrderGuest, processPayment, guestToken } = UserProfile()
     const [Razorpay] = useRazorpay();
     const navigate = useNavigate();
     const [getcartitems, setGetcartitems] = useState(cartItems)
@@ -105,7 +105,8 @@ const CartPage = () => {
 
     useEffect(() => {
         renderCountryList()
-    }, []);
+        console.log("guest token in cart page useeffect", guestToken)
+    }, [guestToken]);
 
     useEffect(() => {
         setBuyNow(location?.state?.buynow)
@@ -521,8 +522,8 @@ const CartPage = () => {
     };
 
 
-    const submitForm = async () => {
-
+    const submit_payment = async (token_guest) => {
+        console.log("guest token in submit form", token_guest)
         const addguest = {
             name: name,
             contactno: phone,
@@ -580,7 +581,7 @@ const CartPage = () => {
             shippingaddressid: temp_shippingaddressid
         }
         // let buynow = 0
-        const respPlaceOrder = await createAppOrderGuest(buyNow, placeorderJson)
+        const respPlaceOrder = await createAppOrderGuest(buyNow, placeorderJson, token_guest)
         console.log("respPlaceOrder=", respPlaceOrder)
 
         if (respPlaceOrder === undefined || respPlaceOrder === "undefined") {
@@ -588,7 +589,7 @@ const CartPage = () => {
         }
         else {
 
-            closeModal();
+            // closeModal();
 
             const processPaymentSuccess = async (respPlaceOrder, data) => {
                 const newData = {
@@ -971,7 +972,7 @@ const CartPage = () => {
 
                     {/* STEP 3 : FULL FORM */}
                     {step === 3 && (
-                        <form>
+                        <div>
                             <div className="mb-3">
                                 <label className="form-label">Email</label>
                                 <input
@@ -1085,7 +1086,7 @@ const CartPage = () => {
                                     onChange={(e) => setPin(e.target.value)}
                                 />
                             </div>
-                        </form>
+                        </div>
                     )}
                 </Modal.Body>
 
@@ -1117,9 +1118,9 @@ const CartPage = () => {
                         <button
                             className="btn btn-primary"
                             style={{ width: "40%" }}
-                            onClick={submitForm}
+                            onClick={() => submit_payment(guestToken)}
                         >
-                            Payment
+                            Payment {guestToken}
                         </button>
                     )}
 

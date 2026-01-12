@@ -89,6 +89,10 @@ const UserProvider = ({ children }) => {
 
   }, [publisherId]);
 
+  useEffect(() => {
+
+  },[guestToken])
+
   // ** --------------------- GALLERY API ------------------------------
 
   const getAllCategory = async () => {
@@ -1354,15 +1358,15 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const createAppOrderGuest = async (buyNow, args) => {
-    console.log("guest token", guestToken)
+  const createAppOrderGuest = async (buyNow, args, token_guest) => {
+    console.log("guest token", token_guest)
     try {
       const response = await axios.post(Config.API_URL + Config.ORDER_CREATE + `?buynow=${buyNow}`, args,
 
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + guestToken
+            'Authorization': 'Bearer ' + token_guest
           },
 
         })
@@ -1513,7 +1517,7 @@ const UserProvider = ({ children }) => {
         Send_OTP_By_Email,
         Validate_Guest,
         Guest_Details,
-        // guestToken,
+        guestToken,
         createAppOrderGuest,
         createRazorpayOrderGuest,
         processPaymentGuest,
