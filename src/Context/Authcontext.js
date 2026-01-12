@@ -456,15 +456,15 @@ const AuthProvider = ({ children }) => {
   }
 
   // only for guest mode
-  const add_cart_item = async (args) => {
-    console.log("Auth Data:", localStorage.getItem("token"));
+  const add_cart_item = async (args, token_guest) => {
+    console.log("Auth Data add_cart_item:", token_guest);
     let authdata = localStorage.getItem("token");
     try {
       const response = await axios.post(Config.API_URL + Config.ADD_SINGLE_ITEM, args,
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authdata
+            'Authorization': 'Bearer ' + token_guest
           },
 
         })
@@ -525,18 +525,19 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  const clear_cart_items = async () => {
+  const clear_cart_items = async (token_guest) => {
+    console.log("Clearing cart items...",token_guest);
     // if (!authData) {
     //   authData = localStorage.getItem("token")
     // }
-    console.log("Auth Data:", localStorage.getItem("token"));
+    
     let authdata = localStorage.getItem("token");
     try {
       const response = await axios.get(Config.API_URL + Config.CLEAR_CART_ITEMS,
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authdata
+            'Authorization': 'Bearer ' + token_guest
           },
 
         })

@@ -1349,7 +1349,7 @@ const UserProvider = ({ children }) => {
 
       console.log("GUEST_DETAILS_Response", response);
       setGuestToken(response?.data?.token)
-
+      
 
       return response;
     }
@@ -1400,20 +1400,21 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const createRazorpayOrderGuest = async (data) => {
+  const createRazorpayOrderGuest = async (data, token_guest) => {
+    console.log("guest token in razorpay order", token_guest)
     try {
       const response = await axios.post(Config.API_URL + Config.RAZORPAY_CREATE_ORDER, data,
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + guestToken
+            'Authorization': 'Bearer ' + token_guest
           },
         })
       return response.data;
     }
     catch (error) {
       console.log("Razor CONTEXT ERROR: ", error);
-      alert(error.response.data.error.description)
+      //alert(error.response.data.error.description)
     }
   }
 

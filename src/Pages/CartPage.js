@@ -555,10 +555,10 @@ const CartPage = () => {
             ? JSON.parse(localStorage.getItem("cartData"))
             : [];
 
-        const clear_resp = await clear_cart_items();
+        const clear_resp = await clear_cart_items(resp?.data?.token);
         console.log("Clear cart resp:", clear_resp);
-
-        cartData.forEach(async item => {
+        let send_guest_token = resp?.data?.token
+        cartData.forEach(async (item,send_guest_token) => {
             console.log("item to be added to cart from guest cart data:", item);
             let json_data = {
                 bookid: item.bookid,
@@ -566,7 +566,7 @@ const CartPage = () => {
                 quantity: item.quantity || 1
             };
 
-            const resp = await add_cart_item(json_data)
+            const resp = await add_cart_item(json_data, send_guest_token);
             console.log("Add to cart resp in if:", resp)
 
         });
@@ -581,7 +581,7 @@ const CartPage = () => {
             shippingaddressid: temp_shippingaddressid
         }
         // let buynow = 0
-        const respPlaceOrder = await createAppOrderGuest(buyNow, placeorderJson, token_guest)
+        const respPlaceOrder = await createAppOrderGuest(buyNow, placeorderJson, resp?.data?.token)
         console.log("respPlaceOrder=", respPlaceOrder)
 
         if (respPlaceOrder === undefined || respPlaceOrder === "undefined") {
@@ -632,7 +632,7 @@ const CartPage = () => {
                 orderid: respPlaceOrder.output.id
 
             }
-            const order = await createRazorpayOrderGuest(order_params); //  Create order on your backend
+            const order = await createRazorpayOrderGuest(order_params,resp?.data?.token); //  Create order on your backend
             console.log("order response= ", order)
             if (order !== undefined) {
 
