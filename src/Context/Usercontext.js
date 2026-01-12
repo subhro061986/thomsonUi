@@ -1381,13 +1381,14 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const processPaymentGuest = async (data) => {
+  const processPaymentGuest = async (data,token_guest) => {
+    console.log("guest token in process payment", token_guest)
     try {
       const response = await axios.post(Config.API_URL + Config.RAZORPAY_PROCESS_PAYMENT, data,
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + guestToken
+            'Authorization': 'Bearer ' + token_guest
           },
         })
 

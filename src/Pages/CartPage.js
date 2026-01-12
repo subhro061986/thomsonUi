@@ -49,7 +49,7 @@ const CartPage = () => {
     const { get_items, price, items, cart_items, applyCoupon,
         get_country_list, get_state_list, Send_OTP_By_Email,
         Validate_Guest, Guest_Details,
-        createAppOrderGuest, createRazorpayOrderGuest, processPayment, guestToken } = UserProfile()
+        createAppOrderGuest, createRazorpayOrderGuest, processPayment, guestToken, processPaymentGuest } = UserProfile()
     const [Razorpay] = useRazorpay();
     const navigate = useNavigate();
     const [getcartitems, setGetcartitems] = useState(cartItems)
@@ -550,12 +550,12 @@ const CartPage = () => {
         setShippingAddressId(resp?.data?.shippingid)
         const temp_billingaddressid = resp?.data?.billingid
         const temp_shippingaddressid = resp?.data?.shippingid
-        // localStorage.setItem("token", resp?.data?.token)
+        localStorage.setItem("token", resp?.data?.token)
         let cartData = localStorage.getItem("cartData")
             ? JSON.parse(localStorage.getItem("cartData"))
             : [];
 
-        const clear_resp = await clear_cart_items(resp?.data?.token);
+        const clear_resp = await clear_cart_items();
         console.log("Clear cart resp:", clear_resp);
         let send_guest_token = resp?.data?.token
         cartData.forEach(async (item,send_guest_token) => {
@@ -589,7 +589,7 @@ const CartPage = () => {
         }
         else {
 
-            // closeModal();
+            closeModal();
 
             const processPaymentSuccess = async (respPlaceOrder, data) => {
                 const newData = {
@@ -600,8 +600,8 @@ const CartPage = () => {
                     success: 1
                 }
 
-                var respPaymentConfirmed = await processPayment(newData)
-                // console.log("resp confirmed= ", respPaymentConfirmed)
+                var respPaymentConfirmed = await processPaymentGuest(newData,resp?.data?.token)
+                console.log("resp confirmed= ", respPaymentConfirmed)
                 if (respPaymentConfirmed['statuscode'] === "0") {
                     navigate('/confirmorder')
 
@@ -619,7 +619,7 @@ const CartPage = () => {
                     success: 0
                 }
 
-                var respPaymeontFailed = await processPayment(newData)
+                var respPaymeontFailed = await processPaymentGuest(newData,resp?.data?.token)
                 console.log("respPaymeontFailed= ", respPaymeontFailed)
             }
             // setPlaceOrderResponse(respPlaceOrder)
@@ -1120,7 +1120,7 @@ const CartPage = () => {
                             style={{ width: "40%" }}
                             onClick={() => submit_payment(guestToken)}
                         >
-                            Payment {guestToken}
+                            Payment
                         </button>
                     )}
 

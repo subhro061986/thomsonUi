@@ -71,6 +71,10 @@ const TopBar = () => {
     navigate('/login')
   }
 
+  const guestAlert = () => {
+    alert("Welcome Guest. Please continue shopping")
+  }
+
   const gotoSignUp = () => {
     navigate('/register')
   }
@@ -207,6 +211,8 @@ const TopBar = () => {
         </div>
         {authData === '' ? (
           <>
+            <Button className="text-dark text-decoration-none px-0" variant="link" onClick={guestAlert}> Guest</Button>
+            <div className="border border-start border-dark" style={{height:'20px'}}></div>
             <Button className="text-dark text-decoration-none px-0" variant="link" onClick={gotoLogin}> Login</Button>
             <div className="border border-start border-dark" style={{height:'20px'}}></div>
             <Button className="text-dark text-decoration-none px-0" variant="link" onClick={gotoSignUp}> Signup</Button>
