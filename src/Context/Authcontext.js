@@ -576,44 +576,70 @@ const AuthProvider = ({ children }) => {
   }
 
   const incrementQuantityFromState = (bookid) => {
-    setCartCount(cartCount + 1)
-    let index = cartItems.findIndex((item, i) => {
-      return item.bookid === bookid
-    });
-    let tempArr = cartItems
-    // console.log("tempArr index= ",tempArr[index])
-    tempArr[index]["quantity"] += 1
-    //tempArr[index]["quantity"]=tempArr[index]["quantity"]+1;
+  //   setCartCount(cartCount + 1)
+  //   let index = cartItems.findIndex((item, i) => {
+  //     return item.bookid === bookid
+  //   });
+  //   let tempArr = cartItems
+  //    console.log("tempArr index= ",tempArr[index])
+  //   tempArr[index]["quantity"] += 1
+  //   //tempArr[index]["quantity"]=tempArr[index]["quantity"]+1;
+  //   console.log("tempArr before CALC=0 ", tempArr[index]["quantity"])
+  //   let calculated_amount = tempArr[index]["price"] * tempArr[index]["quantity"]
+  //   console.log("tempArr after CALC= ", calculated_amount)
+  //   tempArr[index]["amount"] = calculated_amount
+  //   console.log("tempArr after increment= ", tempArr)
+  //   setCartItems([...tempArr])
+  //   localStorage.setItem("cartData", JSON.stringify(tempArr));
+  //   getCartData(authData)
+  //   findSubtotal()
 
-    tempArr[index]["amount"] = tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
-    setCartItems(tempArr)
-    localStorage.setItem("cartData", JSON.stringify(tempArr));
-    getCartData(authData)
-    findSubtotal()
+  const incCartItems = cartItems.map((item) => {
+      if (item.bookid === bookid) {
+        // Create a new object for the updated item
+        return { ...item, amount: parseInt(item.price) * (parseInt(item.quantity) + 1), quantity: parseInt(item.quantity) + 1 };
+      }
+      console.log("item in increment= ", item)
+      return item;
+    });
+    console.log("incCartItems after increment= ", incCartItems)
+    localStorage.setItem("cartData", JSON.stringify(incCartItems));
+    setCartItems([...incCartItems]); // Pass the new array to the setter
 
   }
 
 
   const decrementQuantityFromState = (bookid) => {
 
-    let index = cartItems.findIndex((item, i) => {
-      return item.bookid === bookid
+    // let index = cartItems.findIndex((item, i) => {
+    //   return item.bookid === bookid
+    // });
+    // let tempArr = cartItems
+    // // console.log("tempArr index= ",tempArr[index])
+    // if (tempArr[index]["quantity"] > 1) {
+    //   setCartCount(cartCount - 1)
+    //   tempArr[index]["quantity"] -= 1
+    //   tempArr[index]["amount"] = tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
+    //   setCartItems(tempArr)
+    //   localStorage.setItem("cartData", JSON.stringify(tempArr));
+    //   getCartData(authData)
+    //   findSubtotal()
+    // }
+    // else {
+    //   // removeBookFromState(bookid)
+    //   alert("you must have atleasst one quantity")
+    // }
+    const decCartItems = cartItems.map((item) => {
+      if (item.bookid === bookid) {
+        // Create a new object for the updated item
+        return { ...item, amount: parseInt(item.price) * (parseInt(item.quantity) - 1), quantity: parseInt(item.quantity) - 1 };
+      }
+      console.log("item in increment= ", item)
+      return item;
     });
-    let tempArr = cartItems
-    // console.log("tempArr index= ",tempArr[index])
-    if (tempArr[index]["quantity"] > 1) {
-      setCartCount(cartCount - 1)
-      tempArr[index]["quantity"] -= 1
-      tempArr[index]["amount"] = tempArr[index]["distributorprice"] * tempArr[index]["quantity"]
-      setCartItems(tempArr)
-      localStorage.setItem("cartData", JSON.stringify(tempArr));
-      getCartData(authData)
-      findSubtotal()
-    }
-    else {
-      // removeBookFromState(bookid)
-      alert("you must have atleasst one quantity")
-    }
+    console.log("decCartItems after increment= ", decCartItems)
+    localStorage.setItem("cartData", JSON.stringify(decCartItems));
+    setCartItems([...decCartItems]); // Pass the new array to the setter
   }
 
   const incrementQuantity = async (args) => {

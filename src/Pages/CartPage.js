@@ -83,10 +83,11 @@ const CartPage = () => {
     const [buyNow, setBuyNow] = useState(0)
     const [placeOrderResponse, setPlaceOrderResponse] = useState({})
     const [orderTotal, setOrderTotal] = useState(0)
+    const [roleValidation, setRoleValidation] = useState(0)
 
 
     useEffect(() => {
-
+        console.log("cart items in cart page useeffect", cartItems)
         if (cartItems.length > 0) {
             setGetcartitems(cartItems)
         }
@@ -97,15 +98,15 @@ const CartPage = () => {
         //setTotal(subTotal)
         //findSubtotal()
         getSubTotalFrmContext()
-    }, [])
+    }, [cartItems])
 
     useEffect(() => {
-        console.log("authData changed in cart page useeffect", authData)
+        
     }, [authData])
 
     useEffect(() => {
         renderCountryList()
-        console.log("guest token in cart page useeffect", guestToken)
+        
     }, [guestToken]);
 
     useEffect(() => {
@@ -243,10 +244,12 @@ const CartPage = () => {
     // }
 
     const increment = async (item) => {
+        console.log("increment item=", item)
         let tempArr = getcartitems
         let index = -1
 
         if (authData === undefined || authData === "" || authData == null) {
+            console.log("item in increment in if part", item)
             index = tempArr.findIndex((val, i) => {
                 return val.bookid === item.bookid
             });
@@ -254,6 +257,7 @@ const CartPage = () => {
             incrementQuantityFromState(item.bookid)
         }
         else {
+            
             index = tempArr.findIndex((val, i) => {
                 return val.id === item.id
             });
@@ -290,6 +294,7 @@ const CartPage = () => {
     const decrement = async (item) => {
         setPrevButtonDisable(true)
         if (item["quantity"] > 1) {
+            
             let tempArr = getcartitems
             let index = -1
             if (authData === undefined || authData === "" || authData == null) {
@@ -297,6 +302,7 @@ const CartPage = () => {
                     return val.bookid === item.bookid
                 });
                 decrementQuantityFromState(item.bookid)
+                setPrevButtonDisable(false)
             }
             else {
                 index = tempArr.findIndex((val, i) => {
@@ -353,7 +359,7 @@ const CartPage = () => {
                     alert("Please enter valid qauntity")
                 }
                 else {
-                    console.log("GET CART ITEMS===>", getcartitems)
+                    
                     let tempArr = getcartitems
                     let json = {
                         bookid: item.id,
@@ -499,6 +505,7 @@ const CartPage = () => {
             }
 
             // ✅ Autofill form fields
+            setRoleValidation(data.role || 0);
             setName(data.name || "");
             setGuestEmail(data.email || guestEmail);
             setCity(data.city || "");
@@ -551,10 +558,13 @@ const CartPage = () => {
         const temp_billingaddressid = resp?.data?.billingid
         const temp_shippingaddressid = resp?.data?.shippingid
         localStorage.setItem("token", resp?.data?.token)
-        let cartData = localStorage.getItem("cartData")
-            ? JSON.parse(localStorage.getItem("cartData"))
+        // let cartData = localStorage.getItem("cartData")
+        //     ? JSON.parse(localStorage.getItem("cartData"))
+        //     : [];
+        let cartData = cartItems
+            ? cartItems
             : [];
-
+        console.log("cart data from local storage in guest checkout:", cartData);
         const clear_resp = await clear_cart_items();
         console.log("Clear cart resp:", clear_resp);
         let send_guest_token = resp?.data?.token
@@ -622,6 +632,7 @@ const CartPage = () => {
                 var respPaymeontFailed = await processPaymentGuest(newData,resp?.data?.token)
                 console.log("respPaymeontFailed= ", respPaymeontFailed)
             }
+            
             // setPlaceOrderResponse(respPlaceOrder)
             // setOrderTotal(respPlaceOrder.output.totalAmount)
             const amount = parseInt(respPlaceOrder?.output?.totalAmount * 100)
@@ -886,7 +897,11 @@ const CartPage = () => {
 
                                     <div className="d-flex justify-content-center mt-5">
                                         <button type="button" disabled={cartItems.length > 0 ? false : true}
-                                            className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                            className={authData===''?
+                                            "btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                            :
+                                            "btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                            }
                                             onClick={proceedToCheckout}
                                         >
                                             Place Order
@@ -904,7 +919,7 @@ const CartPage = () => {
                                     {authData === '' && (
                                         <div className="d-flex justify-content-center mt-3">
                                             <button type="button"
-                                                className="btn btn-outline-dark view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
+                                                className="btn btn-primary view_all_books rounded-pill d-flex justify-content-center align-items-center py-2 pl_od_btn_w"
                                                 onClick={openModal}
                                             >
                                                 Continue As Guest
@@ -936,7 +951,7 @@ const CartPage = () => {
                     <Modal.Title>
                         {step === 1 && "Continue as Guest"}
                         {step === 2 && "Verify OTP"}
-                        {step === 3 && "Enter Address"}
+                        {step === 3 && roleValidation!==3 && "Enter Address" || ''}
                     </Modal.Title>
                 </Modal.Header>
 
@@ -972,6 +987,17 @@ const CartPage = () => {
 
                     {/* STEP 3 : FULL FORM */}
                     {step === 3 && (
+                        roleValidation===3 ?(
+                            <div>
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        This email is registered as a Distributor. 
+                                        Please try in with different email.
+                                        Or Sign in to continue.
+                                    </label>
+                                </div>
+                            </div>
+                        ) : (
                         <div>
                             <div className="mb-3">
                                 <label className="form-label">Email</label>
@@ -1087,6 +1113,7 @@ const CartPage = () => {
                                 />
                             </div>
                         </div>
+                        )
                     )}
                 </Modal.Body>
 
@@ -1115,6 +1142,7 @@ const CartPage = () => {
                     )}
 
                     {step === 3 && (
+                    roleValidation!==3 && 
                         <button
                             className="btn btn-primary"
                             style={{ width: "40%" }}
