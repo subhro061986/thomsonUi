@@ -393,8 +393,8 @@ const UploadBooks = () => {
         try {
             Resizer.imageFileResizer(
                 e.target.files[0],
-                120,
-                180,
+                360,
+                540,
                 "JPEG",
                 100,
                 0,
